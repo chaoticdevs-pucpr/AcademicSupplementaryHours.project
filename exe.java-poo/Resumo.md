@@ -1,1 +1,0 @@
-Aqui guardarei códigos e exercícios relacionados a linguagem de programação Java aprendidas durante a matéria de Programação Orientada a Objetos.
