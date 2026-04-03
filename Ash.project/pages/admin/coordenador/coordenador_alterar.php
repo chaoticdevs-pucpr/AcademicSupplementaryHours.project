@@ -29,9 +29,15 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
     $telefone = $_POST['telefone'];
     $curso_id = (int)$_POST['curso_id'];
 
-    $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ? WHERE id = ? AND perfil = 'COORDENADOR'");
-    $stmt->bind_param("ssi", $email, $senha, $id);
-    $stmt->execute();
+    if($senha != ""){
+        $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ? WHERE id = ? AND perfil = 'COORDENADOR'");
+        $stmt->bind_param("ssi", $email, $senha, $id);
+        $stmt->execute();
+    }else{
+        $stmt = $conexao->prepare("UPDATE USUARIO SET email = ? WHERE id = ? AND perfil = 'COORDENADOR'");
+        $stmt->bind_param("si", $email, $id);
+        $stmt->execute();
+    }
     $stmt->close();
 
     $stmt = $conexao->prepare("UPDATE COORDENADOR SET nome = ?, cpf = ?, celular = ?, telefone = ?, curso_id = ? WHERE usuario_id = ?");

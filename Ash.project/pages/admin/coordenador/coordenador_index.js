@@ -41,6 +41,8 @@ function preencherTabela(tabela){
             <th>Nome</th>
             <th>E-mail</th>
             <th>CPF</th>
+            <th>Celular</th>
+            <th>Telefone</th>
             <th>Curso</th>
             <th>#</th>
         </tr>`;
@@ -51,6 +53,8 @@ function preencherTabela(tabela){
             <td>${tabela[i].nome}</td>
             <td>${tabela[i].email}</td>
             <td>${tabela[i].cpf}</td>
+            <td>${tabela[i].celular ?? ''}</td>
+            <td>${tabela[i].telefone ?? ''}</td>
             <td>${tabela[i].curso_nome}</td>
             <td>
                 <a href="coordenador_alterar.html?id=${tabela[i].id}">Alterar</a>
@@ -62,3 +66,4 @@ function preencherTabela(tabela){
     html += `</table>`;
     document.getElementById("lista").innerHTML = html;
 }
+

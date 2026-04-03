@@ -59,24 +59,36 @@ async function buscar(id){
 }
 
 async function alterar(){
-    const fd = new FormData();
-    fd.append("id", document.getElementById("id").value);
-    fd.append("nome", document.getElementById("nome").value);
-    fd.append("email", document.getElementById("email").value);
-    fd.append("senha", document.getElementById("senha").value);
-    fd.append("cpf", document.getElementById("cpf").value);
-    fd.append("celular", document.getElementById("celular").value);
-    fd.append("telefone", document.getElementById("telefone").value);
-    fd.append("curso_id", document.getElementById("curso_id").value);
+    var id          = document.getElementById("id").value;
+    var nome        = document.getElementById("nome").value;
+    var email       = document.getElementById("email").value;
+    var senha       = document.getElementById("senha").value;
+    var cpf         = document.getElementById("cpf").value;
+    var celular     = document.getElementById("celular").value;
+    var telefone    = document.getElementById("telefone").value;
+    var curso_id    = document.getElementById("curso_id").value;
 
-    const retorno = await fetch("coordenador_alterar.php?id=" + document.getElementById("id").value, {
+    const fd = new FormData();
+    fd.append("id", id);
+    fd.append("nome", nome);
+    fd.append("email", email);
+    fd.append("senha", senha);
+    fd.append("cpf", cpf);
+    fd.append("celular", celular);
+    fd.append("telefone", telefone);
+    fd.append("curso_id", curso_id);
+
+    const retorno = await fetch("coordenador_alterar.php?id=" + id, {
         method: "POST",
         body: fd
     });
     const resposta = await retorno.json();
 
-    alert(resposta.mensagem);
     if(resposta.status == "ok"){
+        alert("SUCESSO: " + resposta.mensagem);
         window.location.href = "coordenador_index.html";
+    }else{
+        alert("ERRO: " + resposta.mensagem);
     }
 }
+
