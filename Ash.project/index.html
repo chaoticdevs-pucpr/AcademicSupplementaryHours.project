@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASH - Academic Supplementary Hours</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 selection:bg-purple-200 selection:text-purple-900 antialiased min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                        ASH<span class="text-purple-600">.</span>
+                    </a>
+                </div>
+
+                <!-- CTA Desktop -->
+                <div class="hidden md:flex">
+                    <a href="z_login/" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 transition-colors shadow-sm">
+                        Login
+                    </a>
+                </div>
+
+                <!-- Botão Menu Mobile -->
+                <div class="flex md:hidden items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-purple-600 p-2 focus:outline-none">
+                        <i id="menu-icon" data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 shadow-lg absolute w-full">
+            <div class="pt-2">
+                <a href="z_login/" class="w-full flex items-center justify-center px-4 py-3 text-base font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 transition-colors">
+                    Login
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- WRAPPER: Hero + Funcionalidades -->
+        <div class="relative bg-slate-50 overflow-hidden">
+            
+            <!-- Background Wave -->
+            <div class="absolute inset-0 z-0 pointer-events-none flex justify-end">
+                <svg class="h-full w-full lg:w-[65%] object-cover object-left" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M 40 0 C 10 35, 30 70, 60 100 L 100 100 L 100 0 Z" fill="url(#wave-gradient)" />
+                    <defs>
+                        <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f3e8ff" stop-opacity="0.6"/>
+                            <stop offset="100%" stop-color="#d8b4fe" stop-opacity="0.5"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
+            <!-- HERO SECTION -->
+            <section class="relative pt-32 pb-16 lg:pt-40 lg:pb-24 min-h-[85vh] flex items-center z-10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
+                        
+                        <!-- Coluna Texto -->
+                        <div class="w-full lg:w-1/2 text-left space-y-8">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+                                Gestão de horas complementares sem a <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-700">carga burocrática</span>.
+                            </h1>
+                            <p class="text-lg md:text-xl text-slate-600 leading-relaxed max-w-lg">
+                                O ASH centraliza, valida e automatiza o fluxo de horas extracurriculares da sua instituição. Automação inteligente para coordenação, praticidade para professores e alunos.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                                <a href="z_login/" class="w-full sm:w-auto inline-flex justify-center items-center px-8 py-3.5 border border-slate-300 text-base font-medium rounded-lg text-slate-700 bg-white hover:bg-purple-50 hover:text-purple-700 transition-colors">
+                                    Fazer o login
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Coluna Imagem -->
+                        <div class="w-full lg:w-1/2 flex justify-center lg:justify-end relative">
+                            <img src="z_imagens/relogio-homepage.png" class="w-full max-w-[500px] h-auto object-contain drop-shadow-xl" alt="Ilustração Hero"/>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- FUNCIONALIDADES (Cards) -->
+            <section id="funcionalidades" class="relative pb-24 z-10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-sm font-bold text-purple-600 tracking-wide uppercase mb-3">Eficiência Operacional</h2>
+                        <h3 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Três pilares para uma gestão impecável</h3>
+                        <p class="text-lg text-slate-600">Desenhamos o ASH para resolver os estrangulamentos reais do dia a dia académico, otimizando o tempo de todos os envolvidos.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Card 1 -->
+                        <div class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-100 hover:-translate-y-1 hover:border-purple-100 hover:shadow-lg transition-all duration-300">
+                            <div class="w-12 h-12 inline-flex items-center justify-center rounded-xl bg-purple-50 mb-6 text-purple-600">
+                                <i data-lucide="file-up" class="h-6 w-6"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-3">Canal Único de Envio</h4>
+                            <p class="text-slate-600 leading-relaxed">Elimine o envio de certificados por e-mail ou processos físicos. Os alunos submetem tudo num portal centralizado.</p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-100 hover:-translate-y-1 hover:border-purple-100 hover:shadow-lg transition-all duration-300">
+                            <div class="w-12 h-12 inline-flex items-center justify-center rounded-xl bg-purple-50 mb-6 text-purple-600">
+                                <i data-lucide="check-circle" class="h-6 w-6"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-3">Validação Simplificada</h4>
+                            <p class="text-slate-600 leading-relaxed">Os professores avaliam os documentos submetidos com apenas um clique. Fluxo rápido e auditável.</p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="bg-white rounded-2xl p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-slate-100 hover:-translate-y-1 hover:border-purple-100 hover:shadow-lg transition-all duration-300">
+                            <div class="w-12 h-12 inline-flex items-center justify-center rounded-xl bg-purple-50 mb-6 text-purple-600">
+                                <i data-lucide="table" class="h-6 w-6"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold mb-3">Geração de Planilhas</h4>
+                            <p class="text-slate-600 leading-relaxed">A coordenação recebe relatórios formatados automaticamente, prontos para integração com o ERP académico.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- DIFERENCIAIS -->
+        <section id="diferenciais" class="py-24 bg-white overflow-hidden border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    
+                    <!-- Coluna Texto -->
+                    <div class="flex-1 space-y-8">
+                        <div class="space-y-4">
+                            <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Reduza o tempo da coordenação em até 80%</h2>
+                            <p class="text-lg text-slate-600 leading-relaxed">O fecho do semestre não precisa ser caótico. O ASH organiza o fluxo de horas em tempo real, permitindo que a sua equipa se foque na educação.</p>
+                        </div>
+
+                        <ul class="space-y-5">
+                            <li class="flex items-start">
+                                <i data-lucide="clock" class="h-5 w-5 mt-1 text-purple-500 shrink-0"></i>
+                                <p class="ml-3 text-base text-slate-700 font-medium">Processamento e auditoria em tempo real</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="shield-check" class="h-5 w-5 mt-1 text-purple-500 shrink-0"></i>
+                                <p class="ml-3 text-base text-slate-700 font-medium">Prevenção de fraudes e duplicidade de certificados</p>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="bar-chart-3" class="h-5 w-5 mt-1 text-purple-500 shrink-0"></i>
+                                <p class="ml-3 text-base text-slate-700 font-medium">Dashboards e visibilidade total para o aluno</p>
+                            </li>
+                        </ul>
+
+                        <div class="pt-4">
+                            <a href="#" class="inline-flex items-center font-medium text-purple-600 hover:text-purple-700 transition-colors">
+                                Veja o estudo de caso completo <i data-lucide="arrow-right" class="ml-2 h-4 w-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Coluna Imagem Dashboard -->
+                    <div class="flex-1 w-full max-w-lg lg:max-w-none mx-auto">
+                        <img src="z_imagens/exemplo_imagem_home_interface.png" class="w-full h-auto rounded-3xl shadow-2xl border border-slate-200 object-cover" alt="Dashboard da Plataforma"/>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contacto" class="bg-slate-900 pt-16 pb-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Marca -->
+                <div class="col-span-1 md:col-span-2">
+                    <span class="text-2xl font-extrabold tracking-tighter text-white mb-4 block">
+                        ASH<span class="text-purple-500">.</span>
+                    </span>
+                    <p class="text-slate-400 text-sm max-w-sm leading-relaxed">
+                        Otimizando a jornada académica através de automação inteligente e gestão eficiente de horas complementares.
+                    </p>
+                </div>
+
+                <!-- Links Contato -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm tracking-wide uppercase">Contato</h4>
+                    <ul class="space-y-3">
+                        <li><a href="https://github.com/orgs/chaoticdevs-pucpr/repositories" class="text-sm text-slate-400 hover:text-white transition-colors">Github</a></li>
+                        <li><a href="#" class="text-sm text-slate-400 hover:text-white transition-colors">Suporte Técnico</a></li>
+                        <li><span class="text-sm text-slate-400 block mt-4">daniel.schmetterling@proton.me</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Direitos e Info -->
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-slate-500">
+                    &copy; <span id="current-year"></span> ChaoticDevs - Academic Supplementary Hours. Todos os direitos reservados.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Termos de Serviço</a>
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Iniciar ícones e ano do footer
+        lucide.createIcons();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Menu Mobile Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('menu-icon');
+
+        btn.addEventListener('click', () => {
+            const isHidden = menu.classList.toggle('hidden');
+            icon.setAttribute('data-lucide', isHidden ? 'menu' : 'x');
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

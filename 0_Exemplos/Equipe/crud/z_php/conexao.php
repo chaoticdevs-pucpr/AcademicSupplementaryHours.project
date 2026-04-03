@@ -1,5 +1,5 @@
 <?php
-$servidor = "localhost:3306";
+$servidor = "localhost:";
 $usuario = "root";
 $senha = "sedrftgyhujinj252242!*";
 $banco = "ash";
