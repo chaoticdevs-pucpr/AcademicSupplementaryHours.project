@@ -28,7 +28,7 @@
             if($usuario['perfil'] == 'ADMIN'){
                 $destino = 'pages/admin/index.html';
             }else if($usuario['perfil'] == 'COORDENADOR'){
-                $destino = 'pages/';
+                $destino = 'pages/coordenador/index.html';
             }else if($usuario['perfil'] == 'PROFESSOR'){
                 $destino = 'pages/';
             }else if($usuario['perfil'] == 'ESTUDANTE'){

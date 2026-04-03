@@ -22,5 +22,3 @@ async function login(){
         alert("ERRO: " + resposta.mensagem);
     }
 }
-
-// Utilização do Copilot para auxílio na criação do código de login.
