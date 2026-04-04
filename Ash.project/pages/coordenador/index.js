@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao();
+    valida_sessao('COORDENADOR');
 });
 
 document.getElementById("professores").addEventListener("click", () => {
-    window.location.href = '#';
+    window.location.href = 'prof_validador/prof_validador_index.html';
 });
 
 document.getElementById("manual_hc").addEventListener("click", () => {

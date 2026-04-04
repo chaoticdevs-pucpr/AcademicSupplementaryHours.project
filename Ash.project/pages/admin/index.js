@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao();
+    valida_sessao('ADMIN');
 });
 
 document.getElementById("coordenadores").addEventListener("click", () => {

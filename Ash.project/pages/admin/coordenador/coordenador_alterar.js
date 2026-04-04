@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    valida_sessao();
+    valida_sessao('ADMIN');
     await carregarCursos();
 
     const url = new URLSearchParams(window.location.search);
