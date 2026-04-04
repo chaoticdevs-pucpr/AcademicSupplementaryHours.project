@@ -1,6 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     valida_sessao('ADMIN');
-    carregarTurmas();
+    await carregarTurmas();
+
+    const url = new URLSearchParams(window.location.search);
+    const id = url.get("id");
+    if(id){
+        buscar(id);
+    }else{
+        alert("ID não informado.");
+        window.location.href = "estudante_index.html";
+    }
 });
 
 document.getElementById("logoff").addEventListener("click", () => {
@@ -16,7 +25,7 @@ async function logoff(){
 }
 
 document.getElementById("enviar").addEventListener("click", () => {
-    novo();
+    alterar();
 });
 
 async function carregarTurmas(){
@@ -31,7 +40,27 @@ async function carregarTurmas(){
     }
 }
 
-async function novo(){
+async function buscar(id){
+    const retorno = await fetch("estudante_get.php?id=" + id);
+    const resposta = await retorno.json();
+    if(resposta.status == "ok"){
+        const r = resposta.data[0];
+        document.getElementById("id").value = r.id;
+        document.getElementById("matricula_id").value = r.matricula_id ?? "";
+        document.getElementById("nome").value = r.nome;
+        document.getElementById("email").value = r.email;
+        document.getElementById("cpf").value = r.cpf;
+        document.getElementById("celular").value = r.celular;
+        document.getElementById("telefone").value = r.telefone;
+        document.getElementById("turma_id").value = r.turma_id ?? "";
+    }else{
+        alert(resposta.mensagem);
+        window.location.href = "estudante_index.html";
+    }
+}
+
+async function alterar(){
+    var id          = document.getElementById("id").value;
     var nome        = document.getElementById("nome").value;
     var email       = document.getElementById("email").value;
     var senha       = document.getElementById("senha").value;
@@ -41,6 +70,7 @@ async function novo(){
     var turma_id    = document.getElementById("turma_id").value;
 
     const fd = new FormData();
+    fd.append("id", id);
     fd.append("nome", nome);
     fd.append("email", email);
     fd.append("senha", senha);
@@ -49,11 +79,12 @@ async function novo(){
     fd.append("telefone", telefone);
     fd.append("turma_id", turma_id);
 
-    const retorno = await fetch("estudante_novo.php", {
+    const retorno = await fetch("estudante_alterar.php?id=" + id, {
         method: "POST",
         body: fd
     });
     const resposta = await retorno.json();
+
     if(resposta.status == "ok"){
         alert("SUCESSO: " + resposta.mensagem);
         window.location.href = "estudante_index.html";

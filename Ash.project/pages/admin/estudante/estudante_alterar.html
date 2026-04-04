@@ -3,29 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador - Estudante</title>
+    <title>Administrador - Alterar Estudante</title>
 </head>
 <body>
-    <h1>Administrador - Novo Estudante</h1>
+    <h1>Administrador - Alterar Estudante</h1>
     <div>
         <a href="estudante_index.html">Lista Estudantes</a>
-        <a href="coordenador_index.html">Coordenadores</a>
         <button id="logoff">Sair</button>
     </div>
     <hr>
-    <h2>Novo</h2>
+    <input type="hidden" id="id">
+    <div><label for="matricula_id">Matricula</label><input type="text" id="matricula_id" readonly></div>
     <div><label for="nome">Nome</label><input type="text" id="nome"></div>
     <div><label for="email">E-mail</label><input type="text" id="email"></div>
-    <div><label for="senha">Senha</label><input type="text" id="senha"></div>
+    <div><label for="senha">Senha (deixe vazio para manter)</label><input type="text" id="senha"></div>
     <div><label for="cpf">CPF</label><input type="text" id="cpf"></div>
     <div><label for="celular">Celular</label><input type="text" id="celular"></div>
     <div><label for="telefone">Telefone</label><input type="text" id="telefone"></div>
     <div><label for="turma_id">Turma</label><select id="turma_id"></select></div>
-    <div>
-        <button id="enviar">Salvar</button>
-    </div>
+    <div><button id="enviar">Salvar</button></div>
     <script src="../../../z_js/valida_sessao.js"></script>
-    <script src="estudante_novo.js"></script>
+    <script src="estudante_alterar.js"></script>
 </body>
 </html>
-
