@@ -27,8 +27,21 @@ async function carregarTurmas(){
         for(var i = 0; i < resposta.data.length; i++){
             html += `<option value="${resposta.data[i].id}">${resposta.data[i].nome}</option>`;
         }
-        document.getElementById("curso_id").innerHTML = html;
+        document.getElementById("turma_id").innerHTML = html;
+        preencherCursoSelecionado();
+    }else{
+        alert("ERRO: " + resposta.mensagem);
     }
+}
+
+function preencherCursoSelecionado(){
+	const select = document.getElementById("turma_id");
+	const opcao = select.options[select.selectedIndex];
+	if(opcao && opcao.value != ""){
+		document.getElementById("curso_nome").value = opcao.getAttribute("data-curso") || "";
+	}else{
+		document.getElementById("curso_nome").value = "";
+	}
 }
 
 async function novo(){

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordenador - Alterar Configuracao HC</title>
+</head>
+<body>
+    <h1>Coordenador - Alterar Configuracao HC</h1>
+    <div>
+        <a href="config_hc_index.html">Lista Configuracoes HC</a>
+        <button id="logoff">Sair</button>
+    </div>
+    <hr>
+    <input type="hidden" id="subcategoria_id">
+    <div><label for="versao">Versao Manual</label><input type="text" id="versao"></div>
+    <div><label for="data_manual">Data Manual</label><input type="date" id="data_manual"></div>
+    <div><label for="horas_objetivo">Horas Objetivo</label><input type="number" id="horas_objetivo"></div>
+    <div><label for="categoria_nome">Categoria</label><input type="text" id="categoria_nome"></div>
+    <div><label for="categoria_max">Maximo de Horas da Categoria</label><input type="number" id="categoria_max"></div>
+    <div><label for="subcategoria_nome">Subcategoria</label><input type="text" id="subcategoria_nome"></div>
+    <div><label for="subcategoria_horas">Horas da Subcategoria</label><input type="number" id="subcategoria_horas"></div>
+    <div><button id="enviar">Salvar</button></div>
+    <script src="../../../z_js/valida_sessao.js"></script>
+    <script src="config_hc_alterar.js"></script>
+</body>
+</html>

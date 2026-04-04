@@ -16,7 +16,7 @@ async function logoff(){
 }
 
 async function buscar(){
-    const retorno = await fetch("prof_validador_get.php");
+    const retorno = await fetch("config_hc_get.php");
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
         preencherTabela(resposta.data);
@@ -24,7 +24,7 @@ async function buscar(){
 }
 
 async function excluir(id){
-    const retorno = await fetch("prof_validador_excluir.php?id=" + id);
+    const retorno = await fetch("config_hc_excluir.php?id=" + id);
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
         alert("SUCESSO: " + resposta.mensagem);
@@ -37,30 +37,31 @@ async function excluir(id){
 function preencherTabela(tabela){
     var html = `<table border="1">
         <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>CPF</th>
-            <th>Celular</th>
-            <th>Telefone</th>
-            <th>Turma</th>
-            <th>Curso</th>
+            <th>ID Subcategoria</th>
+            <th>Versao</th>
+            <th>Data Manual</th>
+            <th>Horas Objetivo</th>
+            <th>Categoria</th>
+            <th>Max Horas Categoria</th>
+            <th>Subcategoria</th>
+            <th>Horas Subcategoria</th>
             <th>#</th>
         </tr>`;
 
     for(var i = 0; i < tabela.length; i++){
+        const item = tabela[i];
         html += `<tr>
-            <td>${tabela[i].id}</td>
-            <td>${tabela[i].nome}</td>
-            <td>${tabela[i].email}</td>
-            <td>${tabela[i].cpf}</td>
-            <td>${tabela[i].celular ?? ''}</td>
-            <td>${tabela[i].telefone ?? ''}</td>
-            <td>${tabela[i].turma_nome ?? ''}</td>
-            <td>${tabela[i].curso_nome ?? ''}</td>
+            <td>${item.subcategoria_id}</td>
+            <td>${item.versao}</td>
+            <td>${item.data_manual}</td>
+            <td>${item.horas_objetivo}</td>
+            <td>${item.categoria_nome}</td>
+            <td>${item.max_horas}</td>
+            <td>${item.subcategoria_nome}</td>
+            <td>${item.quant_horas}</td>
             <td>
-                <a href="prof_validador_alterar.html?id=${tabela[i].id}">Alterar</a>
-                <a href="#" onclick="excluir(${tabela[i].id})">Excluir</a>
+                <a href="config_hc_alterar.html?id=${item.subcategoria_id}">Alterar</a>
+                <a href="#" onclick="excluir(${item.subcategoria_id})">Excluir</a>
             </td>
         </tr>`;
     }

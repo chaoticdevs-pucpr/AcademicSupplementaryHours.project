@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao('COORDENADOR');
+    valida_sessao('ESTUDANTE');
 });
 
-document.getElementById("professores").addEventListener("click", () => {
-    window.location.href = 'prof_validador/prof_validador_index.html';
-});
-
-document.getElementById("manual_hc").addEventListener("click", () => {
-    window.location.href = 'config_hc/config_hc_index.html';
+document.getElementById("solicitacoes").addEventListener("click", () => {
+    window.location.href = 'solicitacao/solicitacao_index.html';
 });
 
 document.getElementById("logoff").addEventListener("click", () => {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Estudante - Solicitacao HC</title>
+</head>
+<body>
+	<h1>Estudante - Nova Solicitacao de Horas Complementares</h1>
+	<div>
+		<a href="../index.html">Inicio</a>
+		<a href="solicitacao_index.html">Minhas Solicitacoes</a>
+		<button id="logoff">Sair</button>
+	</div>
+	<hr>
+	<h2>Novo</h2>
+	<div>
+		<label for="subcategoria_id">Subcategoria</label>
+		<select id="subcategoria_id"></select>
+	</div>
+	<div><label for="horas_brutas">Horas Brutas</label><input type="number" step="0.01" id="horas_brutas"></div>
+	<div><label for="justificativa">Justificativa</label><textarea id="justificativa"></textarea></div>
+	<div><label for="arquivo">Anexo</label><input type="file" id="arquivo"></div>
+	<div>
+		<button id="enviar">Salvar</button>
+	</div>
+	<script src="../../../z_js/valida_sessao.js"></script>
+	<script src="solicitacao_nova.js"></script>
+</body>
+</html>

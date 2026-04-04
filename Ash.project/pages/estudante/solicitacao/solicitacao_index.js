@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao('COORDENADOR');
+    valida_sessao('ESTUDANTE');
     buscar();
 });
 
@@ -16,7 +16,7 @@ async function logoff(){
 }
 
 async function buscar(){
-    const retorno = await fetch("prof_validador_get.php");
+    const retorno = await fetch("solicitacao_get.php");
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
         preencherTabela(resposta.data);
@@ -24,7 +24,7 @@ async function buscar(){
 }
 
 async function excluir(id){
-    const retorno = await fetch("prof_validador_excluir.php?id=" + id);
+    const retorno = await fetch("solicitacao_excluir.php?id=" + id);
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
         alert("SUCESSO: " + resposta.mensagem);
@@ -38,29 +38,29 @@ function preencherTabela(tabela){
     var html = `<table border="1">
         <tr>
             <th>ID</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>CPF</th>
-            <th>Celular</th>
-            <th>Telefone</th>
-            <th>Turma</th>
-            <th>Curso</th>
+            <th>Categoria</th>
+            <th>Subcategoria</th>
+            <th>Horas Brutas</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Anexo</th>
             <th>#</th>
         </tr>`;
 
     for(var i = 0; i < tabela.length; i++){
+        const item = tabela[i];
+        const anexo = item.caminho_arquivo ? `<a href="../../../${item.caminho_arquivo}" target="_blank">Arquivo</a>` : '-';
         html += `<tr>
-            <td>${tabela[i].id}</td>
-            <td>${tabela[i].nome}</td>
-            <td>${tabela[i].email}</td>
-            <td>${tabela[i].cpf}</td>
-            <td>${tabela[i].celular ?? ''}</td>
-            <td>${tabela[i].telefone ?? ''}</td>
-            <td>${tabela[i].turma_nome ?? ''}</td>
-            <td>${tabela[i].curso_nome ?? ''}</td>
+            <td>${item.id}</td>
+            <td>${item.categoria_nome}</td>
+            <td>${item.subcategoria_nome}</td>
+            <td>${item.horas_brutas}</td>
+            <td>${item.status}</td>
+            <td>${item.data_envio}</td>
+            <td>${anexo}</td>
             <td>
-                <a href="prof_validador_alterar.html?id=${tabela[i].id}">Alterar</a>
-                <a href="#" onclick="excluir(${tabela[i].id})">Excluir</a>
+                <a href="solicitacao_alterar.html?id=${item.id}">Alterar</a>
+                <a href="#" onclick="excluir(${item.id})">Excluir</a>
             </td>
         </tr>`;
     }
