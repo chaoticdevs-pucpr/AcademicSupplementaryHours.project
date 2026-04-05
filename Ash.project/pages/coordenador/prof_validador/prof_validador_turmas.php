@@ -45,7 +45,7 @@
         $stmt = $conexao->prepare("SELECT t.id, t.nome, c.nome AS curso_nome FROM TURMA t INNER JOIN CURSO c ON c.id = t.curso_id WHERE t.curso_id = ? AND (t.prof_validador_id IS NULL OR t.prof_validador_id = ?) ORDER BY t.nome");
         $stmt->bind_param("ii", $curso_id, $_GET['id']);
     }else{
-        $stmt = $conexao->prepare("SELECT t.id, t.nome, c.nome AS curso_nome FROM TURMA t INNER JOIN CURSO c ON c.id = t.curso_id WHERE t.curso_id = ? AND t.prof_validador_id IS NULL ORDER BY t.nome");
+        $stmt = $conexao->prepare("SELECT t.id, t.nome, c.nome AS curso_nome, CASE WHEN t.prof_validador_id IS NULL THEN 0 ELSE 1 END AS ocupada FROM TURMA t INNER JOIN CURSO c ON c.id = t.curso_id WHERE t.curso_id = ? ORDER BY t.nome");
         $stmt->bind_param("i", $curso_id);
     }
 

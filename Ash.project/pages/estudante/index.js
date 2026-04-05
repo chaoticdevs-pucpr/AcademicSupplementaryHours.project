@@ -1,13 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
     valida_sessao('ESTUDANTE');
-});
 
-document.getElementById("solicitacoes").addEventListener("click", () => {
-    window.location.href = 'solicitacao/solicitacao_index.html';
-});
+    // MUDANÇA AQUI: de "solicitacoes" para "btn-solicitacoes"
+    const btnSolicitacoes = document.getElementById("solicitacoes"); 
+    
+    if (btnSolicitacoes) {
+        btnSolicitacoes.addEventListener("click", () => {
+            console.log("Clicou!"); // Para você testar no F12
+            window.location.href = 'solicitacao/solicitacao_index.html';
+        });
+    }
 
 document.getElementById("logoff").addEventListener("click", () => {
-    logoff();
+logoff();
 });
 
 async function logoff(){
@@ -17,3 +22,5 @@ async function logoff(){
         window.location.href = "../../z_login/";
     }
 }
+
+});

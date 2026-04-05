@@ -16,18 +16,30 @@ if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ADMIN'){
 }
 
 if(isset($_GET['id'])){
+    $id = (int)$_GET['id'];
+
+    $stmt = $conexao->prepare("DELETE a FROM ANEXO a INNER JOIN SOLICITACAO s ON s.id = a.solicitacao_id INNER JOIN MATRICULA m ON m.id = s.matricula_id WHERE m.estudante_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+
+    $stmt = $conexao->prepare("DELETE s FROM SOLICITACAO s INNER JOIN MATRICULA m ON m.id = s.matricula_id WHERE m.estudante_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+
     $stmt = $conexao->prepare("DELETE FROM MATRICULA WHERE estudante_id = ?");
-    $stmt->bind_param("i", $_GET['id']);
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
 
     $stmt = $conexao->prepare("DELETE FROM ESTUDANTE WHERE usuario_id = ?");
-    $stmt->bind_param("i", $_GET['id']);
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
 
     $stmt = $conexao->prepare("DELETE FROM USUARIO WHERE id = ? AND perfil = 'ESTUDANTE'");
-    $stmt->bind_param("i", $_GET['id']);
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     if($stmt->affected_rows > 0){
         $retorno = ['status' => 'ok', 'mensagem' => 'Registro excluido.', 'data' => []];

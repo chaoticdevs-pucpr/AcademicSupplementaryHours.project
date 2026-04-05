@@ -3,11 +3,10 @@ include_once('../../../z_php/conexao.php');
 session_start();
 
 $retorno = [
-    'status'    => '',
-    'mensagem'  => '',
+    'status'    => '', // ok - nok
+    'mensagem'  => '', // mensagem que envio para o front
     'data'      => []
 ];
-
 
 if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ESTUDANTE'){
     $retorno = ['status' => 'nok', 'mensagem' => 'Sem permissao.', 'data' => []];
@@ -18,7 +17,7 @@ if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ESTUDANTE'
 
 $estudante_id = (int)$_SESSION['usuario']['id'];
 
-$stmtMatricula = $conexao->prepare("SELECT m.id FROM MATRICULA m WHERE m.estudante_id = ? ORDER BY m.id LIMIT 1");
+$stmtMatricula = $conexao->prepare("SELECT m.id, t.curso_id FROM MATRICULA m INNER JOIN TURMA t ON t.id = m.turma_id WHERE m.estudante_id = ? ORDER BY m.id LIMIT 1");
 $stmtMatricula->bind_param("i", $estudante_id);
 $stmtMatricula->execute();
 $resMatricula = $stmtMatricula->get_result();
@@ -31,18 +30,11 @@ if($resMatricula->num_rows == 0){
 }
 
 $matricula = $resMatricula->fetch_assoc();
-$matricula_id = (int)$matricula['id'];
+$curso_id = (int)$matricula['curso_id'];
 $stmtMatricula->close();
 
-if(isset($_GET['id'])){
-    $stmt = $conexao->prepare("SELECT s.id, s.subcategoria_id, s.horas_brutas, s.justificativa FROM SOLICITACAO s WHERE s.id = ? AND s.matricula_id = ?");
-    $stmt->bind_param("ii", $_GET['id'], $matricula_id);
-}else{
-
-    $stmt = $conexao->prepare("SELECT s.id, s.subcategoria_id, s.horas_brutas, s.status, DATE_FORMAT(s.data_envio, '%Y-%m-%d %H:%i') AS data_envio, s.justificativa, su.nome AS subcategoria_nome, c.nome AS categoria_nome, a.caminho_arquivo FROM SOLICITACAO s INNER JOIN SUBCATEGORIA su ON su.id = s.subcategoria_id INNER JOIN CATEGORIA c ON c.id = su.categoria_id LEFT JOIN ANEXO a ON a.solicitacao_id = s.id WHERE s.matricula_id = ? ORDER BY s.id DESC");
-    $stmt->bind_param("i", $matricula_id);
-}
-
+$stmt = $conexao->prepare("SELECT c.id, c.nome FROM CATEGORIA c INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE m.curso_id = ? ORDER BY c.nome");
+$stmt->bind_param("i", $curso_id);
 $stmt->execute();
 $resultado = $stmt->get_result();
 
@@ -53,17 +45,18 @@ if($resultado->num_rows > 0){
     }
 
     $retorno = [
-        'status'    => 'ok',
-        'mensagem'  => 'Consulta efetuada.',
+        'status'    => 'ok', // ok - nok
+        'mensagem'  => 'Consulta efetuada.', // mensagem que envio para o front
         'data'      => $tabela
     ];
 }else{
     $retorno = [
-        'status'    => 'nok',
-        'mensagem'  => 'Nao ha registros',
+        'status'    => 'nok', // ok - nok
+        'mensagem'  => 'Nao ha categorias disponiveis', // mensagem que envio para o front
         'data'      => []
     ];
 }
+
 $stmt->close();
 $conexao->close();
 

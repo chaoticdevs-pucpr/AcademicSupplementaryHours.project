@@ -19,7 +19,7 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
     $id = (int)$_GET['id'];
     $nome = $_POST['nome'];
     $email = $_POST['email'];
-    $senha = $_POST['senha'];
+    $senha = trim($_POST['senha']);
     $cpf = $_POST['cpf'];
     $celular = $_POST['celular'];
     $telefone = $_POST['telefone'];
@@ -32,15 +32,19 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
         exit;
     }
 
+    $linhas_usuario = 0;
+    $ok_usuario = false;
+
     if($senha != ""){
         $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ? WHERE id = ? AND perfil = 'ESTUDANTE'");
         $stmt->bind_param("ssi", $email, $senha, $id);
-        $stmt->execute();
+        $ok_usuario = $stmt->execute();
     }else{
         $stmt = $conexao->prepare("UPDATE USUARIO SET email = ? WHERE id = ? AND perfil = 'ESTUDANTE'");
         $stmt->bind_param("si", $email, $id);
-        $stmt->execute();
+        $ok_usuario = $stmt->execute();
     }
+    $linhas_usuario = $stmt->affected_rows;
     $stmt->close();
 
     $stmt = $conexao->prepare("UPDATE ESTUDANTE SET nome = ?, cpf = ?, celular = ?, telefone = ? WHERE usuario_id = ?");
@@ -54,7 +58,7 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
     $stmt->execute();
     $linhas_matricula = $stmt->affected_rows;
 
-    if($linhas_estudante > 0 || $linhas_matricula > 0){
+    if($linhas_usuario > 0 || $linhas_estudante > 0 || $linhas_matricula > 0 || ($senha != "" && $ok_usuario)){
         $retorno = ['status' => 'ok', 'mensagem' => 'Registro alterado com sucesso.', 'data' => []];
     }else{
         $stmt->close();

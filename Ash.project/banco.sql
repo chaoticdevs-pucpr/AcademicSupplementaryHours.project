@@ -134,7 +134,51 @@ CREATE TABLE RELATORIO (
 INSERT INTO USUARIO (email, senha, perfil) VALUES ('admin@ash.com', '1234', 'ADMIN');
 INSERT INTO ADMINISTRADOR (usuario_id, nome) VALUES (1, 'Daniel de Castro Felix');
 
-INSERT INTO CURSO (id, nome) VALUES ('1', 'Engenharia de Software');
-INSERT INTO CURSO (id, nome) VALUES ('2', 'Engenharia da Computação');
-INSERT INTO CURSO (nome) VALUES ('Medicina');
-SELECT * FROM CURSO WHERE ID = 3;
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('estudante1@ash.com', '1234', 'ESTUDANTE');
+INSERT INTO ESTUDANTE (usuario_id, nome, cpf) VALUES (2, 'Joao Silva', '12345678900');
+
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof1@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (3, 'Professor Validador', '98765432100');
+
+INSERT INTO CURSO (nome) VALUES ('Engenharia de Software');
+INSERT INTO CURSO (nome) VALUES ('Engenharia da Computacao');
+
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 3, 'A-M');
+INSERT INTO MATRICULA (estudante_id, turma_id) VALUES (2, 1);
+
+INSERT INTO MANUAL_HC (curso_id, horas_objetivo, versao, data) VALUES (1, 100, 'v1.0', CURDATE());
+
+INSERT INTO CATEGORIA (manual_hc_id, max_horas, nome)
+VALUES (
+  (SELECT id FROM MANUAL_HC WHERE curso_id = 1 ORDER BY id DESC LIMIT 1),
+  40,
+  'Extensao'
+);
+
+INSERT INTO CATEGORIA (manual_hc_id, max_horas, nome)
+VALUES (
+  (SELECT id FROM MANUAL_HC WHERE curso_id = 1 ORDER BY id DESC LIMIT 1),
+  60,
+  'Pesquisa'
+);
+
+INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
+VALUES (
+  (SELECT id FROM CATEGORIA WHERE nome = 'Extensao' ORDER BY id DESC LIMIT 1),
+  10,
+  'Projeto Social'
+);
+
+INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
+VALUES (
+  (SELECT id FROM CATEGORIA WHERE nome = 'Extensao' ORDER BY id DESC LIMIT 1),
+  20,
+  'Curso de Extensao'
+);
+
+INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
+VALUES (
+  (SELECT id FROM CATEGORIA WHERE nome = 'Pesquisa' ORDER BY id DESC LIMIT 1),
+  20,
+  'Iniciacao Cientifica'
+);

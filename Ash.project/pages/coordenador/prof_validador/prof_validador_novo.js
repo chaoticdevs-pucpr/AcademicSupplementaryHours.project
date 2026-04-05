@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     valida_sessao('COORDENADOR');
-    carregarCursos();
+    carregarTurmas();
 });
 
 document.getElementById("logoff").addEventListener("click", () => {
@@ -19,13 +19,18 @@ document.getElementById("enviar").addEventListener("click", () => {
     novo();
 });
 
+document.getElementById("turma_id").addEventListener("change", () => {
+    preencherCursoSelecionado();
+});
+
 async function carregarTurmas(){
     const retorno = await fetch("prof_validador_turmas.php");
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
         var html = '<option value="">Selecione...</option>';
         for(var i = 0; i < resposta.data.length; i++){
-            html += `<option value="${resposta.data[i].id}">${resposta.data[i].nome}</option>`;
+            const ocupada = resposta.data[i].ocupada == 1;
+            html += `<option value="${resposta.data[i].id}" data-curso="${resposta.data[i].curso_nome}" ${ocupada ? 'disabled' : ''}>${resposta.data[i].nome}${ocupada ? ' (ocupada)' : ''}</option>`;
         }
         document.getElementById("turma_id").innerHTML = html;
         preencherCursoSelecionado();

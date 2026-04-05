@@ -3,9 +3,9 @@ include_once('../../../z_php/conexao.php');
 session_start();
 
 $retorno = [
-    'status' => '',
-    'mensagem' => '',
-    'data' => []
+    'status'    => '',
+    'mensagem'  => '',
+    'data'      => []
 ];
 
 if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ESTUDANTE'){
@@ -16,16 +16,19 @@ if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ESTUDANTE'
 }
 
 $estudante_id = (int)$_SESSION['usuario']['id'];
+
 $stmtMatricula = $conexao->prepare("SELECT m.id FROM MATRICULA m WHERE m.estudante_id = ? ORDER BY m.id LIMIT 1");
 $stmtMatricula->bind_param("i", $estudante_id);
 $stmtMatricula->execute();
 $resMatricula = $stmtMatricula->get_result();
+
 if($resMatricula->num_rows == 0){
     $retorno = ['status' => 'nok', 'mensagem' => 'Estudante sem matricula ativa.', 'data' => []];
     header("Content-type:application/json;charset:utf-8");
     echo json_encode($retorno);
     exit;
 }
+
 $matricula = $resMatricula->fetch_assoc();
 $matricula_id = (int)$matricula['id'];
 $stmtMatricula->close();
@@ -45,10 +48,12 @@ if(isset($_GET['id']) && isset($_POST['subcategoria_id'], $_POST['horas_brutas']
     }else{
         $retorno = ['status' => 'nok', 'mensagem' => 'Nao foi possivel alterar.', 'data' => []];
     }
+
     $stmt->close();
 
     if($retorno['status'] == 'ok' && isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] == 0){
         $pastaUploads = '../../uploads';
+
         if(!is_dir($pastaUploads)){
             mkdir($pastaUploads, 0777, true);
         }
@@ -75,5 +80,6 @@ if(isset($_GET['id']) && isset($_POST['subcategoria_id'], $_POST['horas_brutas']
 }
 
 $conexao->close();
+
 header("Content-type:application/json;charset:utf-8");
 echo json_encode($retorno);

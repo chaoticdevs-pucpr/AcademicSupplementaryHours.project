@@ -3,17 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coordenador - Configuracoes HC</title>
+    <title>ASH - Configurações HC</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    </style>
 </head>
-<body>
-    <h1>Coordenador - Configuracoes HC</h1>
-    <div>
-        <a href="config_hc_novo.html">Nova Configuracao</a>
-        <a href="../prof_validador/prof_validador_index.html">Professores Validadores</a>
-        <button id="logoff">Sair</button>
-    </div>
-    <hr>
-    <div id="lista"></div>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
+
+    <!-- Cabeçalho (Header) -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                    ASH<span class="text-purple-600">.</span>
+                </span>
+                <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide hidden sm:inline-block">
+                    Coordenador
+                </span>
+            </div>
+            <nav class="flex items-center gap-4 sm:gap-6">
+                <!-- Link para o painel principal se necessário, e professores validadores -->
+                <a href="../prof_validador/prof_validador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Professores Validadores</a>
+                <div class="w-px h-5 bg-slate-200"></div>
+                <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 flex items-center gap-2 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Sair
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <!-- Título e Botão Nova Configuração -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Manual de Horas Complementares</h1>
+                <p class="text-slate-500 mt-2 text-sm">Gerencie as categorias, subcategorias e os limites de horas para os cursos.</p>
+            </div>
+            
+            <a href="config_hc_novo.html" class="bg-slate-800 hover:bg-slate-900 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Nova Configuração
+            </a>
+        </div>
+
+        <!-- Container da Lista -->
+        <div id="lista" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <!-- A tabela será injetada aqui -->
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
     <script src="../../../z_js/valida_sessao.js"></script>
     <script src="config_hc_index.js"></script>
 </body>

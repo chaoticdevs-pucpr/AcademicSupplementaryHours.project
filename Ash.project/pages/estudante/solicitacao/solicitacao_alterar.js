@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", async () => {
     valida_sessao('ESTUDANTE');
-    await carregarSubcategorias();
+    await carregarCategorias();
 
     const url = new URLSearchParams(window.location.search);
     const id = url.get("id");
     if(id){
-        buscar(id);
+        await buscar(id);
     }else{
         alert("ID não informado.");
         window.location.href = "solicitacao_index.html";
@@ -28,16 +28,49 @@ document.getElementById("enviar").addEventListener("click", () => {
     alterar();
 });
 
-async function carregarSubcategorias(){
-    const retorno = await fetch("solicitacao_subcategorias.php");
+document.getElementById("categoria_id").addEventListener("change", () => {
+    carregarSubcategorias();
+});
+
+document.getElementById("subcategoria_id").addEventListener("change", () => {
+});
+
+async function carregarCategorias(){
+    const retorno = await fetch("solicitacao_categorias.php");
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
         var html = '<option value="">Selecione...</option>';
         for(var i = 0; i < resposta.data.length; i++){
-            html += `<option value="${resposta.data[i].id}">${resposta.data[i].categoria} - ${resposta.data[i].nome} (${resposta.data[i].quant_horas}h)</option>`;
+            html += `<option value="${resposta.data[i].id}">${resposta.data[i].nome}</option>`;
+        }
+        document.getElementById("categoria_id").innerHTML = html;
+    }else{
+        document.getElementById("categoria_id").innerHTML = '<option value="">Sem categorias disponiveis</option>';
+        alert("ERRO: " + resposta.mensagem);
+    }
+}
+
+async function carregarSubcategorias(){
+    const categoria_id = document.getElementById("categoria_id").value;
+    if(categoria_id == ""){
+        document.getElementById("subcategoria_id").innerHTML = '<option value="">Selecione categoria primeiro</option>';
+        return;
+    }
+    const retorno = await fetch("solicitacao_subcategorias.php?categoria_id=" + categoria_id);
+    const resposta = await retorno.json();
+    if(resposta.status == "ok"){
+        var html = '<option value="">Selecione...</option>';
+        for(var i = 0; i < resposta.data.length; i++){
+            html += `<option value="${resposta.data[i].id}">${resposta.data[i].nome} (${resposta.data[i].quant_horas}h)</option>`;
         }
         document.getElementById("subcategoria_id").innerHTML = html;
+    }else{
+        document.getElementById("subcategoria_id").innerHTML = '<option value="">Sem subcategorias disponiveis</option>';
+        alert("ERRO: " + resposta.mensagem);
     }
+}
+
+function preencherCategoriaSelecionada(){
 }
 
 async function buscar(id){
@@ -46,6 +79,8 @@ async function buscar(id){
     if(resposta.status == "ok"){
         const r = resposta.data[0];
         document.getElementById("id").value = r.id;
+        document.getElementById("categoria_id").value = r.categoria_id;
+        await carregarSubcategorias();
         document.getElementById("subcategoria_id").value = r.subcategoria_id;
         document.getElementById("horas_brutas").value = r.horas_brutas;
         document.getElementById("justificativa").value = r.justificativa;

@@ -30,9 +30,9 @@
             }else if($usuario['perfil'] == 'COORDENADOR'){
                 $destino = 'pages/coordenador/index.html';
             }else if($usuario['perfil'] == 'PROFESSOR'){
-                $destino = 'pages/';
+                $destino = 'pages/professor/index.html';
             }else if($usuario['perfil'] == 'ESTUDANTE'){
-                $destino = 'pages/';
+                $destino = 'pages/estudante/index.html';
             }
 
 
