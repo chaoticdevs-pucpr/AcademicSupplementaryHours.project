@@ -15,20 +15,40 @@ if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ADMIN'){
 	exit;
 }
 
+function somente_digitos($valor){
+	return preg_replace('/\D/', '', (string)$valor);
+}
+
+function email_valido($email){
+	return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+}
+
 if(isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['cpf'], $_POST['celular'], $_POST['telefone'], $_POST['turma_id'])){
-	$nome = $_POST['nome'];
-	$email = $_POST['email'];
-	$senha = $_POST['senha'];
-	$cpf = $_POST['cpf'];
-	$celular = $_POST['celular'];
-	$telefone = $_POST['telefone'];
+	$nome = trim($_POST['nome'] ?? '');
+	$email = trim($_POST['email'] ?? '');
+	$senha = trim($_POST['senha'] ?? '');
+	$cpf = somente_digitos($_POST['cpf'] ?? '');
+	$celular = somente_digitos($_POST['celular'] ?? '');
+	$telefone = somente_digitos($_POST['telefone'] ?? '');
 	$turma_id = (int)$_POST['turma_id'];
-	if($turma_id <= 0){
-		$retorno = ['status' => 'nok', 'mensagem' => 'Selecione uma turma valida.', 'data' => []];
-		header("Content-type:application/json;charset:utf-8");
-		echo json_encode($retorno);
-		exit;
+	$erro = '';
+	if($nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $turma_id <= 0){
+		$erro = 'Preencha todos os campos obrigatorios. Telefone e opcional.';
+	}else if(!email_valido($email)){
+		$erro = 'Informe um e-mail valido.';
+	}else if(strlen($cpf) != 11){
+		$erro = 'CPF invalido. Informe 11 digitos.';
+	}else if(strlen($celular) < 10 || strlen($celular) > 11){
+		$erro = 'Celular invalido. Informe 10 ou 11 digitos.';
+	}else if($telefone !== '' && (strlen($telefone) < 10 || strlen($telefone) > 11)){
+		$erro = 'Telefone invalido. Informe 10 ou 11 digitos.';
+	}else if($turma_id <= 0){
+		$erro = 'Selecione uma turma valida.';
 	}
+
+	if($erro !== ''){
+		$retorno = ['status' => 'nok', 'mensagem' => $erro, 'data' => []];
+	}else{
 	$admin_id = (int)$_SESSION['usuario']['id'];
 
 	$stmt = $conexao->prepare("INSERT INTO USUARIO(email, senha, perfil) VALUES(?, ?, 'ESTUDANTE')");
@@ -61,6 +81,7 @@ if(isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['cpf'], $_POST
 		$retorno = ['status' => 'nok', 'mensagem' => 'Falha ao inserir usuario.', 'data' => []];
 	}
 	$stmt->close();
+	}
 }else{
 	$retorno = ['status' => 'nok', 'mensagem' => 'Dados incompletos para inclusao.', 'data' => []];
 }

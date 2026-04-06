@@ -1,8 +1,8 @@
 <?php
 // Variáveis de conexão com o Banco de Dados
-$servidor = "localhost:3307";
+$servidor = "localhost:3306";
 $usuario  = "root";
-$senha    = "sedrftgyhujinj252242!*";
+$senha    = "";
 $nome_banco = "ash_project";
 
 $conexao = new mysqli($servidor, $usuario, $senha, $nome_banco);

@@ -19,50 +19,63 @@ if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ADMIN'){
     exit;
 }
 
+function somente_digitos($valor){
+    return preg_replace('/\D/', '', (string)$valor);
+}
+
+function email_valido($email){
+    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+}
+
 if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['celular'], $_POST['telefone'], $_POST['curso_id'])){
     $id = (int)$_GET['id'];
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $senha = trim($_POST['senha']);
-    $cpf = $_POST['cpf'];
-    $celular = $_POST['celular'];
-    $telefone = $_POST['telefone'];
+    $nome = trim($_POST['nome'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $senha = trim($_POST['senha'] ?? '');
+    $cpf = somente_digitos($_POST['cpf'] ?? '');
+    $celular = somente_digitos($_POST['celular'] ?? '');
+    $telefone = somente_digitos($_POST['telefone'] ?? '');
     $curso_id = (int)$_POST['curso_id'];
 
-    $linhas_usuario = 0;
-    $ok_usuario = false;
+    if($id <= 0 || $nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $curso_id <= 0){
+        $retorno = ['status' => 'nok', 'mensagem' => 'Preencha todos os campos obrigatorios. Telefone e opcional.', 'data' => []];
+    }else if(!email_valido($email)){
+        $retorno = ['status' => 'nok', 'mensagem' => 'Informe um e-mail valido.', 'data' => []];
+    }else if(strlen($cpf) != 11){
+        $retorno = ['status' => 'nok', 'mensagem' => 'CPF invalido. Informe 11 digitos.', 'data' => []];
+    }else if(strlen($celular) < 10 || strlen($celular) > 11){
+        $retorno = ['status' => 'nok', 'mensagem' => 'Celular invalido. Informe 10 ou 11 digitos.', 'data' => []];
+    }else if($telefone !== '' && (strlen($telefone) < 10 || strlen($telefone) > 11)){
+        $retorno = ['status' => 'nok', 'mensagem' => 'Telefone invalido. Informe 10 ou 11 digitos.', 'data' => []];
+    }else{
+        $linhas_usuario = 0;
 
-    if($senha != ""){
         $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ? WHERE id = ? AND perfil = 'COORDENADOR'");
         $stmt->bind_param("ssi", $email, $senha, $id);
-        $ok_usuario = $stmt->execute();
-    }else{
-        $stmt = $conexao->prepare("UPDATE USUARIO SET email = ? WHERE id = ? AND perfil = 'COORDENADOR'");
-        $stmt->bind_param("si", $email, $id);
-        $ok_usuario = $stmt->execute();
-    }
-    $linhas_usuario = $stmt->affected_rows;
-    $stmt->close();
+        $stmt->execute();
+        $linhas_usuario = $stmt->affected_rows;
+        $stmt->close();
 
-    $stmt = $conexao->prepare("UPDATE COORDENADOR SET nome = ?, cpf = ?, celular = ?, telefone = ?, curso_id = ? WHERE usuario_id = ?");
-    $stmt->bind_param("ssssii", $nome, $cpf, $celular, $telefone, $curso_id, $id);
-    $stmt->execute();
-    $linhas_coordenador = $stmt->affected_rows;
+        $stmt = $conexao->prepare("UPDATE COORDENADOR SET nome = ?, cpf = ?, celular = ?, telefone = ?, curso_id = ? WHERE usuario_id = ?");
+        $stmt->bind_param("ssssii", $nome, $cpf, $celular, $telefone, $curso_id, $id);
+        $stmt->execute();
+        $linhas_coordenador = $stmt->affected_rows;
 
-    if($linhas_usuario > 0 || $linhas_coordenador > 0 || ($senha != "" && $ok_usuario)){
-        $retorno = [
-            'status' => 'ok',
-            'mensagem' => 'Registro alterado com sucesso.',
-            'data' => []
-        ];
-    }else{
-        $retorno = [
-            'status' => 'nok',
-            'mensagem' => 'Nao foi possivel alterar o registro.',
-            'data' => []
-        ];
+        if($linhas_usuario > 0 || $linhas_coordenador > 0){
+            $retorno = [
+                'status' => 'ok',
+                'mensagem' => 'Registro alterado com sucesso.',
+                'data' => []
+            ];
+        }else{
+            $retorno = [
+                'status' => 'nok',
+                'mensagem' => 'Nao foi possivel alterar o registro.',
+                'data' => []
+            ];
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }else{
     $retorno = [
         'status' => 'nok',

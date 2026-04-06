@@ -19,6 +19,35 @@ document.getElementById("enviar").addEventListener("click", () => {
     novo();
 });
 
+function somenteDigitos(valor){
+    return (valor || "").replace(/\D/g, "");
+}
+
+function validarFormulario(dados){
+    if(!dados.nome || !dados.email || !dados.senha || !dados.cpf || !dados.celular || !dados.curso_id){
+        return "Preencha todos os campos obrigatorios. Telefone e opcional.";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailRegex.test(dados.email)){
+        return "Informe um e-mail valido.";
+    }
+
+    if(dados.cpf.length !== 11){
+        return "CPF invalido. Informe 11 digitos.";
+    }
+
+    if(dados.celular.length < 10 || dados.celular.length > 11){
+        return "Celular invalido. Informe 10 ou 11 digitos.";
+    }
+
+    if(dados.telefone && (dados.telefone.length < 10 || dados.telefone.length > 11)){
+        return "Telefone invalido. Informe 10 ou 11 digitos.";
+    }
+
+    return "";
+}
+
 async function carregarCursos(){
     try {
         const retorno = await fetch("coordenador_cursos.php");
@@ -37,17 +66,17 @@ async function carregarCursos(){
 
 async function novo(){
     // Captura dos valores
-    var nome     = document.getElementById("nome").value;
-    var email    = document.getElementById("email").value;
-    var senha    = document.getElementById("senha").value;
-    var cpf      = document.getElementById("cpf").value;
-    var celular  = document.getElementById("celular").value;
-    var telefone = document.getElementById("telefone").value;
+    var nome     = document.getElementById("nome").value.trim();
+    var email    = document.getElementById("email").value.trim();
+    var senha    = document.getElementById("senha").value.trim();
+    var cpf      = somenteDigitos(document.getElementById("cpf").value);
+    var celular  = somenteDigitos(document.getElementById("celular").value);
+    var telefone = somenteDigitos(document.getElementById("telefone").value);
     var curso_id = document.getElementById("curso_id").value;
 
-    // Validação simples de campos obrigatórios (opcional, mas recomendada)
-    if(!nome || !email || !curso_id) {
-        alert("Por favor, preencha o Nome, E-mail e selecione um Curso.");
+    const erroValidacao = validarFormulario({ nome, email, senha, cpf, celular, telefone, curso_id });
+    if(erroValidacao){
+        alert(erroValidacao);
         return;
     }
 
