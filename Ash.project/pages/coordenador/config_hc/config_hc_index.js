@@ -27,7 +27,7 @@ async function logoff(){
 
 async function buscar(){
     try {
-        const retorno = await fetch("config_hc_get.php");
+        const retorno = await fetch("php/config_hc_get.php");
         const resposta = await retorno.json();
         if(resposta.status == "ok" && resposta.data && resposta.data.length > 0){
             preencherTabela(resposta.data);
@@ -43,7 +43,7 @@ async function buscar(){
 async function excluir(id){
     if(confirm("Tem certeza que deseja excluir esta configuração de subcategoria?")) {
         try {
-            const retorno = await fetch("config_hc_excluir.php?id=" + id);
+            const retorno = await fetch("php/config_hc_excluir.php?id=" + id);
             const resposta = await retorno.json();
             if(resposta.status == "ok"){
                 alert("SUCESSO: " + resposta.mensagem);
@@ -104,7 +104,7 @@ function preencherTabela(tabela){
                     <div class="text-xs text-slate-500 mt-0.5">Equivale a: <span class="font-medium text-slate-700">${item.quant_horas}h</span></div>
                 </td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
-                    <a href="config_hc_alterar.html?id=${item.subcategoria_id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
+                    <a href="html/config_hc_alterar.html?id=${item.subcategoria_id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
                         Alterar
                     </a>
                     <button onclick="excluir(${item.subcategoria_id})" class="text-red-500 hover:text-red-700 text-sm font-bold transition-colors">

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASH - Nova Configuração HC</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
+
+    <!-- Cabeçalho (Header) -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                    ASH<span class="text-purple-600">.</span>
+                </span>
+                <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide hidden sm:inline-block">
+                    Coordenador
+                </span>
+            </div>
+            <nav class="flex items-center gap-4 sm:gap-6">
+                <a href="../config_hc_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors hidden sm:inline-block">Lista Configurações</a>
+                <a href="../../prof_validador/prof_validador_novo.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Prof. Validador</a>
+                <div class="w-px h-5 bg-slate-200"></div>
+                <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 flex items-center gap-2 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Sair
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-12">
+        
+        <!-- Título da Página -->
+        <div class="mb-8 text-left">
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Nova Configuração HC</h1>
+            <p class="text-slate-500 mt-2 text-sm">Cadastre as regras de categorias e subcategorias do manual de horas complementares.</p>
+        </div>
+
+        <!-- Card do Formulário -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 sm:p-8 space-y-8">
+                
+                <!-- Seção: Dados do Manual -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        Dados do Manual
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div>
+                            <label for="versao" class="block text-sm font-semibold text-slate-700 mb-1.5">Versão Manual</label>
+                            <input type="text" id="versao" value="2026.1" 
+                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                        </div>
+                        <div>
+                            <label for="data_manual" class="block text-sm font-semibold text-slate-700 mb-1.5">Data Manual</label>
+                            <input type="date" id="data_manual" 
+                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-slate-700">
+                        </div>
+                        <div>
+                            <label for="horas_objetivo" class="block text-sm font-semibold text-slate-700 mb-1.5">Horas Objetivo (Meta)</label>
+                            <input type="number" id="horas_objetivo" value="120" 
+                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-slate-100">
+
+                <!-- Seção: Categoria -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        Categoria Principal
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="categoria_nome" class="block text-sm font-semibold text-slate-700 mb-1.5">Nome da Categoria</label>
+                            <select id="categoria_nome"
+                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-pointer">
+                                <option value="">Selecione...</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="categoria_max" class="block text-sm font-semibold text-slate-700 mb-1.5">Máximo de Horas Permitido</label>
+                            <input type="number" id="categoria_max" placeholder="Limite global da categoria" 
+                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-slate-100">
+
+                <!-- Seção: Subcategoria -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        Atividade Específica (Subcategoria)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="subcategoria_nome" class="block text-sm font-semibold text-slate-700 mb-1.5">Nome da Subcategoria</label>
+                            <select id="subcategoria_nome"
+                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-pointer">
+                                <option value="">Selecione...</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="subcategoria_horas" class="block text-sm font-semibold text-slate-700 mb-1.5">Horas por Atividade</label>
+                            <input type="number" id="subcategoria_horas" placeholder="Valor em horas" 
+                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Rodapé com Ação -->
+            <div class="px-6 py-5 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button id="enviar" class="bg-purple-600 hover:bg-purple-700 text-white px-10 py-3 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md flex items-center gap-2 active:scale-95">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Salvar Configuração
+                </button>
+            </div>
+        </div>
+
+        <!-- Link de Retorno -->
+        <div class="mt-8 text-center">
+            <a href="../config_hc_index.html" class="text-sm font-medium text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Voltar para a lista de configurações
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Scripts de Lógica -->
+    <script src="../../../../z_js/valida_sessao.js"></script>
+    <script src="../js/config_hc_novo.js"></script>
+</body>
+</html>

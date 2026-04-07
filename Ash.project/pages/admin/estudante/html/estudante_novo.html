@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASH - Novo Estudante</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
+
+    <!-- Cabeçalho (Header) -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                    A.S.H<span class="text-purple-600">.</span>
+                </span>
+                <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide hidden sm:inline-block">
+                    Admin
+                </span>
+            </div>
+            <nav class="flex items-center gap-4 sm:gap-6">
+                <a href="../estudante_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Lista Estudantes</a>
+                <a href="../../coordenador/coordenador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Coordenadores</a>
+                <div class="w-px h-5 bg-slate-200"></div>
+                <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 flex items-center gap-2 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Sair
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-12">
+        
+        <!-- Título da Página -->
+        <div class="mb-8 text-left">
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Novo Estudante</h1>
+            <p class="text-slate-500 mt-2 text-sm">Preencha os dados do aluno para realizar a matrícula no sistema.</p>
+        </div>
+
+        <!-- Card do Formulário -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 sm:p-8 space-y-6">
+                
+                <!-- Nome Completo -->
+                <div>
+                    <label for="nome" class="block text-sm font-semibold text-slate-700 mb-1.5">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="Digite o nome do estudante" required
+                        class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                </div>
+
+                <!-- Grid E-mail e Senha -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-slate-700 mb-1.5">E-mail Acadêmico</label>
+                        <input type="email" id="email" placeholder="estudante@instituicao.edu.br" required
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                    </div>
+                    <div>
+                        <label for="senha" class="block text-sm font-semibold text-slate-700 mb-1.5">Senha de Acesso</label>
+                        <input type="password" id="senha" placeholder="••••••••" required
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                    </div>
+                </div>
+
+                <!-- CPF -->
+                <div>
+                    <label for="cpf" class="block text-sm font-semibold text-slate-700 mb-1.5">CPF</label>
+                    <input type="text" id="cpf" placeholder="00000000000" required inputmode="numeric" pattern="[0-9]{11}"
+                        class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                </div>
+
+                <!-- Grid Contato -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label for="celular" class="block text-sm font-semibold text-slate-700 mb-1.5">Celular / WhatsApp</label>
+                        <input type="text" id="celular" placeholder="11999999999" required inputmode="numeric" pattern="[0-9]{10,11}"
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                    </div>
+                    <div>
+                        <label for="telefone" class="block text-sm font-semibold text-slate-700 mb-1.5">Telefone Residencial</label>
+                        <input type="text" id="telefone" placeholder="1133333333" inputmode="numeric" pattern="[0-9]{10,11}"
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                    </div>
+                </div>
+
+                <!-- Seleção de Turma -->
+                <div>
+                    <label for="turma_id" class="block text-sm font-semibold text-slate-700 mb-1.5">Turma</label>
+                    <div class="relative">
+                        <select id="turma_id" required
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all appearance-none cursor-pointer">
+                            <option value="">Carregando turmas...</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Rodapé com Ação -->
+            <div class="px-6 py-5 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button id="enviar" class="bg-purple-600 hover:bg-purple-700 text-white px-10 py-3 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md flex items-center gap-2 active:scale-95">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Salvar Estudante
+                </button>
+            </div>
+        </div>
+
+        <!-- Link de Retorno -->
+        <div class="mt-8 text-center">
+            <a href="../estudante_index.html" class="text-sm font-medium text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Voltar para a lista de estudantes
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-sm text-slate-500 text-center md:text-left">
+                  &copy; <span id="current-year"></span> ChaoticDevs - Academic Supplementary Hours. Todos os direitos reservados.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Termos</a>
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de Lógica -->
+    <script src="../../../../z_js/valida_sessao.js"></script>
+    <script src="../js/estudante_novo.js"></script>
+</body>
+</html>

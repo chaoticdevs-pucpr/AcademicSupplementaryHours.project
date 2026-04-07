@@ -20,7 +20,7 @@ async function logoff(){
 
 async function buscar(){
     try {
-        const retorno = await fetch("estudante_get.php");
+        const retorno = await fetch("php/estudante_get.php");
         const resposta = await retorno.json();
         
         if(resposta.status == "ok" && resposta.data && resposta.data.length > 0){
@@ -36,7 +36,7 @@ async function buscar(){
 
 async function excluir(id){
     if(confirm("Tem certeza que deseja excluir este estudante?")) {
-        const retorno = await fetch("estudante_excluir.php?id=" + id);
+        const retorno = await fetch("php/estudante_excluir.php?id=" + id);
         const resposta = await retorno.json();
         if(resposta.status == "ok"){
             alert(resposta.mensagem);
@@ -90,7 +90,7 @@ function preencherTabela(tabela){
                     <div class="text-[10px] text-slate-400 uppercase tracking-tighter">${est.curso_nome || 'Sem curso'}</div>
                 </td>
                 <td class="px-6 py-4 text-right space-x-3">
-                    <a href="estudante_alterar.html?id=${est.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
+                    <a href="html/estudante_alterar.html?id=${est.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
                         Alterar
                     </a>
                     <button onclick="excluir(${est.id})" class="text-red-500 hover:text-red-700 text-sm font-bold transition-colors">

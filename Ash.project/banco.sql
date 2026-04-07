@@ -6,7 +6,7 @@ CREATE TABLE USUARIO (
   id int PRIMARY KEY AUTO_INCREMENT,
   email varchar(100) UNIQUE,
   senha varchar(255),
-  perfil varchar(30) COMMENT 'ESTUDANTE, PROFESSOR, COORDENADOR, ADMIN'
+  perfil varchar(30) -- 'ESTUDANTE, PROFESSOR, COORDENADOR, ADMIN'
 );
 
 CREATE TABLE CURSO (
@@ -131,19 +131,29 @@ CREATE TABLE RELATORIO (
   FOREIGN KEY (aprovado_por_coord_id) REFERENCES COORDENADOR (usuario_id)
 );
 
+-- Admin
 INSERT INTO USUARIO (email, senha, perfil) VALUES ('admin@ash.com', '1234', 'ADMIN');
 INSERT INTO ADMINISTRADOR (usuario_id, nome) VALUES (1, 'Daniel de Castro Felix');
 
+-- Estudantes
 INSERT INTO USUARIO (email, senha, perfil) VALUES ('estudante1@ash.com', '1234', 'ESTUDANTE');
-INSERT INTO ESTUDANTE (usuario_id, nome, cpf) VALUES (2, 'Joao Silva', '12345678900');
+INSERT INTO ESTUDANTE (usuario_id, nome, cpf) VALUES (2, 'Rodrigo José', '12345678900');
 
+-- Validadores
 INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof1@ash.com', '1234', 'PROFESSOR');
-INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (3, 'Professor Validador', '98765432100');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (3, 'Rodrigo Josué', '98765432100');
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof2@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (4, 'Roberto Josué', '18765432100');
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof3@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (5, 'Adolfo Josué', '28765432100');
 
 INSERT INTO CURSO (nome) VALUES ('Engenharia de Software');
-INSERT INTO CURSO (nome) VALUES ('Engenharia da Computacao');
+INSERT INTO CURSO (nome) VALUES ('Engenharia da Computação');
 
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 3, 'A-M');
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 4, 'B-M');
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 5, 'U-N');
+
 INSERT INTO MATRICULA (estudante_id, turma_id) VALUES (2, 1);
 
 INSERT INTO MANUAL_HC (curso_id, horas_objetivo, versao, data) VALUES (1, 100, 'v1.0', CURDATE());
@@ -151,34 +161,50 @@ INSERT INTO MANUAL_HC (curso_id, horas_objetivo, versao, data) VALUES (1, 100, '
 INSERT INTO CATEGORIA (manual_hc_id, max_horas, nome)
 VALUES (
   (SELECT id FROM MANUAL_HC WHERE curso_id = 1 ORDER BY id DESC LIMIT 1),
-  40,
-  'Extensao'
+  30,
+  'Atividades Profissionais'
+);
+INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
+VALUES (
+  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades Profissionais' ORDER BY id DESC LIMIT 1),
+  10,
+  'Realização de Estágios'
+);
+INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
+VALUES (
+  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades Profissionais' ORDER BY id DESC LIMIT 1),
+  10,
+  'Realização de Atividades de Aceleração/Incubação de Startup'
+);
+INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
+VALUES (
+  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades Profissionais' ORDER BY id DESC LIMIT 1),
+  10,
+  'Realização de Atividades Profissionais na Área de Computação'
 );
 
 INSERT INTO CATEGORIA (manual_hc_id, max_horas, nome)
 VALUES (
   (SELECT id FROM MANUAL_HC WHERE curso_id = 1 ORDER BY id DESC LIMIT 1),
-  60,
-  'Pesquisa'
+  30,
+  'Atividades de Ação Social'
 );
-
 INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
 VALUES (
-  (SELECT id FROM CATEGORIA WHERE nome = 'Extensao' ORDER BY id DESC LIMIT 1),
+  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades de Ação Social' ORDER BY id DESC LIMIT 1),
   10,
-  'Projeto Social'
+  'Participação de Projetos em Caráter Social'
 );
-
 INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
 VALUES (
-  (SELECT id FROM CATEGORIA WHERE nome = 'Extensao' ORDER BY id DESC LIMIT 1),
-  20,
-  'Curso de Extensao'
+  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades de Ação Social' ORDER BY id DESC LIMIT 1),
+  5,
+  'Participação na Clínica de TIC'
 );
-
 INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
 VALUES (
-  (SELECT id FROM CATEGORIA WHERE nome = 'Pesquisa' ORDER BY id DESC LIMIT 1),
-  20,
-  'Iniciacao Cientifica'
+  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades de Ação Social' ORDER BY id DESC LIMIT 1),
+  5,
+  'Participação como Mesário em Eleições Municipais, Estaduais e Federais'
 );
+

@@ -25,7 +25,7 @@ async function logoff() {
 
 async function buscar() {
     try {
-        const retorno = await fetch("solicitacao_get.php");
+        const retorno = await fetch("php/solicitacao_get.php");
         const resposta = await retorno.json();
         
         if (resposta.status == "ok" && resposta.data && resposta.data.length > 0) {
@@ -42,7 +42,7 @@ async function buscar() {
 async function excluir(id) {
     if (confirm("Tem certeza que deseja excluir esta solicitação de horas?")) {
         try {
-            const retorno = await fetch("solicitacao_excluir.php?id=" + id);
+            const retorno = await fetch("php/solicitacao_excluir.php?id=" + id);
             const resposta = await retorno.json();
             if (resposta.status == "ok") {
                 alert("SUCESSO: " + resposta.mensagem);
@@ -103,7 +103,7 @@ function preencherTabela(tabela) {
 
             // Anexo com ícone bonitinho (SVG do Lucide incorporado)
             const anexo = item.caminho_arquivo && item.caminho_arquivo !== "null"
-                ? `<a href="../../../${item.caminho_arquivo}" target="_blank" class="inline-flex items-center gap-1.5 text-purple-600 hover:text-purple-800 font-semibold transition-colors text-sm">
+                ? `<a href="../../${item.caminho_arquivo}" target="_blank" class="inline-flex items-center gap-1.5 text-purple-600 hover:text-purple-800 font-semibold transition-colors text-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
                     Arquivo
                    </a>` 
@@ -122,7 +122,7 @@ function preencherTabela(tabela) {
                 <td class="px-6 py-4 text-sm text-slate-500">${dataEnvio}</td>
                 <td class="px-6 py-4">${anexo}</td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
-                    <a href="solicitacao_alterar.html?id=${item.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
+                    <a href="html/solicitacao_alterar.html?id=${item.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
                         Alterar
                     </a>
                     <button onclick="excluir(${item.id})" class="text-red-500 hover:text-red-700 text-sm font-bold transition-colors">

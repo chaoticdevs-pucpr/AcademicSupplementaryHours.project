@@ -25,7 +25,7 @@ async function logoff(){
 
 async function buscar(){
     try {
-        const retorno = await fetch("prof_validador_get.php");
+        const retorno = await fetch("php/prof_validador_get.php");
         const resposta = await retorno.json();
         if(resposta.status == "ok" && resposta.data && resposta.data.length > 0){
             preencherTabela(resposta.data);
@@ -41,7 +41,7 @@ async function buscar(){
 async function excluir(id){
     if(confirm("Tem certeza que deseja remover este professor da lista de validadores?")) {
         try {
-            const retorno = await fetch("prof_validador_excluir.php?id=" + id);
+            const retorno = await fetch("php/prof_validador_excluir.php?id=" + id);
             const resposta = await retorno.json();
             if(resposta.status == "ok"){
                 alert("SUCESSO: " + resposta.mensagem);
@@ -101,7 +101,7 @@ function preencherTabela(tabela){
                     <div class="text-[10px] text-slate-400 uppercase tracking-tighter">${prof.curso_nome || 'Sem curso'}</div>
                 </td>
                 <td class="px-6 py-4 text-right space-x-3">
-                    <a href="prof_validador_alterar.html?id=${prof.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
+                    <a href="html/prof_validador_alterar.html?id=${prof.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
                         Alterar
                     </a>
                     <button onclick="excluir(${prof.id})" class="text-red-500 hover:text-red-700 text-sm font-bold transition-colors">
