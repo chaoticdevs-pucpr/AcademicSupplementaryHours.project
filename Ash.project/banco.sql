@@ -147,6 +147,13 @@ INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (4, 'Roberto Josué', 
 INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof3@ash.com', '1234', 'PROFESSOR');
 INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (5, 'Adolfo Josué', '28765432100');
 
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof4@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (6, 'Rodrigo Rodolfo', '08765432100');
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof5@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (7, 'Roberto Rodolfo', '48765432100');
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof6@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (8, 'Adolfo Rodolfo', '38765432100');
+
 INSERT INTO CURSO (nome) VALUES ('Engenharia de Software');
 INSERT INTO CURSO (nome) VALUES ('Engenharia da Computação');
 
@@ -154,57 +161,35 @@ INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 3, 'A-M');
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 4, 'B-M');
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 5, 'U-N');
 
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 6, 'A-M');
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 7, 'B-M');
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 6, 'U-N');
+
 INSERT INTO MATRICULA (estudante_id, turma_id) VALUES (2, 1);
 
-INSERT INTO MANUAL_HC (curso_id, horas_objetivo, versao, data) VALUES (1, 100, 'v1.0', CURDATE());
 
-INSERT INTO CATEGORIA (manual_hc_id, max_horas, nome)
-VALUES (
-  (SELECT id FROM MANUAL_HC WHERE curso_id = 1 ORDER BY id DESC LIMIT 1),
-  30,
-  'Atividades Profissionais'
-);
-INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
-VALUES (
-  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades Profissionais' ORDER BY id DESC LIMIT 1),
-  10,
-  'Realização de Estágios'
-);
-INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
-VALUES (
-  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades Profissionais' ORDER BY id DESC LIMIT 1),
-  10,
-  'Realização de Atividades de Aceleração/Incubação de Startup'
-);
-INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
-VALUES (
-  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades Profissionais' ORDER BY id DESC LIMIT 1),
-  10,
-  'Realização de Atividades Profissionais na Área de Computação'
-);
+INSERT INTO MANUAL_HC (id, curso_id, horas_objetivo, versao, data) 
+VALUES (1, 1, 100, 'v1.0', CURDATE());
+INSERT INTO CATEGORIA (id, manual_hc_id, max_horas, nome) VALUES 
+(1, 1, 30, 'Atividades Profissionais'),
+(2, 1, 30, 'Atividades de Ação Social');
+INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome) VALUES 
+(1, 10, 'Realização de Estágios'),
+(1, 10, 'Realização de Atividades de Aceleração/Incubação de Startup'),
+(1, 10, 'Realização de Atividades Profissionais na Área de Computação'),
+(2, 10, 'Participação de Projetos em Caráter Social'),
+(2, 5, 'Participação na Clínica de TIC'),
+(2, 5, 'Participação como Mesário em Eleições Municipais, Estaduais e Federais');
 
-INSERT INTO CATEGORIA (manual_hc_id, max_horas, nome)
-VALUES (
-  (SELECT id FROM MANUAL_HC WHERE curso_id = 1 ORDER BY id DESC LIMIT 1),
-  30,
-  'Atividades de Ação Social'
-);
-INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
-VALUES (
-  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades de Ação Social' ORDER BY id DESC LIMIT 1),
-  10,
-  'Participação de Projetos em Caráter Social'
-);
-INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
-VALUES (
-  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades de Ação Social' ORDER BY id DESC LIMIT 1),
-  5,
-  'Participação na Clínica de TIC'
-);
-INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome)
-VALUES (
-  (SELECT id FROM CATEGORIA WHERE nome = 'Atividades de Ação Social' ORDER BY id DESC LIMIT 1),
-  5,
-  'Participação como Mesário em Eleições Municipais, Estaduais e Federais'
-);
-
+INSERT INTO MANUAL_HC (id, curso_id, horas_objetivo, versao, data) 
+VALUES (2, 2, 100, 'v1.0', CURDATE());
+INSERT INTO CATEGORIA (id, manual_hc_id, max_horas, nome) VALUES 
+(3, 2, 30, 'Atividades Profissionais'),
+(4, 2, 30, 'Atividades de Ação Social');
+INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome) VALUES 
+(3, 10, 'Realização de Estágios'),
+(3, 10, 'Realização de Atividades de Aceleração/Incubação de Startup'),
+(3, 10, 'Realização de Atividades Profissionais na Área de Computação'),
+(4, 10, 'Participação de Projetos em Caráter Social'),
+(4, 5, 'Participação na Clínica de TIC'),
+(4, 5, 'Participação como Mesário em Eleições Municipais, Estaduais e Federais');
