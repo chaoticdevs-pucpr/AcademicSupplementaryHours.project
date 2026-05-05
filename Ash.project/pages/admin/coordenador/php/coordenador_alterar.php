@@ -27,7 +27,7 @@ function email_valido($email){
     return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
 
-if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['celular'], $_POST['telefone'], $_POST['curso_id'])){
+if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['celular'], $_POST['telefone'], $_POST['curso_id'], $_POST['status'])){
     $id = (int)$_GET['id'];
     $nome = trim($_POST['nome'] ?? '');
     $email = trim($_POST['email'] ?? '');
@@ -36,8 +36,9 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
     $celular = somente_digitos($_POST['celular'] ?? '');
     $telefone = somente_digitos($_POST['telefone'] ?? '');
     $curso_id = (int)$_POST['curso_id'];
+    $status = trim($_POST['status'] ?? '');
 
-    if($id <= 0 || $nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $curso_id <= 0){
+    if($id <= 0 || $nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $curso_id <= 0 || $status === ''){
         $retorno = ['status' => 'nok', 'mensagem' => 'Preencha todos os campos obrigatorios. Telefone e opcional.', 'data' => []];
     }else if(!email_valido($email)){
         $retorno = ['status' => 'nok', 'mensagem' => 'Informe um e-mail valido.', 'data' => []];
@@ -50,14 +51,14 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
     }else{
         $linhas_usuario = 0;
 
-        $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ? WHERE id = ? AND perfil = 'COORDENADOR'");
-        $stmt->bind_param("ssi", $email, $senha, $id);
+        $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ?, nome = ?, cpf = ?, celular = ?, telefone = ?, status = ? WHERE id = ? AND perfil = 'COORDENADOR'");
+        $stmt->bind_param("sssssssi", $email, $senha, $nome, $cpf, $celular, $telefone, $status, $id);
         $stmt->execute();
         $linhas_usuario = $stmt->affected_rows;
         $stmt->close();
 
-        $stmt = $conexao->prepare("UPDATE COORDENADOR SET nome = ?, cpf = ?, celular = ?, telefone = ?, curso_id = ? WHERE usuario_id = ?");
-        $stmt->bind_param("ssssii", $nome, $cpf, $celular, $telefone, $curso_id, $id);
+        $stmt = $conexao->prepare("UPDATE COORDENADOR SET curso_id = ? WHERE usuario_id = ?");
+        $stmt->bind_param("ii", $curso_id, $id);
         $stmt->execute();
         $linhas_coordenador = $stmt->affected_rows;
 

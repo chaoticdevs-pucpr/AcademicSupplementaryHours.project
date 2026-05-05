@@ -25,7 +25,7 @@ function somenteDigitos(valor) {
 }
 
 function validarFormulario(dados) {
-    if (!dados.nome || !dados.email || !dados.senha || !dados.cpf || !dados.celular || !dados.turma_id) {
+    if (!dados.nome || !dados.email || !dados.senha || !dados.cpf || !dados.celular || !dados.turma_id || !dados.status) {
         return "Preencha todos os campos obrigatorios. Telefone e opcional.";
     }
 
@@ -71,8 +71,9 @@ async function novo() {
     var celular = somenteDigitos(document.getElementById("celular").value);
     var telefone = somenteDigitos(document.getElementById("telefone").value);
     var turma_id = document.getElementById("turma_id").value;
+    var status = document.getElementById("status").value;
 
-    const erroValidacao = validarFormulario({ nome, email, senha, cpf, celular, telefone, turma_id });
+    const erroValidacao = validarFormulario({ nome, email, senha, cpf, celular, telefone, turma_id, status });
     if (erroValidacao) {
         alert(erroValidacao);
         return;
@@ -86,6 +87,7 @@ async function novo() {
     fd.append("celular", celular);
     fd.append("telefone", telefone);
     fd.append("turma_id", turma_id);
+    fd.append("status", status);
 
     const retorno = await fetch("../php/estudante_novo.php", {
         method: "POST",

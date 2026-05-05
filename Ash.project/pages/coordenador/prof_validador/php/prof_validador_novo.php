@@ -23,7 +23,7 @@ function email_valido($email){
 	return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
 
-if(isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['cpf'], $_POST['celular'], $_POST['telefone'], $_POST['turma_id'])){
+if(isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['cpf'], $_POST['celular'], $_POST['telefone'], $_POST['turma_id'], $_POST['status'])){
 	$nome = trim($_POST['nome'] ?? '');
 	$email = trim($_POST['email'] ?? '');
 	$senha = trim($_POST['senha'] ?? '');
@@ -31,10 +31,11 @@ if(isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['cpf'], $_POST
 	$celular = somente_digitos($_POST['celular'] ?? '');
 	$telefone = somente_digitos($_POST['telefone'] ?? '');
 	$turma_id = (int)$_POST['turma_id'];
+	$status = trim($_POST['status'] ?? 'ATIVO');
 	$coord_id = (int)$_SESSION['usuario']['id'];
 
 	$erro = '';
-	if($nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $turma_id <= 0){
+	if($nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $turma_id <= 0 || $status === ''){
 		$erro = 'Preencha todos os campos obrigatorios. Telefone e opcional.';
 	}else if(!email_valido($email)){
 		$erro = 'Informe um e-mail valido.';
@@ -74,15 +75,15 @@ if(isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['cpf'], $_POST
 		}else{
 			$stmtTurma->close();
 
-			$stmt = $conexao->prepare("INSERT INTO USUARIO(email, senha, perfil) VALUES(?, ?, 'PROFESSOR')");
-			$stmt->bind_param("ss", $email, $senha);
+			$stmt = $conexao->prepare("INSERT INTO USUARIO(email, senha, perfil, nome, cpf, celular, telefone, status) VALUES(?, ?, 'PROFESSOR', ?, ?, ?, ?, ?)");
+			$stmt->bind_param("ssssssss", $email, $senha, $nome, $cpf, $celular, $telefone, $status);
 			$stmt->execute();
 			if($stmt->affected_rows > 0){
 				$usuario_id = $conexao->insert_id;
 				$stmt->close();
 
-				$stmt = $conexao->prepare("INSERT INTO PROF_VALIDADOR(usuario_id, nome, cpf, celular, telefone, cadastrado_por_coord_id) VALUES(?,?,?,?,?,?)");
-				$stmt->bind_param("issssi", $usuario_id, $nome, $cpf, $celular, $telefone, $coord_id);
+				$stmt = $conexao->prepare("INSERT INTO PROF_VALIDADOR(usuario_id, cadastrado_por_coord_id) VALUES(?,?)");
+				$stmt->bind_param("ii", $usuario_id, $coord_id);
 				$stmt->execute();
 
 				if($stmt->affected_rows > 0){

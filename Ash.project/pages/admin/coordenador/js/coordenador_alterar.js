@@ -33,7 +33,7 @@ function somenteDigitos(valor){
 }
 
 function validarFormulario(dados){
-    if(!dados.id || !dados.nome || !dados.email || !dados.senha || !dados.cpf || !dados.celular || !dados.curso_id){
+    if(!dados.id || !dados.nome || !dados.email || !dados.senha || !dados.cpf || !dados.celular || !dados.curso_id || !dados.status){
         return "Preencha todos os campos obrigatorios. Telefone e opcional.";
     }
 
@@ -87,6 +87,7 @@ async function buscar(id){
             document.getElementById("celular").value = r.celular;
             document.getElementById("telefone").value = r.telefone;
             document.getElementById("curso_id").value = r.curso_id;
+            document.getElementById("status").value = r.status;
         }else{
             alert(resposta.mensagem);
             window.location.href = "../coordenador_index.html";
@@ -105,8 +106,9 @@ async function alterar(){
     var celular  = somenteDigitos(document.getElementById("celular").value);
     var telefone = somenteDigitos(document.getElementById("telefone").value);
     var curso_id = document.getElementById("curso_id").value;
+    var status   = document.getElementById("status").value;
 
-    const erroValidacao = validarFormulario({ id, nome, email, senha, cpf, celular, telefone, curso_id });
+    const erroValidacao = validarFormulario({ id, nome, email, senha, cpf, celular, telefone, curso_id, status });
     if(erroValidacao){
         alert(erroValidacao);
         return;
@@ -121,6 +123,7 @@ async function alterar(){
     fd.append("celular", celular);
     fd.append("telefone", telefone);
     fd.append("curso_id", curso_id);
+    fd.append("status", status);
 
     try {
         const retorno = await fetch("../php/coordenador_alterar.php?id=" + id, {

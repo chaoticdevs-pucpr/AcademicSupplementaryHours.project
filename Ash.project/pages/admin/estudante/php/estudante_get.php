@@ -16,10 +16,10 @@ if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ADMIN'){
 }
 
 if(isset($_GET['id'])){
-    $stmt = $conexao->prepare("SELECT u.id, u.email, e.nome, e.cpf, e.celular, e.telefone, m.id AS matricula_id, t.id AS turma_id, t.nome AS turma_nome, c.id AS curso_id, c.nome AS curso_nome FROM USUARIO u INNER JOIN ESTUDANTE e ON e.usuario_id = u.id LEFT JOIN MATRICULA m ON m.estudante_id = e.usuario_id LEFT JOIN TURMA t ON t.id = m.turma_id LEFT JOIN CURSO c ON c.id = t.curso_id WHERE u.perfil = 'ESTUDANTE' AND u.id = ?");
+    $stmt = $conexao->prepare("SELECT u.id, u.email, u.nome, u.cpf, u.celular, u.telefone, u.status, m.id AS matricula_id, t.id AS turma_id, t.nome AS turma_nome, c.id AS curso_id, c.nome AS curso_nome FROM USUARIO u LEFT JOIN MATRICULA m ON m.estudante_id = u.id LEFT JOIN TURMA t ON t.id = m.turma_id LEFT JOIN CURSO c ON c.id = t.curso_id WHERE u.perfil = 'ESTUDANTE' AND u.id = ?");
     $stmt->bind_param("i", $_GET['id']);
 }else{
-    $stmt = $conexao->prepare("SELECT u.id, u.email, e.nome, e.cpf, e.celular, e.telefone, m.id AS matricula_id, t.id AS turma_id, t.nome AS turma_nome, c.id AS curso_id, c.nome AS curso_nome FROM USUARIO u INNER JOIN ESTUDANTE e ON e.usuario_id = u.id LEFT JOIN MATRICULA m ON m.estudante_id = e.usuario_id LEFT JOIN TURMA t ON t.id = m.turma_id LEFT JOIN CURSO c ON c.id = t.curso_id WHERE u.perfil = 'ESTUDANTE' ORDER BY e.nome");
+    $stmt = $conexao->prepare("SELECT u.id, u.email, u.nome, u.cpf, u.celular, u.telefone, u.status, m.id AS matricula_id, t.id AS turma_id, t.nome AS turma_nome, c.id AS curso_id, c.nome AS curso_nome FROM USUARIO u LEFT JOIN MATRICULA m ON m.estudante_id = u.id LEFT JOIN TURMA t ON t.id = m.turma_id LEFT JOIN CURSO c ON c.id = t.curso_id WHERE u.perfil = 'ESTUDANTE' ORDER BY u.nome");
 }
 
 $stmt->execute();
