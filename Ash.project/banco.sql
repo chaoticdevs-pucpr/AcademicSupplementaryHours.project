@@ -60,7 +60,7 @@ CREATE TABLE MATRICULA (
   id int PRIMARY KEY AUTO_INCREMENT,
   estudante_id int,
   turma_id int,
-  total_horas int,
+  total_horas decimal,
   FOREIGN KEY (estudante_id) REFERENCES ESTUDANTE (usuario_id),
   FOREIGN KEY (turma_id) REFERENCES TURMA (id)
 );
