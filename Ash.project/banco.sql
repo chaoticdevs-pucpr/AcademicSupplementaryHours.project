@@ -117,6 +117,7 @@ CREATE TABLE RELATORIO (
   prof_validador_id int,
   turma_id int,
   data date,
+  justificativa text,
   aprovado_por_coord_id int,
   status varchar(20) COMMENT 'PENDENTE, APROVADO',
   FOREIGN KEY (prof_validador_id) REFERENCES PROF_VALIDADOR (usuario_id),
