@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-   // valida_sessao('ESTUDANTE');
+    valida_sessao();
 
     // MUDANÇA AQUI: de "solicitacoes" para "btn-solicitacoes"
     const btnSolicitacoes = document.getElementById("solicitacoes"); 
