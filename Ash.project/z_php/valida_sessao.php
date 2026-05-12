@@ -13,7 +13,9 @@ if(isset($_SESSION['usuario'])){
 		$retorno = [
 			'status'    => 'ok',
 			'mensagem'  => '',
-			'data'      => []
+			'data'      => [
+				'nome' => $_SESSION['usuario']['nome'] ?? ''
+			]
 		];
 	}
 }else{
