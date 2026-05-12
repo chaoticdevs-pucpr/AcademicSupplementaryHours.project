@@ -54,16 +54,13 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
 
     $linhas_usuario = 0;
 
-    $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ? WHERE id = ? AND perfil = 'ESTUDANTE'");
-    $stmt->bind_param("ssi", $email, $senha, $id);
+    $status = strtoupper(trim($_POST['status'] ?? 'ATIVO'));
+    if($status !== 'ATIVO' && $status !== 'INATIVO') $status = 'ATIVO';
+
+    $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ?, nome = ?, cpf = ?, celular = ?, telefone = ?, status = ? WHERE id = ? AND perfil = 'ESTUDANTE'");
+    $stmt->bind_param("sssssssi", $email, $senha, $nome, $cpf, $celular, $telefone, $status, $id);
     $stmt->execute();
     $linhas_usuario = $stmt->affected_rows;
-    $stmt->close();
-
-    $stmt = $conexao->prepare("UPDATE ESTUDANTE SET nome = ?, cpf = ?, celular = ?, telefone = ? WHERE usuario_id = ?");
-    $stmt->bind_param("ssssi", $nome, $cpf, $celular, $telefone, $id);
-    $stmt->execute();
-    $linhas_estudante = $stmt->affected_rows;
     $stmt->close();
 
     $stmt = $conexao->prepare("UPDATE MATRICULA SET turma_id = ? WHERE estudante_id = ?");
@@ -71,7 +68,7 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
     $stmt->execute();
     $linhas_matricula = $stmt->affected_rows;
 
-    if($linhas_usuario > 0 || $linhas_estudante > 0 || $linhas_matricula > 0){
+    if($linhas_usuario > 0 || $linhas_matricula > 0){
         $retorno = ['status' => 'ok', 'mensagem' => 'Registro alterado com sucesso.', 'data' => []];
     }else{
         $stmt->close();
@@ -82,7 +79,7 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
 
         if($resultado->num_rows == 0){
             $stmt->close();
-            $stmt = $conexao->prepare("INSERT INTO MATRICULA(estudante_id, turma_id) VALUES(?,?)");
+            $stmt = $conexao->prepare("INSERT INTO MATRICULA(estudante_id, turma_id, total_horas) VALUES(?,?,0)");
             $stmt->bind_param("ii", $id, $turma_id);
             $stmt->execute();
             if($stmt->affected_rows > 0){

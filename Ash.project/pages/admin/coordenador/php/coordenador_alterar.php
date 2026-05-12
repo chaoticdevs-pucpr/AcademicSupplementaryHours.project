@@ -50,14 +50,17 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
     }else{
         $linhas_usuario = 0;
 
-        $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ? WHERE id = ? AND perfil = 'COORDENADOR'");
-        $stmt->bind_param("ssi", $email, $senha, $id);
+        $status = strtoupper(trim($_POST['status'] ?? 'ATIVO'));
+        if($status !== 'ATIVO' && $status !== 'INATIVO') $status = 'ATIVO';
+
+        $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ?, nome = ?, cpf = ?, celular = ?, telefone = ?, status = ? WHERE id = ? AND perfil = 'COORDENADOR'");
+        $stmt->bind_param("sssssssi", $email, $senha, $nome, $cpf, $celular, $telefone, $status, $id);
         $stmt->execute();
         $linhas_usuario = $stmt->affected_rows;
         $stmt->close();
 
-        $stmt = $conexao->prepare("UPDATE COORDENADOR SET nome = ?, cpf = ?, celular = ?, telefone = ?, curso_id = ? WHERE usuario_id = ?");
-        $stmt->bind_param("ssssii", $nome, $cpf, $celular, $telefone, $curso_id, $id);
+        $stmt = $conexao->prepare("UPDATE COORDENADOR SET curso_id = ? WHERE usuario_id = ?");
+        $stmt->bind_param("ii", $curso_id, $id);
         $stmt->execute();
         $linhas_coordenador = $stmt->affected_rows;
 

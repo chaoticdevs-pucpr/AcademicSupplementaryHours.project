@@ -101,6 +101,7 @@ async function novo(){
     fd.append("celular", celular);
     fd.append("telefone", telefone);
     fd.append("turma_id", turma_id);
+    fd.append("status", document.getElementById("status").value || 'ATIVO');
 
     const retorno = await fetch("../php/prof_validador_novo.php", {
         method: "POST",

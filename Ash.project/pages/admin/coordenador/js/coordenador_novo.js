@@ -87,6 +87,7 @@ async function novo(){
     fd.append("celular", celular);
     fd.append("telefone", telefone);
     fd.append("curso_id", curso_id);
+    fd.append("status", document.getElementById("status").value || 'ATIVO');
 
     try {
         const retorno = await fetch("../php/coordenador_novo.php", {

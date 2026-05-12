@@ -75,15 +75,12 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
         }else{
             $stmtTurma->close();
 
-            $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ? WHERE id = ? AND perfil = 'PROFESSOR'");
-            $stmt->bind_param("ssi", $email, $senha, $id);
-            $stmt->execute();
-            $stmt->close();
+            $status = strtoupper(trim($_POST['status'] ?? 'ATIVO'));
+            if($status !== 'ATIVO' && $status !== 'INATIVO') $status = 'ATIVO';
 
-            $stmt = $conexao->prepare("UPDATE PROF_VALIDADOR SET nome = ?, cpf = ?, celular = ?, telefone = ? WHERE usuario_id = ?");
-            $stmt->bind_param("ssssi", $nome, $cpf, $celular, $telefone, $id);
+            $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ?, nome = ?, cpf = ?, celular = ?, telefone = ?, status = ? WHERE id = ? AND perfil = 'PROFESSOR'");
+            $stmt->bind_param("sssssssi", $email, $senha, $nome, $cpf, $celular, $telefone, $status, $id);
             $stmt->execute();
-            $linhas_prof = $stmt->affected_rows;
             $stmt->close();
 
             $stmt = $conexao->prepare("UPDATE TURMA SET prof_validador_id = NULL WHERE prof_validador_id = ?");
@@ -96,7 +93,7 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
             $stmt->execute();
             $linhas_turma = $stmt->affected_rows;
 
-            if($linhas_prof > 0 || $linhas_turma > 0){
+            if($linhas_turma > 0){
                 $retorno = ['status' => 'ok', 'mensagem' => 'Registro alterado com sucesso.', 'data' => []];
             }else{
                 $retorno = ['status' => 'nok', 'mensagem' => 'Nao foi possivel alterar o registro.', 'data' => []];

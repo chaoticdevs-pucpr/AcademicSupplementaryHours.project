@@ -82,6 +82,7 @@ async function buscar(id){
         document.getElementById("celular").value = r.celular;
         document.getElementById("telefone").value = r.telefone;
         document.getElementById("turma_id").value = r.turma_id ?? "";
+        document.getElementById("status").value = r.status ?? 'ATIVO';
     }else{
         alert(resposta.mensagem);
             window.location.href = "../estudante_index.html";
@@ -113,6 +114,7 @@ async function alterar(){
     fd.append("celular", celular);
     fd.append("telefone", telefone);
     fd.append("turma_id", turma_id);
+    fd.append("status", document.getElementById("status").value || 'ATIVO');
 
     const retorno = await fetch("../php/estudante_alterar.php?id=" + id, {
         method: "POST",

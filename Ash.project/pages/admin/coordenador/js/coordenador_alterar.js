@@ -87,6 +87,7 @@ async function buscar(id){
             document.getElementById("celular").value = r.celular;
             document.getElementById("telefone").value = r.telefone;
             document.getElementById("curso_id").value = r.curso_id;
+            document.getElementById("status").value = r.status ?? 'ATIVO';
         }else{
             alert(resposta.mensagem);
             window.location.href = "../coordenador_index.html";
@@ -121,6 +122,7 @@ async function alterar(){
     fd.append("celular", celular);
     fd.append("telefone", telefone);
     fd.append("curso_id", curso_id);
+    fd.append("status", document.getElementById("status").value || 'ATIVO');
 
     try {
         const retorno = await fetch("../php/coordenador_alterar.php?id=" + id, {

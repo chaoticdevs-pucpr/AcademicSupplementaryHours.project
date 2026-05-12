@@ -23,18 +23,8 @@ if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'PROFESSOR'
 
 $professor_id = $_SESSION['usuario']['id'];
 
-// Buscar nome do professor
-$stmtProf = $conexao->prepare("SELECT pv.nome FROM PROF_VALIDADOR pv WHERE pv.usuario_id = ?");
-$stmtProf->bind_param("i", $professor_id);
-$stmtProf->execute();
-$resProf = $stmtProf->get_result();
-
-$professor_nome = "Professor";
-if($resProf->num_rows > 0){
-    $prof = $resProf->fetch_assoc();
-    $professor_nome = $prof['nome'] ?? "Professor";
-}
-$stmtProf->close();
+// Buscar nome do professor da sessão
+$professor_nome = $_SESSION['usuario']['nome'] ?? "Professor";
 
 // Buscar turmas do professor com contagem de pendências
 $stmt = $conexao->prepare("

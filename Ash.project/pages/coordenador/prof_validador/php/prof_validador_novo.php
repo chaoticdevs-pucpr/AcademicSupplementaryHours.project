@@ -74,15 +74,18 @@ if(isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['cpf'], $_POST
 		}else{
 			$stmtTurma->close();
 
-			$stmt = $conexao->prepare("INSERT INTO USUARIO(email, senha, perfil) VALUES(?, ?, 'PROFESSOR')");
-			$stmt->bind_param("ss", $email, $senha);
+			$status = strtoupper(trim($_POST['status'] ?? 'ATIVO'));
+			if($status !== 'ATIVO' && $status !== 'INATIVO') $status = 'ATIVO';
+
+			$stmt = $conexao->prepare("INSERT INTO USUARIO(email, senha, perfil, nome, cpf, celular, telefone, status) VALUES(?, ?, 'PROFESSOR', ?, ?, ?, ?, ?)");
+			$stmt->bind_param("sssssss", $email, $senha, $nome, $cpf, $celular, $telefone, $status);
 			$stmt->execute();
 			if($stmt->affected_rows > 0){
 				$usuario_id = $conexao->insert_id;
 				$stmt->close();
 
-				$stmt = $conexao->prepare("INSERT INTO PROF_VALIDADOR(usuario_id, nome, cpf, celular, telefone, cadastrado_por_coord_id) VALUES(?,?,?,?,?,?)");
-				$stmt->bind_param("issssi", $usuario_id, $nome, $cpf, $celular, $telefone, $coord_id);
+				$stmt = $conexao->prepare("INSERT INTO PROF_VALIDADOR(usuario_id, cadastrado_por_coord_id) VALUES(?,?)");
+				$stmt->bind_param("ii", $usuario_id, $coord_id);
 				$stmt->execute();
 
 				if($stmt->affected_rows > 0){
