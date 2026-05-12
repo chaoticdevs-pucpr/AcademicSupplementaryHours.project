@@ -30,27 +30,23 @@ $curso = $resCurso->fetch_assoc();
 $curso_id = (int)$curso['curso_id'];
 $stmtCurso->close();
 
-if(isset($_GET['id']) && isset($_POST['versao'], $_POST['data_manual'], $_POST['horas_objetivo'], $_POST['categoria_nome'], $_POST['categoria_max'], $_POST['subcategoria_nome'], $_POST['subcategoria_horas'])){
+if(isset($_GET['id'], $_POST['versao'], $_POST['data_manual'], $_POST['horas_objetivo'])){
+    $manual_id = (int)$_GET['id'];
     $versao = $_POST['versao'];
     $data_manual = $_POST['data_manual'];
     $horas_objetivo = (int)$_POST['horas_objetivo'];
-    $categoria_nome = $_POST['categoria_nome'];
-    $categoria_max = (int)$_POST['categoria_max'];
-    $subcategoria_nome = $_POST['subcategoria_nome'];
-    $subcategoria_horas = (int)$_POST['subcategoria_horas'];
-    $subcategoria_id = (int)$_GET['id'];
 
-    $stmt = $conexao->prepare("UPDATE MANUAL_HC m INNER JOIN CATEGORIA c ON c.manual_hc_id = m.id INNER JOIN SUBCATEGORIA s ON s.categoria_id = c.id SET m.versao = ?, m.data = ?, m.horas_objetivo = ?, c.nome = ?, c.max_horas = ?, s.nome = ?, s.quant_horas = ? WHERE s.id = ? AND m.curso_id = ?");
-    $stmt->bind_param("ssisssiii", $versao, $data_manual, $horas_objetivo, $categoria_nome, $categoria_max, $subcategoria_nome, $subcategoria_horas, $subcategoria_id, $curso_id);
+    $stmt = $conexao->prepare("UPDATE MANUAL_HC SET versao = ?, data = ?, horas_objetivo = ? WHERE id = ? AND curso_id = ?");
+    $stmt->bind_param("ssiii", $versao, $data_manual, $horas_objetivo, $manual_id, $curso_id);
     $stmt->execute();
 
     if($stmt->affected_rows > 0){
-        $retorno = ['status' => 'ok', 'mensagem' => 'Registro alterado com sucesso.', 'data' => []];
-    }else{
+        $retorno = ['status' => 'ok', 'mensagem' => 'Versão alterada com sucesso.', 'data' => []];
+    } else {
         $retorno = ['status' => 'nok', 'mensagem' => 'Nao foi possivel alterar.', 'data' => []];
     }
     $stmt->close();
-}else{
+} else {
     $retorno = ['status' => 'nok', 'mensagem' => 'Nao posso alterar sem informar ID.', 'data' => []];
 }
 

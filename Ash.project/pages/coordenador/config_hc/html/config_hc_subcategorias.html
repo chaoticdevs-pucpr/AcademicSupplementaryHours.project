@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASH - Subcategorias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-purple-200 selection:text-purple-900">
+    <div class="max-w-7xl mx-auto p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-900">Subcategorias</h1>
+                <p class="text-slate-500 mt-2">Gerencie as subcategorias da categoria selecionada.</p>
+                <p class="mt-2 text-sm text-slate-600">Versão: <span id="versaoLabel" class="font-semibold text-slate-900"></span></p>
+                <p class="mt-1 text-sm text-slate-600">Categoria: <span id="categoriaLabel" class="font-semibold text-slate-900"></span></p>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+                <a id="btnNovo" href="#" class="bg-slate-900 hover:bg-slate-950 text-white px-5 py-3 rounded-2xl font-semibold transition">Nova Subcategoria</a>
+                <a id="btnVoltar" href="#" class="text-sm text-slate-600 hover:text-slate-900 transition">Voltar para categorias</a>
+            </div>
+        </div>
+        <div id="lista" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden"></div>
+    </div>
+    <script src="../../../../z_js/valida_sessao.js"></script>
+    <script src="../js/config_hc_subcategorias.js"></script>
+</body>
+</html>

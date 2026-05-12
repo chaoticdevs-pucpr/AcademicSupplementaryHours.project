@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASH - Nova Subcategoria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-purple-200 selection:text-purple-900">
+    <div class="max-w-3xl mx-auto p-6">
+        <div class="mb-8">
+            <h1 class="text-3xl font-extrabold text-slate-900">Nova Subcategoria</h1>
+            <p class="text-slate-500 mt-2">Cadastre uma nova subcategoria para a categoria selecionada.</p>
+        </div>
+        <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
+            <form id="formSubcategoria" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Versão</label>
+                    <input id="versao" type="text" readonly class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-900" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Categoria ID</label>
+                    <input id="categoria_id" type="text" readonly class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-900" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Nome da subcategoria</label>
+                    <input id="subcategoria_nome" name="subcategoria_nome" required type="text" placeholder="Ex: Projetos" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Horas</label>
+                    <input id="subcategoria_horas" name="subcategoria_horas" required type="number" min="0" placeholder="Ex: 20" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                    <button type="submit" class="bg-slate-900 hover:bg-slate-950 text-white px-5 py-3 rounded-2xl font-semibold transition">Salvar Subcategoria</button>
+                    <a id="btnVoltar" href="#" class="text-sm text-slate-600 hover:text-slate-900 transition">Voltar para subcategorias</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../../../../z_js/valida_sessao.js"></script>
+    <script src="../js/config_hc_subcategoria_novo.js"></script>
+</body>
+</html>
