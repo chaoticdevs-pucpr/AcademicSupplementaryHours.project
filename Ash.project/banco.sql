@@ -6,12 +6,7 @@ CREATE TABLE USUARIO (
   id int PRIMARY KEY AUTO_INCREMENT,
   email varchar(100) UNIQUE,
   senha varchar(255),
-  perfil varchar(30), -- 'ESTUDANTE, PROFESSOR, COORDENADOR, ADMIN'
-  nome varchar(100),
-  cpf varchar(11) UNIQUE,
-  celular varchar(11),
-  telefone varchar(20),
-  status varchar(20) -- 'ATIVO, INATIVO'
+  perfil varchar(30) -- 'ESTUDANTE, PROFESSOR, COORDENADOR, ADMIN'
 );
 
 CREATE TABLE CURSO (
@@ -21,12 +16,17 @@ CREATE TABLE CURSO (
 
 CREATE TABLE ADMINISTRADOR (
   usuario_id int PRIMARY KEY,
+  nome varchar(100),
   FOREIGN KEY (usuario_id) REFERENCES USUARIO (id)
 );
 
 CREATE TABLE COORDENADOR (
   usuario_id int PRIMARY KEY,
   curso_id int,
+  nome varchar(100),
+  cpf varchar(11),
+  celular varchar(11),
+  telefone varchar(20),
   cadastrado_por_admin_id int,
   FOREIGN KEY (usuario_id) REFERENCES USUARIO (id),
   FOREIGN KEY (curso_id) REFERENCES CURSO (id),
@@ -35,6 +35,10 @@ CREATE TABLE COORDENADOR (
 
 CREATE TABLE PROF_VALIDADOR (
   usuario_id int PRIMARY KEY,
+  nome varchar(100),
+  cpf varchar(11),
+  celular varchar(11),
+  telefone varchar(20),
   cadastrado_por_coord_id int,
   FOREIGN KEY (usuario_id) REFERENCES USUARIO (id),
   FOREIGN KEY (cadastrado_por_coord_id) REFERENCES COORDENADOR (usuario_id)
@@ -42,6 +46,10 @@ CREATE TABLE PROF_VALIDADOR (
 
 CREATE TABLE ESTUDANTE (
   usuario_id int PRIMARY KEY,
+  nome varchar(100),
+  cpf varchar(11),
+  celular varchar(11),
+  telefone varchar(20),
   cadastrado_por_admin_id int,
   FOREIGN KEY (usuario_id) REFERENCES USUARIO (id),
   FOREIGN KEY (cadastrado_por_admin_id) REFERENCES ADMINISTRADOR (usuario_id)
@@ -60,7 +68,6 @@ CREATE TABLE MATRICULA (
   id int PRIMARY KEY AUTO_INCREMENT,
   estudante_id int,
   turma_id int,
-  total_horas decimal,
   FOREIGN KEY (estudante_id) REFERENCES ESTUDANTE (usuario_id),
   FOREIGN KEY (turma_id) REFERENCES TURMA (id)
 );
@@ -117,7 +124,6 @@ CREATE TABLE RELATORIO (
   prof_validador_id int,
   turma_id int,
   data date,
-  justificativa text,
   aprovado_por_coord_id int,
   status varchar(20) COMMENT 'PENDENTE, APROVADO',
   FOREIGN KEY (prof_validador_id) REFERENCES PROF_VALIDADOR (usuario_id),
@@ -126,42 +132,38 @@ CREATE TABLE RELATORIO (
 );
 
 -- Admin
-INSERT INTO USUARIO (email, senha, perfil, nome, cpf, celular, telefone, status) VALUES ('admin@ash.com', '1234', 'ADMIN', 'Daniel de Castro Felix', '00000000000', '11999999999', '', 'ATIVO');
-INSERT INTO ADMINISTRADOR (usuario_id) VALUES (1);
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('admin@ash.com', '1234', 'ADMIN');
+INSERT INTO ADMINISTRADOR (usuario_id, nome) VALUES (1, 'Daniel de Castro Felix');
 
 -- Estudantes
-INSERT INTO USUARIO (email, senha, perfil, nome, cpf, celular, telefone, status) VALUES ('estudante1@ash.com', '1234', 'ESTUDANTE', 'Rodrigo José', '12345678900', '11999999998', '', 'ATIVO');
-INSERT INTO ESTUDANTE (usuario_id, cadastrado_por_admin_id) VALUES (2, 1);
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('estudante1@ash.com', '1234', 'ESTUDANTE');
+INSERT INTO ESTUDANTE (usuario_id, nome, cpf) VALUES (2, 'Rodrigo José', '12345678900');
+
+-- Validadores
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof1@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (3, 'Rodrigo Josué', '98765432100');
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof2@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (4, 'Roberto Josué', '18765432100');
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof3@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (5, 'Adolfo Josué', '28765432100');
+
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof4@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (6, 'Rodrigo Rodolfo', '08765432100');
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof5@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (7, 'Roberto Rodolfo', '48765432100');
+INSERT INTO USUARIO (email, senha, perfil) VALUES ('prof6@ash.com', '1234', 'PROFESSOR');
+INSERT INTO PROF_VALIDADOR (usuario_id, nome, cpf) VALUES (8, 'Adolfo Rodolfo', '38765432100');
 
 INSERT INTO CURSO (nome) VALUES ('Engenharia de Software');
 INSERT INTO CURSO (nome) VALUES ('Engenharia da Computação');
 
--- Coordenador
-INSERT INTO USUARIO (email, senha, perfil, nome, cpf, celular, telefone, status) VALUES ('coord1@ash.com', '1234', 'COORDENADOR', 'Coordenador Geral', '22345678900', '11999999997', '', 'ATIVO');
-INSERT INTO COORDENADOR (usuario_id, curso_id, cadastrado_por_admin_id) VALUES (3, 1, 1);
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 3, 'A-M');
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 4, 'B-M');
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 5, 'U-N');
 
--- Validadores
-INSERT INTO USUARIO (email, senha, perfil, nome, cpf, celular, telefone, status) VALUES ('prof1@ash.com', '1234', 'PROFESSOR', 'Rodrigo Josué', '98765432100', '11999999991', '', 'ATIVO');
-INSERT INTO PROF_VALIDADOR (usuario_id, cadastrado_por_coord_id) VALUES (4, 3);
-INSERT INTO USUARIO (email, senha, perfil, nome, cpf, celular, telefone, status) VALUES ('prof2@ash.com', '1234', 'PROFESSOR', 'Roberto Josué', '18765432100', '11999999992', '', 'ATIVO');
-INSERT INTO PROF_VALIDADOR (usuario_id, cadastrado_por_coord_id) VALUES (5, 3);
-INSERT INTO USUARIO (email, senha, perfil, nome, cpf, celular, telefone, status) VALUES ('prof3@ash.com', '1234', 'PROFESSOR', 'Adolfo Josué', '28765432100', '11999999993', '', 'ATIVO');
-INSERT INTO PROF_VALIDADOR (usuario_id, cadastrado_por_coord_id) VALUES (6, 3);
-
-INSERT INTO USUARIO (email, senha, perfil, nome, cpf, celular, telefone, status) VALUES ('prof4@ash.com', '1234', 'PROFESSOR', 'Rodrigo Rodolfo', '08765432100', '11999999994', '', 'ATIVO');
-INSERT INTO PROF_VALIDADOR (usuario_id, cadastrado_por_coord_id) VALUES (7, 3);
-INSERT INTO USUARIO (email, senha, perfil, nome, cpf, celular, telefone, status) VALUES ('prof5@ash.com', '1234', 'PROFESSOR', 'Roberto Rodolfo', '48765432100', '11999999995', '', 'ATIVO');
-INSERT INTO PROF_VALIDADOR (usuario_id, cadastrado_por_coord_id) VALUES (8, 3);
-INSERT INTO USUARIO (email, senha, perfil, nome, cpf, celular, telefone, status) VALUES ('prof6@ash.com', '1234', 'PROFESSOR', 'Adolfo Rodolfo', '38765432100', '11999999996', '', 'ATIVO');
-INSERT INTO PROF_VALIDADOR (usuario_id, cadastrado_por_coord_id) VALUES (9, 3);
-
-INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 4, 'A-M');
-INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 5, 'B-M');
-INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 6, 'U-N');
-
-INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 7, 'A-M');
-INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 8, 'B-M');
-INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 7, 'U-N');
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 6, 'A-M');
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 7, 'B-M');
+INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 6, 'U-N');
 
 INSERT INTO MATRICULA (estudante_id, turma_id) VALUES (2, 1);
 

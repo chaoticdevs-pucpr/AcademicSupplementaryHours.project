@@ -35,10 +35,9 @@ if(isset($_POST['nome'])){
 	$celular = somente_digitos($_POST['celular'] ?? '');
 	$telefone = somente_digitos($_POST['telefone'] ?? '');
 	$curso_id = (int)$_POST['curso_id'];
-	$status = trim($_POST['status'] ?? 'ATIVO');
 	$admin_id = (int)$_SESSION['usuario']['id'];
 
-	if($nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $curso_id <= 0 || $status === ''){
+	if($nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $curso_id <= 0){
 		$retorno = ['status' => 'nok', 'mensagem' => 'Preencha todos os campos obrigatorios. Telefone e opcional.', 'data' => []];
 	}else if(!email_valido($email)){
 		$retorno = ['status' => 'nok', 'mensagem' => 'Informe um e-mail valido.', 'data' => []];
@@ -50,16 +49,16 @@ if(isset($_POST['nome'])){
 		$retorno = ['status' => 'nok', 'mensagem' => 'Telefone invalido. Informe 10 ou 11 digitos.', 'data' => []];
 	}else{
 
-		$stmt = $conexao->prepare("INSERT INTO USUARIO(email, senha, perfil, nome, cpf, celular, telefone, status) VALUES(?, ?, 'COORDENADOR', ?, ?, ?, ?, ?)");
-		$stmt->bind_param("ssssssss", $email, $senha, $nome, $cpf, $celular, $telefone, $status);
+		$stmt = $conexao->prepare("INSERT INTO USUARIO(email, senha, perfil) VALUES(?, ?, 'COORDENADOR')");
+		$stmt->bind_param("ss", $email, $senha);
 		$stmt->execute();
 
 		if($stmt->affected_rows > 0){
 			$usuario_id = $conexao->insert_id;
 			$stmt->close();
 
-			$stmt = $conexao->prepare("INSERT INTO COORDENADOR(usuario_id, curso_id, cadastrado_por_admin_id) VALUES(?,?,?)");
-			$stmt->bind_param("iii", $usuario_id, $curso_id, $admin_id);
+			$stmt = $conexao->prepare("INSERT INTO COORDENADOR(usuario_id, curso_id, nome, cpf, celular, telefone, cadastrado_por_admin_id) VALUES(?,?,?,?,?,?,?)");
+			$stmt->bind_param("iissssi", $usuario_id, $curso_id, $nome, $cpf, $celular, $telefone, $admin_id);
 			$stmt->execute();
 
 			if($stmt->affected_rows > 0){
