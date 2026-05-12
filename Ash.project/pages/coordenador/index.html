@@ -50,7 +50,7 @@
         </div>
 
         <!-- Grid de Cartões de Ação -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
             
             <!-- Cartão: Professores Validadores -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-lg hover:border-purple-200 transition-all duration-300 group flex flex-col items-center text-center">
@@ -77,6 +77,20 @@
                 </p>
                 <button id="manual_hc" class="w-full bg-slate-800 hover:bg-slate-900 text-white text-base font-medium px-6 py-3.5 rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2">
                     Configurar Manual de Horas <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Cartão: Turmas e Alunos -->
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-lg hover:border-cyan-200 transition-all duration-300 group flex flex-col items-center text-center md:col-span-2 xl:col-span-1">
+                <div class="w-20 h-20 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <i data-lucide="users-round" class="w-10 h-10"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-3">Turmas</h2>
+                <p class="text-slate-500 mb-8 flex-1">
+                    Consulte as turmas do seu curso e visualize a lista de alunos vinculados a cada uma delas, com espaço reservado para as horas totais.
+                </p>
+                <button id="turmas" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white text-base font-medium px-6 py-3.5 rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2">
+                    Acessar Turmas <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
             </div>
 
