@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASH - Nova Configuração HC</title>
-    <!-- Tailwind CSS -->
+    <title>ASH - Nova Versão de Manual HC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
@@ -40,8 +39,8 @@
         
         <!-- Título da Página -->
         <div class="mb-8 text-left">
-            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Nova Configuração HC</h1>
-            <p class="text-slate-500 mt-2 text-sm">Cadastre as regras de categorias e subcategorias do manual de horas complementares.</p>
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Nova Versão de Manual</h1>
+            <p class="text-slate-500 mt-2 text-sm">Cadastre apenas a versão do manual de horas complementares sem categoria ou subcategoria.</p>
         </div>
 
         <!-- Card do Formulário -->
@@ -73,53 +72,6 @@
                     </div>
                 </div>
 
-                <hr class="border-slate-100">
-
-                <!-- Seção: Categoria -->
-                <div>
-                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                        Categoria Principal
-                    </h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label for="categoria_nome" class="block text-sm font-semibold text-slate-700 mb-1.5">Nome da Categoria</label>
-                            <select id="categoria_nome"
-                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-pointer">
-                                <option value="">Selecione...</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="categoria_max" class="block text-sm font-semibold text-slate-700 mb-1.5">Máximo de Horas Permitido</label>
-                            <input type="number" id="categoria_max" placeholder="Limite global da categoria" 
-                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="border-slate-100">
-
-                <!-- Seção: Subcategoria -->
-                <div>
-                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
-                        Atividade Específica (Subcategoria)
-                    </h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label for="subcategoria_nome" class="block text-sm font-semibold text-slate-700 mb-1.5">Nome da Subcategoria</label>
-                            <select id="subcategoria_nome"
-                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-pointer">
-                                <option value="">Selecione...</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="subcategoria_horas" class="block text-sm font-semibold text-slate-700 mb-1.5">Horas por Atividade</label>
-                            <input type="number" id="subcategoria_horas" placeholder="Valor em horas" 
-                                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
-                        </div>
-                    </div>
-                </div>
 
             </div>
 
@@ -127,7 +79,7 @@
             <div class="px-6 py-5 bg-slate-50 border-t border-slate-100 flex justify-end">
                 <button id="enviar" class="bg-purple-600 hover:bg-purple-700 text-white px-10 py-3 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md flex items-center gap-2 active:scale-95">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                    Salvar Configuração
+                    Salvar Versão
                 </button>
             </div>
         </div>
@@ -136,10 +88,7 @@
         <div class="mt-8 text-center">
             <a href="../config_hc_index.html" class="text-sm font-medium text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Voltar para a lista de configurações
-            </a>
-        </div>
-
+                Voltar para a lista de versões
     </main>
 
     <!-- Scripts de Lógica -->

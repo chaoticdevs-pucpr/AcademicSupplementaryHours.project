@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASH - Turmas do Professor Validador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-6">
+                    <a href="../index.html" class="text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center bg-slate-50 hover:bg-purple-50 w-10 h-10 rounded-full" title="Início">
+                        <i data-lucide="home" class="w-5 h-5"></i>
+                    </a>
+                    <div class="flex items-center gap-3 border-l border-slate-200 pl-6">
+                        <div class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                            A.S.H<span class="text-purple-600">.</span>
+                        </div>
+                        <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide">
+                            Professor Validador
+                        </span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors flex items-center gap-2">
+                        <i data-lucide="log-out" class="w-4 h-4"></i> <span class="hidden sm:inline">Sair</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+        <div class="mb-8">
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-purple-600">Gerenciamento de Turmas</p>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-2">Turmas para Validação</h1>
+            <p class="text-slate-500 mt-3 text-base sm:text-lg max-w-3xl">
+                Visualize as turmas nas quais você é responsável pela validação de horas de atividades complementares.
+            </p>
+        </div>
+
+        <!-- Barra de Filtros -->
+        <section class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 lg:p-8 mb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 items-end">
+                <div>
+                    <label for="filtro_periodo" class="block text-sm font-semibold text-slate-700 mb-2">Período/Ano</label>
+                    <select id="filtro_periodo" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-purple-500 focus:ring-4 focus:ring-purple-100 outline-none">
+                        <option value="">Todos os períodos</option>
+                        <!-- Opções preenchidas via JS -->
+                    </select>
+                </div>
+
+                <div>
+                    <label for="filtro_semestre" class="block text-sm font-semibold text-slate-700 mb-2">Semestre</label>
+                    <select id="filtro_semestre" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-purple-500 focus:ring-4 focus:ring-purple-100 outline-none">
+                        <option value="">Todos os semestres</option>
+                        <option value="1">1º Semestre</option>
+                        <option value="2">2º Semestre</option>
+                    </select>
+                </div>
+
+                <div class="sm:col-span-2 lg:col-span-1">
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Filtrar por Status</label>
+                    <div class="flex gap-2 h-full">
+                        <button id="btn-todas" class="flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all bg-purple-600 text-white shadow-sm whitespace-nowrap">
+                            Todas
+                        </button>
+                        <button id="btn-pendentes" class="flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all bg-slate-100 text-slate-700 hover:bg-slate-200 whitespace-nowrap">
+                            Com Pendências
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid de Turmas -->
+        <section>
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold text-slate-900">
+                    Turmas
+                    <span id="turmas-count" class="text-slate-400 font-normal text-base ml-2"></span>
+                </h2>
+                <button id="btn-reload" class="text-slate-600 hover:text-purple-600 p-2 hover:bg-purple-50 rounded-lg transition-colors">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="turmas-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Skeletons de Carregamento -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 animate-pulse">
+                    <div class="h-4 bg-slate-200 rounded w-3/4 mb-4"></div>
+                    <div class="h-3 bg-slate-100 rounded w-1/2 mb-4"></div>
+                    <div class="h-12 bg-slate-100 rounded mt-6"></div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 animate-pulse">
+                    <div class="h-4 bg-slate-200 rounded w-3/4 mb-4"></div>
+                    <div class="h-3 bg-slate-100 rounded w-1/2 mb-4"></div>
+                    <div class="h-12 bg-slate-100 rounded mt-6"></div>
+                </div>
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 animate-pulse">
+                    <div class="h-4 bg-slate-200 rounded w-3/4 mb-4"></div>
+                    <div class="h-3 bg-slate-100 rounded w-1/2 mb-4"></div>
+                    <div class="h-12 bg-slate-100 rounded mt-6"></div>
+                </div>
+            </div>
+
+            <!-- Estado Vazio -->
+            <div id="estado-vazio" class="hidden rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-6 py-12 text-center text-slate-500">
+                <i data-lucide="inbox" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
+                <p class="text-lg font-medium">Nenhuma turma encontrada</p>
+                <p class="text-sm mt-1">Tente ajustar os filtros ou volte mais tarde.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-sm text-slate-500 text-center md:text-left">
+                    &copy; <span id="current-year"></span> ChaoticDevs - Academic Supplementary Hours. Todos os direitos reservados.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Termos</a>
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+    <script src="../../../z_js/valida_sessao.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

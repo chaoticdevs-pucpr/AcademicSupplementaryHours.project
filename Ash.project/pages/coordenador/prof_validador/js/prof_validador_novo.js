@@ -24,7 +24,7 @@ function somenteDigitos(valor){
 }
 
 function validarFormulario(dados){
-    if(!dados.nome || !dados.email || !dados.senha || !dados.cpf || !dados.celular || !dados.turma_id || !dados.status){
+    if(!dados.nome || !dados.email || !dados.senha || !dados.cpf || !dados.celular || !dados.turma_id){
         return "Preencha todos os campos obrigatorios. Telefone e opcional.";
     }
 

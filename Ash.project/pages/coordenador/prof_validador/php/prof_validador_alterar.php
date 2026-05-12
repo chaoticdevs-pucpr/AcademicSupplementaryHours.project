@@ -23,7 +23,7 @@ function email_valido($email){
     return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
 
-if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['celular'], $_POST['telefone'], $_POST['turma_id'], $_POST['status'])){
+if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $_POST['celular'], $_POST['telefone'], $_POST['turma_id'])){
     $id = (int)$_GET['id'];
     $nome = trim($_POST['nome'] ?? '');
     $email = trim($_POST['email'] ?? '');
@@ -32,11 +32,10 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
     $celular = somente_digitos($_POST['celular'] ?? '');
     $telefone = somente_digitos($_POST['telefone'] ?? '');
     $turma_id = (int)$_POST['turma_id'];
-    $status = trim($_POST['status'] ?? '');
     $coord_id = (int)$_SESSION['usuario']['id'];
 
     $erro = '';
-    if($id <= 0 || $nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $turma_id <= 0 || $status === ''){
+    if($id <= 0 || $nome === '' || $email === '' || $senha === '' || $cpf === '' || $celular === '' || $turma_id <= 0){
         $erro = 'Preencha todos os campos obrigatorios. Telefone e opcional.';
     }else if(!email_valido($email)){
         $erro = 'Informe um e-mail valido.';
@@ -76,13 +75,13 @@ if(isset($_GET['id']) && isset($_POST['nome'], $_POST['email'], $_POST['cpf'], $
         }else{
             $stmtTurma->close();
 
-            $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ?, nome = ?, cpf = ?, celular = ?, telefone = ?, status = ? WHERE id = ? AND perfil = 'PROFESSOR'");
-            $stmt->bind_param("sssssssi", $email, $senha, $nome, $cpf, $celular, $telefone, $status, $id);
+            $stmt = $conexao->prepare("UPDATE USUARIO SET email = ?, senha = ? WHERE id = ? AND perfil = 'PROFESSOR'");
+            $stmt->bind_param("ssi", $email, $senha, $id);
             $stmt->execute();
             $stmt->close();
 
-            $stmt = $conexao->prepare("UPDATE PROF_VALIDADOR SET cadastrado_por_coord_id = ? WHERE usuario_id = ?");
-            $stmt->bind_param("ii", $coord_id, $id);
+            $stmt = $conexao->prepare("UPDATE PROF_VALIDADOR SET nome = ?, cpf = ?, celular = ?, telefone = ? WHERE usuario_id = ?");
+            $stmt->bind_param("ssssi", $nome, $cpf, $celular, $telefone, $id);
             $stmt->execute();
             $linhas_prof = $stmt->affected_rows;
             $stmt->close();

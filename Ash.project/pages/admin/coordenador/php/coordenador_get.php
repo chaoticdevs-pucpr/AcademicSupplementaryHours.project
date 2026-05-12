@@ -20,10 +20,10 @@ if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ADMIN'){
 }
 
 if(isset($_GET['id'])){
-    $stmt = $conexao->prepare("SELECT u.id, u.email, u.nome, u.cpf, u.celular, u.telefone, u.status, c.curso_id FROM USUARIO u INNER JOIN COORDENADOR c ON c.usuario_id = u.id WHERE u.perfil = 'COORDENADOR' AND u.id = ?");
+    $stmt = $conexao->prepare("SELECT u.id, u.email, c.nome, c.cpf, c.celular, c.telefone, c.curso_id FROM USUARIO u INNER JOIN COORDENADOR c ON c.usuario_id = u.id WHERE u.perfil = 'COORDENADOR' AND u.id = ?");
     $stmt->bind_param("i", $_GET['id']);
 }else{
-    $stmt = $conexao->prepare("SELECT u.id, u.email, u.nome, u.cpf, u.celular, u.telefone, u.status, c.curso_id, cu.nome AS curso_nome FROM USUARIO u INNER JOIN COORDENADOR c ON c.usuario_id = u.id INNER JOIN CURSO cu ON cu.id = c.curso_id WHERE u.perfil = 'COORDENADOR' ORDER BY u.nome");
+    $stmt = $conexao->prepare("SELECT u.id, u.email, c.nome, c.cpf, c.celular, c.telefone, c.curso_id, cu.nome AS curso_nome FROM USUARIO u INNER JOIN COORDENADOR c ON c.usuario_id = u.id INNER JOIN CURSO cu ON cu.id = c.curso_id WHERE u.perfil = 'COORDENADOR' ORDER BY c.nome");
 }
 
 $stmt->execute();

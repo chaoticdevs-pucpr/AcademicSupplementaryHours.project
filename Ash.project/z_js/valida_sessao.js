@@ -1,25 +1,12 @@
-async function valida_sessao(perfilEsperado = ''){
-    try {
-        let url = '../php/valida_sessao.php';
-        if(perfilEsperado){
-            url += '?perfil=' + encodeURIComponent(perfilEsperado);
-        }
-        const retorno = await fetch(url);
-        const resposta = await retorno.json();
-        if(resposta.status == "nok"){
-            alert("AVISO: " + resposta.mensagem);
-            window.location.href = '../login/';
-        }
-    } catch(e) {
-        console.error("Erro ao validar sessao:", e);
+async function valida_sessao(){
+    const retorno = await fetch("../../z_php/valida_sessao.php");
+    const resposta = await retorno.json();
+    if(resposta.status == "nok"){
         window.location.href = '../login/';
+    } else if(resposta.data && resposta.data.nome){
+        const userNameElement = document.getElementById('user-name');
+        if(userNameElement){
+            userNameElement.textContent = resposta.data.nome;
+        }
     }
 }
-
-// async function valida_sessao(){
-//     const retorno = await fetch("../php/valida_sessao.php");
-//     const resposta = await retorno.json();
-//     if(resposta.status == "nok"){
-//         windows.location.href = '../login/';
-//     }
-// }

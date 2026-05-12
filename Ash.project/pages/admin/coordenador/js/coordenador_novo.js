@@ -24,7 +24,7 @@ function somenteDigitos(valor){
 }
 
 function validarFormulario(dados){
-    if(!dados.nome || !dados.email || !dados.senha || !dados.cpf || !dados.celular || !dados.curso_id || !dados.status){
+    if(!dados.nome || !dados.email || !dados.senha || !dados.cpf || !dados.celular || !dados.curso_id){
         return "Preencha todos os campos obrigatorios. Telefone e opcional.";
     }
 
@@ -72,9 +72,8 @@ async function novo(){
     var celular  = somenteDigitos(document.getElementById("celular").value);
     var telefone = somenteDigitos(document.getElementById("telefone").value);
     var curso_id = document.getElementById("curso_id").value;
-    var status   = document.getElementById("status").value;
 
-    const erroValidacao = validarFormulario({ nome, email, senha, cpf, celular, telefone, curso_id, status });
+    const erroValidacao = validarFormulario({ nome, email, senha, cpf, celular, telefone, curso_id });
     if(erroValidacao){
         alert(erroValidacao);
         return;
@@ -88,7 +87,6 @@ async function novo(){
     fd.append("celular", celular);
     fd.append("telefone", telefone);
     fd.append("curso_id", curso_id);
-    fd.append("status", status);
 
     try {
         const retorno = await fetch("../php/coordenador_novo.php", {

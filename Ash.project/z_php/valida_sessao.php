@@ -1,7 +1,5 @@
 <?php
 session_start();
-include_once('conexao.php');
-
 $perfil = isset($_GET['perfil']) ? $_GET['perfil'] : '';
 
 if(isset($_SESSION['usuario'])){
@@ -11,17 +9,13 @@ if(isset($_SESSION['usuario'])){
 			'mensagem'  => 'Perfil sem permissao para a tela.',
 			'data'      => []
 		];
-	}else if(isset($_SESSION['usuario']['status']) && $_SESSION['usuario']['status'] === 'INATIVO'){
-		$retorno = [
-			'status'    => 'nok',
-			'mensagem'  => 'Usuario inativo.',
-			'data'      => []
-		];
 	}else{
 		$retorno = [
 			'status'    => 'ok',
 			'mensagem'  => '',
-			'data'      => []
+			'data'      => [
+				'nome' => $_SESSION['usuario']['nome'] ?? ''
+			]
 		];
 	}
 }else{

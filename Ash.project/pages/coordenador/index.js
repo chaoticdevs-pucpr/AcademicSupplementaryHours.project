@@ -10,6 +10,10 @@ document.getElementById("manual_hc").addEventListener("click", () => {
     window.location.href = 'config_hc/config_hc_index.html';
 });
 
+document.getElementById("turmas").addEventListener("click", () => {
+    window.location.href = 'turmas/turmas_index.html';
+});
+
 document.getElementById("logoff").addEventListener("click", () => {
     logoff();
 });

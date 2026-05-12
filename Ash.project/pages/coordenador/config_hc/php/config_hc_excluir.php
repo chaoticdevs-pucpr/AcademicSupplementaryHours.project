@@ -31,17 +31,33 @@ $curso_id = (int)$curso['curso_id'];
 $stmtCurso->close();
 
 if(isset($_GET['id'])){
-    $stmt = $conexao->prepare("DELETE s FROM SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE s.id = ? AND m.curso_id = ?");
-    $stmt->bind_param("ii", $_GET['id'], $curso_id);
-    $stmt->execute();
+    $manual_id = (int)$_GET['id'];
+    $conexao->begin_transaction();
 
-    if($stmt->affected_rows > 0){
-        $retorno = ['status' => 'ok', 'mensagem' => 'Registro excluido.', 'data' => []];
-    }else{
-        $retorno = ['status' => 'nok', 'mensagem' => 'Registro nao excluido.', 'data' => []];
-    }
+    $stmt = $conexao->prepare("DELETE s FROM SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE m.id = ? AND m.curso_id = ?");
+    $stmt->bind_param("ii", $manual_id, $curso_id);
+    $stmt->execute();
     $stmt->close();
-}else{
+
+    $stmt = $conexao->prepare("DELETE c FROM CATEGORIA c INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE m.id = ? AND m.curso_id = ?");
+    $stmt->bind_param("ii", $manual_id, $curso_id);
+    $stmt->execute();
+    $stmt->close();
+
+    $stmt = $conexao->prepare("DELETE FROM MANUAL_HC WHERE id = ? AND curso_id = ?");
+    $stmt->bind_param("ii", $manual_id, $curso_id);
+    $stmt->execute();
+    $affected = $stmt->affected_rows;
+    $stmt->close();
+
+    if($affected > 0){
+        $conexao->commit();
+        $retorno = ['status' => 'ok', 'mensagem' => 'Versão excluída com sucesso.', 'data' => []];
+    } else {
+        $conexao->rollback();
+        $retorno = ['status' => 'nok', 'mensagem' => 'Nao foi possivel excluir a versao.', 'data' => []];
+    }
+} else {
     $retorno = ['status' => 'nok', 'mensagem' => 'E necessario informar um ID para exclusao.', 'data' => []];
 }
 

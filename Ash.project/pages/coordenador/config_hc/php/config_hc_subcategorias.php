@@ -1,5 +1,5 @@
 <?php
-    include_once('../../../../z_php/conexao.php');
+include_once('../../../../z_php/conexao.php');
 session_start();
 
 $retorno = [
@@ -32,6 +32,24 @@ $curso = $resCurso->fetch_assoc();
 $curso_id = (int)$curso['curso_id'];
 $stmtCurso->close();
 
+if(isset($_GET['subcategoria_id'])){
+    $subcategoria_id = (int)$_GET['subcategoria_id'];
+    $stmt = $conexao->prepare("SELECT s.id, s.nome, s.quant_horas, c.id AS categoria_id FROM SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE s.id = ? AND m.curso_id = ? LIMIT 1");
+    $stmt->bind_param("ii", $subcategoria_id, $curso_id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    if($linha = $resultado->fetch_assoc()){
+        $retorno = ['status' => 'ok', 'mensagem' => 'Subcategoria encontrada.', 'data' => [$linha]];
+    } else {
+        $retorno = ['status' => 'nok', 'mensagem' => 'Subcategoria nao encontrada.', 'data' => []];
+    }
+    $stmt->close();
+    $conexao->close();
+    header("Content-type:application/json;charset:utf-8");
+    echo json_encode($retorno);
+    exit;
+}
+
 if(!isset($_GET['categoria_id']) || (int)$_GET['categoria_id'] <= 0){
     $retorno = ['status' => 'nok', 'mensagem' => 'Categoria nao informada.', 'data' => []];
     header("Content-type:application/json;charset:utf-8");
@@ -51,17 +69,6 @@ while($linha = $resultado->fetch_assoc()){
     $tabela[] = $linha;
 }
 $stmt->close();
-
-if(count($tabela) == 0){
-    $stmtGlobal = $conexao->prepare("SELECT s.id, s.nome, s.quant_horas FROM SUBCATEGORIA s WHERE s.categoria_id = ? ORDER BY s.nome");
-    $stmtGlobal->bind_param("i", $categoria_id);
-    $stmtGlobal->execute();
-    $resultadoGlobal = $stmtGlobal->get_result();
-    while($linha = $resultadoGlobal->fetch_assoc()){
-        $tabela[] = $linha;
-    }
-    $stmtGlobal->close();
-}
 
 $retorno = ['status' => 'ok', 'mensagem' => 'Consulta efetuada.', 'data' => $tabela];
 $conexao->close();
