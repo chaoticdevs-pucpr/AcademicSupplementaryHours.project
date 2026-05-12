@@ -1,6 +1,6 @@
 <?php
 // Variáveis de conexão com o Banco de Dados
-$servidor = "localhost:3306";
+$servidor = "localhost:3307";
 $usuario  = "root";
 $senha    = "";
 $nome_banco = "ash_project";

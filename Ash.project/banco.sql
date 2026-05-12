@@ -102,7 +102,7 @@ CREATE TABLE SOLICITACAO (
   matricula_id int,
   subcategoria_id int,
   prof_validador_id int,
-  data_envio date,
+  data_envios TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   horas_brutas decimal,
   horas_validadas decimal,
   status varchar(20) COMMENT 'PENDENTE, APROVADO, RECUSADO',

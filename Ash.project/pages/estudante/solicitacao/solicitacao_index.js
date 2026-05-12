@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao('ESTUDANTE');
+    // valida_sessao('ESTUDANTE');
     buscar();
 });
 
@@ -110,7 +110,7 @@ function preencherTabela(tabela) {
                 : `<span class="text-slate-400 text-sm italic">Sem anexo</span>`;
 
             // Proteção contra datas "null" do banco
-            const dataEnvio = (item.data_envio && item.data_envio !== "null") ? item.data_envio : '---';
+            const dataEnvio = (item.data_envios && item.data_envios !== "null") ? item.data_envios : '---';
 
             html += `
             <tr class="hover:bg-slate-50 transition-colors">
