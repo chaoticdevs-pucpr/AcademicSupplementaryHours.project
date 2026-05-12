@@ -25,14 +25,47 @@
 
         if($senhaValida){
             $destino = '';
+            $nome = '';
             if($usuario['perfil'] == 'ADMIN'){
                 $destino = 'pages/admin/index.html';
+                $stmt_nome = $conexao->prepare("SELECT nome FROM ADMINISTRADOR WHERE usuario_id = ?");
+                $stmt_nome->bind_param("i", $usuario['id']);
+                $stmt_nome->execute();
+                $resultado_nome = $stmt_nome->get_result();
+                if($resultado_nome->num_rows > 0){
+                    $row = $resultado_nome->fetch_assoc();
+                    $nome = $row['nome'];
+                }
             }else if($usuario['perfil'] == 'COORDENADOR'){
                 $destino = 'pages/coordenador/index.html';
+                $stmt_nome = $conexao->prepare("SELECT nome FROM COORDENADOR WHERE usuario_id = ?");
+                $stmt_nome->bind_param("i", $usuario['id']);
+                $stmt_nome->execute();
+                $resultado_nome = $stmt_nome->get_result();
+                if($resultado_nome->num_rows > 0){
+                    $row = $resultado_nome->fetch_assoc();
+                    $nome = $row['nome'];
+                }
             }else if($usuario['perfil'] == 'PROFESSOR'){
                 $destino = 'pages/professor/index.html';
+                $stmt_nome = $conexao->prepare("SELECT nome FROM PROF_VALIDADOR WHERE usuario_id = ?");
+                $stmt_nome->bind_param("i", $usuario['id']);
+                $stmt_nome->execute();
+                $resultado_nome = $stmt_nome->get_result();
+                if($resultado_nome->num_rows > 0){
+                    $row = $resultado_nome->fetch_assoc();
+                    $nome = $row['nome'];
+                }
             }else if($usuario['perfil'] == 'ESTUDANTE'){
                 $destino = 'pages/estudante/index.html';
+                $stmt_nome = $conexao->prepare("SELECT nome FROM ESTUDANTE WHERE usuario_id = ?");
+                $stmt_nome->bind_param("i", $usuario['id']);
+                $stmt_nome->execute();
+                $resultado_nome = $stmt_nome->get_result();
+                if($resultado_nome->num_rows > 0){
+                    $row = $resultado_nome->fetch_assoc();
+                    $nome = $row['nome'];
+                }
             }
 
 
@@ -40,6 +73,7 @@
                 'id'        => $usuario['id'],
                 'email'     => $usuario['email'],
                 'perfil'    => $usuario['perfil'],
+                'nome'      => $nome,
                 'destino'   => $destino
             ];
 

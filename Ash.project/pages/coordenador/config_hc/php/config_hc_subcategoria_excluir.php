@@ -2,11 +2,7 @@
 include_once('../../../../z_php/conexao.php');
 session_start();
 
-$retorno = [
-    'status' => '',
-    'mensagem' => '',
-    'data' => []
-];
+$retorno = ['status' => '', 'mensagem' => '', 'data' => []];
 
 if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'COORDENADOR'){
     $retorno = ['status' => 'nok', 'mensagem' => 'Sem permissao.', 'data' => []];
@@ -30,22 +26,19 @@ $curso = $resCurso->fetch_assoc();
 $curso_id = (int)$curso['curso_id'];
 $stmtCurso->close();
 
-if(isset($_POST['versao'], $_POST['data_manual'], $_POST['horas_objetivo'])){
-    $versao = $_POST['versao'];
-    $data_manual = $_POST['data_manual'];
-    $horas_objetivo = (int)$_POST['horas_objetivo'];
-
-    $stmt = $conexao->prepare("INSERT INTO MANUAL_HC(curso_id, horas_objetivo, versao, data) VALUES(?,?,?,?)");
-    $stmt->bind_param("iiss", $curso_id, $horas_objetivo, $versao, $data_manual);
+if(isset($_GET['id'])){
+    $subcategoria_id = (int)$_GET['id'];
+    $stmt = $conexao->prepare("DELETE s FROM SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE s.id = ? AND m.curso_id = ?");
+    $stmt->bind_param("ii", $subcategoria_id, $curso_id);
     $stmt->execute();
     if($stmt->affected_rows > 0){
-        $retorno = ['status' => 'ok', 'mensagem' => 'Versão inserida com sucesso.', 'data' => []];
+        $retorno = ['status' => 'ok', 'mensagem' => 'Subcategoria excluída com sucesso.', 'data' => []];
     } else {
-        $retorno = ['status' => 'nok', 'mensagem' => 'Falha ao inserir versão.', 'data' => []];
+        $retorno = ['status' => 'nok', 'mensagem' => 'Nao foi possivel excluir a subcategoria.', 'data' => []];
     }
     $stmt->close();
 } else {
-    $retorno = ['status' => 'nok', 'mensagem' => 'Dados incompletos para inclusao.', 'data' => []];
+    $retorno = ['status' => 'nok', 'mensagem' => 'E necessario informar um ID para exclusao.', 'data' => []];
 }
 
 $conexao->close();

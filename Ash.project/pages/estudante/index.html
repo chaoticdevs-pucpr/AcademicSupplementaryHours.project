@@ -33,31 +33,122 @@
         </div>
     </header>
 
-    <main class="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col justify-center">
-        
-        <div class="text-center mb-12">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Bem-vindo ao seu Painel</h1>
-            <p class="text-slate-500 mt-3 text-base sm:text-lg max-w-xl mx-auto">
-                Gerencie suas horas complementares de forma simples e rápida. Acompanhe o status de cada envio em tempo real.
+   <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10">
+    
+    <!-- 1 & 2: Cabeçalho de Boas-vindas e Ação Principal -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+        <div class="text-center md:text-left">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Bem-vindo, <span id="user-name" class="text-indigo-600">Estudante</span>! 
+            </h1>
+            <p class="text-slate-500 mt-2 text-base">
+                Que bom ter você de volta. Vamos conferir como está o seu progresso acadêmico hoje?
             </p>
         </div>
+        
+        <button id="solicitacoes" class="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-8 py-4 rounded-2xl transition-all shadow-lg shadow-indigo-100 flex items-center justify-center gap-3 group">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+            Acessar minhas horas
+            <i data-lucide="chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+        </button>
+    </div>
 
-        <div class="max-w-4x1 mx-auto w-full flex flex-col md:flex-row gap-6 justify-center">
-            
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-xl hover:border-indigo-200 transition-all duration-300 group flex flex-col items-center text-center">
-                <div class="w-24 h-24 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <i data-lucide="file-text" class="w-12 h-12"></i>
+    <!-- 3: Gráfico Geral e Categorias -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Card do Gráfico Geral (Critério 1) -->
+        <div class="lg:col-span-1 bg-white rounded-3xl shadow-sm border border-slate-200 p-8 flex flex-col items-center justify-center">
+            <h3 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-8">Progresso Total</h3>
+            <div class="relative flex items-center justify-center">
+                <svg class="w-48 h-48 transform -rotate-90">
+                    <circle cx="96" cy="96" r="88" stroke="currentColor" stroke-width="12" fill="transparent" class="text-slate-100" />
+                    <circle id="progress-circle" cx="96" cy="96" r="88" stroke="currentColor" stroke-width="12" fill="transparent" 
+                        stroke-dasharray="552.9" stroke-dashoffset="552.9" class="text-indigo-600 transition-all duration-1000 ease-out" />
+                </svg>
+                <div class="absolute flex flex-col items-center">
+                    <span id="main-percentage" class="text-4xl font-black text-slate-900">0%</span>
+                    <span class="text-slate-400 text-xs font-medium">concluído</span>
                 </div>
-                <h2 class="text-2xl font-bold text-slate-900 mb-3">Minhas Solicitações</h2>
-                <p class="text-slate-500 mb-8 w-full max-w-sm leading-relaxed">
-                    Envie novos certificados, consulte solicitações em análise ou verifique o total de horas já validadas no sistema.
-                </p>
-                <button id="solicitacoes" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-base font-medium px-6 py-4 rounded-xl transition-all shadow-sm hover:shadow-indigo-200 flex items-center justify-center gap-2">
-                    Acessar minhas horas <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-            </div> 
+            </div>
+            <div class="mt-8 text-center">
+                <p class="text-slate-900 font-bold text-xl"><span id="hours-done">0</span>h <span class="text-slate-400 font-normal text-base">/ <span id="hours-target">200</span>h</span></p>
+            </div>
         </div>
-    </main>
+
+        <!-- Lista de Categorias e Subcategorias (Critério 2 e 3) -->
+        <div class="lg:col-span-2 space-y-4">
+            <h3 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-4">Detalhamento por Categoria</h3>
+            
+            <!-- Exemplo de Categoria: Pesquisa -->
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                <details class="group">
+                    <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-slate-50 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-amber-100 text-amber-600 p-2 rounded-lg">
+                                <i data-lucide="microscope" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-slate-700">Pesquisa</span>
+                                <p class="text-xs text-slate-400">Limite: 80h</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm font-bold text-slate-900">0h / 80h</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-5 pb-5 border-t border-slate-100 bg-slate-50/50">
+                        <!-- Subcategorias -->
+                        <div class="pt-4 space-y-3">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-600">Iniciação Científica</span>
+                                <span class="font-semibold text-slate-900">0h</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-600">Publicação de Artigos</span>
+                                <span class="font-semibold text-slate-900">0h</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Exemplo de Categoria: Extensão -->
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                <details class="group">
+                    <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-slate-50 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-emerald-100 text-emerald-600 p-2 rounded-lg">
+                                <i data-lucide="users" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-slate-700">Extensão</span>
+                                <p class="text-xs text-slate-400">Limite: 100h</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm font-bold text-slate-900">0h / 100h</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"></i>
+                        </div>
+                    </summary>
+                    <div class="px-5 pb-5 border-t border-slate-100 bg-slate-50/50">
+                        <div class="pt-4 space-y-3">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-600">Cursos e Eventos</span>
+                                <span class="font-semibold text-slate-900">0h</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-slate-600">Projetos Comunitários</span>
+                                <span class="font-semibold text-slate-900">0h</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+        </div>
+    </div>
+</main>
 
     <footer class="bg-slate-900 py-8 border-t border-slate-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
