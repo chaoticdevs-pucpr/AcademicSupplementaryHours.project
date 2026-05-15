@@ -17,7 +17,7 @@ if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ESTUDANTE'
 
 $estudante_id = (int)$_SESSION['usuario']['id'];
 
-$stmtMatricula = $conexao->prepare("SELECT m.id, t.prof_validador_id FROM MATRICULA m INNER JOIN TURMA t ON t.id = m.turma_id WHERE m.estudante_id = ? ORDER BY m.id LIMIT 1");
+$stmtMatricula = $conexao->prepare("SELECT m.turma_id, m.id, t.prof_validador_id FROM MATRICULA m INNER JOIN TURMA t ON t.id = m.turma_id WHERE m.estudante_id = ? ORDER BY m.id LIMIT 1");
 $stmtMatricula->bind_param("i", $estudante_id);
 $stmtMatricula->execute();
 $resMatricula = $stmtMatricula->get_result();
@@ -31,6 +31,7 @@ if($resMatricula->num_rows == 0){
 
 $matricula = $resMatricula->fetch_assoc();
 $matricula_id = (int)$matricula['id'];
+$turma_id = (int)$matricula['turma_id'];
 $prof_validador_id = $matricula['prof_validador_id'];
 $stmtMatricula->close();
 
@@ -39,8 +40,8 @@ if(isset($_POST['subcategoria_id'])){
 	$horas_brutas = (float)$_POST['horas_brutas'];
 	$justificativa = $_POST['justificativa'];
 
-	$stmt = $conexao->prepare("INSERT INTO SOLICITACAO(matricula_id, subcategoria_id, prof_validador_id, horas_brutas, horas_validadas, status, justificativa) VALUES(?, ?, ?, ?, 0, 'PENDENTE', ?)");
-	$stmt->bind_param("iiids", $matricula_id, $subcategoria_id, $prof_validador_id, $horas_brutas, $justificativa);
+	$stmt = $conexao->prepare("INSERT INTO SOLICITACAO(matricula_id, turma_id, subcategoria_id, prof_validador_id, horas_brutas, horas_validadas, status, justificativa) VALUES(?, ?, ?, ?, ?, 0, 'PENDENTE', ?)");
+	$stmt->bind_param("iiiids", $matricula_id, $turma_id, $subcategoria_id, $prof_validador_id, $horas_brutas, $justificativa);
 	$stmt->execute();
 
 	if($stmt->affected_rows > 0){
