@@ -44,7 +44,7 @@ async function carregarCategoria(id){
         if(dados.status === 'ok' && dados.data.length > 0){
             const categoria = dados.data[0];
             document.getElementById('categoria_nome').value = categoria.nome;
-            document.getElementById('categoria_max').value = categoria.max_horas;
+            document.getElementById('categoria_max').value = categoria.max_pontos;
         } else {
             alert('Categoria nao encontrada.');
             window.history.back();

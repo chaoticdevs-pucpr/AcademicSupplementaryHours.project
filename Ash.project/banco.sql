@@ -77,7 +77,7 @@ CREATE TABLE MANUAL_HC (
 CREATE TABLE CATEGORIA (
   id int PRIMARY KEY AUTO_INCREMENT,
   manual_hc_id int,
-  max_horas int,
+  max_pontos int,
   nome varchar(100),
   descricao text,
   FOREIGN KEY (manual_hc_id) REFERENCES MANUAL_HC (id)
@@ -168,7 +168,7 @@ INSERT INTO MATRICULA (estudante_id, turma_id, total_pontos) VALUES (2, 1, 0);
 
 INSERT INTO MANUAL_HC (id, curso_id, horas_objetivo, versao, data) 
 VALUES (1, 1, 100, 'v1.0', CURDATE());
-INSERT INTO CATEGORIA (id, manual_hc_id, max_horas, nome) VALUES 
+INSERT INTO CATEGORIA (id, manual_hc_id, max_pontos, nome) VALUES 
 (1, 1, 30, 'Atividades Profissionais'),
 (2, 1, 30, 'Atividades de Ação Social');
 INSERT INTO SUBCATEGORIA (categoria_id, quant_pontos, nome) VALUES 
@@ -181,7 +181,7 @@ INSERT INTO SUBCATEGORIA (categoria_id, quant_pontos, nome) VALUES
 
 INSERT INTO MANUAL_HC (id, curso_id, horas_objetivo, versao, data) 
 VALUES (2, 2, 100, 'v1.0', CURDATE());
-INSERT INTO CATEGORIA (id, manual_hc_id, max_horas, nome) VALUES 
+INSERT INTO CATEGORIA (id, manual_hc_id, max_pontos, nome) VALUES 
 (3, 2, 30, 'Atividades Profissionais'),
 (4, 2, 30, 'Atividades de Ação Social');
 INSERT INTO SUBCATEGORIA (categoria_id, quant_pontos, nome) VALUES 

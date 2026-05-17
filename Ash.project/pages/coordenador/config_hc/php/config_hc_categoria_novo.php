@@ -48,7 +48,7 @@ if(isset($_POST['versao'], $_POST['categoria_nome'], $_POST['categoria_max'])){
     $manual_id = (int)$manual['id'];
     $stmt->close();
 
-    $stmt = $conexao->prepare("INSERT INTO CATEGORIA(manual_hc_id, max_horas, nome) VALUES(?,?,?)");
+    $stmt = $conexao->prepare("INSERT INTO CATEGORIA(manual_hc_id, max_pontos, nome) VALUES(?,?,?)");
     $stmt->bind_param("iis", $manual_id, $categoria_max, $categoria_nome);
     $stmt->execute();
     if($stmt->affected_rows > 0){

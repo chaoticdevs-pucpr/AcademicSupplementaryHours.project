@@ -34,7 +34,7 @@ $stmtCurso->close();
 
 if(isset($_GET['categoria_id'])){
     $categoria_id = (int)$_GET['categoria_id'];
-    $stmt = $conexao->prepare("SELECT c.id, c.nome, c.max_horas, m.versao FROM CATEGORIA c INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE c.id = ? AND m.curso_id = ? LIMIT 1");
+    $stmt = $conexao->prepare("SELECT c.id, c.nome, c.max_pontos, m.versao FROM CATEGORIA c INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE c.id = ? AND m.curso_id = ? LIMIT 1");
     $stmt->bind_param("ii", $categoria_id, $curso_id);
     $stmt->execute();
     $resultado = $stmt->get_result();
@@ -52,7 +52,7 @@ if(isset($_GET['categoria_id'])){
 
 if(isset($_GET['versao'])){
     $versao = $_GET['versao'];
-    $stmt = $conexao->prepare("SELECT c.id, c.nome, c.max_horas FROM CATEGORIA c INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE m.curso_id = ? AND m.versao = ? ORDER BY c.nome");
+    $stmt = $conexao->prepare("SELECT c.id, c.nome, c.max_pontos FROM CATEGORIA c INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE m.curso_id = ? AND m.versao = ? ORDER BY c.nome");
     $stmt->bind_param("is", $curso_id, $versao);
     $stmt->execute();
     $resultado = $stmt->get_result();
