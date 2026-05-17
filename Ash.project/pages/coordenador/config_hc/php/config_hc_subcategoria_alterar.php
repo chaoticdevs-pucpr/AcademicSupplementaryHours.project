@@ -30,9 +30,10 @@ if(isset($_GET['id'], $_POST['subcategoria_nome'], $_POST['subcategoria_horas'])
     $subcategoria_id = (int)$_GET['id'];
     $subcategoria_nome = trim($_POST['subcategoria_nome']);
     $subcategoria_horas = (int)$_POST['subcategoria_horas'];
+    $subcategoria_descricao = trim($_POST['subcategoria_descricao'] ?? '');
 
-    $stmt = $conexao->prepare("UPDATE SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id SET s.nome = ?, s.quant_pontos = ? WHERE s.id = ? AND m.curso_id = ?");
-    $stmt->bind_param("siii", $subcategoria_nome, $subcategoria_horas, $subcategoria_id, $curso_id);
+    $stmt = $conexao->prepare("UPDATE SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id SET s.nome = ?, s.quant_pontos = ?, s.descricao = ? WHERE s.id = ? AND m.curso_id = ?");
+    $stmt->bind_param("sisii", $subcategoria_nome, $subcategoria_horas, $subcategoria_descricao, $subcategoria_id, $curso_id);
     $stmt->execute();
     if($stmt->affected_rows > 0){
         $retorno = ['status' => 'ok', 'mensagem' => 'Subcategoria alterada com sucesso.', 'data' => []];

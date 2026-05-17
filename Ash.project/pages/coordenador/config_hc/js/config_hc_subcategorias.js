@@ -72,12 +72,13 @@ async function excluir(id){
 function preencherTabela(tabela){
     let html = `
     <div class="overflow-x-auto shadow-sm ring-1 ring-slate-200 rounded-xl bg-white">
-        <table class="w-full text-left border-collapse min-w-[680px]">
+        <table class="w-full text-left border-collapse min-w-[860px]">
             <thead class="bg-slate-50 border-b border-slate-200">
                 <tr>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Subcategoria</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Horas</th>
+                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Descrição</th>
                     <th class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
@@ -86,7 +87,7 @@ function preencherTabela(tabela){
     if(!tabela || tabela.length === 0){
         html += `
         <tr>
-            <td colspan="4" class="py-12 text-center text-slate-500 text-sm">Nenhuma subcategoria registrada nesta categoria.</td>
+            <td colspan="5" class="py-12 text-center text-slate-500 text-sm">Nenhuma subcategoria registrada nesta categoria.</td>
         </tr>`;
     } else {
         const params = new URLSearchParams(window.location.search);
@@ -98,6 +99,7 @@ function preencherTabela(tabela){
                 <td class="px-6 py-4 text-sm font-medium text-slate-400">${item.id}</td>
                 <td class="px-6 py-4 text-sm text-slate-900">${item.nome}</td>
                 <td class="px-6 py-4 text-sm text-slate-600">${item.quant_pontos} pontos</td>
+                <td class="px-6 py-4 text-sm text-slate-600">${item.descricao || 'Sem descrição'}</td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="config_hc_subcategoria_alterar.html?subcategoria_id=${item.id}&categoria_id=${encodeURIComponent(categoriaId)}&versao=${encodeURIComponent(versao)}" class="text-slate-600 hover:text-slate-900 text-sm font-bold">Alterar</a>
                     <button onclick="excluir(${item.id})" class="text-red-500 hover:text-red-700 text-sm font-bold">Excluir</button>

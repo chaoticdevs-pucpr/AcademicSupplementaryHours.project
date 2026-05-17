@@ -91,7 +91,10 @@ function preencherTabela(tabela, versao){
             html += `
             <tr class="hover:bg-slate-50 transition-colors">
                 <td class="px-6 py-4 text-sm font-medium text-slate-400">${item.id}</td>
-                <td class="px-6 py-4 text-sm text-slate-900">${item.nome}</td>
+                <td class="px-6 py-4">
+                    <div class="text-sm font-medium text-slate-900">${item.nome}</div>
+                    <div class="text-xs text-slate-500 mt-1">${item.descricao || 'Sem descrição'}</div>
+                </td>
                 <td class="px-6 py-4 text-sm text-slate-600">${item.max_pontos} pontos</td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="config_hc_subcategorias.html?categoria_id=${item.id}&versao=${encodeURIComponent(versao)}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">Subcategorias</a>

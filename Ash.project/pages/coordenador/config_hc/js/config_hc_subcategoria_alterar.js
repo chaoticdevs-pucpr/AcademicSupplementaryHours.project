@@ -48,6 +48,7 @@ async function carregarSubcategoria(id){
             const sub = dados.data[0];
             document.getElementById('subcategoria_nome').value = sub.nome;
             document.getElementById('subcategoria_horas').value = sub.quant_pontos;
+            document.getElementById('subcategoria_descricao').value = sub.descricao || '';
         } else {
             alert('Subcategoria nao encontrada.');
             window.history.back();

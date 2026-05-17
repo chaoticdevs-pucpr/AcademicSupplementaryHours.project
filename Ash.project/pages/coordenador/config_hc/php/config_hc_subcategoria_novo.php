@@ -30,6 +30,7 @@ if(isset($_POST['categoria_id'], $_POST['subcategoria_nome'], $_POST['subcategor
     $categoria_id = (int)$_POST['categoria_id'];
     $subcategoria_nome = trim($_POST['subcategoria_nome']);
     $subcategoria_horas = (int)$_POST['subcategoria_horas'];
+    $subcategoria_descricao = trim($_POST['subcategoria_descricao'] ?? '');
 
     $stmt = $conexao->prepare("SELECT c.id FROM CATEGORIA c INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE c.id = ? AND m.curso_id = ? LIMIT 1");
     $stmt->bind_param("ii", $categoria_id, $curso_id);
@@ -45,8 +46,8 @@ if(isset($_POST['categoria_id'], $_POST['subcategoria_nome'], $_POST['subcategor
     }
     $stmt->close();
 
-    $stmt = $conexao->prepare("INSERT INTO SUBCATEGORIA(categoria_id, nome, quant_pontos) VALUES(?,?,?)");
-    $stmt->bind_param("isi", $categoria_id, $subcategoria_nome, $subcategoria_horas);
+    $stmt = $conexao->prepare("INSERT INTO SUBCATEGORIA(categoria_id, nome, quant_pontos, descricao) VALUES(?,?,?,?)");
+    $stmt->bind_param("isis", $categoria_id, $subcategoria_nome, $subcategoria_horas, $subcategoria_descricao);
     $stmt->execute();
     if($stmt->affected_rows > 0){
         $retorno = ['status' => 'ok', 'mensagem' => 'Subcategoria inserida com sucesso.', 'data' => []];
