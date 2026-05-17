@@ -27,7 +27,7 @@ $solicitacao_id = (int)$_GET['id'];
 $acao = strtoupper(trim($_POST['acao']));
 $justificativa_recusa = trim($_POST['justificativa_recusa'] ?? '');
 
-$stmt = $conexao->prepare("SELECT id, horas_brutas, status, justificativa FROM SOLICITACAO WHERE id = ? AND prof_validador_id = ? LIMIT 1");
+$stmt = $conexao->prepare("SELECT id, horas_brutas, pontos_validados, status, justificativa FROM SOLICITACAO WHERE id = ? AND prof_validador_id = ? LIMIT 1");
 $stmt->bind_param("ii", $solicitacao_id, $professor_id);
 $stmt->execute();
 $resultado = $stmt->get_result();
@@ -53,12 +53,12 @@ if(strtoupper($solicitacao['status']) !== 'PENDENTE'){
 }
 
 $novos_status = null;
-$novas_horas_validadas = 0;
+$novos_pontos_validados = 0;
 $nova_justificativa = $solicitacao['justificativa'] ?? '';
 
 if($acao === 'APROVAR'){
     $novos_status = 'APROVADO';
-    $novas_horas_validadas = (float)$solicitacao['horas_brutas'];
+    $novos_pontos_validados = (float)$solicitacao['horas_brutas'];
 } elseif($acao === 'RECUSAR'){
     if($justificativa_recusa === ''){
         $conexao->close();
@@ -69,7 +69,7 @@ if($acao === 'APROVAR'){
     }
 
     $novos_status = 'RECUSADO';
-    $novas_horas_validadas = 0;
+    $novos_pontos_validados = 0;
     $prefixo = trim($nova_justificativa);
     $blocoRecusa = 'Justificativa de recusa do Professor Validador: ' . $justificativa_recusa;
     if($prefixo !== ''){
@@ -85,8 +85,8 @@ if($acao === 'APROVAR'){
     exit;
 }
 
-$stmt = $conexao->prepare("UPDATE SOLICITACAO SET status = ?, horas_validadas = ?, justificativa = ? WHERE id = ? AND prof_validador_id = ? AND status = 'PENDENTE'");
-$stmt->bind_param("sdsii", $novos_status, $novas_horas_validadas, $nova_justificativa, $solicitacao_id, $professor_id);
+$stmt = $conexao->prepare("UPDATE SOLICITACAO SET status = ?, pontos_validados = ?, justificativa = ? WHERE id = ? AND prof_validador_id = ? AND status = 'PENDENTE'");
+$stmt->bind_param("sdsii", $novos_status, $novos_pontos_validados, $nova_justificativa, $solicitacao_id, $professor_id);
 $stmt->execute();
 
 if($stmt->affected_rows > 0){

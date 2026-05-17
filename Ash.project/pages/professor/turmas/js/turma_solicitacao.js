@@ -79,7 +79,7 @@ function preencherTela(item) {
     document.getElementById('categoria-nome').textContent = item.categoria_nome || '---';
     document.getElementById('subcategoria-nome').textContent = item.subcategoria_nome || '---';
     document.getElementById('horas-brutas').textContent = formatHoras(item.horas_brutas);
-    document.getElementById('horas-validadas').textContent = formatHoras(item.horas_validadas);
+    document.getElementById('pontos-validados').textContent = formatHoras(item.pontos_validados);
     document.getElementById('data-envio').textContent = item.data_envios || '---';
     document.getElementById('justificativa-estudante').value = item.justificativa || '';
 

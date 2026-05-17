@@ -40,7 +40,7 @@ if(isset($_POST['subcategoria_id'])){
 	$horas_brutas = (float)$_POST['horas_brutas'];
 	$justificativa = $_POST['justificativa'];
 
-	$stmt = $conexao->prepare("INSERT INTO SOLICITACAO(matricula_id, turma_id, subcategoria_id, prof_validador_id, horas_brutas, horas_validadas, status, justificativa) VALUES(?, ?, ?, ?, ?, 0, 'PENDENTE', ?)");
+	$stmt = $conexao->prepare("INSERT INTO SOLICITACAO(matricula_id, turma_id, subcategoria_id, prof_validador_id, horas_brutas, pontos_validados, status, justificativa) VALUES(?, ?, ?, ?, ?, 0, 'PENDENTE', ?)");
 	$stmt->bind_param("iiiids", $matricula_id, $turma_id, $subcategoria_id, $prof_validador_id, $horas_brutas, $justificativa);
 	$stmt->execute();
 

@@ -143,7 +143,7 @@ function preencherTabela(tabela){
                     <div class="text-xs font-medium text-slate-700">${aluno.turma_nome || 'Sem turma'}</div>
                     <div class="text-[10px] text-slate-400 uppercase tracking-tighter">${aluno.curso_nome || 'Sem curso'}</div>
                 </td>
-                <td class="px-6 py-4 text-sm font-semibold text-cyan-600">${parseFloat(aluno.total_horas || 0).toFixed(2)}</td>
+                <td class="px-6 py-4 text-sm font-semibold text-cyan-600">${parseFloat(aluno.total_pontos || 0).toFixed(2)}</td>
             </tr>`;
         }
     }

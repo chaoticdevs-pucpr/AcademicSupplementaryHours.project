@@ -61,7 +61,7 @@ async function carregarSubcategorias(){
     if(resposta.status == "ok"){
         var html = '<option value="">Selecione...</option>';
         for(var i = 0; i < resposta.data.length; i++){
-            html += `<option value="${resposta.data[i].id}">${resposta.data[i].nome} (${resposta.data[i].quant_horas}h)</option>`;
+            html += `<option value="${resposta.data[i].id}">${resposta.data[i].nome} (${resposta.data[i].quant_pontos} pontos)</option>`;
         }
         document.getElementById("subcategoria_id").innerHTML = html;
     }else{

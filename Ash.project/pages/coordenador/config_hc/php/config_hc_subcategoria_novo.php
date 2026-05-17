@@ -45,7 +45,7 @@ if(isset($_POST['categoria_id'], $_POST['subcategoria_nome'], $_POST['subcategor
     }
     $stmt->close();
 
-    $stmt = $conexao->prepare("INSERT INTO SUBCATEGORIA(categoria_id, nome, quant_horas) VALUES(?,?,?)");
+    $stmt = $conexao->prepare("INSERT INTO SUBCATEGORIA(categoria_id, nome, quant_pontos) VALUES(?,?,?)");
     $stmt->bind_param("isi", $categoria_id, $subcategoria_nome, $subcategoria_horas);
     $stmt->execute();
     if($stmt->affected_rows > 0){
