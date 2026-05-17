@@ -39,7 +39,7 @@
     </header>
 
     <!-- Conteúdo Principal -->
-    <main class="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <main class="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         
         <!-- Cabeçalho da Página (Igual à referência da imagem) -->
         <div class="text-center mb-12">
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Grid de Cartões de Ação -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 lg:gap-7">
             
             <!-- Cartão: Professores Validadores -->
             <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-lg hover:border-purple-200 transition-all duration-300 group flex flex-col items-center text-center">
@@ -81,7 +81,7 @@
             </div>
 
             <!-- Cartão: Turmas e Alunos -->
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-lg hover:border-cyan-200 transition-all duration-300 group flex flex-col items-center text-center md:col-span-2 xl:col-span-1">
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 hover:shadow-lg hover:border-cyan-200 transition-all duration-300 group flex flex-col items-center text-center">
                 <div class="w-20 h-20 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <i data-lucide="users-round" class="w-10 h-10"></i>
                 </div>
@@ -97,6 +97,25 @@
         </div>
 
     </main>
+     <footer id="contacto" class="bg-slate-900 py-8 border-t border-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <p class="text-sm text-slate-500 text-center md:text-left">
+                &copy; <span id="current-year"></span> ChaoticDevs - Academic Supplementary Hours. Todos os direitos reservados.
+            </p>
+
+                <div class="flex space-x-6">
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Termos de Serviço</a>
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
 
     <!-- Inicialização dos Ícones -->
     <script>

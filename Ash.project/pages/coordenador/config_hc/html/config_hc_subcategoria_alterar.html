@@ -5,38 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASH - Alterar Subcategoria</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-purple-200 selection:text-purple-900">
-    <div class="max-w-3xl mx-auto p-6">
-        <div class="mb-8">
-            <h1 class="text-3xl font-extrabold text-slate-900">Alterar Subcategoria</h1>
-            <p class="text-slate-500 mt-2">Atualize os dados da subcategoria selecionada.</p>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-6">
+                <button type="button" onclick="history.back()" class="text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center bg-slate-50 hover:bg-purple-50 w-10 h-10 rounded-full" title="Voltar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <div class="flex items-center gap-3 border-l border-slate-200 pl-6">
+                    <span class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                        A.S.H<span class="text-purple-600">.</span>
+                    </span>
+                    <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide hidden sm:inline-block">
+                        Coordenador
+                    </span>
+                </div>
+            </div>
+            <nav class="flex items-center gap-4 sm:gap-6">
+                <a href="../config_hc_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Versões</a>
+                <a href="../../prof_validador/prof_validador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Prof. Validador</a>
+                <div class="w-px h-5 bg-slate-200"></div>
+                <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 flex items-center gap-2 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Sair
+                </button>
+            </nav>
         </div>
-        <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
-            <form id="formSubcategoria" class="space-y-6">
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Versão</label>
-                    <input id="versao" type="text" readonly class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-900" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Categoria ID</label>
-                    <input id="categoria_id" type="text" readonly class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-900" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Nome da subcategoria</label>
-                    <input id="subcategoria_nome" name="subcategoria_nome" required type="text" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Horas</label>
-                    <input id="subcategoria_horas" name="subcategoria_horas" required type="number" min="0" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
-                </div>
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                    <button type="submit" class="bg-slate-900 hover:bg-slate-950 text-white px-5 py-3 rounded-2xl font-semibold transition">Salvar Alterações</button>
-                    <a id="btnVoltar" href="#" class="text-sm text-slate-600 hover:text-slate-900 transition">Voltar para subcategorias</a>
-                </div>
-            </form>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-12">
+        <div class="mb-8 text-left">
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Alterar Subcategoria</h1>
+            <p class="text-slate-500 mt-2 text-sm">Atualize os dados da subcategoria selecionada.</p>
         </div>
-    </div>
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 sm:p-8 space-y-6">
+                <form id="formSubcategoria" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">Versão</label>
+                        <input id="versao" type="text" readonly class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-900" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">Categoria ID</label>
+                        <input id="categoria_id" type="text" readonly class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-900" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">Nome da subcategoria</label>
+                        <input id="subcategoria_nome" name="subcategoria_nome" required type="text" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">Horas</label>
+                        <input id="subcategoria_horas" name="subcategoria_horas" required type="number" min="0" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                        <button type="submit" class="bg-slate-900 hover:bg-slate-950 text-white px-5 py-3 rounded-2xl font-semibold transition">Salvar Alterações</button>
+                        <a id="btnVoltar" href="javascript:history.back()" class="text-sm text-slate-600 hover:text-slate-900 transition">Voltar para subcategorias</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
     <script src="../../../../z_js/valida_sessao.js"></script>
     <script src="../js/config_hc_subcategoria_alterar.js"></script>
 </body>

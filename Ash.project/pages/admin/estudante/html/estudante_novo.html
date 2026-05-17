@@ -6,6 +6,7 @@
     <title>ASH - Novo Estudante</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
     </style>
@@ -13,19 +14,24 @@
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
 
     <!-- Cabeçalho (Header) -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <span class="text-2xl font-extrabold tracking-tighter text-slate-900">
-                    A.S.H<span class="text-purple-600">.</span>
-                </span>
-                <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide hidden sm:inline-block">
-                    Admin
-                </span>
-            </div>
-            <nav class="flex items-center gap-4 sm:gap-6">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-6">
+                    <a href="../estudante_index.html" class="text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center bg-slate-50 hover:bg-purple-50 w-10 h-10 rounded-full" title="Voltar para Lista">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </a>
+                    <div class="flex items-center gap-3 border-l border-slate-200 pl-6">
+                        <span class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                            A.S.H<span class="text-purple-600">.</span>
+                        </span>
+                        <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide hidden sm:inline-block">
+                            Admin
+                        </span>
+                    </div>
+                </div>
+                <nav class="flex items-center gap-4 sm:gap-6">
                 <a href="../estudante_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Lista Estudantes</a>
-                <a href="../../coordenador/coordenador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Coordenadores</a>
                 <div class="w-px h-5 bg-slate-200"></div>
                 <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 flex items-center gap-2 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -58,12 +64,12 @@
                 <!-- Grid E-mail e Senha -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="email" class="block text-sm font-semibold text-slate-700 mb-1.5">E-mail Acadêmico</label>
+                        <label for="email" class="block text-sm font-semibold text-slate-700 mb-1.5">E-mail</label>
                         <input type="email" id="email" placeholder="estudante@instituicao.edu.br" required
                             class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                     </div>
                     <div>
-                        <label for="senha" class="block text-sm font-semibold text-slate-700 mb-1.5">Senha de Acesso</label>
+                        <label for="senha" class="block text-sm font-semibold text-slate-700 mb-1.5">Senha</label>
                         <input type="password" id="senha" placeholder="••••••••" required
                             class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                     </div>
@@ -79,12 +85,12 @@
                 <!-- Grid Contato -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="celular" class="block text-sm font-semibold text-slate-700 mb-1.5">Celular / WhatsApp</label>
+                        <label for="celular" class="block text-sm font-semibold text-slate-700 mb-1.5">Celular</label>
                         <input type="text" id="celular" placeholder="11999999999" required inputmode="numeric" pattern="[0-9]{10,11}"
                             class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                     </div>
                     <div>
-                        <label for="telefone" class="block text-sm font-semibold text-slate-700 mb-1.5">Telefone Residencial</label>
+                        <label for="telefone" class="block text-sm font-semibold text-slate-700 mb-1.5">Telefone Fixo</label>
                         <input type="text" id="telefone" placeholder="1133333333" inputmode="numeric" pattern="[0-9]{10,11}"
                             class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
                     </div>
@@ -142,5 +148,8 @@
     <!-- Scripts de Lógica -->
     <script src="../../../../z_js/valida_sessao.js"></script>
     <script src="../js/estudante_novo.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
