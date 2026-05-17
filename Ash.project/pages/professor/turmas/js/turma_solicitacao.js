@@ -83,14 +83,32 @@ function preencherTela(item) {
     document.getElementById('data-envio').textContent = item.data_envios || '---';
     document.getElementById('justificativa-estudante').value = item.justificativa || '';
 
-    const linkAnexo = document.getElementById('link-anexo');
+    const pontosInput = document.getElementById('pontos-validados-input');
+    if (pontosInput) {
+        const sugestao = item.subcategoria_pontos ?? item.pontos_validados ?? item.horas_brutas ?? 0;
+        pontosInput.value = formatHoras(sugestao);
+        pontosInput.max = item.subcategoria_pontos ?? '';
+    }
+
+    const anexosLista = document.getElementById('anexos-lista');
     const semAnexo = document.getElementById('sem-anexo');
-    if (item.caminho_arquivo) {
-        linkAnexo.href = `../../${item.caminho_arquivo}`;
-        linkAnexo.classList.remove('hidden');
+    const anexos = Array.isArray(item.anexos) ? item.anexos : [];
+    if (anexosLista) {
+        anexosLista.innerHTML = '';
+    }
+    if (anexos.length > 0) {
+        if (anexosLista) {
+            anexos.forEach((anexo, indice) => {
+                const link = document.createElement('a');
+                link.href = `../../${anexo.caminho_arquivo}`;
+                link.target = '_blank';
+                link.className = 'inline-flex items-center gap-2 text-purple-600 hover:text-purple-800 font-semibold transition-colors';
+                link.innerHTML = `<i data-lucide="paperclip" class="w-4 h-4"></i> Anexo ${indice + 1}`;
+                anexosLista.appendChild(link);
+            });
+        }
         semAnexo.classList.add('hidden');
     } else {
-        linkAnexo.classList.add('hidden');
         semAnexo.classList.remove('hidden');
     }
 
@@ -128,10 +146,18 @@ function formatHoras(valor) {
 }
 
 async function decidir(solicitacaoId, acao) {
+    const pontosValidadosInput = document.getElementById('pontos-validados-input');
     const justificativaRecusa = document.getElementById('justificativa-recusa').value.trim();
 
     if (acao === 'RECUSAR' && justificativaRecusa === '') {
         alert('Informe uma justificativa para a recusa.');
+        return;
+    }
+
+    const pontosValidados = pontosValidadosInput ? parseFloat(pontosValidadosInput.value) : NaN;
+
+    if (acao === 'APROVAR' && (Number.isNaN(pontosValidados) || pontosValidados <= 0)) {
+        alert('Informe os pontos validados para aprovar a solicitação.');
         return;
     }
 
@@ -146,6 +172,7 @@ async function decidir(solicitacaoId, acao) {
     try {
         const formData = new FormData();
         formData.append('acao', acao);
+        formData.append('pontos_validados', Number.isNaN(pontosValidados) ? '' : String(pontosValidados));
         formData.append('justificativa_recusa', justificativaRecusa);
 
         const retorno = await fetch(`php/turma_solicitacao_salvar.php?id=${encodeURIComponent(solicitacaoId)}`, {

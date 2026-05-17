@@ -35,10 +35,46 @@ $turma_id = (int)$matricula['turma_id'];
 $prof_validador_id = $matricula['prof_validador_id'];
 $stmtMatricula->close();
 
+function normalizar_arquivos($campo){
+	if(!isset($_FILES[$campo])){
+		return [];
+	}
+
+	$arquivos = [];
+	if(is_array($_FILES[$campo]['name'])){
+		foreach($_FILES[$campo]['name'] as $indice => $nomeArquivo){
+			if(($_FILES[$campo]['error'][$indice] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK){
+				continue;
+			}
+			$arquivos[] = [
+				'name' => $nomeArquivo,
+				'tmp_name' => $_FILES[$campo]['tmp_name'][$indice],
+				'error' => $_FILES[$campo]['error'][$indice]
+			];
+		}
+	} else if(($_FILES[$campo]['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK){
+		$arquivos[] = [
+			'name' => $_FILES[$campo]['name'],
+			'tmp_name' => $_FILES[$campo]['tmp_name'],
+			'error' => $_FILES[$campo]['error']
+		];
+	}
+
+	return $arquivos;
+}
+
 if(isset($_POST['subcategoria_id'])){
 	$subcategoria_id = (int)$_POST['subcategoria_id'];
 	$horas_brutas = (float)$_POST['horas_brutas'];
 	$justificativa = $_POST['justificativa'];
+	$arquivosEnviados = normalizar_arquivos('arquivo');
+
+	if(count($arquivosEnviados) > 5){
+		$retorno = ['status' => 'nok', 'mensagem' => 'Você pode enviar no máximo 5 anexos por solicitação.', 'data' => []];
+		header("Content-type:application/json;charset:utf-8");
+		echo json_encode($retorno);
+		exit;
+	}
 
 	$stmt = $conexao->prepare("INSERT INTO SOLICITACAO(matricula_id, turma_id, subcategoria_id, prof_validador_id, horas_brutas, pontos_validados, status, justificativa) VALUES(?, ?, ?, ?, ?, 0, 'PENDENTE', ?)");
 	$stmt->bind_param("iiiids", $matricula_id, $turma_id, $subcategoria_id, $prof_validador_id, $horas_brutas, $justificativa);
@@ -52,28 +88,25 @@ if(isset($_POST['subcategoria_id'])){
 	}
 	$stmt->close();
 
-	if($retorno['status'] == 'ok' && isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] == 0){
+	if($retorno['status'] == 'ok' && count($arquivosEnviados) > 0){
 		$pastaUploads = '../../uploads';
 
 		if(!is_dir($pastaUploads)){
 			mkdir($pastaUploads, 0777, true);
 		}
 
-		$nomeArquivo = basename($_FILES['arquivo']['name']);
-		$nomeDestino = 'solicitacao_' . $solicitacao_id . '_' . preg_replace('/[^a-zA-Z0-9_.-]/', '_', $nomeArquivo);
-		$caminhoFisico = $pastaUploads . '/' . $nomeDestino;
-		$caminhoBanco = 'uploads/' . $nomeDestino;
+		foreach($arquivosEnviados as $indice => $arquivo){
+			$nomeArquivo = basename($arquivo['name']);
+			$nomeDestino = 'solicitacao_' . $solicitacao_id . '_' . ($indice + 1) . '_' . preg_replace('/[^a-zA-Z0-9_.-]/', '_', $nomeArquivo);
+			$caminhoFisico = $pastaUploads . '/' . $nomeDestino;
+			$caminhoBanco = 'uploads/' . $nomeDestino;
 
-		if(move_uploaded_file($_FILES['arquivo']['tmp_name'], $caminhoFisico)){
-			$stmt = $conexao->prepare("DELETE FROM ANEXO WHERE solicitacao_id = ?");
-			$stmt->bind_param("i", $solicitacao_id);
-			$stmt->execute();
-			$stmt->close();
-
-			$stmt = $conexao->prepare("INSERT INTO ANEXO(solicitacao_id, caminho_arquivo) VALUES(?, ?)");
-			$stmt->bind_param("is", $solicitacao_id, $caminhoBanco);
-			$stmt->execute();
-			$stmt->close();
+			if(move_uploaded_file($arquivo['tmp_name'], $caminhoFisico)){
+				$stmt = $conexao->prepare("INSERT INTO ANEXO(solicitacao_id, caminho_arquivo) VALUES(?, ?)");
+				$stmt->bind_param("is", $solicitacao_id, $caminhoBanco);
+				$stmt->execute();
+				$stmt->close();
+			}
 		}
 	}
 }else{

@@ -102,9 +102,9 @@ async function alterar(){
     fd.append("horas_brutas", horas_brutas);
     fd.append("justificativa", justificativa);
 
-    const arquivo = document.getElementById("arquivo").files[0];
-    if(arquivo){
-        fd.append("arquivo", arquivo);
+    const arquivos = document.getElementById("arquivo").files;
+    for(const arquivo of arquivos){
+        fd.append("arquivo[]", arquivo);
     }
 
     const retorno = await fetch("../php/solicitacao_alterar.php?id=" + id, {
