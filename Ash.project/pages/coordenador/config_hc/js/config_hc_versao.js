@@ -73,7 +73,7 @@ function preencherTabela(tabela, versao){
                 <tr>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Categoria</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Horas Máximas</th>
+                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Pontos Máximos</th>
                     <th class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
@@ -92,7 +92,7 @@ function preencherTabela(tabela, versao){
             <tr class="hover:bg-slate-50 transition-colors">
                 <td class="px-6 py-4 text-sm font-medium text-slate-400">${item.id}</td>
                 <td class="px-6 py-4 text-sm text-slate-900">${item.nome}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${item.max_horas}h</td>
+                <td class="px-6 py-4 text-sm text-slate-600">${item.max_pontos || item.max_horas} pts</td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="config_hc_subcategorias.html?categoria_id=${item.id}&versao=${encodeURIComponent(versao)}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">Subcategorias</a>
                     <a href="config_hc_categoria_alterar.html?categoria_id=${item.id}&versao=${encodeURIComponent(versao)}" class="text-slate-600 hover:text-slate-900 text-sm font-bold transition-colors">Alterar</a>

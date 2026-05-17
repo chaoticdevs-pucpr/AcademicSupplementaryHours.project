@@ -60,7 +60,7 @@ CREATE TABLE MATRICULA (
   id int PRIMARY KEY AUTO_INCREMENT,
   estudante_id int,
   turma_id int,
-  total_horas decimal(10,2) DEFAULT 0,
+  total_pontos decimal(10,2) DEFAULT 0,
   FOREIGN KEY (estudante_id) REFERENCES ESTUDANTE (usuario_id),
   FOREIGN KEY (turma_id) REFERENCES TURMA (id)
 );
@@ -68,7 +68,7 @@ CREATE TABLE MATRICULA (
 CREATE TABLE MANUAL_HC (
   id int PRIMARY KEY AUTO_INCREMENT,
   curso_id int,
-  horas_objetivo int,
+  pontos_objetivo int,
   versao varchar(20),
   data date,
   FOREIGN KEY (curso_id) REFERENCES CURSO (id)
@@ -77,16 +77,21 @@ CREATE TABLE MANUAL_HC (
 CREATE TABLE CATEGORIA (
   id int PRIMARY KEY AUTO_INCREMENT,
   manual_hc_id int,
-  max_horas int,
+  max_pontos int,
   nome varchar(100),
+  descricao text,
   FOREIGN KEY (manual_hc_id) REFERENCES MANUAL_HC (id)
 );
 
 CREATE TABLE SUBCATEGORIA (
   id int PRIMARY KEY AUTO_INCREMENT,
   categoria_id int,
-  quant_horas int,
+  quant_pontos int,
   nome varchar(100),
+  descricao text,
+  tipo_calculo varchar(20) DEFAULT 'FIXO' COMMENT 'FIXO, HORA, PERIODO, EVENTO, ANO, SEMESTRE',
+  unidade_referencia varchar(20) DEFAULT 'PONTO',
+  valor_referencia decimal(10,2) DEFAULT 1,
   FOREIGN KEY (categoria_id) REFERENCES CATEGORIA (id)
 );
 
@@ -98,7 +103,9 @@ CREATE TABLE SOLICITACAO (
   prof_validador_id int,
   data_envios TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   horas_brutas decimal,
-  horas_validadas decimal,
+  duracao_unidade decimal(10,2) DEFAULT NULL,
+  duracao_unidade_tipo varchar(20) DEFAULT NULL,
+  pontos_validados decimal,
   status varchar(20) COMMENT 'PENDENTE, APROVADO, RECUSADO',
   justificativa text,
   FOREIGN KEY (matricula_id) REFERENCES MATRICULA (id),
@@ -161,31 +168,31 @@ INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 6, 'A-M');
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 7, 'B-M');
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 6, 'U-N');
 
-INSERT INTO MATRICULA (estudante_id, turma_id, total_horas) VALUES (2, 1, 0);
+INSERT INTO MATRICULA (estudante_id, turma_id, total_pontos) VALUES (2, 1, 0);
 
 
-INSERT INTO MANUAL_HC (id, curso_id, horas_objetivo, versao, data) 
+INSERT INTO MANUAL_HC (id, curso_id, pontos_objetivo, versao, data) 
 VALUES (1, 1, 100, 'v1.0', CURDATE());
-INSERT INTO CATEGORIA (id, manual_hc_id, max_horas, nome) VALUES 
-(1, 1, 30, 'Atividades Profissionais'),
-(2, 1, 30, 'Atividades de Ação Social');
-INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome) VALUES 
-(1, 10, 'Realização de Estágios'),
-(1, 10, 'Realização de Atividades de Aceleração/Incubação de Startup'),
-(1, 10, 'Realização de Atividades Profissionais na Área de Computação'),
-(2, 10, 'Participação de Projetos em Caráter Social'),
-(2, 5, 'Participação na Clínica de TIC'),
-(2, 5, 'Participação como Mesário em Eleições Municipais, Estaduais e Federais');
+INSERT INTO CATEGORIA (id, manual_hc_id, max_pontos, nome, descricao) VALUES 
+(1, 1, 30, 'Atividades Profissionais', 'Atividades ligadas à prática profissional e experiência de mercado.'),
+(2, 1, 30, 'Atividades de Ação Social', 'Atividades de impacto social e participação comunitária.');
+INSERT INTO SUBCATEGORIA (categoria_id, quant_pontos, nome, descricao, tipo_calculo, unidade_referencia, valor_referencia) VALUES 
+(1, 10, 'Realização de Estágios', 'Estágio extracurricular na área de Computação.', 'PERIODO', 'MES', 6),
+(1, 10, 'Realização de Atividades de Aceleração/Incubação de Startup', 'Participação em aceleração ou incubação de startup.', 'PERIODO', 'MES', 6),
+(1, 10, 'Realização de Atividades Profissionais na Área de Computação', 'Atividade profissional remunerada na área de Computação.', 'PERIODO', 'MES', 6),
+(2, 10, 'Participação de Projetos em Caráter Social', 'Projeto social com relatório e aprovação.', 'FIXO', 'PONTO', 1),
+(2, 5, 'Participação na Clínica de TIC', 'Participação adicional à prevista na matriz curricular.', 'HORA', 'HORA', 30),
+(2, 5, 'Participação como Mesário em Eleições Municipais, Estaduais e Federais', 'Atuação como mesário em eleições oficiais.', 'ANO', 'ANO', 1);
 
-INSERT INTO MANUAL_HC (id, curso_id, horas_objetivo, versao, data) 
+INSERT INTO MANUAL_HC (id, curso_id, pontos_objetivo, versao, data) 
 VALUES (2, 2, 100, 'v1.0', CURDATE());
-INSERT INTO CATEGORIA (id, manual_hc_id, max_horas, nome) VALUES 
-(3, 2, 30, 'Atividades Profissionais'),
-(4, 2, 30, 'Atividades de Ação Social');
-INSERT INTO SUBCATEGORIA (categoria_id, quant_horas, nome) VALUES 
-(3, 10, 'Realização de Estágios'),
-(3, 10, 'Realização de Atividades de Aceleração/Incubação de Startup'),
-(3, 10, 'Realização de Atividades Profissionais na Área de Computação'),
-(4, 10, 'Participação de Projetos em Caráter Social'),
-(4, 5, 'Participação na Clínica de TIC'),
-(4, 5, 'Participação como Mesário em Eleições Municipais, Estaduais e Federais');
+INSERT INTO CATEGORIA (id, manual_hc_id, max_pontos, nome, descricao) VALUES 
+(3, 2, 30, 'Atividades Profissionais', 'Atividades ligadas à prática profissional e experiência de mercado.'),
+(4, 2, 30, 'Atividades de Ação Social', 'Atividades de impacto social e participação comunitária.');
+INSERT INTO SUBCATEGORIA (categoria_id, quant_pontos, nome, descricao, tipo_calculo, unidade_referencia, valor_referencia) VALUES 
+(3, 10, 'Realização de Estágios', 'Estágio extracurricular na área de Computação.', 'PERIODO', 'MES', 6),
+(3, 10, 'Realização de Atividades de Aceleração/Incubação de Startup', 'Participação em aceleração ou incubação de startup.', 'PERIODO', 'MES', 6),
+(3, 10, 'Realização de Atividades Profissionais na Área de Computação', 'Atividade profissional remunerada na área de Computação.', 'PERIODO', 'MES', 6),
+(4, 10, 'Participação de Projetos em Caráter Social', 'Projeto social com relatório e aprovação.', 'FIXO', 'PONTO', 1),
+(4, 5, 'Participação na Clínica de TIC', 'Participação adicional à prevista na matriz curricular.', 'HORA', 'HORA', 30),
+(4, 5, 'Participação como Mesário em Eleições Municipais, Estaduais e Federais', 'Atuação como mesário em eleições oficiais.', 'ANO', 'ANO', 1);

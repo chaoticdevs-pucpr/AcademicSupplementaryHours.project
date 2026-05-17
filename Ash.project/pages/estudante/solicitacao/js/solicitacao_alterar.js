@@ -33,7 +33,27 @@ document.getElementById("categoria_id").addEventListener("change", () => {
 });
 
 document.getElementById("subcategoria_id").addEventListener("change", () => {
+    atualizarDuracaoVisibilidade();
 });
+
+function atualizarDuracaoVisibilidade(){
+    const select = document.getElementById('subcategoria_id');
+    const opcao = select.options[select.selectedIndex];
+    if(!opcao || !opcao.value) return;
+    const unidade = opcao.getAttribute('data-unidade') || '';
+    const tipo = opcao.getAttribute('data-tipo') || '';
+
+    if(unidade.toUpperCase() !== 'HORA' && unidade.toUpperCase() !== '' && tipo.toUpperCase() !== 'FIXO'){
+        document.getElementById('duracao_container').classList.remove('hidden');
+        document.getElementById('duracao_unit_label').textContent = unidade.toLowerCase();
+        document.getElementById('duracao_unit_text').textContent = unidade.toLowerCase();
+        document.getElementById('duracao_unidade_tipo').value = unidade.toUpperCase();
+    } else {
+        document.getElementById('duracao_container').classList.add('hidden');
+        document.getElementById('duracao_unidade').value = '';
+        document.getElementById('duracao_unidade_tipo').value = '';
+    }
+}
 
 async function carregarCategorias(){
     const retorno = await fetch("../php/solicitacao_categorias.php");
@@ -61,7 +81,11 @@ async function carregarSubcategorias(){
     if(resposta.status == "ok"){
         var html = '<option value="">Selecione...</option>';
         for(var i = 0; i < resposta.data.length; i++){
-            html += `<option value="${resposta.data[i].id}">${resposta.data[i].nome} (${resposta.data[i].quant_horas}h)</option>`;
+            const s = resposta.data[i];
+            const unidade = s.unidade_referencia || '';
+            const tipo = s.tipo_calculo || '';
+            const valorref = s.valor_referencia || '';
+            html += `<option value="${s.id}" data-unidade="${unidade}" data-tipo="${tipo}" data-valorref="${valorref}">${s.nome} (${s.quant_horas}h)</option>`;
         }
         document.getElementById("subcategoria_id").innerHTML = html;
     }else{
@@ -84,6 +108,14 @@ async function buscar(id){
         document.getElementById("subcategoria_id").value = r.subcategoria_id;
         document.getElementById("horas_brutas").value = r.horas_brutas;
         document.getElementById("justificativa").value = r.justificativa;
+        // preencher duração se existente
+        if(r.duracao_unidade && r.duracao_unidade_tipo){
+            document.getElementById('duracao_unidade').value = r.duracao_unidade;
+            document.getElementById('duracao_unidade_tipo').value = r.duracao_unidade_tipo;
+            document.getElementById('duracao_unit_label').textContent = r.duracao_unidade_tipo.toLowerCase();
+            document.getElementById('duracao_unit_text').textContent = r.duracao_unidade_tipo.toLowerCase();
+            document.getElementById('duracao_container').classList.remove('hidden');
+        }
     }else{
         alert(resposta.mensagem);
         window.location.href = "../solicitacao_index.html";

@@ -35,7 +35,7 @@ async function buscar(id){
         document.getElementById("manual_id").value = r.manual_id;
         document.getElementById("versao").value = r.versao;
         document.getElementById("data_manual").value = r.data_manual;
-        document.getElementById("horas_objetivo").value = r.horas_objetivo;
+        document.getElementById("pontos_objetivo").value = r.pontos_objetivo || r.horas_objetivo;
     } else {
         alert(resposta.mensagem);
         window.location.href = "../config_hc_index.html";
@@ -46,9 +46,9 @@ async function alterar(){
     var manual_id         = document.getElementById("manual_id").value;
     var versao            = document.getElementById("versao").value;
     var data_manual       = document.getElementById("data_manual").value;
-    var horas_objetivo    = document.getElementById("horas_objetivo").value;
+    var pontos_objetivo    = document.getElementById("pontos_objetivo").value;
 
-    if(!manual_id || !versao || !data_manual || !horas_objetivo){
+    if(!manual_id || !versao || !data_manual || !pontos_objetivo){
         alert("Preencha todos os campos da versão.");
         return;
     }
@@ -56,7 +56,7 @@ async function alterar(){
     const fd = new FormData();
     fd.append("versao", versao);
     fd.append("data_manual", data_manual);
-    fd.append("horas_objetivo", horas_objetivo);
+    fd.append("pontos_objetivo", pontos_objetivo);
 
     const retorno = await fetch("../php/config_hc_alterar.php?id=" + manual_id, {
         method: "POST",

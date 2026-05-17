@@ -77,7 +77,7 @@ function preencherTabela(tabela){
                 <tr>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Subcategoria</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Horas</th>
+                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Pontos</th>
                     <th class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
@@ -97,7 +97,7 @@ function preencherTabela(tabela){
             <tr class="hover:bg-slate-50 transition-colors">
                 <td class="px-6 py-4 text-sm font-medium text-slate-400">${item.id}</td>
                 <td class="px-6 py-4 text-sm text-slate-900">${item.nome}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${item.quant_horas}h</td>
+                <td class="px-6 py-4 text-sm text-slate-600">${item.quant_pontos || item.quant_horas} pts</td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="config_hc_subcategoria_alterar.html?subcategoria_id=${item.id}&categoria_id=${encodeURIComponent(categoriaId)}&versao=${encodeURIComponent(versao)}" class="text-slate-600 hover:text-slate-900 text-sm font-bold">Alterar</a>
                     <button onclick="excluir(${item.id})" class="text-red-500 hover:text-red-700 text-sm font-bold">Excluir</button>

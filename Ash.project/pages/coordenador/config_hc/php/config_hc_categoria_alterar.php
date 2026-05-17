@@ -30,9 +30,10 @@ if(isset($_GET['id'], $_POST['categoria_nome'], $_POST['categoria_max'])){
     $categoria_id = (int)$_GET['id'];
     $categoria_nome = trim($_POST['categoria_nome']);
     $categoria_max = (int)$_POST['categoria_max'];
+    $categoria_descricao = trim($_POST['categoria_descricao'] ?? '');
 
-    $stmt = $conexao->prepare("UPDATE CATEGORIA c INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id SET c.nome = ?, c.max_horas = ? WHERE c.id = ? AND m.curso_id = ?");
-    $stmt->bind_param("siii", $categoria_nome, $categoria_max, $categoria_id, $curso_id);
+    $stmt = $conexao->prepare("UPDATE CATEGORIA c INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id SET c.nome = ?, c.max_pontos = ?, c.descricao = ? WHERE c.id = ? AND m.curso_id = ?");
+    $stmt->bind_param("sisii", $categoria_nome, $categoria_max, $categoria_descricao, $categoria_id, $curso_id);
     $stmt->execute();
     if($stmt->affected_rows > 0){
         $retorno = ['status' => 'ok', 'mensagem' => 'Categoria alterada com sucesso.', 'data' => []];

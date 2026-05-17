@@ -21,9 +21,9 @@ document.getElementById("enviar").addEventListener("click", () => {
 async function novo(){
     var versao         = document.getElementById("versao").value;
     var data_manual    = document.getElementById("data_manual").value;
-    var horas_objetivo = document.getElementById("horas_objetivo").value;
+    var pontos_objetivo = document.getElementById("pontos_objetivo").value;
 
-    if(!versao || !data_manual || !horas_objetivo){
+    if(!versao || !data_manual || !pontos_objetivo){
         alert("Preencha todos os campos da versão.");
         return;
     }
@@ -31,7 +31,7 @@ async function novo(){
     const fd = new FormData();
     fd.append("versao", versao);
     fd.append("data_manual", data_manual);
-    fd.append("horas_objetivo", horas_objetivo);
+    fd.append("pontos_objetivo", pontos_objetivo);
 
     const retorno = await fetch("../php/config_hc_novo.php", {
         method: "POST",

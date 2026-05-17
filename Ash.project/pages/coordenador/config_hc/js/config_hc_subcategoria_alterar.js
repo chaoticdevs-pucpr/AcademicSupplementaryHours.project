@@ -47,7 +47,9 @@ async function carregarSubcategoria(id){
         if(dados.status === 'ok' && dados.data.length > 0){
             const sub = dados.data[0];
             document.getElementById('subcategoria_nome').value = sub.nome;
-            document.getElementById('subcategoria_horas').value = sub.quant_horas;
+            document.getElementById('subcategoria_horas').value = sub.quant_pontos || sub.quant_horas;
+            document.getElementById('subcategoria_descricao').value = sub.descricao || '';
+            document.getElementById('tipo_calculo').value = sub.tipo_calculo || 'FIXO';
         } else {
             alert('Subcategoria nao encontrada.');
             window.history.back();

@@ -68,7 +68,7 @@ if(isset($_POST['nome'], $_POST['email'], $_POST['senha'], $_POST['cpf'], $_POST
 		if($stmt->affected_rows > 0){
 			$stmt->close();
 
-			$stmt = $conexao->prepare("INSERT INTO MATRICULA(estudante_id, turma_id, total_horas) VALUES(?,?,0)");
+			$stmt = $conexao->prepare("INSERT INTO MATRICULA(estudante_id, turma_id, total_pontos) VALUES(?,?,0)");
 			$stmt->bind_param("ii", $usuario_id, $turma_id);
 			$stmt->execute();
 

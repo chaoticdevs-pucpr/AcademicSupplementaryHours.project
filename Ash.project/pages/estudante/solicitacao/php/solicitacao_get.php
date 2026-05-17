@@ -35,11 +35,11 @@ $matricula_id = (int)$matricula['id'];
 $stmtMatricula->close();
 
 if(isset($_GET['id'])){
-    $stmt = $conexao->prepare("SELECT s.id, s.subcategoria_id, s.horas_brutas, s.justificativa FROM SOLICITACAO s WHERE s.id = ? AND s.matricula_id = ?");
+    $stmt = $conexao->prepare("SELECT s.id, s.subcategoria_id, s.horas_brutas, s.duracao_unidade, s.duracao_unidade_tipo, s.pontos_validados AS horas_validadas, s.justificativa FROM SOLICITACAO s WHERE s.id = ? AND s.matricula_id = ?");
     $stmt->bind_param("ii", $_GET['id'], $matricula_id);
 }else{
 
-    $stmt = $conexao->prepare("SELECT s.id, s.subcategoria_id, s.horas_brutas, s.status, DATE_FORMAT(s.data_envios, '%Y-%m-%d %H:%i') AS data_envios, s.justificativa, su.nome AS subcategoria_nome, c.nome AS categoria_nome, a.caminho_arquivo FROM SOLICITACAO s INNER JOIN SUBCATEGORIA su ON su.id = s.subcategoria_id INNER JOIN CATEGORIA c ON c.id = su.categoria_id LEFT JOIN ANEXO a ON a.solicitacao_id = s.id WHERE s.matricula_id = ? ORDER BY s.id DESC");
+    $stmt = $conexao->prepare("SELECT s.id, s.subcategoria_id, s.horas_brutas, s.duracao_unidade, s.duracao_unidade_tipo, s.pontos_validados AS horas_validadas, s.status, DATE_FORMAT(s.data_envios, '%Y-%m-%d %H:%i') AS data_envios, s.justificativa, su.nome AS subcategoria_nome, c.nome AS categoria_nome, a.caminho_arquivo FROM SOLICITACAO s INNER JOIN SUBCATEGORIA su ON su.id = s.subcategoria_id INNER JOIN CATEGORIA c ON c.id = su.categoria_id LEFT JOIN ANEXO a ON a.solicitacao_id = s.id WHERE s.matricula_id = ? ORDER BY s.id DESC");
     $stmt->bind_param("i", $matricula_id);
 }
 

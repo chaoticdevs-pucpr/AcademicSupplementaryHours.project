@@ -77,7 +77,7 @@ $turma = $resTurma->fetch_assoc();
 $turma_nome = $turma['nome'];
 $stmtTurma->close();
 
-$stmt = $conexao->prepare("SELECT u.id, u.email, u.nome, u.cpf, u.celular, u.telefone, m.id AS matricula_id, m.total_horas, t.nome AS turma_nome, c.nome AS curso_nome FROM MATRICULA m INNER JOIN ESTUDANTE e ON e.usuario_id = m.estudante_id INNER JOIN USUARIO u ON u.id = e.usuario_id INNER JOIN TURMA t ON t.id = m.turma_id INNER JOIN CURSO c ON c.id = t.curso_id WHERE m.turma_id = ? AND t.curso_id = ? ORDER BY u.nome");
+$stmt = $conexao->prepare("SELECT u.id, u.email, u.nome, u.cpf, u.celular, u.telefone, m.id AS matricula_id, m.total_pontos AS total_horas, t.nome AS turma_nome, c.nome AS curso_nome FROM MATRICULA m INNER JOIN ESTUDANTE e ON e.usuario_id = m.estudante_id INNER JOIN USUARIO u ON u.id = e.usuario_id INNER JOIN TURMA t ON t.id = m.turma_id INNER JOIN CURSO c ON c.id = t.curso_id WHERE m.turma_id = ? AND t.curso_id = ? ORDER BY u.nome");
 $stmt->bind_param("ii", $turma_id, $curso_id);
 $stmt->execute();
 $resultado = $stmt->get_result();

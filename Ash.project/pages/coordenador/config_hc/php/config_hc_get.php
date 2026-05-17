@@ -32,14 +32,14 @@ $stmtCurso->close();
 
 if(isset($_GET['id'])){
     $manual_id = (int)$_GET['id'];
-    $stmt = $conexao->prepare("SELECT m.id AS manual_id, cu.nome AS curso_nome, m.versao, DATE_FORMAT(m.data, '%Y-%m-%d') AS data_manual, m.horas_objetivo FROM MANUAL_HC m INNER JOIN CURSO cu ON cu.id = m.curso_id WHERE m.curso_id = ? AND m.id = ?");
+    $stmt = $conexao->prepare("SELECT m.id AS manual_id, cu.nome AS curso_nome, m.versao, DATE_FORMAT(m.data, '%Y-%m-%d') AS data_manual, m.pontos_objetivo AS horas_objetivo, m.pontos_objetivo FROM MANUAL_HC m INNER JOIN CURSO cu ON cu.id = m.curso_id WHERE m.curso_id = ? AND m.id = ?");
     $stmt->bind_param("ii", $curso_id, $manual_id);
 } elseif(isset($_GET['versao'])) {
     $versao = $_GET['versao'];
-    $stmt = $conexao->prepare("SELECT m.id AS manual_id, cu.nome AS curso_nome, m.versao, DATE_FORMAT(m.data, '%Y-%m-%d') AS data_manual, m.horas_objetivo FROM MANUAL_HC m INNER JOIN CURSO cu ON cu.id = m.curso_id WHERE m.curso_id = ? AND m.versao = ?");
+    $stmt = $conexao->prepare("SELECT m.id AS manual_id, cu.nome AS curso_nome, m.versao, DATE_FORMAT(m.data, '%Y-%m-%d') AS data_manual, m.pontos_objetivo AS horas_objetivo, m.pontos_objetivo FROM MANUAL_HC m INNER JOIN CURSO cu ON cu.id = m.curso_id WHERE m.curso_id = ? AND m.versao = ?");
     $stmt->bind_param("is", $curso_id, $versao);
 } else {
-    $stmt = $conexao->prepare("SELECT m.id AS manual_id, m.versao, DATE_FORMAT(m.data, '%Y-%m-%d') AS data_manual, m.horas_objetivo FROM MANUAL_HC m WHERE m.curso_id = ? ORDER BY m.id DESC");
+    $stmt = $conexao->prepare("SELECT m.id AS manual_id, m.versao, DATE_FORMAT(m.data, '%Y-%m-%d') AS data_manual, m.pontos_objetivo AS horas_objetivo, m.pontos_objetivo FROM MANUAL_HC m WHERE m.curso_id = ? ORDER BY m.id DESC");
     $stmt->bind_param("i", $curso_id);
 }
 

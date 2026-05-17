@@ -30,14 +30,14 @@ $curso = $resCurso->fetch_assoc();
 $curso_id = (int)$curso['curso_id'];
 $stmtCurso->close();
 
-if(isset($_GET['id'], $_POST['versao'], $_POST['data_manual'], $_POST['horas_objetivo'])){
+if(isset($_GET['id'], $_POST['versao'], $_POST['data_manual'], $_POST['pontos_objetivo'])){
     $manual_id = (int)$_GET['id'];
     $versao = $_POST['versao'];
     $data_manual = $_POST['data_manual'];
-    $horas_objetivo = (int)$_POST['horas_objetivo'];
+    $pontos_objetivo = (int)$_POST['pontos_objetivo'];
 
-    $stmt = $conexao->prepare("UPDATE MANUAL_HC SET versao = ?, data = ?, horas_objetivo = ? WHERE id = ? AND curso_id = ?");
-    $stmt->bind_param("ssiii", $versao, $data_manual, $horas_objetivo, $manual_id, $curso_id);
+    $stmt = $conexao->prepare("UPDATE MANUAL_HC SET versao = ?, data = ?, pontos_objetivo = ? WHERE id = ? AND curso_id = ?");
+    $stmt->bind_param("ssiii", $versao, $data_manual, $pontos_objetivo, $manual_id, $curso_id);
     $stmt->execute();
 
     if($stmt->affected_rows > 0){

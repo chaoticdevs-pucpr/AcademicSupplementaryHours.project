@@ -67,7 +67,7 @@ function preencherTabela(tabela){
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Versão</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Data</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Horas Objetivo</th>
+                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Pontos Objetivo</th>
                     <th class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
@@ -90,7 +90,7 @@ function preencherTabela(tabela){
                     <div class="text-sm font-bold text-slate-900">${item.versao}</div>
                 </td>
                 <td class="px-6 py-4 text-sm text-slate-600">${item.data_manual}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${item.horas_objetivo}h</td>
+                <td class="px-6 py-4 text-sm text-slate-600">${item.pontos_objetivo || item.horas_objetivo} pts</td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="html/config_hc_versao.html?versao=${encodeURIComponent(item.versao)}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">Categorias</a>
                     <a href="html/config_hc_alterar.html?id=${item.manual_id}" class="text-slate-600 hover:text-slate-900 text-sm font-bold transition-colors">Alterar</a>

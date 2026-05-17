@@ -37,11 +37,13 @@ $stmtMatricula->close();
 
 if(isset($_POST['subcategoria_id'])){
 	$subcategoria_id = (int)$_POST['subcategoria_id'];
-	$horas_brutas = (float)$_POST['horas_brutas'];
+	$horas_brutas = (float)($_POST['horas_brutas'] ?? 0);
+	$duracao_unidade = isset($_POST['duracao_unidade']) ? (float)$_POST['duracao_unidade'] : 0;
+	$duracao_unidade_tipo = isset($_POST['duracao_unidade_tipo']) ? trim($_POST['duracao_unidade_tipo']) : null;
 	$justificativa = $_POST['justificativa'];
 
-	$stmt = $conexao->prepare("INSERT INTO SOLICITACAO(matricula_id, turma_id, subcategoria_id, prof_validador_id, horas_brutas, horas_validadas, status, justificativa) VALUES(?, ?, ?, ?, ?, 0, 'PENDENTE', ?)");
-	$stmt->bind_param("iiiids", $matricula_id, $turma_id, $subcategoria_id, $prof_validador_id, $horas_brutas, $justificativa);
+	$stmt = $conexao->prepare("INSERT INTO SOLICITACAO(matricula_id, turma_id, subcategoria_id, prof_validador_id, horas_brutas, duracao_unidade, duracao_unidade_tipo, pontos_validados, status, justificativa) VALUES(?, ?, ?, ?, ?, ?, ?, 0, 'PENDENTE', ?)");
+	$stmt->bind_param("iiiiddss", $matricula_id, $turma_id, $subcategoria_id, $prof_validador_id, $horas_brutas, $duracao_unidade, $duracao_unidade_tipo, $justificativa);
 	$stmt->execute();
 
 	if($stmt->affected_rows > 0){

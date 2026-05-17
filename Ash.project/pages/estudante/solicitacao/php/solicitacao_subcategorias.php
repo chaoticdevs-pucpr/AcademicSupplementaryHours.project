@@ -37,10 +37,10 @@ $stmtMatricula->close();
 
 if(isset($_GET['categoria_id'])){
     $categoria_id = (int)$_GET['categoria_id'];
-    $stmt = $conexao->prepare("SELECT s.id, s.nome, s.quant_horas, c.nome AS categoria FROM SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE m.curso_id = ? AND s.categoria_id = ? ORDER BY s.nome");
+    $stmt = $conexao->prepare("SELECT s.id, s.nome, s.quant_pontos AS quant_horas, s.quant_pontos, s.tipo_calculo, s.unidade_referencia, s.valor_referencia, c.nome AS categoria FROM SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE m.curso_id = ? AND s.categoria_id = ? ORDER BY s.nome");
     $stmt->bind_param("ii", $curso_id, $categoria_id);
 }else{
-    $stmt = $conexao->prepare("SELECT s.id, s.nome, s.quant_horas, c.nome AS categoria FROM SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE m.curso_id = ? ORDER BY c.nome, s.nome");
+    $stmt = $conexao->prepare("SELECT s.id, s.nome, s.quant_pontos AS quant_horas, s.quant_pontos, s.tipo_calculo, s.unidade_referencia, s.valor_referencia, c.nome AS categoria FROM SUBCATEGORIA s INNER JOIN CATEGORIA c ON c.id = s.categoria_id INNER JOIN MANUAL_HC m ON m.id = c.manual_hc_id WHERE m.curso_id = ? ORDER BY c.nome, s.nome");
     $stmt->bind_param("i", $curso_id);
 }
 

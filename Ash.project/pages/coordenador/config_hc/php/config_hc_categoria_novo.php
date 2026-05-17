@@ -30,6 +30,7 @@ if(isset($_POST['versao'], $_POST['categoria_nome'], $_POST['categoria_max'])){
     $versao = $_POST['versao'];
     $categoria_nome = trim($_POST['categoria_nome']);
     $categoria_max = (int)$_POST['categoria_max'];
+    $categoria_descricao = trim($_POST['categoria_descricao'] ?? '');
 
     $stmt = $conexao->prepare("SELECT id FROM MANUAL_HC WHERE curso_id = ? AND versao = ? LIMIT 1");
     $stmt->bind_param("is", $curso_id, $versao);
@@ -48,8 +49,8 @@ if(isset($_POST['versao'], $_POST['categoria_nome'], $_POST['categoria_max'])){
     $manual_id = (int)$manual['id'];
     $stmt->close();
 
-    $stmt = $conexao->prepare("INSERT INTO CATEGORIA(manual_hc_id, max_horas, nome) VALUES(?,?,?)");
-    $stmt->bind_param("iis", $manual_id, $categoria_max, $categoria_nome);
+    $stmt = $conexao->prepare("INSERT INTO CATEGORIA(manual_hc_id, max_pontos, nome, descricao) VALUES(?,?,?,?)");
+    $stmt->bind_param("iiss", $manual_id, $categoria_max, $categoria_nome, $categoria_descricao);
     $stmt->execute();
     if($stmt->affected_rows > 0){
         $retorno = ['status' => 'ok', 'mensagem' => 'Categoria inserida com sucesso.', 'data' => []];
