@@ -93,6 +93,7 @@ CREATE TABLE SUBCATEGORIA (
 CREATE TABLE SOLICITACAO (
   id int PRIMARY KEY AUTO_INCREMENT,
   matricula_id int,
+  turma_id int,
   subcategoria_id int,
   prof_validador_id int,
   data_envios TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -102,6 +103,7 @@ CREATE TABLE SOLICITACAO (
   justificativa text,
   FOREIGN KEY (matricula_id) REFERENCES MATRICULA (id),
   FOREIGN KEY (subcategoria_id) REFERENCES SUBCATEGORIA (id),
+  FOREIGN KEY (turma_id) REFERENCES TURMA (id),
   FOREIGN KEY (prof_validador_id) REFERENCES PROF_VALIDADOR (usuario_id)
 );
 
