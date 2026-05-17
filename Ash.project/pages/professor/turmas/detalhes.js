@@ -87,7 +87,7 @@ function preencherTabela(tabela, turma){
                 <td class="px-6 py-4 text-sm text-slate-600">${item.data_envio}</td>
                 <td class="px-6 py-4 text-sm text-slate-600">${item.status}</td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
-                    <a href="turma_solicitacao.html?solicitacao_id=${item.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">Selecionar</a>
+                    <a href="turma_solicitacao.html?solicitacao_id=${item.id}&turma_id=${encodeURIComponent(turma)}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">Visualizar</a>
                 </td>
             </tr>`;
        }
