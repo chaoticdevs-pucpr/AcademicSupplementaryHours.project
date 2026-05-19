@@ -99,12 +99,24 @@ function preencherTela(item) {
     if (anexos.length > 0) {
         if (anexosLista) {
             anexos.forEach((anexo, indice) => {
+                const arquivoRelativo = `php/arquivo_serve.php?anexo_id=${encodeURIComponent(anexo.id)}`;
+                const nomeArquivo = obterNomeArquivo(anexo.caminho_arquivo) || `Anexo ${indice + 1}`;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'flex flex-wrap items-center gap-3';
+
                 const link = document.createElement('a');
-                link.href = `../../${anexo.caminho_arquivo}`;
-                link.target = '_blank';
+                link.href = arquivoRelativo;
                 link.className = 'inline-flex items-center gap-2 text-purple-600 hover:text-purple-800 font-semibold transition-colors';
-                link.innerHTML = `<i data-lucide="paperclip" class="w-4 h-4"></i> Anexo ${indice + 1}`;
-                anexosLista.appendChild(link);
+                link.innerHTML = `<i data-lucide="paperclip" class="w-4 h-4"></i> ${nomeArquivo}`;
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const mimeType = determinarMimeType(anexo.caminho_arquivo);
+                    openFileViewer(arquivoRelativo, nomeArquivo, mimeType);
+                });
+
+                wrapper.appendChild(link);
+                anexosLista.appendChild(wrapper);
             });
         }
         semAnexo.classList.add('hidden');
@@ -135,6 +147,24 @@ function statusClasses(status) {
     if (valor === 'APROVADO') return 'bg-emerald-100 text-emerald-800';
     if (valor === 'RECUSADO') return 'bg-rose-100 text-rose-800';
     return 'bg-slate-100 text-slate-700';
+}
+
+function obterNomeArquivo(caminho) {
+    if (!caminho) return '';
+    const nome = caminho.split('/').pop() || caminho;
+    return nome.split('?')[0].split('#')[0];
+}
+
+function determinarMimeType(url) {
+    const lower = url.toLowerCase();
+    if (lower.endsWith('.pdf')) return 'application/pdf';
+    if (lower.endsWith('.jpg') || lower.endsWith('.jpeg')) return 'image/jpeg';
+    if (lower.endsWith('.png')) return 'image/png';
+    if (lower.endsWith('.gif')) return 'image/gif';
+    if (lower.endsWith('.webp')) return 'image/webp';
+    if (lower.endsWith('.bmp')) return 'image/bmp';
+    if (lower.endsWith('.svg')) return 'image/svg+xml';
+    return 'application/octet-stream';
 }
 
 function formatHoras(valor) {
