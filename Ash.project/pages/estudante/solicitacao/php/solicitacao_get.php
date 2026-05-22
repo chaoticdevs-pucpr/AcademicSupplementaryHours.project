@@ -35,7 +35,7 @@ $matricula_id = (int)$matricula['id'];
 $stmtMatricula->close();
 
 if(isset($_GET['id'])){
-    $stmt = $conexao->prepare("SELECT s.id, s.subcategoria_id, s.horas_brutas, s.justificativa FROM SOLICITACAO s WHERE s.id = ? AND s.matricula_id = ?");
+    $stmt = $conexao->prepare("SELECT s.id, s.status, s.subcategoria_id, s.horas_brutas, s.justificativa, c.id AS categoria_id FROM SOLICITACAO s INNER JOIN SUBCATEGORIA su ON su.id = s.subcategoria_id INNER JOIN CATEGORIA c ON c.id = su.categoria_id WHERE s.id = ? AND s.matricula_id = ?");
     $stmt->bind_param("ii", $_GET['id'], $matricula_id);
 }else{
 

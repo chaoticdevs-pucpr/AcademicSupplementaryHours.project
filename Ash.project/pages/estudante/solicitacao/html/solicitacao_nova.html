@@ -71,14 +71,19 @@
                 </div>
             </div>
 
-            <div>
+            <div id="div_horas">
                 <label for="horas_brutas" class="block text-sm font-bold text-slate-700 mb-2">Horas Brutas</label>
                 <div class="relative">
                     <input type="number" step="0.01" id="horas_brutas" 
                         class="w-full pl-4 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 transition-all outline-none" 
                         placeholder="Ex: 20.00">
-                    <span class="absolute right-4 top-3 text-slate-400 text-sm font-medium">hrs</span>
+                    <span id="horas_label" class="absolute right-4 top-3 text-slate-400 text-sm font-medium">hrs</span>
                 </div>
+            </div>
+
+            <div id="preview_area" class="hidden">
+                <p id="pontos_preview" class="text-sm font-semibold text-indigo-700">Estimativa: 0 pontos</p>
+                <p id="unidade_info" class="text-xs text-slate-400">&nbsp;</p>
             </div>
 
             <div>
@@ -96,7 +101,7 @@
                     <div class="border-2 border-dashed border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center group-hover:border-indigo-400 group-hover:bg-indigo-50/50 transition-all">
                         <i data-lucide="upload-cloud" class="w-10 h-10 text-slate-400 mb-2 group-hover:text-indigo-500"></i>
                         <p class="text-sm text-slate-600 font-medium text-center">Clique para selecionar um ou mais certificados</p>
-                        <p id="file-selected-name" class="text-xs text-indigo-600 font-bold mt-2 hidden text-center"></p>
+                        <p id="nomes_arquivos_selecionados" class="text-xs text-indigo-600 font-bold mt-2 hidden text-center"></p>
                     </div>
                 </div>
                 <p class="text-[10px] text-slate-400 mt-2 italic text-center">Você pode enviar até 5 anexos para a mesma solicitação.</p>
@@ -131,7 +136,7 @@
 
         // Script visual para mostrar nome do arquivo
         const fileInput = document.getElementById('arquivo');
-        const fileNameText = document.getElementById('file-selected-name');
+        const fileNameText = document.getElementById('nomes_arquivos_selecionados');
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 const nomes = Array.from(e.target.files).map(file => file.name);

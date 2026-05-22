@@ -90,8 +90,8 @@ CREATE TABLE SUBCATEGORIA (
   nome varchar(100),
   descricao text,
   tipo_calculo varchar(20) DEFAULT 'FIXO' COMMENT 'FIXO, HORA, PERIODO, EVENTO, ANO, SEMESTRE',
-  unidade_referencia varchar(20) DEFAULT 'PONTO',
-  valor_referencia decimal(10,2) DEFAULT 1,
+  unidade_referencia varchar(20) DEFAULT 'PONTO', -- Sinceramente ele até poderia ser removido, mas apenas facilita a leitura (por si só o tipo_calculo já resolve, mas talvez ajude a quem lê o código de fora a entender)
+  valor_referencia decimal(10,2) DEFAULT 1, -- É apenas um coeficiente para ajudar em alguns cálculos como: 5 pontos a cada 4 horas (nisso o valor_referencia seria = 4 :)
   FOREIGN KEY (categoria_id) REFERENCES CATEGORIA (id)
 );
 
@@ -170,7 +170,7 @@ INSERT INTO MATRICULA (estudante_id, turma_id, total_pontos) VALUES (2, 1, 0);
 
 
 INSERT INTO MANUAL_HC (id, curso_id, horas_objetivo, versao, data) 
-VALUES (1, 1, 100, 'v1.0', CURDATE());
+VALUES (1, 1, 50, 'v1.0', CURDATE());
 
 -- Categorias e Subcategorias do Manual (Curso: Engenharia de Software)
 INSERT INTO CATEGORIA (id, manual_hc_id, max_pontos, nome) VALUES
@@ -195,7 +195,10 @@ INSERT INTO SUBCATEGORIA (categoria_id, quant_pontos, nome, descricao, tipo_calc
 (2, 2, 'Participação em Evento Científico como Ouvinte', 'Evento com mínimo 16 horas e 75% de frequência: 2 pontos.', 'HORA', 'HORA', 16),
 (2, 5, 'Organização de Eventos Acadêmicos/Científicos', 'Aprovado pela Coordenação do Curso: 5 pontos.', 'FIXO', 'PONTO', 5),
 (2, 5, 'Apresentação de Trabalho em Evento Científico (Pôster/Resumo)', 'Apresentação em evento (exceto SEMIC): 5 pontos.', 'FIXO', 'PONTO', 5),
-(2, 0, 'Publicação de Artigo Científico Completo', 'Pontuação conforme tabela Qualis (A1,A2,B1...): ver tabela no manual.', 'QUALIS', 'QUALIS', 0),
+
+-- Subcategoria removida pela exigência da criação de uma outra tabela. De certa forma é necessária, mas apenas pela aplicação do projeto será ignorada.
+-- Soluções: Criar uma tabela nova no banco ou sempre renovar o código .php quando o manual for atualizado.
+-- (2, 0, 'Publicação de Artigo Científico Completo', 'Pontuação conforme tabela Qualis (A1,A2,B1...): ver tabela no manual.', 'QUALIS', 'QUALIS', 0),
 
 -- Atividades Culturais
 (3, 10, 'Instrumentista na Orquestra Experimental', 'Durante 1 ano: 10 pontos.', 'ANO', 'ANO', 1),

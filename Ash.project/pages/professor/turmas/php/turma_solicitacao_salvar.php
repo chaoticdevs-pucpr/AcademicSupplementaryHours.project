@@ -27,7 +27,7 @@ $solicitacao_id = (int)$_GET['id'];
 $acao = strtoupper(trim($_POST['acao']));
 $justificativa_recusa = trim($_POST['justificativa_recusa'] ?? '');
 
-$stmt = $conexao->prepare("SELECT s.id, s.matricula_id, s.subcategoria_id, s.horas_brutas, s.pontos_validados, s.status, s.justificativa, su.quant_pontos AS subcategoria_pontos, c.max_pontos AS categoria_max_pontos, c.id AS categoria_id FROM SOLICITACAO s INNER JOIN SUBCATEGORIA su ON su.id = s.subcategoria_id INNER JOIN CATEGORIA c ON c.id = su.categoria_id WHERE s.id = ? AND s.prof_validador_id = ? LIMIT 1");
+$stmt = $conexao->prepare("SELECT s.id, s.matricula_id, s.subcategoria_id, s.horas_brutas, s.pontos_validados, s.status, s.justificativa, su.quant_pontos AS subcategoria_pontos, su.tipo_calculo, su.unidade_referencia, su.valor_referencia, c.max_pontos AS categoria_max_pontos, c.id AS categoria_id FROM SOLICITACAO s INNER JOIN SUBCATEGORIA su ON su.id = s.subcategoria_id INNER JOIN CATEGORIA c ON c.id = su.categoria_id WHERE s.id = ? AND s.prof_validador_id = ? LIMIT 1");
 $stmt->bind_param("ii", $solicitacao_id, $professor_id);
 $stmt->execute();
 $resultado = $stmt->get_result();
@@ -59,11 +59,16 @@ $nova_justificativa = $solicitacao['justificativa'] ?? '';
 if($acao === 'APROVAR'){
     $pontos_recebidos = trim($_POST['pontos_validados'] ?? '');
     if($pontos_recebidos === '' || !is_numeric($pontos_recebidos)){
-        $conexao->close();
-        $retorno = ['status' => 'nok', 'mensagem' => 'Informe os pontos validados para aprovar.', 'data' => []];
-        header("Content-type:application/json;charset:utf-8");
-        echo json_encode($retorno, JSON_UNESCAPED_UNICODE);
-        exit;
+        // tentar calcular automaticamente com base na subcategoria e nas horas informadas
+        require_once __DIR__ . '/../../../inc/hc_calculos.php';
+        $meta = [
+            'tipo_calculo' => $solicitacao['tipo_calculo'] ?? 'FIXO',
+            'unidade_referencia' => $solicitacao['unidade_referencia'] ?? 'PONTO',
+            'valor_referencia' => $solicitacao['valor_referencia'] ?? 1,
+            'quant_pontos' => $solicitacao['subcategoria_pontos'] ?? 0
+        ];
+        $calc = calcular_pontos($meta, ['horas_brutas' => $solicitacao['horas_brutas']]);
+        $pontos_recebidos = $calc['pontos'];
     }
 
     $pontos_recebidos = (float)$pontos_recebidos;

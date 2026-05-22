@@ -78,6 +78,11 @@ async function buscar(id){
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
         const r = resposta.data[0];
+        if((r.status || '').toUpperCase() !== 'PENDENTE'){
+            alert('Esta solicitação já foi ' + r.status.toLowerCase() + ' e não pode ser alterada.');
+            window.location.href = "../solicitacao_index.html";
+            return;
+        }
         document.getElementById("id").value = r.id;
         document.getElementById("categoria_id").value = r.categoria_id;
         await carregarSubcategorias();
