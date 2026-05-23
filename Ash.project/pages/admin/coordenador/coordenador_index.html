@@ -6,6 +6,7 @@
     <title>Administrador - Coordenadores</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
     </style>
@@ -13,17 +14,23 @@
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
     <!-- Cabeçalho (Header) -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <span class="text-2xl font-extrabold tracking-tighter text-slate-900">
-                    A.S.H<span class="text-purple-600">.</span>
-                </span>
-                <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide hidden sm:inline-block">
-                    Admin
-                </span>
-            </div>
-            <nav class="flex items-center gap-4 sm:gap-6">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-6">
+                    <a href="../index.html" class="text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center bg-slate-50 hover:bg-purple-50 w-10 h-10 rounded-full" title="Voltar">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </a>
+                    <div class="flex items-center gap-3 border-l border-slate-200 pl-6">
+                        <div class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                            A.S.H<span class="text-purple-600">.</span>
+                        </div>
+                        <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide hidden sm:inline-block">
+                            Admin
+                        </span>
+                    </div>
+                </div>
+                <nav class="flex items-center gap-4 sm:gap-6">
                 <a href="../estudante/estudante_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Estudantes</a>
                 <div class="w-px h-5 bg-slate-200"></div>
                 <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 flex items-center gap-2 transition-colors">
@@ -76,7 +83,14 @@
         </div>
     </footer>
 
-    <!-- Scripts Base -->
+    
+
+<!-- Scripts Base -->
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
+
+    <script>lucide && lucide.createIcons && lucide.createIcons();</script>
     <script src="../../../z_js/valida_sessao.js"></script>
 
     <script src="coordenador_index.js"></script>

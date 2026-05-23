@@ -4,41 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASH - Categorias da Versão</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }</style>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
+
+    <!-- Cabeçalho (Header) -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <span class="text-2xl font-extrabold tracking-tighter text-slate-900">A.S.H<span class="text-purple-600">.</span></span>
-                <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide hidden sm:inline-block">Coordenador</span>
-            </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-6">
+                    <a href="../config_hc_index.html" class="text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center bg-slate-50 hover:bg-purple-50 w-10 h-10 rounded-full" title="Voltar para versões">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </a>
+                    <div class="flex items-center gap-3 border-l border-slate-200 pl-6">
+                        <div class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                            A.S.H<span class="text-cyan-600">.</span>
+                        </div>
+                        <span class="bg-cyan-100 text-cyan-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide">
+                            Coordenador
+                        </span>
+                    </div>
+                </div>
             <nav class="flex items-center gap-4 sm:gap-6">
-                <a href="../config_hc_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Versões</a>
-                <a href="../../prof_validador/prof_validador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Prof. Validador</a>
+                <a href="../../turmas/turmas_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Lista de Turmas</a>
+                <a href="../../prof_validador/prof_validador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors hidden sm:inline-block">Lista de Professores</a>
                 <div class="w-px h-5 bg-slate-200"></div>
                 <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 flex items-center gap-2 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     Sair
                 </button>
             </nav>
+            </div>
         </div>
     </header>
-    <main class="flex-1 max-w-7xl mx-auto w-full px-4 py-12">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-            <div>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <!-- Título e Botões de Ação -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-8">
+            <div class="flex-1">
                 <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Categorias da Versão</h1>
                 <p class="text-slate-500 mt-2 text-sm">Visualize e edite as categorias desta versão do manual.</p>
-                <div class="mt-2 text-sm text-slate-600">Versão selecionada: <span id="versaoLabel" class="font-semibold text-slate-900"></span></div>
+                
+                <!-- Informações de Contexto (Versão) -->
+                <div class="mt-4 flex flex-wrap gap-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white shadow-sm border border-slate-200 text-sm">
+                        <i data-lucide="book" class="w-4 h-4 text-slate-400"></i>
+                        <span class="text-slate-500">Versão selecionada:</span>
+                        <span id="versaoLabel" class="font-bold text-slate-800"></span>
+                    </div>
+                </div>
             </div>
-            <a id="btnNovo" href="#" class="bg-slate-800 hover:bg-slate-900 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto">
+            
+            <!-- Botão Novo -->
+            <a id="btnNovo" href="#" class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Nova Categoria
             </a>
         </div>
-        <div id="lista" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden"></div>
+
+        <!-- Container da Lista -->
+        <div id="lista" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden min-h-[200px]">
+            <!-- A tabela será injetada aqui -->
+        </div>
+
     </main>
+
+    <!-- Rodapé (Footer) -->
+    <footer class="bg-slate-900 py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-sm text-slate-500 text-center md:text-left">
+                  &copy; <span id="current-year"></span> ChaoticDevs - Academic Supplementary Hours. Todos os direitos reservados.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Termos</a>
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts Base e de Lógica -->
+    <script>lucide && lucide.createIcons && lucide.createIcons();</script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
     <script src="../../../../z_js/valida_sessao.js"></script>
     <script src="../js/config_hc_versao.js"></script>
 </body>

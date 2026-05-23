@@ -85,7 +85,9 @@ function preencherTabela(tabela, turma){
                 <td class="px-6 py-4 text-sm text-slate-900">${item.id}</td>
                 <td class="px-6 py-4 text-sm text-slate-900">${item.aluno}</td>
                 <td class="px-6 py-4 text-sm text-slate-600">${item.data_envio}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${item.status}</td>
+                <td class="px-6 py-4">
+                    <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${statusBadgeClasses(item.status)}">${item.status}</span>
+                </td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="turma_solicitacao.html?solicitacao_id=${item.id}&turma_id=${encodeURIComponent(turma)}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">Visualizar</a>
                 </td>
@@ -95,4 +97,12 @@ function preencherTabela(tabela, turma){
 
     html += `</tbody></table></div>`;
     document.getElementById('lista').innerHTML = html;
+}
+
+function statusBadgeClasses(status) {
+    const valor = (status || '').toUpperCase();
+    if (valor === 'PENDENTE') return 'bg-amber-100 text-amber-800';
+    if (valor === 'APROVADO') return 'bg-emerald-100 text-emerald-800';
+    if (valor === 'RECUSADO') return 'bg-rose-100 text-rose-800';
+    return 'bg-slate-100 text-slate-700';
 }

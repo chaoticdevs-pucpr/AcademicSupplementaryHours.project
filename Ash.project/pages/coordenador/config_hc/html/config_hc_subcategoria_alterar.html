@@ -4,43 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASH - Alterar Subcategoria</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-purple-200 selection:text-purple-900">
-    <div class="max-w-3xl mx-auto p-6">
-        <div class="mb-8">
-            <h1 class="text-3xl font-extrabold text-slate-900">Alterar Subcategoria</h1>
-            <p class="text-slate-500 mt-2">Atualize os dados da subcategoria selecionada.</p>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
+
+    <!-- Cabeçalho (Header) -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-6">
+                    <!-- O id btnVoltar no header mantém o JS funcionando -->
+                    <a id="btnVoltar" href="#" class="text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center bg-slate-50 hover:bg-purple-50 w-10 h-10 rounded-full" title="Voltar para subcategorias">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </a>
+                    <div class="flex items-center gap-3 border-l border-slate-200 pl-6">
+                        <div class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                            A.S.H<span class="text-cyan-600">.</span>
+                        </div>
+                        <span class="bg-cyan-100 text-cyan-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide">
+                            Coordenador
+                        </span>
+                    </div>
+                </div>
+            <nav class="flex items-center gap-4 sm:gap-6">
+                <a href="../../turmas/turmas_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Lista de Turmas</a>
+                <a href="../../prof_validador/prof_validador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors hidden sm:inline-block">Lista de Professores</a>
+                <div class="w-px h-5 bg-slate-200"></div>
+                <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 flex items-center gap-2 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Sair
+                </button>
+            </nav>
+            </div>
         </div>
-        <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8">
-            <form id="formSubcategoria" class="space-y-6">
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Versão</label>
-                    <input id="versao" type="text" readonly class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-900" />
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-8 md:py-12">
+        
+        <!-- Título da Página -->
+        <div class="mb-8 text-left">
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Alterar Subcategoria</h1>
+            <p class="text-slate-500 mt-2 text-sm">Atualize os dados da subcategoria selecionada.</p>
+        </div>
+
+        <!-- Card do Formulário -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <form id="formSubcategoria">
+                <div class="p-6 sm:p-8 space-y-6">
+                    
+                    <!-- Campos em Linha (Readonly) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Versão -->
+                        <div>
+                            <label for="versao" class="block text-sm font-semibold text-slate-700 mb-1.5">Versão</label>
+                            <input id="versao" type="text" readonly 
+                                class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-500 cursor-not-allowed focus:outline-none transition-all">
+                        </div>
+                        <!-- Categoria ID -->
+                        <div>
+                            <label for="categoria_id" class="block text-sm font-semibold text-slate-700 mb-1.5">ID da Categoria</label>
+                            <input id="categoria_id" type="text" readonly 
+                                class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-500 cursor-not-allowed focus:outline-none transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Nome -->
+                    <div>
+                        <label for="subcategoria_nome" class="block text-sm font-semibold text-slate-700 mb-1.5">Nome da Subcategoria</label>
+                        <input id="subcategoria_nome" name="subcategoria_nome" required type="text" placeholder="Ex: Participação em Palestras" 
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                    </div>
+
+                    <!-- Horas -->
+                    <div>
+                        <label for="subcategoria_horas" class="block text-sm font-semibold text-slate-700 mb-1.5">Horas Padrão</label>
+                        <input id="subcategoria_horas" name="subcategoria_horas" required type="number" min="0" placeholder="Ex: 10" 
+                            class="w-full sm:w-1/2 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                    </div>
+
+                    <!-- Descrição -->
+                    <div>
+                        <label for="subcategoria_descricao" class="block text-sm font-semibold text-slate-700 mb-1.5">Descrição</label>
+                        <textarea id="subcategoria_descricao" name="subcategoria_descricao" rows="4" placeholder="Descreva exemplos ou critérios desta subcategoria..." 
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-y"></textarea>
+                    </div>
+
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Categoria ID</label>
-                    <input id="categoria_id" type="text" readonly class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-900" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Nome da subcategoria</label>
-                    <input id="subcategoria_nome" name="subcategoria_nome" required type="text" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Horas</label>
-                    <input id="subcategoria_horas" name="subcategoria_horas" required type="number" min="0" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Descrição</label>
-                    <textarea id="subcategoria_descricao" name="subcategoria_descricao" rows="4" placeholder="Descreva exemplos ou critérios desta subcategoria" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900"></textarea>
-                </div>
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                    <button type="submit" class="bg-slate-900 hover:bg-slate-950 text-white px-5 py-3 rounded-2xl font-semibold transition">Salvar Alterações</button>
-                    <a id="btnVoltar" href="#" class="text-sm text-slate-600 hover:text-slate-900 transition">Voltar para subcategorias</a>
+
+                <!-- Rodapé com Ação -->
+                <div class="px-6 py-5 bg-slate-50 border-t border-slate-100 flex justify-end">
+                    <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-10 py-3 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md active:scale-95 w-full sm:w-auto text-center">
+                        Salvar Alterações
+                    </button>
                 </div>
             </form>
         </div>
-    </div>
+
+        <!-- Link de Retorno Inferior (com Seta Reta) -->
+        <div class="mt-8 text-center">
+            <button type="button" onclick="document.getElementById('btnVoltar').click()" class="text-sm font-medium text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center gap-2 mx-auto">
+                 <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Voltar para subcategorias
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Rodapé (Footer) -->
+    <footer class="bg-slate-900 py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-sm text-slate-500 text-center md:text-left">
+                  &copy; <span id="current-year"></span> ChaoticDevs - Academic Supplementary Hours. Todos os direitos reservados.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Termos</a>
+                    <a href="#" class="text-sm text-slate-500 hover:text-white transition-colors">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts Base e de Lógica -->
+    <script>lucide && lucide.createIcons && lucide.createIcons();</script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
     <script src="../../../../z_js/valida_sessao.js"></script>
     <script src="../js/config_hc_subcategoria_alterar.js"></script>
 </body>
