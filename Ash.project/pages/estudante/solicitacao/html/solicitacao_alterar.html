@@ -98,7 +98,7 @@
                     <div class="border-2 border-dashed border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center group-hover:border-indigo-400 group-hover:bg-indigo-50/50 transition-all">
                         <i data-lucide="upload-cloud" class="w-10 h-10 text-slate-400 mb-2 group-hover:text-indigo-500"></i>
                         <p class="text-sm text-slate-600 font-medium text-center">Clique para adicionar novos certificados</p>
-                        <p id="file-selected-name" class="text-xs text-indigo-600 font-bold mt-2 hidden text-center"></p>
+                        <p id="nomes_arquivos_selecionados" class="text-xs text-indigo-600 font-bold mt-2 hidden text-center"></p>
                     </div>
                 </div>
                 <p class="text-[10px] text-slate-400 mt-2 italic text-center">Se não desejar adicionar novos anexos, deixe este campo vazio.</p>
@@ -131,7 +131,7 @@
 
         // Feedback visual do arquivo
         const fileInput = document.getElementById('arquivo');
-        const fileNameText = document.getElementById('file-selected-name');
+        const fileNameText = document.getElementById('nomes_arquivos_selecionados');
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 const nomes = Array.from(e.target.files).map(file => file.name);

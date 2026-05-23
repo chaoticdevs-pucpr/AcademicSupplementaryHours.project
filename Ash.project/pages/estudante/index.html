@@ -48,7 +48,7 @@
         
         <button id="solicitacoes" class="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-8 py-4 rounded-2xl transition-all shadow-lg shadow-indigo-100 flex items-center justify-center gap-3 group">
             <i data-lucide="file-text" class="w-5 h-5"></i>
-            Acessar minhas horas
+            Acessar minhas solicitações
             <i data-lucide="chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
         </button>
     </div>
@@ -78,72 +78,10 @@
         <!-- Lista de Categorias e Subcategorias (Critério 2 e 3) -->
         <div class="lg:col-span-2 space-y-4">
             <h3 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-4">Detalhamento por Categoria</h3>
-            
-            <!-- Exemplo de Categoria: Pesquisa -->
-            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                <details class="group">
-                    <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-slate-50 transition-colors">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-amber-100 text-amber-600 p-2 rounded-lg">
-                                <i data-lucide="microscope" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <span class="font-bold text-slate-700">Pesquisa</span>
-                                <p class="text-xs text-slate-400">Limite: 80h</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-sm font-bold text-slate-900">0h / 80h</span>
-                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"></i>
-                        </div>
-                    </summary>
-                    <div class="px-5 pb-5 border-t border-slate-100 bg-slate-50/50">
-                        <!-- Subcategorias -->
-                        <div class="pt-4 space-y-3">
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-slate-600">Iniciação Científica</span>
-                                <span class="font-semibold text-slate-900">0h</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-slate-600">Publicação de Artigos</span>
-                                <span class="font-semibold text-slate-900">0h</span>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </div>
-
-            <!-- Exemplo de Categoria: Extensão -->
-            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                <details class="group">
-                    <summary class="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-slate-50 transition-colors">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-emerald-100 text-emerald-600 p-2 rounded-lg">
-                                <i data-lucide="users" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <span class="font-bold text-slate-700">Extensão</span>
-                                <p class="text-xs text-slate-400">Limite: 100h</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-sm font-bold text-slate-900">0h / 100h</span>
-                            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform"></i>
-                        </div>
-                    </summary>
-                    <div class="px-5 pb-5 border-t border-slate-100 bg-slate-50/50">
-                        <div class="pt-4 space-y-3">
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-slate-600">Cursos e Eventos</span>
-                                <span class="font-semibold text-slate-900">0h</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm">
-                                <span class="text-slate-600">Projetos Comunitários</span>
-                                <span class="font-semibold text-slate-900">0h</span>
-                            </div>
-                        </div>
-                    </div>
-                </details>
+            <div id="categories-container" class="space-y-4">
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 text-slate-500">
+                    <p>Carregando as categorias...</p>
+                </div>
             </div>
 
         </div>

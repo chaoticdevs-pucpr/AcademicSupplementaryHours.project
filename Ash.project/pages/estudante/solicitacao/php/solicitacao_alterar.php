@@ -68,6 +68,29 @@ if(isset($_GET['id']) && isset($_POST['subcategoria_id'], $_POST['horas_brutas']
     $justificativa = $_POST['justificativa'];
     $arquivosEnviados = normalizar_arquivos('arquivo');
 
+    $stmtStatus = $conexao->prepare("SELECT status FROM SOLICITACAO WHERE id = ? AND matricula_id = ? LIMIT 1");
+    $stmtStatus->bind_param("ii", $id, $matricula_id);
+    $stmtStatus->execute();
+    $resultadoStatus = $stmtStatus->get_result();
+
+    if($resultadoStatus->num_rows == 0){
+        $stmtStatus->close();
+        $retorno = ['status' => 'nok', 'mensagem' => 'Solicitação não encontrada.', 'data' => []];
+        header("Content-type:application/json;charset:utf-8");
+        echo json_encode($retorno);
+        exit;
+    }
+
+    $linhaStatus = $resultadoStatus->fetch_assoc();
+    $stmtStatus->close();
+
+    if(strtoupper($linhaStatus['status'] ?? '') !== 'PENDENTE'){
+        $retorno = ['status' => 'nok', 'mensagem' => 'Solicitações aprovadas ou recusadas não podem ser alteradas.', 'data' => []];
+        header("Content-type:application/json;charset:utf-8");
+        echo json_encode($retorno);
+        exit;
+    }
+
     $stmtAnexos = $conexao->prepare("SELECT COUNT(*) AS total FROM ANEXO WHERE solicitacao_id = ?");
     $stmtAnexos->bind_param("i", $id);
     $stmtAnexos->execute();
