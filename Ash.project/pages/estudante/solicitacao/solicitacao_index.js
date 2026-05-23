@@ -103,13 +103,35 @@ function preencherTabela(tabela) {
 
             // Anexo com ícone bonitinho (SVG do Lucide incorporado)
             const anexos = Array.isArray(item.anexos) ? item.anexos : [];
-            const anexo = anexos.length > 0
-                ? `<div class="flex flex-col gap-1.5">${anexos.map((anexoItem, index) => `
-                    <a href="../../${anexoItem.caminho_arquivo}" target="_blank" class="inline-flex items-center gap-1.5 text-purple-600 hover:text-purple-800 font-semibold transition-colors text-sm">
+            let anexo = '';
+            if (anexos.length > 0) {
+                anexo = '<div class="flex flex-col gap-1.5">';
+                anexos.forEach((anexoItem, index) => {
+                    // Determinar tipo MIME baseado na extensão do arquivo
+                    const fileName = anexoItem.caminho_arquivo.split('/').pop();
+                    const ext = fileName.split('.').pop().toLowerCase();
+                    let mimeType = 'application/octet-stream';
+                    
+                    if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'].includes(ext)) {
+                        mimeType = 'image/' + (ext === 'jpg' ? 'jpeg' : ext);
+                    } else if (ext === 'pdf') {
+                        mimeType = 'application/pdf';
+                    } else if (['doc', 'docx'].includes(ext)) {
+                        mimeType = 'application/msword';
+                    } else if (['xls', 'xlsx'].includes(ext)) {
+                        mimeType = 'application/vnd.ms-excel';
+                    }
+                    
+                    const fileUrl = 'php/arquivo_serve.php?anexo_id=' + anexoItem.id;
+                    anexo += `<a href="javascript:void(0)" onclick="openFileViewer('${fileUrl}', '${fileName.replace(/'/g, "\\'")}', '${mimeType}')" class="inline-flex items-center gap-1.5 text-indigo-600 hover:text-indigo-800 font-semibold transition-colors text-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                        Anexo ${index + 1}
-                    </a>`).join('')}</div>`
-                : `<span class="text-slate-400 text-sm italic">Sem anexo</span>`;
+                        ${fileName}
+                    </a>`;
+                });
+                anexo += '</div>';
+            } else {
+                anexo = `<span class="text-slate-400 text-sm italic">Sem anexo</span>`;
+            }
 
             // Proteção contra datas "null" do banco
             const dataEnvio = (item.data_envios && item.data_envios !== "null") ? item.data_envios : '---';
