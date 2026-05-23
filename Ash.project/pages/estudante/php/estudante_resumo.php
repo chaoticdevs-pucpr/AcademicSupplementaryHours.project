@@ -36,7 +36,7 @@ $curso_id = (int)$matricula['curso_id'];
 $horas_objetivo = (float)($matricula['horas_objetivo'] ?? 0);
 $stmtMatricula->close();
 
-$stmtCategorias = $conexao->prepare("SELECT c.id AS categoria_id, c.nome AS categoria_nome, c.max_pontos, COALESCE(SUM(CASE WHEN s.status = 'APROVADO' THEN s.pontos_validados ELSE 0 END), 0) AS total_pontos FROM CATEGORIA c INNER JOIN MANUAL_HC mh ON mh.id = c.manual_hc_id AND mh.curso_id = ? LEFT JOIN SUBCATEGORIA su ON su.categoria_id = c.id LEFT JOIN SOLICITACAO s ON s.subcategoria_id = su.id AND s.matricula_id = ? GROUP BY c.id, c.nome, c.max_pontos ORDER BY c.nome");
+$stmtCategorias = $conexao->prepare("SELECT c.id AS categoria_id, c.nome AS categoria_nome, c.max_pontos, COALESCE(SUM(CASE WHEN s.status = 'APROVADO' THEN s.pontos_validados ELSE 0 END), 0) AS total_horas FROM CATEGORIA c INNER JOIN MANUAL_HC mh ON mh.id = c.manual_hc_id AND mh.curso_id = ? LEFT JOIN SUBCATEGORIA su ON su.categoria_id = c.id LEFT JOIN SOLICITACAO s ON s.subcategoria_id = su.id AND s.matricula_id = ? GROUP BY c.id, c.nome, c.max_pontos ORDER BY c.nome");
 $stmtCategorias->bind_param("ii", $curso_id, $matricula_id);
 $stmtCategorias->execute();
 $resultadoCategorias = $stmtCategorias->get_result();
@@ -45,13 +45,13 @@ $categorias = [];
 $total_aprovado = 0;
 while($linha = $resultadoCategorias->fetch_assoc()){
     $linha['max_pontos'] = (float)$linha['max_pontos'];
-    $linha['total_pontos'] = (float)$linha['total_pontos'];
-    $total_aprovado += $linha['total_pontos'];
+    $linha['total_horas'] = (float)$linha['total_horas'];
+    $total_aprovado += $linha['total_horas'];
     $categorias[] = $linha;
 }
 $stmtCategorias->close();
 
-$stmtSubcategorias = $conexao->prepare("SELECT su.id AS subcategoria_id, su.nome AS subcategoria_nome, su.quant_pontos, su.tipo_calculo, su.unidade_referencia, su.valor_referencia, c.id AS categoria_id, c.nome AS categoria_nome, c.max_pontos, COALESCE(SUM(CASE WHEN s.status = 'APROVADO' THEN s.pontos_validados ELSE 0 END), 0) AS total_pontos, COALESCE(SUM(CASE WHEN s.status = 'PENDENTE' THEN 1 ELSE 0 END), 0) AS total_solicitacoes FROM SUBCATEGORIA su INNER JOIN CATEGORIA c ON c.id = su.categoria_id INNER JOIN MANUAL_HC mh ON mh.id = c.manual_hc_id AND mh.curso_id = ? LEFT JOIN SOLICITACAO s ON s.subcategoria_id = su.id AND s.matricula_id = ? GROUP BY su.id, su.nome, su.quant_pontos, su.tipo_calculo, su.unidade_referencia, su.valor_referencia, c.id, c.nome, c.max_pontos ORDER BY c.nome, su.nome");
+$stmtSubcategorias = $conexao->prepare("SELECT su.id AS subcategoria_id, su.nome AS subcategoria_nome, su.quant_pontos, su.tipo_calculo, su.unidade_referencia, su.valor_referencia, c.id AS categoria_id, c.nome AS categoria_nome, c.max_pontos, COALESCE(SUM(CASE WHEN s.status = 'APROVADO' THEN s.pontos_validados ELSE 0 END), 0) AS total_horas, COALESCE(SUM(CASE WHEN s.status = 'PENDENTE' THEN 1 ELSE 0 END), 0) AS total_solicitacoes FROM SUBCATEGORIA su INNER JOIN CATEGORIA c ON c.id = su.categoria_id INNER JOIN MANUAL_HC mh ON mh.id = c.manual_hc_id AND mh.curso_id = ? LEFT JOIN SOLICITACAO s ON s.subcategoria_id = su.id AND s.matricula_id = ? GROUP BY su.id, su.nome, su.quant_pontos, su.tipo_calculo, su.unidade_referencia, su.valor_referencia, c.id, c.nome, c.max_pontos ORDER BY c.nome, su.nome");
 $stmtSubcategorias->bind_param("ii", $curso_id, $matricula_id);
 $stmtSubcategorias->execute();
 $resultadoSubcategorias = $stmtSubcategorias->get_result();
@@ -61,7 +61,7 @@ while($linha = $resultadoSubcategorias->fetch_assoc()){
     $linha['quant_pontos'] = (float)$linha['quant_pontos'];
     $linha['valor_referencia'] = (float)$linha['valor_referencia'];
     $linha['max_pontos'] = (float)$linha['max_pontos'];
-    $linha['total_pontos'] = (float)$linha['total_pontos'];
+    $linha['total_horas'] = (float)$linha['total_horas'];
     $linha['total_solicitacoes'] = (int)$linha['total_solicitacoes'];
     $subcategorias[] = $linha;
 }
