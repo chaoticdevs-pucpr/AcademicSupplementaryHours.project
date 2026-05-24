@@ -168,6 +168,9 @@ INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (2, 6, 'U-N');
 
 INSERT INTO MATRICULA (estudante_id, turma_id, total_pontos) VALUES (2, 1, 0);
 
+-- Coordenadores
+INSERT INTO USUARIO (email, senha, perfil, nome, cpf, status) VALUES ('coord1@ash.com', '1234', 'COORDENADOR', 'Carlos Silva', '11111111111', 'ATIVO');
+INSERT INTO COORDENADOR (usuario_id, curso_id) VALUES (9, 1);
 
 INSERT INTO MANUAL_HC (id, curso_id, horas_objetivo, versao, data) 
 VALUES (1, 1, 50, 'v1.0', CURDATE());

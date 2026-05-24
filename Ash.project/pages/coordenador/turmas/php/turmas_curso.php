@@ -45,8 +45,8 @@ $curso_id = (int)$curso['id'];
 $curso_nome = $curso['nome'];
 $stmtCurso->close();
 
-$stmt = $conexao->prepare("SELECT t.id, t.nome, ? AS curso_nome FROM TURMA t WHERE t.curso_id = ? ORDER BY t.nome");
-$stmt->bind_param("si", $curso_nome, $curso_id);
+$stmt = $conexao->prepare("SELECT t.id, t.nome FROM TURMA t WHERE t.curso_id = ? ORDER BY t.nome");
+$stmt->bind_param("i", $curso_id);
 $stmt->execute();
 $resultado = $stmt->get_result();
 $tabela = [];
