@@ -67,6 +67,7 @@ function preencherTabela(tabela) {
                     <th class="px-6 py-4">ID</th>
                     <th class="px-6 py-4">Categoria</th>
                     <th class="px-6 py-4">Subcategoria</th>
+                    <th class="px-6 py-4">Pontos</th>
                     <th class="px-6 py-4 text-center">Horas Brutas</th>
                     <th class="px-6 py-4">Status</th>
                     <th class="px-6 py-4">Data de Envio</th>
@@ -141,6 +142,7 @@ function preencherTabela(tabela) {
                 <td class="px-6 py-4 text-sm font-medium text-slate-400">${item.id}</td>
                 <td class="px-6 py-4 text-sm font-bold text-slate-900">${item.categoria_nome || '---'}</td>
                 <td class="px-6 py-4 text-sm text-slate-600">${item.subcategoria_nome || '---'}</td>
+                <td class="px-6 py-4 text-sm text-slate-600">${item.pontos_validados || '---'}</td>
                 <td class="px-6 py-4 text-sm font-bold text-slate-700 text-center">${item.horas_brutas || '0'}h</td>
                 <td class="px-6 py-4">${statusBadge}</td>
                 <td class="px-6 py-4 text-sm text-slate-500">${dataEnvio}</td>
