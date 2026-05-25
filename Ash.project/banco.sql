@@ -155,8 +155,12 @@ INSERT INTO PROF_VALIDADOR (usuario_id) VALUES (7);
 INSERT INTO USUARIO (email, senha, perfil, nome, cpf, status) VALUES ('prof6@ash.com', '1234', 'PROFESSOR', 'Adolfo Rodolfo', '38765432100', 'ATIVO');
 INSERT INTO PROF_VALIDADOR (usuario_id) VALUES (8);
 
+INSERT INTO USUARIO (email, senha, perfil, nome, cpf, status) VALUES ('coord.es@ash.com', '1234', 'COORDENADOR', 'Coordenador Engenharia de Software', '11223344556', 'ATIVO');
+
 INSERT INTO CURSO (nome) VALUES ('Engenharia de Software');
 INSERT INTO CURSO (nome) VALUES ('Engenharia da Computação');
+
+INSERT INTO COORDENADOR (usuario_id, curso_id, cadastrado_por_admin_id) VALUES (9, 1, 1);
 
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 3, 'A-M');
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 4, 'B-M');

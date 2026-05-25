@@ -72,9 +72,9 @@ async function carregarCategorias(){
 
             newFiles.forEach(f => {
                 const ext = (f.name.split('.').pop() || '').toLowerCase();
-                const allowed = ['pdf','png','jpg','jpeg'].includes(ext) && ['application/pdf','image/png','image/jpeg'].includes(f.type);
+                const allowed = ext === 'pdf' && f.type === 'application/pdf';
                 if(!allowed){ removed.push(f.name); return; }
-                if(!exists(f)) dt.items.add(f);
+                if(!exists(f) && dt.files.length < 5) dt.items.add(f);
             });
 
             _dt_files_alterar = dt;
@@ -89,7 +89,7 @@ async function carregarCategorias(){
             list.innerHTML = '';
             files.forEach((f, idx) => {
                 const ext = (f.name.split('.').pop() || '').toLowerCase();
-                const allowed = ['pdf','png','jpg','jpeg'].includes(ext) && ['application/pdf','image/png','image/jpeg'].includes(f.type);
+                const allowed = ext === 'pdf' && f.type === 'application/pdf';
                 const row = document.createElement('div');
                 row.className = 'flex items-center justify-between gap-3 py-1';
 
@@ -123,6 +123,7 @@ async function carregarCategorias(){
                 list.appendChild(row);
             });
             if(window.lucide) lucide.createIcons();
+             if(newFiles.length > 5) alert('Apenas 5 anexos são permitidos por solicitação.');
              if(removed.length > 0) alert('Removido(s) arquivo(s) não permitido(s): ' + removed.join(', '));
          });
     }
@@ -204,6 +205,18 @@ async function alterar(){
     fd.append("justificativa", justificativa);
 
     const arquivos = document.getElementById("arquivo").files;
+    if(arquivos.length > 5){
+        alert('Você pode enviar no máximo 5 anexos por solicitação.');
+        return;
+    }
+    if(arquivos.length > 0){
+        const arquivo = arquivos[0];
+        const ext = (arquivo.name.split('.').pop() || '').toLowerCase();
+        if(ext !== 'pdf' || arquivo.type !== 'application/pdf'){
+            alert('Apenas arquivo PDF é permitido.');
+            return;
+        }
+    }
     for(const arquivo of arquivos){
         fd.append("arquivo[]", arquivo);
     }

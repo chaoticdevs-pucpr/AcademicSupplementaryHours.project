@@ -28,17 +28,16 @@ function calcular_pontos(array $subcategoria, array $dados): array {
             }
             break;
         case 'PERIODO':
-            // unidade normalmente MES, valor_ref = meses por unidade (ex: 6 meses)
+            // Interpreta o valor informado como quantidade da unidade do período (ex.: meses).
             if($duracao_meses !== null){
                 $units = floor($duracao_meses / max(1, intval($valorRef)));
                 $pontos = $units * $qPontos;
                 $detalhes[] = "Período (meses): {$duracao_meses} / {$valorRef} => unidades={$units} => pontos={$pontos}";
             } else if($horas !== null){
-                // 1 mês = 160 horas
-                $meses = floor($horas / 160);
-                $units = floor($meses / max(1, intval($valorRef)));
+                $periodos = floor($horas);
+                $units = floor($periodos / max(1, intval($valorRef)));
                 $pontos = $units * $qPontos;
-                $detalhes[] = "Fallback: horas {$horas} → meses≈{$meses}; unidades={$units} → pontos={$pontos}";
+                $detalhes[] = "Período informado: {$periodos} / {$valorRef} => unidades={$units} => pontos={$pontos}";
             } else {
                 $detalhes[] = 'Duração em meses não informada.';
             }
@@ -51,10 +50,10 @@ function calcular_pontos(array $subcategoria, array $dados): array {
                 $pontos = $units * $qPontos;
                 $detalhes[] = "Semestres: {$duracao_semestres} => anos={$anos} => unidades={$units} => pontos={$pontos}";
             } else if($horas !== null){
-                $anos = floor($horas / (160 * 12));
+                $anos = floor($horas);
                 $units = floor($anos / max(1, intval($valorRef)));
                 $pontos = $units * $qPontos;
-                $detalhes[] = "Fallback: horas {$horas} → anos≈{$anos}; unidades={$units} → pontos={$pontos}";
+                $detalhes[] = "Anos informados: {$anos} / {$valorRef} => unidades={$units} => pontos={$pontos}";
             } else {
                 $detalhes[] = 'Duração em anos/semestres não informada.';
             }
@@ -65,11 +64,10 @@ function calcular_pontos(array $subcategoria, array $dados): array {
                 $pontos = $units * $qPontos;
                 $detalhes[] = "Semestres: {$duracao_semestres} / {$valorRef} => unidades={$units} => pontos={$pontos}";
             } else if($horas !== null){
-                // 1 semestre é aproximado como 6 meses no fallback
-                $semestres = floor($horas / (160 * 6));
+                $semestres = floor($horas);
                 $units = floor($semestres / max(1, intval($valorRef)));
                 $pontos = $units * $qPontos;
-                $detalhes[] = "Fallback: horas {$horas} → semestres≈{$semestres}; unidades={$units} → pontos={$pontos}";
+                $detalhes[] = "Semestres informados: {$semestres} / {$valorRef} => unidades={$units} => pontos={$pontos}";
             } else {
                 $detalhes[] = 'Duração em semestres não informada.';
             }

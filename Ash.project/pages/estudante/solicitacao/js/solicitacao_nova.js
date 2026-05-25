@@ -19,34 +19,34 @@ function calcularPontosJS(subcategoria, dados){
 	const tipo = (subcategoria.tipo_calculo || subcategoria.tipo || 'FIXO').toUpperCase();
 	const qPontos = Number(subcategoria.quant_pontos ?? subcategoria.quant ?? 0);
 	const valorRef = Number(subcategoria.valor_referencia ?? subcategoria.valorRef ?? 1);
-	const horas = (dados.horas_brutas != null) ? Number(dados.horas_brutas) : null;
+	const valorInformado = (dados.horas_brutas != null) ? Number(dados.horas_brutas) : null;
 
 	let pontos = 0;
 	switch(tipo){
 		case 'HORA':
-			if(horas === null) return 0;
-			const unitsH = Math.floor(horas / Math.max(1, valorRef));
+			if(valorInformado === null) return 0;
+			const unitsH = Math.floor(valorInformado / Math.max(1, valorRef));
 			pontos = unitsH * qPontos;
 			break;
 		case 'PERIODO':
-			if(horas !== null){
-				const meses = Math.floor(horas / 160);
-				const unitsP = Math.floor(meses / Math.max(1, Math.floor(valorRef)));
+			if(valorInformado !== null){
+				const periodo = Math.floor(valorInformado);
+				const unitsP = Math.floor(periodo / Math.max(1, Math.floor(valorRef)));
 				pontos = unitsP * qPontos;
 			} else {
 				pontos = 0;
 			}
 			break;
 		case 'ANO':
-			if(horas !== null){
-				const anos = Math.floor(horas / (160 * 12));
+			if(valorInformado !== null){
+				const anos = Math.floor(valorInformado);
 				const unitsA = Math.floor(anos / Math.max(1, Math.floor(valorRef)));
 				pontos = unitsA * qPontos;
 			} else puntos = 0;
 			break;
 		case 'SEMESTRE':
-			if(horas !== null){
-				const sems = Math.floor(horas / (160 * 6));
+			if(valorInformado !== null){
+				const sems = Math.floor(valorInformado);
 				const unitsS = Math.floor(sems / Math.max(1, Math.floor(valorRef)));
 				pontos = unitsS * qPontos;
 			} else pontos = 0;
@@ -74,30 +74,18 @@ function initFileSelector(){
 	if(!input || !list) return;
 	_dt_files = new DataTransfer();
 	input.addEventListener('change', (e) => {
-		// Merge previously accepted files with newly selected ones, filtering invalids
 		const newFiles = Array.from(e.target.files || []);
 		const dt = new DataTransfer();
 		const removed = [];
 
-		// add existing files from _dt_files first
-		Array.from(_dt_files.files || []).forEach(f => dt.items.add(f));
-
-		// helper to detect duplicates by name+size
-		const exists = (file) => {
-			for(const ofile of dt.files){
-				if(ofile.name === file.name && ofile.size === file.size) return true;
-			}
-			return false;
-		}
-
 		newFiles.forEach(f => {
 			const ext = (f.name.split('.').pop() || '').toLowerCase();
-			const allowed = ['pdf','png','jpg','jpeg'].includes(ext) && ['application/pdf','image/png','image/jpeg'].includes(f.type);
+			const allowed = ext === 'pdf' && f.type === 'application/pdf';
 			if(!allowed){
 				removed.push(f.name);
 				return;
 			}
-			if(!exists(f)) dt.items.add(f);
+			if(dt.files.length < 5) dt.items.add(f);
 		});
 
 		_dt_files = dt;
@@ -106,7 +94,11 @@ function initFileSelector(){
 		if(removed.length > 0){
 			alert('Removido(s) arquivo(s) não permitido(s): ' + removed.join(', '));
 		}
+		if(newFiles.length > 5){
+			alert('Apenas 5 anexos são permitidos por solicitação.');
+		}
 		renderSelectedFiles();
+		atualizarCamposEPreview();
 	});
 }
 
@@ -122,7 +114,7 @@ function renderSelectedFiles(){
 	list.innerHTML = '';
         files.forEach((f, idx) => {
 		const ext = (f.name.split('.').pop() || '').toLowerCase();
-		const allowed = ['pdf','png','jpg','jpeg'].includes(ext) && ['application/pdf','image/png','image/jpeg'].includes(f.type);
+		const allowed = ext === 'pdf' && f.type === 'application/pdf';
 		const row = document.createElement('div');
 		row.className = 'flex items-center justify-between gap-3 py-1';
             row.innerHTML = `
@@ -153,6 +145,7 @@ function removeSelectedFile(e, index){
 	_dt_files = dt;
 	input.files = _dt_files.files;
 	renderSelectedFiles();
+	atualizarCamposEPreview();
 }
 
 document.getElementById("subcategoria_id").addEventListener("change", () => {
@@ -193,9 +186,9 @@ function atualizarCamposEPreview(){
 	// Ajustar unidade (ex: hrs, meses, anos)
 	if(horasLabel){
 		if(tipo === 'HORA') horasLabel.textContent = 'hrs';
-		else if(tipo === 'PERIODO') horasLabel.textContent = 'meses (aprox)';
-		else if(tipo === 'ANO') horasLabel.textContent = 'anos (aprox)';
-		else if(tipo === 'SEMESTRE') horasLabel.textContent = 'semestres (aprox)';
+		else if(tipo === 'PERIODO') horasLabel.textContent = 'meses';
+		else if(tipo === 'ANO') horasLabel.textContent = 'anos';
+		else if(tipo === 'SEMESTRE') horasLabel.textContent = 'semestres';
 		else horasLabel.textContent = '';
 	}
 
@@ -272,6 +265,18 @@ async function novo(){
 		alert('Você pode enviar no máximo 5 anexos por solicitação.');
 		return;
 	}
+	if(arquivos.length > 0){
+		if(arquivos.length > 5){
+			alert('Você pode enviar no máximo 5 anexos por solicitação.');
+			return;
+		}
+		const arquivo = arquivos[0];
+		const ext = (arquivo.name.split('.').pop() || '').toLowerCase();
+		if(ext !== 'pdf' || arquivo.type !== 'application/pdf'){
+			alert('Apenas arquivo PDF é permitido.');
+			return;
+		}
+	}
 
 	// calcular estimativa de pontos e checar limite da categoria
 	const select = document.getElementById("subcategoria_id");
@@ -281,8 +286,8 @@ async function novo(){
 		const tipo = (opcao.getAttribute('data-tipo_calculo') || 'FIXO').toUpperCase();
 		const valorRef = parseFloat(opcao.getAttribute('data-valor_referencia') || '1');
 		const categoriaId = parseInt(opcao.getAttribute('data-categoria_id') || '0');
-
-		const estimativa = calcularPontosJS({tipo_calculo: tipo, quant_pontos: quant, valor_referencia: valorRef}, {horas_brutas: parseFloat(horas_brutas || 0)});
+		const estimativaBase = calcularPontosJS({tipo_calculo: tipo, quant_pontos: quant, valor_referencia: valorRef}, {horas_brutas: parseFloat(horas_brutas || 0)});
+		const estimativa = estimativaBase;
 		// buscar resumo para achar total atual da categoria
 		try{
 			const resp = await fetch("../../php/estudante_resumo.php");
@@ -292,11 +297,11 @@ async function novo(){
 				if(cat){
 					const totalAtual = parseFloat(cat.total_pontos || 0);
 					const maxP = parseFloat(cat.max_pontos || 0);
-					if(estimativa <= 0){
+					if(estimativaBase <= 0){
 						alert('A estimativa de pontos é zero. Verifique as horas informadas.');
 						return;
 					}
-					if(estimativa > quant){
+					if(estimativaBase > quant){
 						alert('A estimativa de pontos excede o limite da subcategoria. Ajuste as horas.');
 						return;
 					}

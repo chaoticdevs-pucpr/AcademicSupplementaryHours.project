@@ -62,8 +62,8 @@ function normalizar_arquivos($campo){
 }
 
 function arquivo_permitido($tmp_name, $nomeArquivo){
-    $allowMime = ['application/pdf', 'image/png', 'image/jpeg'];
-    $allowExt = ['.pdf', '.png', '.jpg', '.jpeg'];
+    $allowMime = ['application/pdf'];
+    $allowExt = ['.pdf'];
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mime = $finfo ? finfo_file($finfo, $tmp_name) : '';
@@ -126,7 +126,7 @@ if(isset($_GET['id']) && isset($_POST['subcategoria_id'], $_POST['horas_brutas']
     if(count($arquivosEnviados) > 0){
         foreach($arquivosEnviados as $arquivo){
             if(!arquivo_permitido($arquivo['tmp_name'], $arquivo['name'])){
-                $retorno = ['status' => 'nok', 'mensagem' => 'Tipo de arquivo não permitido. Apenas PDF, PNG e JPG são aceitos.', 'data' => []];
+                $retorno = ['status' => 'nok', 'mensagem' => 'Tipo de arquivo não permitido. Apenas PDF é aceito.', 'data' => []];
                 header("Content-type:application/json;charset:utf-8");
                 echo json_encode($retorno);
                 exit;
@@ -157,7 +157,7 @@ if(isset($_GET['id']) && isset($_POST['subcategoria_id'], $_POST['horas_brutas']
         foreach($arquivosEnviados as $indice => $arquivo){
             // Validar tipo de arquivo
             if(!arquivo_permitido($arquivo['tmp_name'], $arquivo['name'])){
-                $retorno = ['status' => 'nok', 'mensagem' => 'Tipo de arquivo não permitido. Apenas PDF, PNG e JPG são aceitos.', 'data' => []];
+                $retorno = ['status' => 'nok', 'mensagem' => 'Tipo de arquivo não permitido. Apenas PDF é aceito.', 'data' => []];
                 header("Content-type:application/json;charset:utf-8");
                 echo json_encode($retorno);
                 exit;

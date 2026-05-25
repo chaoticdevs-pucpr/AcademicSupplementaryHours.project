@@ -85,7 +85,7 @@ function preencherTela(item) {
 
     const pontosInput = document.getElementById('pontos-validados-input');
     if (pontosInput) {
-        const sugestao = item.subcategoria_pontos ?? item.pontos_validados ?? item.horas_brutas ?? 0;
+        const sugestao = Number(item.subcategoria_pontos ?? item.pontos_validados ?? item.horas_brutas ?? 0);
         pontosInput.value = formatHoras(sugestao);
         pontosInput.max = item.subcategoria_pontos ?? '';
     }
