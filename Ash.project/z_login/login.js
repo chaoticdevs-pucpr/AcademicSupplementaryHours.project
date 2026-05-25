@@ -2,6 +2,18 @@ document.getElementById("enviar").addEventListener("click", () => {
     login();
 });
 
+document.getElementById("usuario").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        login();
+    }
+});
+
+document.getElementById("senha").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        login();
+    }
+});
+
 async function login(){
     var usuario = document.getElementById("usuario").value;
     var senha = document.getElementById("senha").value;
