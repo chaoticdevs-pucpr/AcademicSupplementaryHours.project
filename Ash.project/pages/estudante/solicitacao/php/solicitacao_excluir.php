@@ -33,17 +33,54 @@ $matricula_id = (int)$matricula['id'];
 $stmtMatricula->close();
 
 if(isset($_GET['id'])){
-    $stmt = $conexao->prepare("DELETE FROM SOLICITACAO WHERE id = ? AND matricula_id = ? AND status = 'PENDENTE'");
-    $stmt->bind_param("ii", $_GET['id'], $matricula_id);
-    $stmt->execute();
+    $id = (int)$_GET['id'];
 
-    if($stmt->affected_rows > 0){
-        $retorno = ['status' => 'ok', 'mensagem' => 'Registro excluido.', 'data' => []];
-    }else{
-        $retorno = ['status' => 'nok', 'mensagem' => 'Somente solicitacoes pendentes podem ser excluidas.', 'data' => []];
+    // Verificar se a solicitação existe, pertence ao estudante e está pendente
+    $check = $conexao->prepare("SELECT id FROM SOLICITACAO WHERE id = ? AND matricula_id = ? AND status = 'PENDENTE' LIMIT 1");
+    $check->bind_param("ii", $id, $matricula_id);
+    $check->execute();
+    $resCheck = $check->get_result();
+    $check->close();
+
+    if($resCheck->num_rows == 0){
+        $retorno = ['status' => 'nok', 'mensagem' => 'Somente solicitacoes pendentes podem ser excluidas ou solicitacao nao encontrada.', 'data' => []];
+    } else {
+        // Buscar anexos para remover arquivos fisicos
+        $stmtAn = $conexao->prepare("SELECT id, caminho_arquivo FROM ANEXO WHERE solicitacao_id = ?");
+        $stmtAn->bind_param("i", $id);
+        $stmtAn->execute();
+        $resAn = $stmtAn->get_result();
+        $stmtAn->close();
+
+        $pastaUploads = __DIR__ . '/../../uploads';
+
+        if($resAn && $resAn->num_rows > 0){
+            while($row = $resAn->fetch_assoc()){
+                $filePath = $pastaUploads . '/' . basename($row['caminho_arquivo']);
+                if(is_file($filePath)){
+                    @unlink($filePath);
+                }
+            }
+            // remover registros de anexo
+            $delAn = $conexao->prepare("DELETE FROM ANEXO WHERE solicitacao_id = ?");
+            $delAn->bind_param("i", $id);
+            $delAn->execute();
+            $delAn->close();
+        }
+
+        // agora remover a solicitacao
+        $stmt = $conexao->prepare("DELETE FROM SOLICITACAO WHERE id = ? AND matricula_id = ? AND status = 'PENDENTE'");
+        $stmt->bind_param("ii", $id, $matricula_id);
+        $stmt->execute();
+
+        if($stmt->affected_rows > 0){
+            $retorno = ['status' => 'ok', 'mensagem' => 'Registro excluido.', 'data' => []];
+        }else{
+            $retorno = ['status' => 'nok', 'mensagem' => 'Falha ao excluir solicitacao.', 'data' => []];
+        }
+
+        $stmt->close();
     }
-
-    $stmt->close();
 }else{
     $retorno = ['status' => 'nok', 'mensagem' => 'E necessario informar um ID para exclusao.', 'data' => []];
 }

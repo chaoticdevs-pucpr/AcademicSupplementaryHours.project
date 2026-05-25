@@ -66,6 +66,95 @@ document.getElementById("categoria_id").addEventListener("change", () => {
 	carregarSubcategorias();
 });
 
+// File selector management (show selected files and allow removal)
+let _dt_files = null;
+function initFileSelector(){
+	const input = document.getElementById('arquivo');
+	const list = document.getElementById('selected-files-list');
+	if(!input || !list) return;
+	_dt_files = new DataTransfer();
+	input.addEventListener('change', (e) => {
+		// Merge previously accepted files with newly selected ones, filtering invalids
+		const newFiles = Array.from(e.target.files || []);
+		const dt = new DataTransfer();
+		const removed = [];
+
+		// add existing files from _dt_files first
+		Array.from(_dt_files.files || []).forEach(f => dt.items.add(f));
+
+		// helper to detect duplicates by name+size
+		const exists = (file) => {
+			for(const ofile of dt.files){
+				if(ofile.name === file.name && ofile.size === file.size) return true;
+			}
+			return false;
+		}
+
+		newFiles.forEach(f => {
+			const ext = (f.name.split('.').pop() || '').toLowerCase();
+			const allowed = ['pdf','png','jpg','jpeg'].includes(ext) && ['application/pdf','image/png','image/jpeg'].includes(f.type);
+			if(!allowed){
+				removed.push(f.name);
+				return;
+			}
+			if(!exists(f)) dt.items.add(f);
+		});
+
+		_dt_files = dt;
+		input.files = _dt_files.files;
+
+		if(removed.length > 0){
+			alert('Removido(s) arquivo(s) não permitido(s): ' + removed.join(', '));
+		}
+		renderSelectedFiles();
+	});
+}
+
+function renderSelectedFiles(){
+	const input = document.getElementById('arquivo');
+	const list = document.getElementById('selected-files-list');
+	if(!input || !list) return;
+	const files = Array.from(input.files || []);
+	if(files.length === 0){
+		list.innerHTML = '<p class="text-xs text-slate-400 italic">Nenhum arquivo selecionado</p>';
+		return;
+	}
+	list.innerHTML = '';
+        files.forEach((f, idx) => {
+		const ext = (f.name.split('.').pop() || '').toLowerCase();
+		const allowed = ['pdf','png','jpg','jpeg'].includes(ext) && ['application/pdf','image/png','image/jpeg'].includes(f.type);
+		const row = document.createElement('div');
+		row.className = 'flex items-center justify-between gap-3 py-1';
+            row.innerHTML = `
+			<div class="flex items-center gap-2">
+				<i data-lucide="paperclip" class="w-4 h-4 text-slate-400"></i>
+				<span class="text-sm ${allowed? 'text-indigo-700' : 'text-rose-600'} truncate">${f.name}</span>
+			</div>
+			<div class="flex items-center gap-2">
+				${allowed ? '' : '<span class="text-xs text-rose-600 mr-2">Tipo não permitido</span>'}
+				<button type="button" class="text-xs text-slate-500 hover:text-slate-900" >Remover</button>
+			</div>`;
+		list.appendChild(row);
+		// ensure remove button is above the file input overlay
+		const btn = row.querySelector('button');
+		if(btn){ btn.style.position = 'relative'; btn.style.zIndex = '60'; btn.addEventListener('click', (ev)=> removeSelectedFile(ev, idx)); }
+	});
+	if(window.lucide) lucide.createIcons();
+}
+
+function removeSelectedFile(e, index){
+	if(e && typeof e.stopPropagation === 'function'){ e.stopPropagation(); e.preventDefault(); }
+	const input = document.getElementById('arquivo');
+	if(!input) return;
+	const dt = new DataTransfer();
+	const files = Array.from(_dt_files.files || []);
+	files.splice(index,1);
+	files.forEach(f => dt.items.add(f));
+	_dt_files = dt;
+	input.files = _dt_files.files;
+	renderSelectedFiles();
+}
+
 document.getElementById("subcategoria_id").addEventListener("change", () => {
 	atualizarCamposEPreview();
 });
@@ -73,6 +162,8 @@ document.getElementById("subcategoria_id").addEventListener("change", () => {
 document.getElementById("horas_brutas").addEventListener("input", () => {
 	atualizarCamposEPreview();
 });
+
+document.addEventListener('DOMContentLoaded', () => initFileSelector());
 
 function atualizarCamposEPreview(){
 	const select = document.getElementById('subcategoria_id');

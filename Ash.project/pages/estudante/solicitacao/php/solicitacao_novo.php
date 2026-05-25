@@ -63,6 +63,22 @@ function normalizar_arquivos($campo){
 	return $arquivos;
 }
 
+function arquivo_permitido($tmp_name, $nomeArquivo){
+	$allowMime = ['application/pdf', 'image/png', 'image/jpeg'];
+	$allowExt = ['.pdf', '.png', '.jpg', '.jpeg'];
+
+	$finfo = finfo_open(FILEINFO_MIME_TYPE);
+	$mime = $finfo ? finfo_file($finfo, $tmp_name) : '';
+	if($finfo) finfo_close($finfo);
+
+	$ext = strtolower(strrchr($nomeArquivo, '.')) ?: '';
+
+	if(in_array($mime, $allowMime) && in_array($ext, $allowExt)){
+		return true;
+	}
+	return false;
+}
+
 if(isset($_POST['subcategoria_id'])){
 	$subcategoria_id = (int)$_POST['subcategoria_id'];
 	$horas_brutas = (float)$_POST['horas_brutas'];
@@ -74,6 +90,18 @@ if(isset($_POST['subcategoria_id'])){
 		header("Content-type:application/json;charset:utf-8");
 		echo json_encode($retorno);
 		exit;
+	}
+
+	// Validar tipos de todos os arquivos antes de inserir a solicitação
+	if(count($arquivosEnviados) > 0){
+		foreach($arquivosEnviados as $arquivo){
+			if(!arquivo_permitido($arquivo['tmp_name'], $arquivo['name'])){
+				$retorno = ['status' => 'nok', 'mensagem' => 'Tipo de arquivo não permitido. Apenas PDF, PNG e JPG são aceitos.', 'data' => []];
+				header("Content-type:application/json;charset:utf-8");
+				echo json_encode($retorno);
+				exit;
+			}
+		}
 	}
 
 	$stmt = $conexao->prepare("INSERT INTO SOLICITACAO(matricula_id, turma_id, subcategoria_id, prof_validador_id, horas_brutas, pontos_validados, status, justificativa) VALUES(?, ?, ?, ?, ?, 0, 'PENDENTE', ?)");
@@ -96,6 +124,13 @@ if(isset($_POST['subcategoria_id'])){
 		}
 
 		foreach($arquivosEnviados as $indice => $arquivo){
+			// Validar tipo de arquivo
+			if(!arquivo_permitido($arquivo['tmp_name'], $arquivo['name'])){
+				$retorno = ['status' => 'nok', 'mensagem' => 'Tipo de arquivo não permitido. Apenas PDF, PNG e JPG são aceitos.', 'data' => []];
+				header("Content-type:application/json;charset:utf-8");
+				echo json_encode($retorno);
+				exit;
+			}
 			$nomeArquivo = basename($arquivo['name']);
 			$nomeDestino = 'solicitacao_' . $solicitacao_id . '_' . ($indice + 1) . '_' . preg_replace('/[^a-zA-Z0-9_.-]/', '_', $nomeArquivo);
 			$caminhoFisico = $pastaUploads . '/' . $nomeDestino;

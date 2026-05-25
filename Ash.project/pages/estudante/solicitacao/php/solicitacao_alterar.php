@@ -61,6 +61,22 @@ function normalizar_arquivos($campo){
     return $arquivos;
 }
 
+function arquivo_permitido($tmp_name, $nomeArquivo){
+    $allowMime = ['application/pdf', 'image/png', 'image/jpeg'];
+    $allowExt = ['.pdf', '.png', '.jpg', '.jpeg'];
+
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = $finfo ? finfo_file($finfo, $tmp_name) : '';
+    if($finfo) finfo_close($finfo);
+
+    $ext = strtolower(strrchr($nomeArquivo, '.')) ?: '';
+
+    if(in_array($mime, $allowMime) && in_array($ext, $allowExt)){
+        return true;
+    }
+    return false;
+}
+
 if(isset($_GET['id']) && isset($_POST['subcategoria_id'], $_POST['horas_brutas'], $_POST['justificativa'])){
     $id = (int)$_GET['id'];
     $subcategoria_id = (int)$_POST['subcategoria_id'];
@@ -106,13 +122,26 @@ if(isset($_GET['id']) && isset($_POST['subcategoria_id'], $_POST['horas_brutas']
         exit;
     }
 
+    // Validar tipos de todos os arquivos antes de alterar a solicitação
+    if(count($arquivosEnviados) > 0){
+        foreach($arquivosEnviados as $arquivo){
+            if(!arquivo_permitido($arquivo['tmp_name'], $arquivo['name'])){
+                $retorno = ['status' => 'nok', 'mensagem' => 'Tipo de arquivo não permitido. Apenas PDF, PNG e JPG são aceitos.', 'data' => []];
+                header("Content-type:application/json;charset:utf-8");
+                echo json_encode($retorno);
+                exit;
+            }
+        }
+    }
+
     $stmt = $conexao->prepare("UPDATE SOLICITACAO SET subcategoria_id = ?, horas_brutas = ?, justificativa = ? WHERE id = ? AND matricula_id = ? AND status = 'PENDENTE'");
     $stmt->bind_param("idsii", $subcategoria_id, $horas_brutas, $justificativa, $id, $matricula_id);
     $stmt->execute();
 
-    if($stmt->affected_rows > 0){
+    // Mesmo que affected_rows seja 0 (nenhuma coluna alterada), consideramos a operação OK se não houve erro
+    if($stmt->errno === 0){
         $retorno = ['status' => 'ok', 'mensagem' => 'Registro alterado com sucesso.', 'data' => []];
-    }else{
+    } else {
         $retorno = ['status' => 'nok', 'mensagem' => 'Nao foi possivel alterar.', 'data' => []];
     }
 
@@ -126,6 +155,13 @@ if(isset($_GET['id']) && isset($_POST['subcategoria_id'], $_POST['horas_brutas']
         }
 
         foreach($arquivosEnviados as $indice => $arquivo){
+            // Validar tipo de arquivo
+            if(!arquivo_permitido($arquivo['tmp_name'], $arquivo['name'])){
+                $retorno = ['status' => 'nok', 'mensagem' => 'Tipo de arquivo não permitido. Apenas PDF, PNG e JPG são aceitos.', 'data' => []];
+                header("Content-type:application/json;charset:utf-8");
+                echo json_encode($retorno);
+                exit;
+            }
             $nomeArquivo = basename($arquivo['name']);
             $nomeDestino = 'solicitacao_' . $id . '_' . ($indice + 1) . '_' . preg_replace('/[^a-zA-Z0-9_.-]/', '_', $nomeArquivo);
             $caminhoFisico = $pastaUploads . '/' . $nomeDestino;
