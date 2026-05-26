@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // valida_sessao('ESTUDANTE');
+    valida_sessao('ESTUDANTE');
     buscar();
 });
 
