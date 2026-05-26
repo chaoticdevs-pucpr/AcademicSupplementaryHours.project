@@ -21,7 +21,7 @@
                 <!-- Logo e Badge -->
                 <div class="flex items-center gap-3">
                     <div class="text-2xl font-extrabold tracking-tighter text-slate-900">
-                        A.S.H<span class="text-cyan-600">.</span>
+                        A.S.H<span class="text-purple-600">.</span>
                     </div>
                     <span class="bg-cyan-100 text-cyan-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide">
                         Coordenador
@@ -41,12 +41,16 @@
     <!-- Conteúdo Principal -->
     <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         
-        <!-- Cabeçalho da Página (Igual à referência da imagem) -->
-        <div class="text-center mb-12">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Bem-vindo ao seu Painel</h1>
-            <p class="text-slate-500 mt-3 text-base sm:text-lg max-w-2xl mx-auto">
-                Faça a gestão do seu curso de forma simples e rápida. Configure o manual de horas ou cadastre os professores responsáveis pela validação.
-            </p>
+        <!-- Cabeçalho da Página com Bem-vindo e Nome -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+            <div class="text-center md:text-left">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    Bem-vindo(a), <span id="user-name" class="text-cyan-400">Coordenador(a)</span>!
+                </h1>
+                <p class="text-slate-500 mt-2 text-sm">
+                    Faça a gestão do seu curso de forma simples e rápida.
+                </p>
+            </div>
         </div>
 
         <!-- Grid de Cartões de Ação -->
