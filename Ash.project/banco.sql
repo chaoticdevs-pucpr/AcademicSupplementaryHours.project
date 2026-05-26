@@ -160,8 +160,6 @@ INSERT INTO USUARIO (email, senha, perfil, nome, cpf, status) VALUES ('coord.es@
 INSERT INTO CURSO (nome) VALUES ('Engenharia de Software');
 INSERT INTO CURSO (nome) VALUES ('Engenharia da Computação');
 
-INSERT INTO COORDENADOR (usuario_id, curso_id, cadastrado_por_admin_id) VALUES (9, 1, 1);
-
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 3, 'A-M');
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 4, 'B-M');
 INSERT INTO TURMA (curso_id, prof_validador_id, nome) VALUES (1, 5, 'U-N');
