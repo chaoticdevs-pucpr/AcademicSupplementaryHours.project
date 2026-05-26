@@ -77,6 +77,17 @@ $turma = $resTurma->fetch_assoc();
 $turma_nome = $turma['nome'];
 $stmtTurma->close();
 
+$horas_objetivo = 0;
+$stmtManual = $conexao->prepare("SELECT horas_objetivo FROM MANUAL_HC WHERE curso_id = ? ORDER BY id DESC LIMIT 1");
+$stmtManual->bind_param("i", $curso_id);
+$stmtManual->execute();
+$resManual = $stmtManual->get_result();
+if($resManual && $resManual->num_rows > 0){
+    $manual = $resManual->fetch_assoc();
+    $horas_objetivo = (float)$manual['horas_objetivo'];
+}
+$stmtManual->close();
+
 $stmt = $conexao->prepare("SELECT u.id, u.email, u.nome, u.cpf, u.celular, u.telefone, m.id AS matricula_id, m.total_pontos, t.nome AS turma_nome, c.nome AS curso_nome FROM MATRICULA m INNER JOIN ESTUDANTE e ON e.usuario_id = m.estudante_id INNER JOIN USUARIO u ON u.id = e.usuario_id INNER JOIN TURMA t ON t.id = m.turma_id INNER JOIN CURSO c ON c.id = t.curso_id WHERE m.turma_id = ? AND t.curso_id = ? ORDER BY u.nome");
 $stmt->bind_param("ii", $turma_id, $curso_id);
 $stmt->execute();
@@ -86,11 +97,24 @@ while($linha = $resultado->fetch_assoc()){
     $tabela[] = $linha;
 }
 
+$stmtSolicitacoes = $conexao->prepare("SELECT COUNT(*) AS total_solicitacoes FROM SOLICITACAO WHERE turma_id = ?");
+$stmtSolicitacoes->bind_param("i", $turma_id);
+$stmtSolicitacoes->execute();
+$resSolicitacoes = $stmtSolicitacoes->get_result();
+$totalSolicitacoes = 0;
+if($resSolicitacoes && $resSolicitacoes->num_rows > 0){
+    $contagem = $resSolicitacoes->fetch_assoc();
+    $totalSolicitacoes = (int)$contagem['total_solicitacoes'];
+}
+$stmtSolicitacoes->close();
+
 $retorno = [
     'status' => 'ok',
     'mensagem' => 'Consulta efetuada.',
     'turma_nome' => $turma_nome,
     'curso_nome' => $curso_nome,
+    'horas_objetivo' => $horas_objetivo,
+    'total_solicitacoes' => $totalSolicitacoes,
     'data' => $tabela
 ];
 

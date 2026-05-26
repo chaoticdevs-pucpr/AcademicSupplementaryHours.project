@@ -134,10 +134,11 @@ function abrirModalTurma(turmaId, turmaNome) {
                 return;
             }
 
-            const metaHoras = parseFloat(json.horas_objetivo || 100);
+            const metaHorasRaw = parseFloat(json.horas_objetivo);
+            const metaHoras = Number.isFinite(metaHorasRaw) && metaHorasRaw > 0 ? metaHorasRaw : 0;
             let completaram = 0;
             json.data.forEach(a => {
-                if ((parseFloat(a.total_pontos || 0)) >= metaHoras) {
+                if (metaHoras > 0 && (parseFloat(a.total_pontos || 0)) >= metaHoras) {
                     completaram += 1;
                 }
             });
@@ -147,12 +148,19 @@ function abrirModalTurma(turmaId, turmaNome) {
             const resumoMeta = metaHoras > 0 ? `Meta: ${metaHoras.toFixed(0)}h` : 'Meta de horas indisponível';
             const somaHtml = `
                 <div class="flex flex-col items-center justify-center gap-2 text-center">
-                    <div class="w-20 h-20 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-700 text-xl font-bold">${porcentagem.toFixed(0)}%</div>
+                    <div class="w-20 h-20 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-700 text-xl font-bold">${metaHoras > 0 ? porcentagem.toFixed(0) : '—'}%</div>
                     <div class="text-sm text-slate-500">Alunos completos</div>
                     <div class="text-sm text-slate-500">${completaram} de ${totalAlunos}</div>
                     <div class="text-sm text-slate-500">${resumoMeta}</div>
                 </div>`;
-            summary.innerHTML = somaHtml;
+
+            const totalSolicitacoes = parseInt(json.total_solicitacoes || 0, 10);
+            const infoMessage = totalSolicitacoes === 0 ? `
+                <div class="rounded-3xl border border-amber-200 bg-amber-50 px-6 py-4 text-sm text-amber-900 mb-4">
+                    Ainda não foram enviadas ou validadas solicitações de horas complementares para esta turma. Os indicadores abaixo refletem o desempenho atual como zero.
+                </div>` : '';
+
+            summary.innerHTML = somaHtml + infoMessage;
 
             // monta tabela com 4 colunas: Nome, Matrícula, Horas, Status
             let table = `
@@ -169,21 +177,27 @@ function abrirModalTurma(turmaId, turmaNome) {
                         <tbody class="bg-white divide-y divide-slate-200">`;
 
             json.data.forEach(aluno => {
-                const horasAluno = parseFloat(aluno.total_pontos || 0).toFixed(2);
+                const horasAlunoValue = parseFloat(aluno.total_pontos || 0);
+                const horasAluno = horasAlunoValue.toFixed(2);
+                const statusTexto = metaHoras > 0
+                    ? (horasAlunoValue >= metaHoras ? 'Completo' : 'Em progresso')
+                    : 'Meta indisponível';
+                const limiteTexto = metaHoras > 0 ? `${metaHoras.toFixed(0)}h` : 'N/D';
+
                 table += `
                     <tr>
                         <td class="px-4 py-3 text-sm font-semibold text-slate-900">
                             <div class="flex items-center justify-between gap-3">
                                 <div>
                                     ${escapeHtml(aluno.nome || '---')}
-                                    <div class="text-xs text-slate-500 mt-1">${horasAluno}h / ${metaHoras.toFixed(0)}h</div>
+                                    <div class="text-xs text-slate-500 mt-1">${horasAluno}h / ${limiteTexto}</div>
                                 </div>
                                 <button type="button" data-matricula-id="${escapeHtml(aluno.matricula_id || '')}" class="px-2 py-1 rounded-full border border-slate-200 bg-slate-100 text-xs font-semibold text-slate-700 hover:bg-slate-200 aluno-detalhes-btn">Ver detalhes</button>
                             </div>
                         </td>
                         <td class="px-4 py-3 text-sm font-mono text-cyan-600">${escapeHtml(aluno.matricula_id || '---')}</td>
                         <td class="px-4 py-3 text-sm font-semibold text-cyan-600">${horasAluno}</td>
-                        <td class="px-4 py-3 text-sm font-medium text-slate-700">${escapeHtml(aluno.status || 'Pendente')}</td>
+                        <td class="px-4 py-3 text-sm font-medium text-slate-700">${escapeHtml(statusTexto)}</td>
                     </tr>`;
             });
 
