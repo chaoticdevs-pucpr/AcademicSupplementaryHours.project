@@ -218,7 +218,7 @@ async function carregarCategorias(){
 		document.getElementById("categoria_id").innerHTML = html;
 	}else{
 		document.getElementById("categoria_id").innerHTML = '<option value="">Sem categorias disponiveis</option>';
-		alert("ERRO: " + resposta.mensagem);
+		console.warn("solicitacao_categorias.php:", resposta.mensagem);
 	}
 }
 
@@ -240,7 +240,7 @@ async function carregarSubcategorias(){
 		atualizarCamposEPreview();
 	}else{
 		document.getElementById("subcategoria_id").innerHTML = '<option value="">Sem subcategorias disponiveis</option>';
-		alert("ERRO: " + resposta.mensagem);
+		console.warn("solicitacao_subcategorias.php:", resposta.mensagem);
 	}
 }
 
@@ -335,6 +335,6 @@ async function novo(){
 		alert("SUCESSO: " + resposta.mensagem);
 			window.location.href = "../solicitacao_index.html";
 	}else{
-		alert("ERRO: " + resposta.mensagem);
+		console.warn("solicitacao_novo.php:", resposta.mensagem);
 	}
 }

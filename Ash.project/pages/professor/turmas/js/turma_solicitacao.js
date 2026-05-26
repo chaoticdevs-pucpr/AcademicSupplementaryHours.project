@@ -52,17 +52,22 @@ async function logoff() {
 async function carregarSolicitacao(solicitacaoId) {
     try {
         const retorno = await fetch(`php/turma_solicitacao_get.php?id=${encodeURIComponent(solicitacaoId)}`);
+        if (retorno.status === 401 || retorno.status === 403) {
+            window.location.href = '../../../z_login/';
+            return;
+        }
         const resposta = await retorno.json();
 
         if (resposta.status === 'ok' && resposta.data) {
             preencherTela(resposta.data);
+        } else if (isPermissionError(resposta)) {
+            window.location.href = '../../../z_login/';
         } else {
-            alert(resposta.mensagem || 'Não foi possível carregar a solicitação.');
+            console.warn('turma_solicitacao_get.php:', resposta.mensagem || 'Não foi possível carregar a solicitação.');
             window.location.href = destinoDetalhes;
         }
     } catch (e) {
         console.error('Erro ao carregar solicitação:', e);
-        alert('Erro de comunicação com o servidor.');
         window.location.href = destinoDetalhes;
     }
 }
@@ -175,6 +180,10 @@ function formatHoras(valor) {
     return numero.toFixed(2).replace(/\.00$/, '');
 }
 
+function isPermissionError(resposta) {
+    return resposta && resposta.status === 'nok' && /perm(issao|issao|issa[oã]o|issao|iss[oã]o)/i.test(resposta.mensagem || '');
+}
+
 async function decidir(solicitacaoId, acao) {
     const pontosValidadosInput = document.getElementById('pontos-validados-input');
     const justificativaRecusa = document.getElementById('justificativa-recusa').value.trim();
@@ -209,13 +218,19 @@ async function decidir(solicitacaoId, acao) {
             method: 'POST',
             body: formData
         });
+        if (retorno.status === 401 || retorno.status === 403) {
+            window.location.href = '../../../z_login/';
+            return;
+        }
         const resposta = await retorno.json();
 
         if (resposta.status === 'ok') {
-            alert(resposta.mensagem);
+            console.log(resposta.mensagem);
             window.location.href = destinoDetalhes;
+        } else if (isPermissionError(resposta)) {
+            window.location.href = '../../../z_login/';
         } else {
-            alert(resposta.mensagem || 'Não foi possível processar a solicitação.');
+            console.warn('turma_solicitacao_salvar.php:', resposta.mensagem || 'Não foi possível processar a solicitação.');
         }
     } catch (e) {
         console.error('Erro ao salvar decisão:', e);

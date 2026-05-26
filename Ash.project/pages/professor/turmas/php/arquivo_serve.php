@@ -10,7 +10,8 @@ function jsonError($message, $code = 400) {
 }
 
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] !== 'PROFESSOR') {
-    jsonError('Sem permissão.', 403);
+    header('Location: http://localhost/AcademicSupplementaryHours.project/Ash.project/z_login/');
+    exit;
 }
 
 if (!isset($_GET['anexo_id']) || !ctype_digit($_GET['anexo_id'])) {
@@ -39,7 +40,8 @@ $row = $result->fetch_assoc();
 $stmt->close();
 
 if ((int) $row['prof_validador_id'] !== $professorId) {
-    jsonError('Sem permissão para acessar este arquivo.', 403);
+    header('Location: http://localhost/AcademicSupplementaryHours.project/Ash.project/z_login/');
+    exit;
 }
 
 $relativePath = $row['caminho_arquivo'];

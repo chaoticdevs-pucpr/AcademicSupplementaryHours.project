@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     valida_sessao('COORDENADOR');
     carregarTurmas();
+
 });
+
 
 const btnLogoff = document.getElementById("logoff");
 if (btnLogoff) {
