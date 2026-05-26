@@ -167,8 +167,6 @@ async function carregarSubcategorias(){
     }
 }
 
-function preencherCategoriaSelecionada(){
-}
 
 async function buscar(id){
     const retorno = await fetch("../php/solicitacao_get.php?id=" + id);

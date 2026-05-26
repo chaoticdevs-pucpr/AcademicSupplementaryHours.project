@@ -8,12 +8,7 @@ $retorno = [
     'data'      => []
 ];
 
-if(!isset($_SESSION['usuario']) || $_SESSION['usuario']['perfil'] != 'ESTUDANTE'){
-    $retorno = ['status' => 'nok', 'mensagem' => 'Sem permissao.', 'data' => []];
-    header("Content-type:application/json;charset:utf-8");
-    echo json_encode($retorno);
-    exit;
-}
+
 
 $estudante_id = (int)$_SESSION['usuario']['id'];
 
