@@ -1,5 +1,9 @@
-async function valida_sessao(){
-    const retorno = await fetch("../../z_php/valida_sessao.php");
+async function valida_sessao(perfil = ''){
+    let url = "../../z_php/valida_sessao.php";
+    if(perfil){
+        url += "?perfil=" + encodeURIComponent(perfil);
+    }
+    const retorno = await fetch(url);
     const resposta = await retorno.json();
     if(resposta.status == "nok"){
         window.location.href = '../login/';
