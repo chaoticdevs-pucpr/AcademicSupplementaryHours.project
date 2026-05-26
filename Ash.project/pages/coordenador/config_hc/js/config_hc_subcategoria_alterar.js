@@ -80,6 +80,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = document.getElementById(id);
         if(el) el.addEventListener('input', updateRegra);
     });
+
+const btnLogoff = document.getElementById("logoff");
+if(btnLogoff) {
+    btnLogoff.addEventListener("click", () => {
+        logoff();
+    });
+}
+
+async function logoff(){
+    try {
+        const retorno = await fetch("../../../../z_login/logoff.php");
+        const resposta = await retorno.json();
+        if(resposta.status == "ok"){
+            window.location.href = "../../../../z_login/";
+        }
+    } catch (e) {
+        console.error("Erro no logoff:", e);
+    }
+}
 });
 
 async function carregarSubcategoria(id){
@@ -105,4 +124,5 @@ async function carregarSubcategoria(id){
         alert('Erro de comunicacao com o servidor.');
         window.history.back();
     }
+
 }

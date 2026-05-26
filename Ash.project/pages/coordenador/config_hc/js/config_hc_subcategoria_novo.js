@@ -79,4 +79,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if(el) el.addEventListener('input', updateRegra);
     });
     updateRegra();
+
+const btnLogoff = document.getElementById("logoff");
+if(btnLogoff) {
+    btnLogoff.addEventListener("click", () => {
+        logoff();
+    });
+}
+
+async function logoff(){
+    try {
+        const retorno = await fetch("../../../../z_login/logoff.php");
+        const resposta = await retorno.json();
+        if(resposta.status == "ok"){
+            window.location.href = "../../../../z_login/";
+        }
+    } catch (e) {
+        console.error("Erro no logoff:", e);
+    }
+}
 });

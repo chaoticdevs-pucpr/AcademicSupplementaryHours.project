@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASH - Nova Subcategoria</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
@@ -16,23 +14,22 @@
 
     <!-- Cabeçalho (Header) -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-6">
-                    <!-- O id btnVoltar no header mantém o JS funcionando -->
-                    <a id="btnVoltar" href="#" class="text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center bg-slate-50 hover:bg-purple-50 w-10 h-10 rounded-full" title="Voltar para subcategorias">
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    </a>
-                    <div class="flex items-center gap-3 border-l border-slate-200 pl-6">
-                        <div class="text-2xl font-extrabold tracking-tighter text-slate-900">
-                            A.S.H<span class="text-purple-600">.</span>
-                        </div>
-                        <span class="bg-cyan-100 text-cyan-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide">
-                            Coordenador
-                        </span>
-                    </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4 sm:gap-6">
+                <!-- Botão Voltar Circular -->
+                <a id="voltar-header" href="#" onclick="document.getElementById('btnVoltar').click(); return false;" class="text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center bg-slate-50 hover:bg-purple-50 w-10 h-10 rounded-full" title="Voltar">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <div class="flex items-center gap-3 border-l border-slate-200 pl-4 sm:pl-6">
+                    <span class="text-2xl font-extrabold tracking-tighter text-slate-900">
+                        A.S.H<span class="text-purple-600">.</span>
+                    </span>
+                    <span class="bg-cyan-100 text-cyan-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide">
+                        Coordenador
+                    </span>
                 </div>
-            <nav class="flex items-center gap-4 sm:gap-6">
+            </div>
+                       <nav class="flex items-center gap-4 sm:gap-6">
                 <a href="../../../turmas/turmas_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Lista de Turmas</a>
                 <a href="../../../prof_validador/prof_validador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors hidden sm:inline-block">Lista de Professores</a>
                 <div class="w-px h-5 bg-slate-200"></div>
@@ -41,123 +38,129 @@
                     Sair
                 </button>
             </nav>
-            </div>
         </div>
     </header>
 
-    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-8 md:py-12">
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-12">
         
         <!-- Título da Página -->
         <div class="mb-8 text-left">
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Nova Subcategoria</h1>
-            <p class="text-slate-500 mt-2 text-sm">Cadastre uma nova subcategoria para a categoria selecionada.</p>
+            <p class="text-slate-500 mt-2 text-sm">Cadastre uma nova subcategoria e defina as regras de cálculo de horas e pontos.</p>
         </div>
 
         <!-- Card do Formulário -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <form id="formSubcategoria">
-                <div class="p-6 sm:p-8 space-y-6">
+            <div class="p-6 sm:p-8 space-y-6">
+                
+                <form id="formSubcategoria" class="space-y-6">
                     
-                    <!-- Campos em Linha (Readonly) -->
+                    <!-- Linha 1: Dados fixos -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <!-- Versão -->
                         <div>
-                            <label for="versao" class="block text-sm font-semibold text-slate-700 mb-1.5">Versão</label>
-                            <input id="versao" type="text" readonly 
-                                class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-500 cursor-not-allowed focus:outline-none transition-all">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Versão</label>
+                            <input id="versao" type="text" readonly class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-500 cursor-not-allowed focus:outline-none" />
                         </div>
-                        <!-- Categoria ID -->
                         <div>
-                            <label for="categoria_id" class="block text-sm font-semibold text-slate-700 mb-1.5">ID da Categoria</label>
-                            <input id="categoria_id" type="text" readonly 
-                                class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-500 cursor-not-allowed focus:outline-none transition-all">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Categoria ID</label>
+                            <input id="categoria_id" type="text" readonly class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-500 cursor-not-allowed focus:outline-none" />
                         </div>
                     </div>
 
-                    <!-- Nome -->
+                    <!-- Linha 2: Nome -->
                     <div>
-                        <label for="subcategoria_nome" class="block text-sm font-semibold text-slate-700 mb-1.5">Nome da Subcategoria</label>
-                        <input id="subcategoria_nome" name="subcategoria_nome" required type="text" placeholder="Ex: Projetos" 
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Nome da subcategoria</label>
+                        <input id="subcategoria_nome" name="subcategoria_nome" required type="text" placeholder="Ex: Projetos de Pesquisa" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" />
                     </div>
 
-                    <!-- Horas -->
-                    <div>
-                        <label for="subcategoria_horas" class="block text-sm font-semibold text-slate-700 mb-1.5">Horas Padrão</label>
-                        <input id="subcategoria_horas" name="subcategoria_horas" required type="number" min="0" placeholder="Ex: 20" 
-                            class="w-full sm:w-1/2 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                    <!-- Linha 3: Horas e Pontos -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Limite de Horas</label>
+                            <input id="subcategoria_horas" name="subcategoria_horas" required type="number" min="0" placeholder="Ex: 60" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" />
+                            <p class="text-[11px] text-slate-400 mt-1">Carga horária máxima aceita nesta subcategoria.</p>
+                        </div>
+                        <div>
+                            <!-- ID Corrigido aqui para não conflitar com o de horas -->
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">Pontos (por unidade)</label>
+                            <input id="quant_pontos" name="quant_pontos" required type="number" min="0" placeholder="Ex: 1" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" />
+                            <p class="text-[11px] text-slate-400 mt-1">Pontos atribuídos por unidade ou bloco calculado.</p>
+                        </div>
                     </div>
 
-                    <!-- Descrição -->
+                    <hr class="border-slate-100 my-2">
+
+                    <!-- Linha 4: Regras de Cálculo -->
                     <div>
-                        <label for="subcategoria_descricao" class="block text-sm font-semibold text-slate-700 mb-1.5">Descrição</label>
-                        <textarea id="subcategoria_descricao" name="subcategoria_descricao" rows="4" placeholder="Descreva exemplos ou critérios desta subcategoria..." 
-                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-y"></textarea>
+                        <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i data-lucide="calculator" class="w-4 h-4 text-purple-600"></i>
+                            Regras de Cálculo
+                        </h3>
+                        
+                        <div class="grid gap-4 sm:grid-cols-3">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1.5">Tipo de cálculo</label>
+                                <div class="relative">
+                                    <select id="tipo_calculo" name="tipo_calculo" class="w-full appearance-none bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent cursor-pointer transition-all pr-10">
+                                        <option value="FIXO">Fixo</option>
+                                        <option value="HORA">Hora</option>
+                                        <option value="PERIODO">Período</option>
+                                        <option value="ANO">Ano</option>
+                                        <option value="SEMESTRE">Semestre</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="div_unidade">
+                                <label class="block text-sm font-medium text-slate-700 mb-1.5">Unidade de referência</label>
+                                <input id="unidade_referencia" name="unidade_referencia" type="text" value="PONTO" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all uppercase" />
+                                <p id="help_unidade" class="text-[11px] text-slate-400 mt-1">Ex: HORA, MÊS, ANO</p>
+                            </div>
+                            <div id="div_valor">
+                                <label class="block text-sm font-medium text-slate-700 mb-1.5">Valor de referência</label>
+                                <input id="valor_referencia" name="valor_referencia" type="number" min="0" step="0.01" value="1" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" />
+                                <p id="help_valor" class="text-[11px] text-slate-400 mt-1">Ex: 1 equivale a X pontos</p>
+                            </div>
+                        </div>
+
+                        <!-- Preview da Regra -->
+                        <div id="regra_preview_coordenador" class="mt-4 bg-purple-50 border border-purple-100 text-purple-800 text-sm p-4 rounded-xl font-medium flex items-start gap-3">
+                            <i data-lucide="info" class="w-5 h-5 shrink-0 mt-0.5 opacity-70"></i>
+                            <span>Regra: —</span>
+                        </div>
                     </div>
 
-                </div>
-<<<<<<< HEAD
+                    <hr class="border-slate-100 my-2">
 
-                <!-- Rodapé com Ação -->
-                <div class="px-6 py-5 bg-slate-50 border-t border-slate-100 flex justify-end">
-                    <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-10 py-3 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md active:scale-95 w-full sm:w-auto text-center">
-                        Salvar Subcategoria
-                    </button>
-=======
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Categoria ID</label>
-                    <input id="categoria_id" type="text" readonly class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-100 px-4 py-3 text-slate-900" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Nome da subcategoria</label>
-                    <input id="subcategoria_nome" name="subcategoria_nome" required type="text" placeholder="Ex: Projetos" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Pontos (por unidade)</label>
-                    <input id="subcategoria_horas" name="subcategoria_horas" required type="number" min="0" placeholder="Ex: 1" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
-                    <p class="text-xs text-slate-400 mt-1">Quantos pontos serão atribuídos por unidade/por bloco (salvo em `quant_pontos`).</p>
-                </div>
-                <div class="grid gap-4 sm:grid-cols-3">
+                    <!-- Linha 5: Descrição -->
                     <div>
-                        <label class="block text-sm font-medium text-slate-700">Tipo de cálculo</label>
-                        <select id="tipo_calculo" name="tipo_calculo" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900">
-                            <option value="FIXO">FIXO</option>
-                            <option value="HORA">HORA</option>
-                            <option value="PERIODO">PERIODO</option>
-                            <option value="ANO">ANO</option>
-                            <option value="SEMESTRE">SEMESTRE</option>
-                        </select>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">Descrição / Critérios</label>
+                        <textarea id="subcategoria_descricao" name="subcategoria_descricao" rows="4" placeholder="Descreva exemplos ou critérios que o aluno deve seguir nesta subcategoria..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"></textarea>
                     </div>
-                    <div id="div_unidade">
-                        <label class="block text-sm font-medium text-slate-700">Unidade de referência</label>
-                        <input id="unidade_referencia" name="unidade_referencia" type="text" value="PONTO" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
-                        <p id="help_unidade" class="text-xs text-slate-400 mt-1">Ex: HORA, MÊS, ANO — unidade usada para comparar com o valor de referência.</p>
-                    </div>
-                    <div id="div_valor">
-                        <label class="block text-sm font-medium text-slate-700">Valor de referência</label>
-                        <input id="valor_referencia" name="valor_referencia" type="number" min="0" step="0.01" value="1" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900" />
-                        <p id="help_valor" class="text-xs text-slate-400 mt-1">Ex: 1 — quantidade na unidade que equivale a referência para cálculo de pontos.</p>
-                    </div>
-                </div>
-                <div id="regra_preview_coordenador" class="mt-3 text-sm text-slate-600">Regra: —</div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Descrição</label>
-                    <textarea id="subcategoria_descricao" name="subcategoria_descricao" rows="4" placeholder="Descreva exemplos ou critérios desta subcategoria" class="mt-2 block w-full rounded-2xl border border-slate-200 px-4 py-3 text-slate-900"></textarea>
-                </div>
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                    <button type="submit" class="bg-slate-900 hover:bg-slate-950 text-white px-5 py-3 rounded-2xl font-semibold transition">Salvar Subcategoria</button>
-                    <a id="btnVoltar" href="#" class="text-sm text-slate-600 hover:text-slate-900 transition">Voltar para subcategorias</a>
->>>>>>> 9681b21c639b25505f2aa24b0af3ee19886c65a8
-                </div>
-            </form>
+
+                    <!-- Botão Invisível para o link "Voltar" disparar via JS -->
+                    <a id="btnVoltar" href="#" class="hidden">Voltar invisível</a>
+                </form>
+
+            </div>
+
+            <!-- Rodapé de Ação do Card -->
+            <div class="px-6 py-5 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button type="submit" form="formSubcategoria" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl text-sm font-bold transition-all shadow-sm hover:shadow-md flex items-center gap-2 active:scale-95">
+                    Salvar Subcategoria
+                </button>
+            </div>
         </div>
 
-        <!-- Link de Retorno Inferior (com Seta Reta) -->
+        <!-- Link de Retorno Inferior -->
         <div class="mt-8 text-center">
-            <button type="button" onclick="document.getElementById('btnVoltar').click()" class="text-sm font-medium text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center gap-2 mx-auto">
-                 <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <a href="#" onclick="document.getElementById('btnVoltar').click(); return false;" class="text-sm font-medium text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center gap-2">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
                 Voltar para subcategorias
-            </button>
+            </a>
         </div>
 
     </main>
@@ -177,9 +180,9 @@
         </div>
     </footer>
 
-    <!-- Scripts Base e de Lógica -->
-    <script>lucide && lucide.createIcons && lucide.createIcons();</script>
+    <!-- Scripts de Lógica -->
     <script>
+        lucide.createIcons();
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
     <script src="../../../../z_js/valida_sessao.js"></script>
