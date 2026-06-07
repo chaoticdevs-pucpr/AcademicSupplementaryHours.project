@@ -1,8 +1,7 @@
-module ash.crud {
+module ash {
     requires javafx.controls;
-    requires javafx.fxml;
 
-
-    opens ash.crud to javafx.fxml;
-    exports ash.crud;
+    exports ash;
+    exports ash.model;
+    exports ash.view;
 }
