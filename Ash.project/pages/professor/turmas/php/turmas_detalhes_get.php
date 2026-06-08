@@ -24,9 +24,18 @@ if(isset($_GET['turma'])){
     $stmt->execute();
     $resultado = $stmt->get_result();
     $tabela = [];
+    $stmtAnexos = $conexao->prepare("SELECT id, caminho_arquivo FROM ANEXO WHERE solicitacao_id = ? ORDER BY id ASC");
     while($linha = $resultado->fetch_assoc()){
+        $linha['anexos'] = [];
+        $stmtAnexos->bind_param("i", $linha['id']);
+        $stmtAnexos->execute();
+        $resultadoAnexos = $stmtAnexos->get_result();
+        while($anexo = $resultadoAnexos->fetch_assoc()){
+            $linha['anexos'][] = $anexo;
+        }
         $tabela[] = $linha;
     }
+    $stmtAnexos->close();
     $stmt->close();
 
     $retorno = ['status' => 'ok', 'mensagem' => 'Consulta efetuada.', 'data' => $tabela];

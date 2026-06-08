@@ -44,17 +44,11 @@ if($resultado->num_rows === 0){
 $solicitacao = $resultado->fetch_assoc();
 $stmt->close();
 
-if(strtoupper($solicitacao['status']) !== 'PENDENTE'){
-    $conexao->close();
-    $retorno = ['status' => 'nok', 'mensagem' => 'Somente solicitações pendentes podem ser avaliadas.', 'data' => []];
-    header("Content-type:application/json;charset:utf-8");
-    echo json_encode($retorno, JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
+$status_atual = strtoupper($solicitacao['status'] ?? 'PENDENTE');
 $novos_status = null;
 $novos_pontos_validados = 0;
 $nova_justificativa = $solicitacao['justificativa'] ?? '';
+$old_pontos_validados = (float)($solicitacao['pontos_validados'] ?? 0);
 
 if($acao === 'APROVAR'){
     $pontos_recebidos = trim($_POST['pontos_validados'] ?? '');
@@ -90,6 +84,10 @@ if($acao === 'APROVAR'){
     $linhaCategoria = $resultadoCategoria->fetch_assoc();
     $totalCategoriaAtual = (float)($linhaCategoria['total_categoria'] ?? 0);
     $stmtCategoria->close();
+
+    if ($status_atual === 'APROVADO') {
+        $totalCategoriaAtual -= $old_pontos_validados;
+    }
 
     if(($totalCategoriaAtual + $pontos_recebidos) > $limiteCategoria){
         $conexao->close();
@@ -129,14 +127,23 @@ if($acao === 'APROVAR'){
 
 $conexao->begin_transaction();
 
-$stmt = $conexao->prepare("UPDATE SOLICITACAO SET status = ?, pontos_validados = ?, justificativa = ? WHERE id = ? AND prof_validador_id = ? AND status = 'PENDENTE'");
+$stmt = $conexao->prepare("UPDATE SOLICITACAO SET status = ?, pontos_validados = ?, justificativa = ? WHERE id = ? AND prof_validador_id = ?");
 $stmt->bind_param("sdsii", $novos_status, $novos_pontos_validados, $nova_justificativa, $solicitacao_id, $professor_id);
 $stmt->execute();
 
 if($stmt->affected_rows > 0){
-    if($novos_status === 'APROVADO'){
+    $deltaPontos = 0;
+    if ($status_atual === 'APROVADO' && $novos_status === 'APROVADO') {
+        $deltaPontos = $novos_pontos_validados - $old_pontos_validados;
+    } elseif ($status_atual === 'APROVADO' && $novos_status !== 'APROVADO') {
+        $deltaPontos = -$old_pontos_validados;
+    } elseif ($status_atual !== 'APROVADO' && $novos_status === 'APROVADO') {
+        $deltaPontos = $novos_pontos_validados;
+    }
+
+    if ($deltaPontos !== 0) {
         $stmtMatricula = $conexao->prepare("UPDATE MATRICULA SET total_pontos = total_pontos + ? WHERE id = ?");
-        $stmtMatricula->bind_param("di", $novos_pontos_validados, $solicitacao['matricula_id']);
+        $stmtMatricula->bind_param("di", $deltaPontos, $solicitacao['matricula_id']);
         $stmtMatricula->execute();
         if($stmtMatricula->affected_rows <= 0){
             $stmtMatricula->close();

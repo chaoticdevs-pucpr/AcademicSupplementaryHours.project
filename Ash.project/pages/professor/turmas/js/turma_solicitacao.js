@@ -90,9 +90,12 @@ function preencherTela(item) {
 
     const pontosInput = document.getElementById('pontos-validados-input');
     if (pontosInput) {
-        const sugestao = Number(item.subcategoria_pontos ?? item.pontos_validados ?? item.horas_brutas ?? 0);
+        const valorAtual = Number(item.pontos_validados ?? 0);
+        const sugestao = (item.status && item.status.toUpperCase() === 'APROVADO') ? valorAtual : Number(item.subcategoria_pontos ?? item.horas_brutas ?? 0);
         pontosInput.value = formatHoras(sugestao);
         pontosInput.max = item.subcategoria_pontos ?? '';
+        pontosInput.disabled = false;
+        pontosInput.removeAttribute('readonly');
     }
 
     const anexosLista = document.getElementById('anexos-lista');
@@ -129,14 +132,31 @@ function preencherTela(item) {
         semAnexo.classList.remove('hidden');
     }
 
-    const podeDecidir = !item.status || item.status.toUpperCase() === 'PENDENTE';
-    document.getElementById('btn-aprovar').disabled = !podeDecidir;
-    document.getElementById('btn-recusar').disabled = !podeDecidir;
+    const btnAprovar = document.getElementById('btn-aprovar');
+    const btnRecusar = document.getElementById('btn-recusar');
+    const justificativaRecusa = document.getElementById('justificativa-recusa');
+    const reavaliacaoMsg = document.getElementById('reavaliacao-msg');
 
-    if (!podeDecidir) {
-        document.getElementById('btn-aprovar').classList.add('opacity-60', 'cursor-not-allowed');
-        document.getElementById('btn-recusar').classList.add('opacity-60', 'cursor-not-allowed');
-        document.getElementById('justificativa-recusa').disabled = true;
+    if (btnAprovar) {
+        btnAprovar.disabled = false;
+        btnAprovar.removeAttribute('disabled');
+        btnAprovar.classList.remove('opacity-60', 'cursor-not-allowed');
+    }
+    if (btnRecusar) {
+        btnRecusar.disabled = false;
+        btnRecusar.removeAttribute('disabled');
+        btnRecusar.classList.remove('opacity-60', 'cursor-not-allowed');
+    }
+    if (justificativaRecusa) {
+        justificativaRecusa.disabled = false;
+        justificativaRecusa.removeAttribute('disabled');
+    }
+    if (reavaliacaoMsg) {
+        if (item.status && item.status.toUpperCase() !== 'PENDENTE') {
+            reavaliacaoMsg.classList.remove('hidden');
+        } else {
+            reavaliacaoMsg.classList.add('hidden');
+        }
     }
 
     document.getElementById('carregando').classList.add('hidden');
@@ -230,6 +250,7 @@ async function decidir(solicitacaoId, acao) {
         } else if (isPermissionError(resposta)) {
             window.location.href = '../../../z_login/';
         } else {
+            alert(resposta.mensagem || 'Não foi possível processar a solicitação.');
             console.warn('turma_solicitacao_salvar.php:', resposta.mensagem || 'Não foi possível processar a solicitação.');
         }
     } catch (e) {

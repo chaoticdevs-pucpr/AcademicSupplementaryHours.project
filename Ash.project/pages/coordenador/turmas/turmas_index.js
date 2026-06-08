@@ -1,5 +1,13 @@
+let turmasCompletas = [];
+
 document.addEventListener("DOMContentLoaded", () => {
     valida_sessao('COORDENADOR');
+    const filtroNome = document.getElementById('filtro_nome');
+
+    if (filtroNome) {
+        filtroNome.addEventListener('input', aplicarFiltros);
+    }
+
     carregarTurmas();
 
 });
@@ -33,7 +41,7 @@ function carregarTurmas() {
     fetch('php/turmas_curso.php')
         .then(response => response.json())
         .then(json => {
-            if (!json || json.status !== 'ok' || !Array.isArray(json.data) || json.data.length === 0) {
+            if (!json || json.status !== 'ok' || !Array.isArray(json.data)) {
                 listaContainer.innerHTML = `
                     <div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-6 py-12 text-center text-slate-500">
                         Nenhuma turma encontrada para o seu curso.
@@ -41,35 +49,8 @@ function carregarTurmas() {
                 return;
             }
 
-            const turmas = json.data;
-            let htmlCards = '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">';
-
-            turmas.forEach(turma => {
-                const nome = turma.nome || turma.nome_turma || 'Turma';
-                htmlCards += `
-                    <button data-turma-id="${turma.id}" data-turma-nome="${escapeHtml(nome)}" type="button" class="w-full text-left bg-white rounded-2xl shadow-sm border border-slate-200 p-6 hover:border-cyan-500 hover:shadow-md transition-all cursor-pointer group">
-                        <div class="flex items-start justify-between">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">${nome}</h3>
-                                <p class="text-sm text-slate-500 mt-1">ID ${turma.id}</p>
-                            </div>
-                            <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400 group-hover:text-cyan-500 transition-colors"></i>
-                        </div>
-                    </button>
-                `;
-            });
-
-            htmlCards += '</div>';
-            listaContainer.innerHTML = htmlCards;
-            lucide.createIcons();
-
-            listaContainer.querySelectorAll('[data-turma-id]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const id = btn.getAttribute('data-turma-id');
-                    const nome = btn.getAttribute('data-turma-nome') || '';
-                    abrirModalTurma(id, nome);
-                });
-            });
+            turmasCompletas = json.data;
+            aplicarFiltros();
         })
         .catch(error => {
             console.error("Erro ao carregar as turmas:", error);
@@ -78,6 +59,62 @@ function carregarTurmas() {
                     Erro ao carregar as turmas. Tente novamente.
                 </div>`;
         });
+}
+
+function aplicarFiltros() {
+    const filtroNome = document.getElementById('filtro_nome');
+    const listaContainer = document.getElementById('lista');
+
+    const termoNome = filtroNome ? filtroNome.value.trim().toLowerCase() : '';
+
+    const turmasFiltradas = turmasCompletas.filter(turma => {
+        const nome = (turma.nome || turma.nome_turma || '').toString().toLowerCase();
+        const matchNome = !termoNome || nome.includes(termoNome);
+        return matchNome;
+    });
+
+    renderTurmas(turmasFiltradas, listaContainer);
+}
+
+function renderTurmas(turmas, listaContainer) {
+    if (!Array.isArray(turmas) || turmas.length === 0) {
+        listaContainer.innerHTML = `
+            <div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-6 py-12 text-center text-slate-500">
+                Nenhuma turma encontrada com o filtro atual.
+            </div>`;
+        return;
+    }
+
+    let htmlCards = '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">';
+
+    turmas.forEach(turma => {
+        const nome = turma.nome || turma.nome_turma || 'Turma';
+        const semestre = turma.semestre !== undefined ? ` - ${escapeHtml(String(turma.semestre))}º semestre` : '';
+
+        htmlCards += `
+            <button data-turma-id="${turma.id}" data-turma-nome="${escapeHtml(nome)}" type="button" class="w-full text-left bg-white rounded-2xl shadow-sm border border-slate-200 p-6 hover:border-cyan-500 hover:shadow-md transition-all cursor-pointer group">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-cyan-600 transition-colors">${escapeHtml(nome)}</h3>
+                        <p class="text-sm text-slate-500 mt-1">ID ${escapeHtml(String(turma.id))}${semestre}</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400 group-hover:text-cyan-500 transition-colors"></i>
+                </div>
+            </button>
+        `;
+    });
+
+    htmlCards += '</div>';
+    listaContainer.innerHTML = htmlCards;
+    lucide.createIcons();
+
+    listaContainer.querySelectorAll('[data-turma-id]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-turma-id');
+            const nome = btn.getAttribute('data-turma-nome') || '';
+            abrirModalTurma(id, nome);
+        });
+    });
 }
 
 // Função que será chamada quando o coordenador clicar no card

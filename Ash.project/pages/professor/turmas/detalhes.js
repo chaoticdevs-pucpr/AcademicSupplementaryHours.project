@@ -66,7 +66,9 @@ function preencherTabela(tabela, turma){
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Aluno</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Data da Solicitação</th>
+                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Certificado</th>
                     <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 bg-white">`;
@@ -74,22 +76,48 @@ function preencherTabela(tabela, turma){
     if(!tabela || tabela.length === 0){
         html += `
         <tr>
-            <td colspan="4" class="py-12 text-center text-slate-500 text-sm">
+            <td colspan="6" class="py-12 text-center text-slate-500 text-sm">
                 Nenhuma solicitação encontrada para esta turma.
             </td>
         </tr>`;
     } else {
         for(const item of tabela){
+            const anexos = Array.isArray(item.anexos) ? item.anexos : [];
+            let certificadoHtml = '';
+            if (anexos.length > 0) {
+                certificadoHtml = '<div class="flex flex-col gap-2">';
+                anexos.forEach(anexoItem => {
+                    const fileName = anexoItem.caminho_arquivo.split('/').pop();
+                    const ext = fileName.split('.').pop().toLowerCase();
+                    let mimeType = 'application/octet-stream';
+                    if (['jpg','jpeg','png','gif','webp','bmp','svg'].includes(ext)) {
+                        mimeType = 'image/' + (ext === 'jpg' ? 'jpeg' : ext);
+                    } else if (ext === 'pdf') {
+                        mimeType = 'application/pdf';
+                    }
+                    const fileUrl = 'php/arquivo_serve.php?anexo_id=' + anexoItem.id;
+                    certificadoHtml += `
+                        <a href="javascript:void(0)" onclick="openFileViewer('${fileUrl}', '${String(fileName).replace(/'/g, "\\'")}', '${mimeType}')" class="text-purple-600 hover:text-purple-900 text-sm font-semibold transition-colors">
+                            ${fileName}
+                        </a>`;
+                });
+                certificadoHtml += '</div>';
+            } else {
+                certificadoHtml = '<span class="text-slate-400 italic text-sm">Sem certificado</span>';
+            }
+
             html += `
             <tr class="hover:bg-slate-50 transition-colors">
                 <td class="px-6 py-4 text-sm text-slate-900">${item.id}</td>
                 <td class="px-6 py-4 text-sm text-slate-900">${item.aluno}</td>
                 <td class="px-6 py-4 text-sm text-slate-600">${item.data_envio}</td>
+                <td class="px-6 py-4 text-sm text-slate-900">${certificadoHtml}</td>
                 <td class="px-6 py-4">
                     <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${statusBadgeClasses(item.status)}">${item.status}</span>
                 </td>
                 <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="turma_solicitacao.html?solicitacao_id=${item.id}&turma_id=${encodeURIComponent(turma)}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">Visualizar</a>
+                    ${item.status && item.status.toUpperCase() !== 'PENDENTE' ? `<a href="turma_solicitacao.html?solicitacao_id=${item.id}&turma_id=${encodeURIComponent(turma)}" class="text-indigo-600 hover:text-indigo-900 text-sm font-semibold transition-colors">Alterar validação</a>` : ''}
                 </td>
             </tr>`;
        }
@@ -97,6 +125,9 @@ function preencherTabela(tabela, turma){
 
     html += `</tbody></table></div>`;
     document.getElementById('lista').innerHTML = html;
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 }
 
 function statusBadgeClasses(status) {
