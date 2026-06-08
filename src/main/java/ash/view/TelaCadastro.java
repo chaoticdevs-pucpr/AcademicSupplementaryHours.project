@@ -2,9 +2,7 @@ package ash.view;
 
 import ash.ArquivoDados;
 import ash.DadosSistema;
-import ash.model.CadastroItem;
-import ash.model.Coordenador;
-import ash.model.Estudante;
+import ash.model.*;
 
 // Daniel passou por aqui
 import ash.model.Curso;
@@ -120,6 +118,8 @@ public class TelaCadastro extends BorderPane {
 
         if (tipo.equals("Coordenador")) return new Coordenador();
         if (tipo.equals("Estudante")) return new Estudante();
+        if (tipo.equals("Solicitacao")) return new Solicitacao();
+        if (tipo.equals("Sugestao")) return new Sugestao();
         return null;
     }
 
