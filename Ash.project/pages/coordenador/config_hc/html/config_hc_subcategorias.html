@@ -16,8 +16,8 @@
 
     <!-- Cabeçalho (Header) -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col gap-3 py-3 sm:h-16 sm:flex-row sm:justify-between sm:items-center">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center gap-3 py-3 sm:h-16 sm:justify-between sm:items-center">
                 <div class="flex items-center gap-6">
                     <!-- O id btnVoltar foi movido para cá para padronizar a navegação -->
                     <a id="btnVoltar" href="#" class="text-slate-400 hover:text-purple-600 transition-colors flex items-center justify-center bg-slate-50 hover:bg-purple-50 w-10 h-10 rounded-full" title="Voltar para categorias">
@@ -32,9 +32,13 @@
                         </span>
                     </div>
                 </div>
-            <nav class="flex items-center gap-4 sm:gap-6">
-                <a href="../../../turmas/turmas_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Lista de Turmas</a>
-                <a href="../../../prof_validador/prof_validador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors hidden sm:inline-block">Lista de Professores</a>
+            <div class="flex items-center gap-3">
+                <button type="button" class="sm:hidden inline-flex items-center justify-center rounded-lg border border-slate-200 p-2 text-slate-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500" aria-label="Abrir menu" aria-controls="mobile-menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden');">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/></svg>
+                </button>
+                <nav id="mobile-menu" class="hidden sm:flex flex-col sm:flex-row items-start sm:items-center justify-end gap-3 sm:gap-6 w-full sm:w-auto">
+                    <a href="../../turmas/turmas_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">Lista de Turmas</a>
+                <a href="../../prof_validador/prof_validador_index.html" class="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors inline-flex">Lista de Professores</a>
                 <div class="w-px h-5 bg-slate-200"></div>
                 <button id="logoff" class="text-sm font-medium text-red-600 hover:text-red-700 flex items-center gap-2 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -46,7 +50,7 @@
     </header>
 
     <!-- Conteúdo Principal -->
-    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+    <main class="flex-1 max-w-7xl mx-auto w-full px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10 md:py-12">
         
         <!-- Título e Botões de Ação -->
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-8">
@@ -85,7 +89,7 @@
 
     <!-- Rodapé (Footer) -->
     <footer class="bg-slate-900 py-8 border-t border-slate-800 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                 <p class="text-sm text-slate-500 text-center md:text-left">
                   &copy; <span id="current-year"></span> ChaoticDevs - Academic Supplementary Hours. Todos os direitos reservados.
@@ -107,3 +111,5 @@
     <script src="../js/config_hc_subcategorias.js"></script>
 </body>
 </html>
+
+
