@@ -43,16 +43,16 @@ function preencherTabela(tabela){
     // Versão simplificada: Colunas diretas, sem avatares ou agrupamentos complexos
     var html = `
     <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse min-w-[800px]">
+        <table class="w-full text-left border-collapse min-w-[760px] text-sm">
             <thead class="bg-slate-50 border-b border-slate-200">
                 <tr>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Nome</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">E-mail</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">CPF</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Celular</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Curso</th>
-                    <th class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Nome</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">E-mail</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">CPF</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Celular</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Curso</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 bg-white">`;
@@ -70,15 +70,15 @@ function preencherTabela(tabela){
             
             html += `
             <tr class="hover:bg-slate-50 transition-colors">
-                <td class="px-6 py-4 text-sm font-medium text-slate-400">${coord.id}</td>
-                <td class="px-6 py-4 text-sm font-semibold text-slate-900">${coord.nome}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${coord.email}</td>
-                <td class="px-6 py-4 text-sm text-slate-600 font-mono">${coord.cpf || '---'}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${coord.celular || '---'}</td>
-                <td class="px-6 py-4">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm font-medium text-slate-400">${coord.id}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm font-semibold text-slate-900 break-words">${coord.nome}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-600 break-words">${coord.email}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-600 font-mono">${coord.cpf || '---'}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-600">${coord.celular || '---'}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4">
                     <span class="text-xs font-medium text-slate-700">${coord.curso_nome || 'Não vinculado'}</span>
                 </td>
-                <td class="px-6 py-4 text-right space-x-3">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="html/coordenador_alterar.html?id=${coord.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
                         Alterar
                     </a>

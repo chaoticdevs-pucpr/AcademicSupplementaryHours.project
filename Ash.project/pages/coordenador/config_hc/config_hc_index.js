@@ -61,14 +61,14 @@ async function excluir(id){
 function preencherTabela(tabela){
     var html = `
     <div class="overflow-x-auto shadow-sm ring-1 ring-slate-200 rounded-xl bg-white">
-        <table class="w-full text-left border-collapse min-w-[800px]">
+        <table class="w-full text-left border-collapse min-w-[760px] text-sm">
             <thead class="bg-slate-50 border-b border-slate-200">
                 <tr>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Versão</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Data</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Horas Objetivo</th>
-                    <th class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Versão</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Data</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Horas Objetivo</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 bg-white">`;
@@ -85,13 +85,13 @@ function preencherTabela(tabela){
             const item = tabela[i];
             html += `
             <tr class="hover:bg-slate-50 transition-colors">
-                <td class="px-6 py-4 text-sm font-medium text-slate-400">${item.manual_id}</td>
-                <td class="px-6 py-4">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm font-medium text-slate-400">${item.manual_id}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 break-words">
                     <div class="text-sm font-bold text-slate-900">${item.versao}</div>
                 </td>
-                <td class="px-6 py-4 text-sm text-slate-600">${item.data_manual}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${item.horas_objetivo}h</td>
-                <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-600">${item.data_manual}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-600">${item.horas_objetivo}h</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="html/config_hc_versao.html?versao=${encodeURIComponent(item.versao)}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">Categorias</a>
                     <a href="html/config_hc_alterar.html?id=${item.manual_id}" class="text-slate-600 hover:text-slate-900 text-sm font-bold transition-colors">Alterar</a>
                     <button onclick="excluir(${item.manual_id})" class="text-red-500 hover:text-red-700 text-sm font-bold transition-colors">Excluir</button>

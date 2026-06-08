@@ -60,15 +60,15 @@ async function buscar(turma){
 function preencherTabela(tabela, turma){
     let html = `
     <div class="overflow-x-auto shadow-sm ring-1 ring-slate-200 rounded-xl bg-white">
-        <table class="w-full text-left border-collapse min-w-[800px]">
+        <table class="w-full text-left border-collapse min-w-[760px] text-sm">
             <thead class="bg-slate-50 border-b border-slate-200">
                 <tr>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Aluno</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Data da Solicitação</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Certificado</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Aluno</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Data da Solicitação</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Certificado</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 bg-white">`;
@@ -108,14 +108,14 @@ function preencherTabela(tabela, turma){
 
             html += `
             <tr class="hover:bg-slate-50 transition-colors">
-                <td class="px-6 py-4 text-sm text-slate-900">${item.id}</td>
-                <td class="px-6 py-4 text-sm text-slate-900">${item.aluno}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${item.data_envio}</td>
-                <td class="px-6 py-4 text-sm text-slate-900">${certificadoHtml}</td>
-                <td class="px-6 py-4">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-900">${item.id}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-900 break-words">${item.aluno}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-600">${item.data_envio}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-900 break-words">${certificadoHtml}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4">
                     <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${statusBadgeClasses(item.status)}">${item.status}</span>
                 </td>
-                <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="turma_solicitacao.html?solicitacao_id=${item.id}&turma_id=${encodeURIComponent(turma)}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">Visualizar</a>
                     ${item.status && item.status.toUpperCase() !== 'PENDENTE' ? `<a href="turma_solicitacao.html?solicitacao_id=${item.id}&turma_id=${encodeURIComponent(turma)}" class="text-indigo-600 hover:text-indigo-900 text-sm font-semibold transition-colors">Alterar validação</a>` : ''}
                 </td>

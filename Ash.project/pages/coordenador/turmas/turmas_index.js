@@ -131,17 +131,17 @@ function escapeHtml(str) {
 function abrirModalTurma(turmaId, turmaNome) {
     if (!document.getElementById('turma_modal')) {
         const modalHtml = `
-        <div id="turma_modal" class="fixed inset-0 z-50 hidden items-center justify-center">
+        <div id="turma_modal" class="fixed inset-0 z-50 hidden items-start sm:items-center justify-center bg-slate-900/50 p-3 sm:p-4">
             <div class="absolute inset-0 bg-black/40" id="turma_modal_overlay"></div>
-            <div class="relative bg-white rounded-2xl shadow-lg max-w-5xl w-full mx-4 overflow-hidden h-[32rem]">
-                <div class="px-6 pt-10 pb-4 border-b border-slate-200 flex items-center justify-between">
+            <div class="relative bg-white rounded-2xl shadow-lg max-w-5xl w-full mx-0 overflow-hidden max-h-[calc(100vh-1.5rem)] sm:max-h-[32rem] flex flex-col">
+                <div class="px-4 sm:px-6 pt-6 sm:pt-10 pb-4 border-b border-slate-200 flex items-start sm:items-center justify-between gap-4">
                     <h3 id="turma_modal_title" class="text-lg font-bold text-slate-900">Turma</h3>
-                    <button id="turma_modal_close" class="text-slate-500 hover:text-slate-800">Fechar</button>
+                    <button id="turma_modal_close" class="text-slate-500 hover:text-slate-800 shrink-0">Fechar</button>
                 </div>
-                <div class="p-6 flex flex-col h-[calc(100%-64px)]" id="turma_modal_body">
+                <div class="p-4 sm:p-6 flex flex-col min-h-0 flex-1" id="turma_modal_body">
                     <div id="turma_modal_summary" class="flex justify-center mt-4 mb-4"></div>
                     <div id="turma_modal_loading" class="text-sm text-slate-500 text-center">Carregando alunos...</div>
-                    <div id="turma_modal_content" class="mt-4 overflow-auto"></div>
+                    <div id="turma_modal_content" class="mt-4 overflow-auto min-h-0 pr-1"></div>
                 </div>
             </div>
         </div>`;
@@ -204,13 +204,13 @@ function abrirModalTurma(turmaId, turmaNome) {
             // monta tabela com 4 colunas: Nome, Matrícula, Horas, Status
             let table = `
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse min-w-[600px]">
+                    <table class="w-full text-left border-collapse min-w-[620px] text-sm">
                         <thead class="bg-slate-50 border-b border-slate-200">
                             <tr>
-                                <th class="px-4 py-2 text-xs font-bold text-slate-500 uppercase">Nome</th>
-                                <th class="px-4 py-2 text-xs font-bold text-slate-500 uppercase">Matrícula</th>
-                                <th class="px-4 py-2 text-xs font-bold text-slate-500 uppercase">Horas</th>
-                                <th class="px-4 py-2 text-xs font-bold text-slate-500 uppercase">Status</th>
+                                <th class="px-4 py-2 sm:px-4 sm:py-3 text-xs font-bold text-slate-500 uppercase">Nome</th>
+                                <th class="px-4 py-2 sm:px-4 sm:py-3 text-xs font-bold text-slate-500 uppercase">Matrícula</th>
+                                <th class="px-4 py-2 sm:px-4 sm:py-3 text-xs font-bold text-slate-500 uppercase">Horas</th>
+                                <th class="px-4 py-2 sm:px-4 sm:py-3 text-xs font-bold text-slate-500 uppercase">Status</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-slate-200">`;
@@ -231,7 +231,7 @@ function abrirModalTurma(turmaId, turmaNome) {
                                     ${escapeHtml(aluno.nome || '---')}
                                     <div class="text-xs text-slate-500 mt-1">${horasAluno}h / ${limiteTexto}</div>
                                 </div>
-                                <button type="button" data-matricula-id="${escapeHtml(aluno.matricula_id || '')}" class="px-2 py-1 rounded-full border border-slate-200 bg-slate-100 text-xs font-semibold text-slate-700 hover:bg-slate-200 aluno-detalhes-btn">Ver detalhes</button>
+                                <button type="button" data-matricula-id="${escapeHtml(aluno.matricula_id || '')}" class="px-2 py-1 rounded-full border border-slate-200 bg-slate-100 text-xs font-semibold text-slate-700 hover:bg-slate-200 aluno-detalhes-btn whitespace-nowrap">Ver detalhes</button>
                             </div>
                         </td>
                         <td class="px-4 py-3 text-sm font-mono text-cyan-600">${escapeHtml(aluno.matricula_id || '---')}</td>
@@ -265,9 +265,9 @@ function abrirModalAlunoDetalhes(matriculaId, nomeAluno) {
     if (!modal) {
         const novoModal = document.createElement('div');
         novoModal.id = 'aluno_modal';
-        novoModal.className = 'fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 p-4';
+        novoModal.className = 'fixed inset-0 z-50 hidden items-start sm:items-center justify-center bg-slate-900/50 p-3 sm:p-4';
         novoModal.innerHTML = `
-            <div class="max-w-3xl w-full rounded-[2rem] bg-white p-6 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-200">
+            <div class="max-w-3xl w-full rounded-[2rem] bg-white p-4 sm:p-6 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-200 max-h-[calc(100vh-1.5rem)] sm:max-h-[90vh] overflow-hidden flex flex-col">
                 <div class="flex items-start justify-between gap-4 pb-4 border-b border-slate-200">
                     <div>
                         <h2 id="aluno_modal_title" class="text-lg font-semibold text-slate-900">Detalhes do aluno</h2>
@@ -276,7 +276,7 @@ function abrirModalAlunoDetalhes(matriculaId, nomeAluno) {
                     <button type="button" id="aluno_modal_close" class="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-700 hover:bg-slate-200">Fechar</button>
                 </div>
                 <div id="aluno_modal_loading" class="mt-6 text-sm text-slate-500">Carregando detalhes...</div>
-                <div id="aluno_modal_content" class="mt-4 space-y-3 max-h-[26rem] overflow-auto"></div>
+                <div id="aluno_modal_content" class="mt-4 space-y-3 max-h-[26rem] overflow-auto pr-1"></div>
             </div>`;
         document.body.appendChild(novoModal);
         modal = novoModal;

@@ -59,14 +59,14 @@ async function excluir(id){
 function preencherTabela(tabela){
     var html = `
     <div class="overflow-x-auto shadow-sm ring-1 ring-slate-200 rounded-xl bg-white">
-        <table class="w-full text-left border-collapse min-w-[900px]">
+        <table class="w-full text-left border-collapse min-w-[840px] text-sm">
             <thead class="bg-slate-50 border-b border-slate-200">
                 <tr>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Nome / E-mail</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">CPF / Contato</th>
-                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Turma / Curso</th>
-                    <th class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Nome / E-mail</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">CPF / Contato</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Turma / Curso</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 bg-white">`;
@@ -87,20 +87,20 @@ function preencherTabela(tabela){
 
             html += `
             <tr class="hover:bg-slate-50 transition-colors">
-                <td class="px-6 py-4 text-sm font-medium text-slate-400">${prof.id}</td>
-                <td class="px-6 py-4">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm font-medium text-slate-400">${prof.id}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 break-words">
                     <div class="text-sm font-semibold text-slate-900">${prof.nome}</div>
                     <div class="text-xs text-slate-500">${prof.email}</div>
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-4 py-3 sm:px-6 sm:py-4">
                     <div class="text-xs text-slate-600 font-medium">CPF: ${prof.cpf || '---'}</div>
                     <div class="text-xs text-slate-400 mt-0.5">Cont: ${contato}</div>
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-4 py-3 sm:px-6 sm:py-4">
                     <div class="text-xs font-medium text-slate-700">${prof.turma_nome || 'Sem turma'}</div>
                     <div class="text-[10px] text-slate-400 uppercase tracking-tighter">${prof.curso_nome || 'Sem curso'}</div>
                 </td>
-                <td class="px-6 py-4 text-right space-x-3">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="html/prof_validador_alterar.html?id=${prof.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
                         Alterar
                     </a>

@@ -61,18 +61,18 @@ function preencherTabela(tabela) {
     // Estilo de tabela limpo, focado na leitura clara dos dados
     var html = `
     <div class="overflow-x-auto shadow-sm ring-1 ring-slate-200 rounded-xl bg-white">
-        <table class="w-full text-left border-collapse min-w-[1000px]">
+        <table class="w-full text-left border-collapse min-w-[860px] text-sm">
             <thead class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
                 <tr>
-                    <th class="px-6 py-4">ID</th>
-                    <th class="px-6 py-4">Categoria</th>
-                    <th class="px-6 py-4">Subcategoria</th>
-                    <th class="px-6 py-4">Pontos</th>
-                    <th class="px-6 py-4 text-center">Horas Brutas</th>
-                    <th class="px-6 py-4">Status</th>
-                    <th class="px-6 py-4">Data de Envio</th>
-                    <th class="px-6 py-4">Anexo</th>
-                    <th class="px-6 py-4 text-right">Ações</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4">ID</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4">Categoria</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4">Subcategoria</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4">Pontos</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-center">Horas Brutas</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4">Status</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4">Data de Envio</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4">Anexo</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4 text-right">Ações</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 bg-white">`;
@@ -139,15 +139,15 @@ function preencherTabela(tabela) {
 
             html += `
             <tr class="hover:bg-slate-50 transition-colors">
-                <td class="px-6 py-4 text-sm font-medium text-slate-400">${item.id}</td>
-                <td class="px-6 py-4 text-sm font-bold text-slate-900">${item.categoria_nome || '---'}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${item.subcategoria_nome || '---'}</td>
-                <td class="px-6 py-4 text-sm text-slate-600">${item.pontos_validados || '---'}</td>
-                <td class="px-6 py-4 text-sm font-bold text-slate-700 text-center">${item.horas_brutas || '0'}h</td>
-                <td class="px-6 py-4">${statusBadge}</td>
-                <td class="px-6 py-4 text-sm text-slate-500">${dataEnvio}</td>
-                <td class="px-6 py-4">${anexo}</td>
-                <td class="px-6 py-4 text-right space-x-3 whitespace-nowrap">
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm font-medium text-slate-400">${item.id}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm font-bold text-slate-900 break-words">${item.categoria_nome || '---'}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-600 break-words">${item.subcategoria_nome || '---'}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-600">${item.pontos_validados || '---'}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm font-bold text-slate-700 text-center">${item.horas_brutas || '0'}h</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4">${statusBadge}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-sm text-slate-500">${dataEnvio}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4">${anexo}</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 text-right space-x-3 whitespace-nowrap">
                     <a href="html/solicitacao_alterar.html?id=${item.id}" class="text-purple-600 hover:text-purple-900 text-sm font-bold transition-colors">
                         Alterar
                     </a>
