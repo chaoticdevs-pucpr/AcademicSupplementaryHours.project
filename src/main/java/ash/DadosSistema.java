@@ -12,6 +12,10 @@ public class DadosSistema implements Serializable {
     private ArrayList<CadastroItem> estudantes = new ArrayList<>();
     private ArrayList<Administrador> administradores = new ArrayList<>();
 
+// Daniel passou por aqui
+    private ArrayList<CadastroItem> cursos = new ArrayList<>();
+    private ArrayList<CadastroItem> turmas = new ArrayList<>();
+
     public DadosSistema() {
 
         Administrador adminPadrao = new Administrador();
@@ -43,5 +47,13 @@ public class DadosSistema implements Serializable {
             }
         }
         return maior + 1;
+    }
+
+    // Daniel passou por aqui
+    public ArrayList<CadastroItem> getCursos(){
+        return cursos;
+    }
+    public ArrayList<CadastroItem> getTurmas(){
+        return turmas;
     }
 }

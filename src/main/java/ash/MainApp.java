@@ -41,6 +41,10 @@ public class MainApp extends Application {
     public void mostrarSistemaAdmin(String emailLogado) {
         TabPane abas = new TabPane();
 
+        // Daniel passou por aqui
+        abas.getTabs().add(criarAba("Cursos", new TelaCadastro("Cadastro de Cursos", dados, dados.getCursos(), "Curso")));
+        abas.getTabs().add(criarAba("Turmas", new TelaCadastro("Cadastro de Turmas", dados, dados.getTurmas(), "Turma")));
+
         // A mágica acontece aqui: Instanciamos a mesma TelaCadastro, mas passando listas diferentes!
         abas.getTabs().add(criarAba("Coordenadores", new TelaCadastro("Cadastro de Coordenadores", dados, dados.getCoordenadores(), "Coordenador")));
         abas.getTabs().add(criarAba("Estudantes", new TelaCadastro("Cadastro de Estudantes", dados, dados.getEstudantes(), "Estudante")));

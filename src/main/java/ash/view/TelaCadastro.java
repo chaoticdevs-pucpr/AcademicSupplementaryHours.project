@@ -6,6 +6,10 @@ import ash.model.CadastroItem;
 import ash.model.Coordenador;
 import ash.model.Estudante;
 
+// Daniel passou por aqui
+import ash.model.Curso;
+import ash.model.Turma;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -110,6 +114,10 @@ public class TelaCadastro extends BorderPane {
     }
 
     private CadastroItem criarObjeto() {
+        // Daniel passou por aqui
+        if (tipo.equals("Curso")) return new Curso();
+        if (tipo.equals("Turma")) return new Turma();
+
         if (tipo.equals("Coordenador")) return new Coordenador();
         if (tipo.equals("Estudante")) return new Estudante();
         return null;
