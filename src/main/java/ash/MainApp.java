@@ -29,19 +29,31 @@ public class MainApp extends Application {
     }
 
     public void mostrarLogin() {
-        // Passa os dados e a instrução do que fazer quando o login for validado
-        TelaLogin telaLogin = new TelaLogin(dados, emailLogado -> {
-            mostrarSistemaAdmin(emailLogado);
+        // A CORREÇÃO ESTÁ AQUI: Colocamos (tipoUsuario, emailLogado) para receber os 2 parâmetros
+        TelaLogin telaLogin = new TelaLogin(dados, (tipoUsuario, emailLogado) -> {
+
+            if (tipoUsuario.equals("Administrador")) {
+                mostrarSistemaAdmin(emailLogado);
+            }
+            else if (tipoUsuario.equals("Estudante")) {
+                mostrarSistemaEstudante(emailLogado);
+            }
+            else if (tipoUsuario.equals("Coordenador")) {
+                // Se for ter tela de coordenador depois, você chama aqui
+                System.out.println("Logou como Coordenador!");
+            }
+
         });
 
         janela.setScene(telaLogin.getCena());
     }
 
-    // --- TELA OFICIAL DO SISTEMA ---
+    // --- TELA OFICIAL DO SISTEMA ADMIN ---
     public void mostrarSistemaAdmin(String emailLogado) {
         TabPane abas = new TabPane();
 
         // A mágica acontece aqui: Instanciamos a mesma TelaCadastro, mas passando listas diferentes!
+        // OBS: Certifique-se de que os nomes dos métodos da classe dados (getCoordenadores / getEstudantes) estão iguais aos que você tem lá.
         abas.getTabs().add(criarAba("Coordenadores", new TelaCadastro("Cadastro de Coordenadores", dados, dados.getCoordenadores(), "Coordenador")));
         abas.getTabs().add(criarAba("Estudantes", new TelaCadastro("Cadastro de Estudantes", dados, dados.getEstudantes(), "Estudante")));
 
@@ -59,7 +71,28 @@ public class MainApp extends Application {
         tela.setTop(topo);
         tela.setCenter(abas); // Coloca as abas no centro da tela
 
-        // Aumentei o tamanho da tela para o formulário caber com folga
+        janela.setScene(new Scene(tela, 900, 600));
+    }
+
+    // --- NOVA TELA DO ESTUDANTE ---
+    public void mostrarSistemaEstudante(String emailLogado) {
+        // Puxa aquele Dashboard do Estudante com os botões de Sugestão e Solicitação
+        ash.view.TelaEstudante telaEstudante = new ash.view.TelaEstudante(dados);
+
+        Label logado = new Label("Logado como Estudante: " + emailLogado);
+        Button btnSair = new Button("Sair");
+
+        // Volta para a tela de login ao clicar em Sair
+        btnSair.setOnAction(e -> mostrarLogin());
+
+        HBox topo = new HBox(10, logado, btnSair);
+        topo.setPadding(new Insets(10));
+        topo.setAlignment(Pos.CENTER_RIGHT);
+
+        BorderPane tela = new BorderPane();
+        tela.setTop(topo);
+        tela.setCenter(telaEstudante); // Coloca a tela no centro
+
         janela.setScene(new Scene(tela, 900, 600));
     }
 

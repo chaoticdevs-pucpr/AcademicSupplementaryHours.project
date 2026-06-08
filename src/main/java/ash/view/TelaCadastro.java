@@ -2,9 +2,7 @@ package ash.view;
 
 import ash.ArquivoDados;
 import ash.DadosSistema;
-import ash.model.CadastroItem;
-import ash.model.Coordenador;
-import ash.model.Estudante;
+import ash.model.*;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -112,6 +110,8 @@ public class TelaCadastro extends BorderPane {
     private CadastroItem criarObjeto() {
         if (tipo.equals("Coordenador")) return new Coordenador();
         if (tipo.equals("Estudante")) return new Estudante();
+        if (tipo.equals("Solicitacao")) return new Solicitacao();
+        if (tipo.equals("Sugestao")) return new Sugestao();
         return null;
     }
 
