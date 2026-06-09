@@ -261,19 +261,19 @@ async function novo(){
 
 	// Valida anexos
 	const arquivos = document.getElementById("arquivo").files;
+	if(arquivos.length === 0){
+		alert('Selecione ao menos um anexo em PDF para enviar a solicitação.');
+		return;
+	}
 	if(arquivos.length > 5){
 		alert('Você pode enviar no máximo 5 anexos por solicitação.');
 		return;
 	}
-	if(arquivos.length > 0){
-		if(arquivos.length > 5){
-			alert('Você pode enviar no máximo 5 anexos por solicitação.');
-			return;
-		}
-		const arquivo = arquivos[0];
+
+	for(const arquivo of arquivos){
 		const ext = (arquivo.name.split('.').pop() || '').toLowerCase();
 		if(ext !== 'pdf' || arquivo.type !== 'application/pdf'){
-			alert('Apenas arquivo PDF é permitido.');
+			alert('Apenas arquivos PDF são permitidos.');
 			return;
 		}
 	}
