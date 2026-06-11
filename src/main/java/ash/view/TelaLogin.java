@@ -1,10 +1,7 @@
 package ash.view;
 
 import ash.DadosSistema;
-import ash.model.Administrador;
-import ash.model.CadastroItem;
-import ash.model.Coordenador;
-import ash.model.Estudante;
+import ash.model.*;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -131,7 +128,15 @@ public class TelaLogin {
                 }
             }
         }
-
+        //4. Verifica Professor validador
+        if (dados.getProfessorValidador() != null) {
+            for (CadastroItem item : dados.getProfessorValidador()) {
+                ProfessorValidador professorvalidador = (ProfessorValidador) item;
+                if (professorvalidador.getEmail().equalsIgnoreCase(email) && professorvalidador.getSenha().equals(senha)) {
+                    return "Professor Validador";
+                }
+            }
+        }
         // Se o loop terminar e não achar ninguém:
         return null;
     }

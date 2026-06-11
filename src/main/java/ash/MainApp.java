@@ -39,8 +39,7 @@ public class MainApp extends Application {
                 mostrarSistemaEstudante(emailLogado);
             }
             else if (tipoUsuario.equals("Coordenador")) {
-                // Se for ter tela de coordenador depois, você chama aqui
-                System.out.println("Logou como Coordenador!");
+                mostrarSistemaCoordenador(emailLogado);
             }
 
         });
@@ -99,6 +98,27 @@ public class MainApp extends Application {
 
         janela.setScene(new Scene(tela, 900, 600));
     }
+    public void mostrarSistemaCoordenador(String emailLogado) {
+        // Puxa aquele Dashboard do Estudante com os botões de Sugestão e Solicitação
+        ash.view.TelaCoordenador telaCoordenador = new ash.view.TelaCoordenador(dados);
+
+        Label logado = new Label("Logado como Professor validador: " + emailLogado);
+        Button btnSair = new Button("Sair");
+
+        // Volta para a tela de login ao clicar em Sair
+        btnSair.setOnAction(e -> mostrarLogin());
+
+        HBox topo = new HBox(10, logado, btnSair);
+        topo.setPadding(new Insets(10));
+        topo.setAlignment(Pos.CENTER_RIGHT);
+
+        BorderPane tela = new BorderPane();
+        tela.setTop(topo);
+        tela.setCenter(telaCoordenador); // Coloca a tela no centro
+
+        janela.setScene(new Scene(tela, 900, 600));
+    }
+
 
     private Tab criarAba(String titulo, BorderPane conteudo) {
         Tab aba = new Tab(titulo);

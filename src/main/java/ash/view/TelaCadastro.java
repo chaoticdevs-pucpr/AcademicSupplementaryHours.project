@@ -59,6 +59,7 @@ public class TelaCadastro extends BorderPane {
 
     private void configurarColunasDaTabela() {
         CadastroItem exemplo = criarObjeto();
+        assert exemplo != null;
         String[] nomesDasColunas = exemplo.nomeCampos();
 
         for (int i = 0; i < nomesDasColunas.length; i++) {
@@ -120,6 +121,7 @@ public class TelaCadastro extends BorderPane {
         if (tipo.equals("Estudante")) return new Estudante();
         if (tipo.equals("Solicitacao")) return new Solicitacao();
         if (tipo.equals("Sugestao")) return new Sugestao();
+        if (tipo.equals("Professor Validador")) return new ProfessorValidador();
         return null;
     }
 
