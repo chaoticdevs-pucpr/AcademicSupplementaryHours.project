@@ -9,8 +9,12 @@ public class TelaCoordenador extends TabPane {
 
     public TelaCoordenador(DadosSistema dados) {
         TelaCadastro telaProfessorValidador = new TelaCadastro("Criar Professor validador", dados, dados.getProfessorValidador(), "Professor Validador");
+        TelaCadastro telaManual = new TelaCadastro("Cadastrar manual de horas complementares", dados, dados.getManual(), "Manual");
+        TelaCadastro telaCategorias = new TelaCadastro("Cadastrar categoria", dados, dados.getCategorias(), "Categorias");
 
-        this.getTabs().add(criarAba("Professor Vaidador", telaProfessorValidador));
+        this.getTabs().add(criarAba("Professor Validador", telaProfessorValidador));
+        this.getTabs().add(criarAba("Manual", telaManual));
+        this.getTabs().add(criarAba("Categorias", telaCategorias));
     }
 
     private Tab criarAba(String titulo, BorderPane conteudo) {

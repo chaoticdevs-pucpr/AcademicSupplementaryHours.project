@@ -16,10 +16,10 @@ public class DadosSistema implements Serializable {
     private ArrayList<CadastroItem> solicitacao = new ArrayList<>();
     private ArrayList<CadastroItem> sugestao = new ArrayList<>();
     private ArrayList<CadastroItem> professorValidador = new ArrayList<>();
-
-// Daniel passou por aqui
     private ArrayList<CadastroItem> cursos = new ArrayList<>();
     private ArrayList<CadastroItem> turmas = new ArrayList<>();
+    private ArrayList<CadastroItem> manual = new ArrayList<>();
+    private ArrayList<CadastroItem> categorias = new ArrayList<>();
 
     public DadosSistema() {
 
@@ -57,6 +57,22 @@ public class DadosSistema implements Serializable {
         return professorValidador;
     }
 
+    public ArrayList<CadastroItem> getCursos() {
+        return cursos;
+    }
+
+    public ArrayList<CadastroItem> getTurmas() {
+        return turmas;
+    }
+
+    public ArrayList<CadastroItem> getManual() {
+        return manual;
+    }
+
+    public ArrayList<CadastroItem> getCategorias() {
+        return categorias;
+    }
+
     public int proximoId(ArrayList<CadastroItem> lista) {
         int maior = 0;
         for (CadastroItem item : lista) {
@@ -67,11 +83,4 @@ public class DadosSistema implements Serializable {
         return maior + 1;
     }
 
-    // Daniel passou por aqui
-    public ArrayList<CadastroItem> getCursos(){
-        return cursos;
-    }
-    public ArrayList<CadastroItem> getTurmas(){
-        return turmas;
-    }
 }

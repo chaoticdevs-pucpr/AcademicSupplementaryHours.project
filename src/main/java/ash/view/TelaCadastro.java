@@ -113,10 +113,10 @@ public class TelaCadastro extends BorderPane {
     }
 
     private CadastroItem criarObjeto() {
-        // Daniel passou por aqui
         if (tipo.equals("Curso")) return new Curso();
         if (tipo.equals("Turma")) return new Turma();
-
+        if (tipo.equals("Manual")) return new Manual();
+        if (tipo.equals("Categorias")) return new Categorias();
         if (tipo.equals("Coordenador")) return new Coordenador();
         if (tipo.equals("Estudante")) return new Estudante();
         if (tipo.equals("Solicitacao")) return new Solicitacao();
