@@ -16,6 +16,7 @@ public class DadosSistema implements Serializable {
     private ArrayList<CadastroItem> solicitacao = new ArrayList<>();
     private ArrayList<CadastroItem> sugestao = new ArrayList<>();
     private ArrayList<CadastroItem> professorValidador = new ArrayList<>();
+    private ArrayList<CadastroItem> evento = new ArrayList<>();
 
 // Daniel passou por aqui
     private ArrayList<CadastroItem> cursos = new ArrayList<>();
@@ -56,6 +57,10 @@ public class DadosSistema implements Serializable {
     public ArrayList<CadastroItem> getProfessorValidador() {
         return professorValidador;
     }
+    public ArrayList<CadastroItem> getEvento() {
+        return evento;
+    }
+
 
     public int proximoId(ArrayList<CadastroItem> lista) {
         int maior = 0;
