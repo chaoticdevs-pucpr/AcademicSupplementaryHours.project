@@ -15,6 +15,10 @@ public class TelaCoordenador extends TabPane {
         this.getTabs().add(criarAba("Professor Validador", telaProfessorValidador));
         this.getTabs().add(criarAba("Manual", telaManual));
         this.getTabs().add(criarAba("Categorias", telaCategorias));
+        TelaCadastro telaEvento             = new TelaCadastro("Criar um novo Evento", dados,dados.getEvento(),"Evento");
+        this.getTabs().add(criarAba("Professor Vaidador", telaProfessorValidador));
+        this.getTabs().add(criarAba("Evento", telaEvento));
+
     }
 
     private Tab criarAba(String titulo, BorderPane conteudo) {

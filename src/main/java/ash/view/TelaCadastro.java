@@ -122,6 +122,7 @@ public class TelaCadastro extends BorderPane {
         if (tipo.equals("Solicitacao")) return new Solicitacao();
         if (tipo.equals("Sugestao")) return new Sugestao();
         if (tipo.equals("Professor Validador")) return new ProfessorValidador();
+        if (tipo.equals("Evento")) return new Evento();
         return null;
     }
 
