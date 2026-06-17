@@ -21,6 +21,8 @@ public class DadosSistema implements Serializable {
     private ArrayList<CadastroItem> turmas = new ArrayList<>();
     private ArrayList<CadastroItem> manual = new ArrayList<>();
     private ArrayList<CadastroItem> categorias = new ArrayList<>();
+    private ArrayList<CadastroItem> subcategorias = new ArrayList<>();
+    private ArrayList<CadastroItem> justificativasAceite = new ArrayList<>();
 
     public DadosSistema() {
 
@@ -76,6 +78,16 @@ public class DadosSistema implements Serializable {
 
     public ArrayList<CadastroItem> getCategorias() {
         return categorias;
+    }
+
+    public ArrayList<CadastroItem> getSubcategorias() {
+        if (subcategorias == null) subcategorias = new ArrayList<>();
+        return subcategorias;
+    }
+ 
+    public ArrayList<CadastroItem> getJustificativasAceite() {
+        if (justificativasAceite == null) justificativasAceite = new ArrayList<>();
+        return justificativasAceite;
     }
 
     public int proximoId(ArrayList<CadastroItem> lista) {

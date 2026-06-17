@@ -123,6 +123,8 @@ public class TelaCadastro extends BorderPane {
         if (tipo.equals("Sugestao")) return new Sugestao();
         if (tipo.equals("Professor Validador")) return new ProfessorValidador();
         if (tipo.equals("Evento")) return new Evento();
+        if (tipo.equals("Subcategoria")) return new Subcategoria();
+        if (tipo.equals("JustificativaAceite")) return new JustificativaAceite();
         return null;
     }
 
@@ -209,6 +211,20 @@ public class TelaCadastro extends BorderPane {
                 Integer.parseInt(valor);
             } catch (NumberFormatException erro) {
                 throw new Exception("O campo " + nomeCampo + " deve ser numérico.");
+            }
+        }
+
+        if (nome.contains("horas")) {
+            try {
+                Double.parseDouble(valor);
+            } catch (NumberFormatException erro) {
+                throw new Exception("O campo " + nomeCampo + " deve ser um número.");
+            }
+        }
+
+        if (nome.equals("status") && tipo.equals("JustificativaAceite")) {
+            if (!valor.equalsIgnoreCase("Aceito") && !valor.equalsIgnoreCase("Rejeitado")) {
+                throw new Exception("Status deve ser 'Aceito' ou 'Rejeitado'.");
             }
         }
     }
