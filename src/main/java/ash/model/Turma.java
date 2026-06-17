@@ -3,9 +3,9 @@ package ash.model;
 
 public class Turma implements CadastroItem {
     private int id;
-    private String nome;
-    private String curso;
-    private String periodo;
+    private String nome = "";
+    private String curso = "";
+    private String periodo = "";
 
     public Turma() {}
 
@@ -48,7 +48,11 @@ public class Turma implements CadastroItem {
 
     @Override
     public String[] valoresCampos() {
-        return new String[]{nome, curso, periodo};
+        return new String[]{
+                nome != null ? nome : "",
+                curso != null ? curso : "",
+                periodo != null ? periodo : ""
+        };
     }
 
     @Override

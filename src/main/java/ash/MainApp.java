@@ -29,7 +29,6 @@ public class MainApp extends Application {
     }
 
     public void mostrarLogin() {
-        // A CORREÇÃO ESTÁ AQUI: Colocamos (tipoUsuario, emailLogado) para receber os 2 parâmetros
         TelaLogin telaLogin = new TelaLogin(dados, (tipoUsuario, emailLogado) -> {
 
             if (tipoUsuario.equals("Administrador")) {
