@@ -14,7 +14,6 @@ public class TelaCoordenador extends TabPane {
         TelaCadastro telaSubcategorias       = new TelaCadastro("Cadastrar Subcategoria", dados, dados.getSubcategorias(), "Subcategoria");
         TelaCadastro telaJustificativa       = new TelaCadastro("Aceitar/Cadastrar Justificativa", dados, dados.getJustificativasAceite(), "JustificativaAceite");
 
-        this.getTabs().add(criarAba("Professor Validador", telaProfessorValidador));
         this.getTabs().add(criarAba("Manual", telaManual));
         this.getTabs().add(criarAba("Categorias", telaCategorias));
         this.getTabs().add(criarAba("Subcategorias", telaSubcategorias));
