@@ -2,8 +2,6 @@ package ash;
 
 import ash.model.Administrador;
 import ash.model.CadastroItem;
-import ash.model.Solicitacao;
-import ash.model.Sugestao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
