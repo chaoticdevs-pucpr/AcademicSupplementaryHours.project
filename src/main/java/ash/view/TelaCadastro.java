@@ -11,11 +11,14 @@ import ash.model.Turma;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,6 +27,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TelaCadastro extends BorderPane {
@@ -32,7 +38,7 @@ public class TelaCadastro extends BorderPane {
     private String tipo;
 
     private TableView<CadastroItem> tabela = new TableView<>();
-    private Control[] campos;
+    private Node[] campos; 
 
     public TelaCadastro(String titulo, DadosSistema dados, ArrayList<CadastroItem> lista, String tipo) {
         this.dados = dados;
@@ -88,25 +94,23 @@ public class TelaCadastro extends BorderPane {
     private GridPane criarFormulario() {
         CadastroItem exemplo = criarObjeto();
         String[] nomes = exemplo.nomeCampos();
-        campos = new Control[nomes.length];
+        campos = new Node[nomes.length];
 
         GridPane painel = new GridPane();
         painel.setHgap(10);
         painel.setVgap(10);
 
-        // VARIÁVEIS CHAVE: Guardam as referências das caixas para o efeito cascata funcionar depois
         ComboBox<String> referenciaComboCurso = null;
-        ComboBox<String> referenciaComboCategoria = null; // <-- NOVA VARIÁVEL AQUI
+        ComboBox<String> referenciaComboCategoria = null;
 
         for (int i = 0; i < nomes.length; i++) {
             Label label = new Label(nomes[i] + ":");
             String nomeDoCampo = nomes[i].toLowerCase();
 
-            // --- LÓGICA DO COMBOBOX DE CURSO ---
             if (nomeDoCampo.equals("curso") || nomeDoCampo.equals("cursos")) {
                 ComboBox<String> comboBoxCurso = new ComboBox<>();
                 comboBoxCurso.setPromptText("Selecione um curso...");
-                referenciaComboCurso = comboBoxCurso; // Salva a caixa na variável chave!
+                referenciaComboCurso = comboBoxCurso;
 
                 comboBoxCurso.setOnShowing(event -> {
                     comboBoxCurso.getItems().clear();
@@ -145,7 +149,6 @@ public class TelaCadastro extends BorderPane {
                 comboBoxTurma.setOnShowing(event -> {
                     comboBoxTurma.getItems().clear();
 
-                    // Descobre qual curso o usuário escolheu na caixa de cima
                     String cursoSelecionado = (comboCursoParaFiltro != null) ? comboCursoParaFiltro.getValue() : null;
 
                     for (CadastroItem turmaCadastrada : dados.getTurmas()) {
@@ -155,7 +158,6 @@ public class TelaCadastro extends BorderPane {
                         int indexDoNome = -1;
                         int indexDoCursoNaTurma = -1;
 
-                        // Procura onde está o Nome da Turma e onde está o Curso atrelado a ela
                         for (int j = 0; j < nomesDosCampos.length; j++) {
                             if (nomesDosCampos[j].toLowerCase().contains("nome") || nomesDosCampos[j].toLowerCase().equals("turma")) {
                                 indexDoNome = j;
@@ -195,7 +197,7 @@ public class TelaCadastro extends BorderPane {
                 painel.add(comboBoxTurma, 1, i);
 
 
-                // --- LÓGICA DO COMBOBOX DE CATEGORIA (NOVO) ---
+                // --- LÓGICA DO COMBOBOX DE CATEGORIA ---
             } else if (nomeDoCampo.equals("categoria") || nomeDoCampo.equals("categorias")) {
                 ComboBox<String> comboBoxCategoria = new ComboBox<>();
                 comboBoxCategoria.setPromptText("Selecione uma categoria...");
@@ -228,7 +230,7 @@ public class TelaCadastro extends BorderPane {
                 painel.add(comboBoxCategoria, 1, i);
 
 
-                // --- LÓGICA DO COMBOBOX DE SUBCATEGORIA - CASCATA (NOVO) ---
+                // --- LÓGICA DO COMBOBOX DE SUBCATEGORIA - CASCATA ---
             } else if (nomeDoCampo.equals("subcategoria") || nomeDoCampo.equals("subcategorias")) {
                 ComboBox<String> comboBoxSubcategoria = new ComboBox<>();
                 comboBoxSubcategoria.setPromptText("Selecione uma subcategoria...");
@@ -248,7 +250,6 @@ public class TelaCadastro extends BorderPane {
                         int indexDoNome = -1;
                         int indexDaCatNaSub = -1;
 
-                        // Procura onde está o Nome da Subcategoria e onde está a Categoria atrelada a ela
                         for (int j = 0; j < nomesDosCampos.length; j++) {
                             if (nomesDosCampos[j].toLowerCase().contains("nome") || nomesDosCampos[j].toLowerCase().equals("subcategoria")) {
                                 indexDoNome = j;
@@ -323,6 +324,25 @@ public class TelaCadastro extends BorderPane {
                 painel.add(comboBoxStatus, 1, i);
 
 
+                // --- INSERÇÃO DO DATEPICKER E SPINNER PARA DATA ---
+            } else if (nomeDoCampo.equals("data") || nomeDoCampo.contains("data")) {
+                DatePicker calendario = new DatePicker();
+                calendario.setEditable(false);
+                calendario.setPrefWidth(120);
+
+                Spinner<Integer> spinnerHora = new Spinner<>(0, 23, 12);
+                spinnerHora.setPrefWidth(60);
+
+                Spinner<Integer> spinnerMinuto = new Spinner<>(0, 59, 0);
+                spinnerMinuto.setPrefWidth(60);
+
+                HBox caixaDataHora = new HBox(5, calendario, new Label(" Hora:"), spinnerHora, new Label(":"), spinnerMinuto);
+                caixaDataHora.setAlignment(Pos.CENTER_LEFT);
+
+                campos[i] = caixaDataHora;
+                painel.add(label, 0, i);
+                painel.add(caixaDataHora, 1, i);
+
                 // --- LÓGICA DO CAMPO DE TEXTO PADRÃO ---
             } else {
                 TextField campo = new TextField();
@@ -394,6 +414,20 @@ public class TelaCadastro extends BorderPane {
                 } else if (campos[i] instanceof ComboBox) {
                     Object valorCombo = ((ComboBox<?>) campos[i]).getValue();
                     valores[i] = valorCombo != null ? valorCombo.toString() : "";
+
+                    // --- LEITURA DO SPINNER/DATEPICKER PARA SALVAR ---
+                } else if (campos[i] instanceof HBox) {
+                    HBox caixa = (HBox) campos[i];
+                    DatePicker dp = (DatePicker) caixa.getChildren().get(0);
+                    @SuppressWarnings("unchecked") Spinner<Integer> sh = (Spinner<Integer>) caixa.getChildren().get(2);
+                    @SuppressWarnings("unchecked") Spinner<Integer> sm = (Spinner<Integer>) caixa.getChildren().get(4);
+
+                    if (dp.getValue() != null) {
+                        LocalDateTime dataEHora = LocalDateTime.of(dp.getValue(), LocalTime.of(sh.getValue(), sm.getValue()));
+                        valores[i] = dataEHora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                    } else {
+                        valores[i] = "";
+                    }
                 }
 
                 if (valores[i].isEmpty()) {
@@ -445,17 +479,48 @@ public class TelaCadastro extends BorderPane {
                 @SuppressWarnings("unchecked")
                 ComboBox<String> combo = (ComboBox<String>) campos[i];
                 combo.setValue(valores[i]);
+
+                // --- PREENCHIMENTO DO SPINNER/DATEPICKER AO CLICAR NA TABELA ---
+            } else if (campos[i] instanceof HBox) {
+                HBox caixa = (HBox) campos[i];
+                DatePicker dp = (DatePicker) caixa.getChildren().get(0);
+                @SuppressWarnings("unchecked") Spinner<Integer> sh = (Spinner<Integer>) caixa.getChildren().get(2);
+                @SuppressWarnings("unchecked") Spinner<Integer> sm = (Spinner<Integer>) caixa.getChildren().get(4);
+
+                if (valores[i] != null && !valores[i].trim().isEmpty() && !valores[i].equals("Sem data")) {
+                    try {
+                        LocalDateTime dataEHora = LocalDateTime.parse(valores[i], DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                        dp.setValue(dataEHora.toLocalDate());
+                        sh.getValueFactory().setValue(dataEHora.getHour());
+                        sm.getValueFactory().setValue(dataEHora.getMinute());
+                    } catch (Exception e) {
+                        dp.setValue(null);
+                    }
+                } else {
+                    dp.setValue(null);
+                    sh.getValueFactory().setValue(12);
+                    sm.getValueFactory().setValue(0);
+                }
             }
         }
     }
 
     private void limparTela() {
         tabela.getSelectionModel().clearSelection();
-        for (Control campo : campos) {
+        for (Node campo : campos) {
             if (campo instanceof TextField) {
                 ((TextField) campo).clear();
             } else if (campo instanceof ComboBox) {
                 ((ComboBox<?>) campo).getSelectionModel().clearSelection();
+
+                // --- LIMPEZA DO SPINNER/DATEPICKER AO CLICAR EM NOVO ---
+            } else if (campo instanceof HBox) {
+                HBox caixa = (HBox) campo;
+                ((DatePicker) caixa.getChildren().get(0)).setValue(null);
+                @SuppressWarnings("unchecked") Spinner<Integer> sh = (Spinner<Integer>) caixa.getChildren().get(2);
+                @SuppressWarnings("unchecked") Spinner<Integer> sm = (Spinner<Integer>) caixa.getChildren().get(4);
+                sh.getValueFactory().setValue(12);
+                sm.getValueFactory().setValue(0);
             }
         }
     }
