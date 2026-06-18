@@ -48,7 +48,7 @@ public class DadosSistema implements Serializable {
     public ArrayList<CadastroItem> getManual() { return manual; }
     public ArrayList<CadastroItem> getCategorias() { return categorias; }
 
-    // --- SETTERS (Adicionados para a nova persistência) ---
+    // --- SETTERS --
     public void setCoordenadores(ArrayList<CadastroItem> coordenadores) { this.coordenadores = coordenadores; }
     public void setEstudantes(ArrayList<CadastroItem> estudantes) { this.estudantes = estudantes; }
     public void setAdministradores(ArrayList<Administrador> administradores) { this.administradores = administradores; }

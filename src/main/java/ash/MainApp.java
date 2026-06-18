@@ -40,6 +40,9 @@ public class MainApp extends Application {
             else if (tipoUsuario.equals("Coordenador")) {
                 mostrarSistemaCoordenador(emailLogado);
             }
+            else if (tipoUsuario.equals("Professor Validador")) {
+                mostrarSistemaProfessorValidador(emailLogado);
+            }
 
         });
 
@@ -54,8 +57,6 @@ public class MainApp extends Application {
         abas.getTabs().add(criarAba("Cursos", new TelaCadastro("Cadastro de Cursos", dados, dados.getCursos(), "Curso")));
         abas.getTabs().add(criarAba("Turmas", new TelaCadastro("Cadastro de Turmas", dados, dados.getTurmas(), "Turma")));
 
-        // A mágica acontece aqui: Instanciamos a mesma TelaCadastro, mas passando listas diferentes!
-        // OBS: Certifique-se de que os nomes dos métodos da classe dados (getCoordenadores / getEstudantes) estão iguais aos que você tem lá.
         abas.getTabs().add(criarAba("Coordenadores", new TelaCadastro("Cadastro de Coordenadores", dados, dados.getCoordenadores(), "Coordenador")));
         abas.getTabs().add(criarAba("Estudantes", new TelaCadastro("Cadastro de Estudantes", dados, dados.getEstudantes(), "Estudante")));
 
@@ -78,7 +79,6 @@ public class MainApp extends Application {
 
     // --- NOVA TELA DO ESTUDANTE ---
     public void mostrarSistemaEstudante(String emailLogado) {
-        // Puxa aquele Dashboard do Estudante com os botões de Sugestão e Solicitação
         ash.view.TelaEstudante telaEstudante = new ash.view.TelaEstudante(dados);
 
         Label logado = new Label("Logado como Estudante: " + emailLogado);
@@ -98,10 +98,9 @@ public class MainApp extends Application {
         janela.setScene(new Scene(tela, 900, 600));
     }
     public void mostrarSistemaCoordenador(String emailLogado) {
-        // Puxa aquele Dashboard do Estudante com os botões de Sugestão e Solicitação
         ash.view.TelaCoordenador telaCoordenador = new ash.view.TelaCoordenador(dados);
 
-        Label logado = new Label("Logado como Professor validador: " + emailLogado);
+        Label logado = new Label("Logado como Coordenador: " + emailLogado);
         Button btnSair = new Button("Sair");
 
         // Volta para a tela de login ao clicar em Sair
@@ -114,6 +113,24 @@ public class MainApp extends Application {
         BorderPane tela = new BorderPane();
         tela.setTop(topo);
         tela.setCenter(telaCoordenador); // Coloca a tela no centro
+
+        janela.setScene(new Scene(tela, 900, 600));
+    }
+    public void mostrarSistemaProfessorValidador(String emailLogado) {
+        ash.view.TelaProfessorValidador telaProfessor = new ash.view.TelaProfessorValidador(dados);
+
+        Label logado = new Label("Logado como Professor Validador: " + emailLogado);
+        Button btnSair = new Button("Sair");
+
+        btnSair.setOnAction(e -> mostrarLogin());
+
+        HBox topo = new HBox(10, logado, btnSair);
+        topo.setPadding(new Insets(10));
+        topo.setAlignment(Pos.CENTER_RIGHT);
+
+        BorderPane tela = new BorderPane();
+        tela.setTop(topo);
+        tela.setCenter(telaProfessor); // Coloca a tela no centro
 
         janela.setScene(new Scene(tela, 900, 600));
     }

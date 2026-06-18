@@ -51,11 +51,15 @@ public class TelaCadastro extends BorderPane {
 
         tabela.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        setLeft(criarFormulario());
+
+        if (!titulo.contains("Visualizar")) {
+            setLeft(criarFormulario()); // Adiciona o menu lateral com botões
+            BorderPane.setMargin(tabela, new Insets(0, 0, 0, 20)); // Mantém o espaçamento
+        } else {
+            BorderPane.setMargin(tabela, new Insets(0)); // Tira a margem para a tabela esticar 100% da tela!
+        }
 
         setCenter(tabela);
-
-        BorderPane.setMargin(tabela, new Insets(0, 0, 0, 20));
         tabela.getSelectionModel().selectedItemProperty().addListener((obs, antigo, selecionado) -> preencherTela(selecionado));
         atualizarLista();
     }
@@ -90,8 +94,9 @@ public class TelaCadastro extends BorderPane {
         painel.setHgap(10);
         painel.setVgap(10);
 
-        // VARIÁVEL CHAVE: Guarda a referência da caixa de curso para a turma poder ler depois
+        // VARIÁVEIS CHAVE: Guardam as referências das caixas para o efeito cascata funcionar depois
         ComboBox<String> referenciaComboCurso = null;
+        ComboBox<String> referenciaComboCategoria = null; // <-- NOVA VARIÁVEL AQUI
 
         for (int i = 0; i < nomes.length; i++) {
             Label label = new Label(nomes[i] + ":");
@@ -130,10 +135,10 @@ public class TelaCadastro extends BorderPane {
                 painel.add(comboBoxCurso, 1, i);
 
 
+                // --- LÓGICA DO COMBOBOX DE TURMA ---
             } else if (nomeDoCampo.equals("turma") || nomeDoCampo.equals("turmas")) {
                 ComboBox<String> comboBoxTurma = new ComboBox<>();
                 comboBoxTurma.setPromptText("Selecione uma turma...");
-
 
                 final ComboBox<String> comboCursoParaFiltro = referenciaComboCurso;
 
@@ -159,7 +164,6 @@ public class TelaCadastro extends BorderPane {
                                 indexDoCursoNaTurma = j;
                             }
                         }
-
 
                         boolean pertenceAoCurso = true;
                         if (cursoSelecionado != null && indexDoCursoNaTurma != -1) {
@@ -189,6 +193,135 @@ public class TelaCadastro extends BorderPane {
                 campos[i] = comboBoxTurma;
                 painel.add(label, 0, i);
                 painel.add(comboBoxTurma, 1, i);
+
+
+                // --- LÓGICA DO COMBOBOX DE CATEGORIA (NOVO) ---
+            } else if (nomeDoCampo.equals("categoria") || nomeDoCampo.equals("categorias")) {
+                ComboBox<String> comboBoxCategoria = new ComboBox<>();
+                comboBoxCategoria.setPromptText("Selecione uma categoria...");
+                referenciaComboCategoria = comboBoxCategoria; // Salva a caixa na variável chave!
+
+                comboBoxCategoria.setOnShowing(event -> {
+                    comboBoxCategoria.getItems().clear();
+                    for (CadastroItem catCadastrada : dados.getCategorias()) {
+                        String[] nomesDosCampos = catCadastrada.nomeCampos();
+                        String[] valoresDaCat = catCadastrada.valoresCampos();
+
+                        int indexDoNome = -1;
+                        for (int j = 0; j < nomesDosCampos.length; j++) {
+                            if (nomesDosCampos[j].toLowerCase().contains("nome") || nomesDosCampos[j].toLowerCase().equals("categoria")) {
+                                indexDoNome = j;
+                                break;
+                            }
+                        }
+
+                        if (indexDoNome != -1 && valoresDaCat.length > indexDoNome) {
+                            comboBoxCategoria.getItems().add(valoresDaCat[indexDoNome]);
+                        } else if (valoresDaCat.length > 0) {
+                            comboBoxCategoria.getItems().add(valoresDaCat[0]);
+                        }
+                    }
+                });
+
+                campos[i] = comboBoxCategoria;
+                painel.add(label, 0, i);
+                painel.add(comboBoxCategoria, 1, i);
+
+
+                // --- LÓGICA DO COMBOBOX DE SUBCATEGORIA - CASCATA (NOVO) ---
+            } else if (nomeDoCampo.equals("subcategoria") || nomeDoCampo.equals("subcategorias")) {
+                ComboBox<String> comboBoxSubcategoria = new ComboBox<>();
+                comboBoxSubcategoria.setPromptText("Selecione uma subcategoria...");
+
+                final ComboBox<String> comboCatParaFiltro = referenciaComboCategoria;
+
+                comboBoxSubcategoria.setOnShowing(event -> {
+                    comboBoxSubcategoria.getItems().clear();
+
+                    // Descobre qual categoria o aluno escolheu na caixa de cima
+                    String catSelecionada = (comboCatParaFiltro != null) ? comboCatParaFiltro.getValue() : null;
+
+                    for (CadastroItem subCadastrada : dados.getSubcategorias()) {
+                        String[] nomesDosCampos = subCadastrada.nomeCampos();
+                        String[] valoresDaSub = subCadastrada.valoresCampos();
+
+                        int indexDoNome = -1;
+                        int indexDaCatNaSub = -1;
+
+                        // Procura onde está o Nome da Subcategoria e onde está a Categoria atrelada a ela
+                        for (int j = 0; j < nomesDosCampos.length; j++) {
+                            if (nomesDosCampos[j].toLowerCase().contains("nome") || nomesDosCampos[j].toLowerCase().equals("subcategoria")) {
+                                indexDoNome = j;
+                            }
+                            if (nomesDosCampos[j].toLowerCase().equals("categoria")) {
+                                indexDaCatNaSub = j;
+                            }
+                        }
+
+                        boolean pertenceACat = true;
+                        if (catSelecionada != null && indexDaCatNaSub != -1) {
+                            if (valoresDaSub.length > indexDaCatNaSub) {
+                                pertenceACat = valoresDaSub[indexDaCatNaSub].equals(catSelecionada);
+                            } else {
+                                pertenceACat = false;
+                            }
+                        }
+
+                        if (pertenceACat) {
+                            if (indexDoNome != -1 && valoresDaSub.length > indexDoNome) {
+                                comboBoxSubcategoria.getItems().add(valoresDaSub[indexDoNome]);
+                            } else if (valoresDaSub.length > 0) {
+                                comboBoxSubcategoria.getItems().add(valoresDaSub[0]);
+                            }
+                        }
+                    }
+
+                    if (comboBoxSubcategoria.getItems().isEmpty() && catSelecionada != null) {
+                        comboBoxSubcategoria.setPromptText("Nenhuma subcategoria nesta categoria");
+                    } else {
+                        comboBoxSubcategoria.setPromptText("Selecione uma subcategoria...");
+                    }
+                });
+
+                campos[i] = comboBoxSubcategoria;
+                painel.add(label, 0, i);
+                painel.add(comboBoxSubcategoria, 1, i);
+
+
+                // --- LÓGICA DO COMBOBOX DE SOLICITAÇÃO ---
+            } else if (nomeDoCampo.equals("solicitacao") || nomeDoCampo.equals("solicitação")) {
+                ComboBox<String> comboBoxSolicitacao = new ComboBox<>();
+                comboBoxSolicitacao.setPromptText("Selecione a solicitação...");
+
+                comboBoxSolicitacao.setOnShowing(event -> {
+                    comboBoxSolicitacao.getItems().clear();
+
+                    // Vai no banco e puxa a lista de solicitações
+                    for (CadastroItem solicitacaoCadastrada : dados.getSolicitacao()) {
+                        String[] valoresDaSolicitacao = solicitacaoCadastrada.valoresCampos();
+
+                        if (valoresDaSolicitacao.length > 0) {
+                            String identificador = "ID " + solicitacaoCadastrada.getId() + " - " + valoresDaSolicitacao[0];
+                            comboBoxSolicitacao.getItems().add(identificador);
+                        }
+                    }
+                });
+
+                campos[i] = comboBoxSolicitacao;
+                painel.add(label, 0, i);
+                painel.add(comboBoxSolicitacao, 1, i);
+
+
+                // --- LÓGICA DO COMBOBOX DE STATUS FIXO ---
+            } else if (nomeDoCampo.equals("status") && tipo.equals("JustificativaAceite")) {
+                ComboBox<String> comboBoxStatus = new ComboBox<>();
+                comboBoxStatus.getItems().addAll("Aceito", "Rejeitado", "Pendente");
+                comboBoxStatus.setPromptText("Selecione o veredito...");
+
+                campos[i] = comboBoxStatus;
+                painel.add(label, 0, i);
+                painel.add(comboBoxStatus, 1, i);
+
 
                 // --- LÓGICA DO CAMPO DE TEXTO PADRÃO ---
             } else {

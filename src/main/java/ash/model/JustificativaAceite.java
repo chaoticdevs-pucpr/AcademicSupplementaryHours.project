@@ -5,14 +5,13 @@ import java.io.Serializable;
 public class JustificativaAceite implements CadastroItem, Serializable {
 
     private int id;
-    private String idSolicitacao;
-    private String parecer;
-    private String horasAprovadas;
-    private String status; // "Aceito" ou "Rejeitado"
+    // Inicializando com vazio para não quebrar a tela do JavaFX com null
+    private String idSolicitacao = "";
+    private String parecer = "";
+    private String horasAprovadas = "";
+    private String status = "";
 
-    public JustificativaAceite() {
-        this.status = "Aceito";
-    }
+    public JustificativaAceite() {}
 
     @Override
     public int getId() {
@@ -58,24 +57,29 @@ public class JustificativaAceite implements CadastroItem, Serializable {
 
     @Override
     public String[] nomeCampos() {
-        return new String[]{"ID da Solicitacao", "Parecer", "Horas Aprovadas", "Status"};
+        return new String[]{"Solicitacao", "Parecer", "Horas Aprovadas", "Status"};
     }
 
     @Override
     public String[] valoresCampos() {
-        return new String[]{idSolicitacao, parecer, horasAprovadas, status};
+        return new String[]{
+                idSolicitacao != null ? idSolicitacao : "",
+                parecer != null ? parecer : "",
+                horasAprovadas != null ? horasAprovadas : "",
+                status != null ? status : ""
+        };
     }
 
     @Override
     public void preencherCampos(String[] valores) {
-        idSolicitacao = valores[0];
-        parecer = valores[1];
-        horasAprovadas = valores[2];
-        status = valores[3];
+        this.idSolicitacao = valores[0];
+        this.parecer = valores[1];
+        this.horasAprovadas = valores[2];
+        this.status = valores[3];
     }
 
     @Override
     public String textoLista() {
-        return id + " - Solicitacao #" + idSolicitacao + " - " + horasAprovadas + "h - " + status;
+        return id + " - Solicitacao: " + idSolicitacao + " (" + status + ")";
     }
 }

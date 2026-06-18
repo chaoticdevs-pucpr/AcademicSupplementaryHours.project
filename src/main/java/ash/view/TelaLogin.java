@@ -81,11 +81,10 @@ public class TelaLogin {
             String emailDigitado = campoEmail.getText().trim();
             String senhaDigitada = campoSenha.getText().trim();
 
-            // Agora o método retorna o tipo de quem logou (em vez de true/false)
+
             String tipoUsuario = validarLogin(dados, emailDigitado, senhaDigitada);
 
             if (tipoUsuario != null) {
-                // Passa para frente o tipo de usuário e o email
                 aoLogarSucesso.accept(tipoUsuario, emailDigitado);
             } else {
                 mostrarErro("E-mail ou senha inválidos.");
@@ -99,7 +98,6 @@ public class TelaLogin {
         return cena;
     }
 
-    // <-- MUDANÇA AQUI: Agora retorna uma String com o tipo de usuário
     private String validarLogin(DadosSistema dados, String email, String senha) {
 
         // 1. Verifica Administradores

@@ -1,11 +1,13 @@
 package ash.model;
 
-public class Subcategoria implements CadastroItem {
+import java.io.Serializable;
+
+public class Subcategoria implements CadastroItem, Serializable {
 
     private int id;
-    private String categoria;
-    private String nome;
-    private String maxHoras;
+    private String categoria = "";
+    private String nome = "";
+    private String maxHoras = "";
 
     public Subcategoria() {
     }
@@ -51,14 +53,18 @@ public class Subcategoria implements CadastroItem {
 
     @Override
     public String[] valoresCampos() {
-        return new String[]{categoria, nome, maxHoras};
+        return new String[]{
+                categoria != null ? categoria : "",
+                nome != null ? nome : "",
+                maxHoras != null ? maxHoras : ""
+        };
     }
 
     @Override
     public void preencherCampos(String[] valores) {
-        categoria = valores[0];
-        nome = valores[1];
-        maxHoras = valores[2];
+        this.categoria = valores[0];
+        this.nome = valores[1];
+        this.maxHoras = valores[2];
     }
 
     @Override
