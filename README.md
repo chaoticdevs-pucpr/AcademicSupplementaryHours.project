@@ -1,24 +1,56 @@
-<<<<<<< HEAD
 # Academic Supplementary Hours (ASH)
-Um repositório para depositar os artefatos de um projeto semestral realizado no 1º Semestre do 2º Período do curso de Engenharia de Software.
 
-## Objetivo
-Tornar mais eficiente o cálculo de horas complementares de faculdades.
+Esse repositório armazena um projeto extendido realizado na PUCPR.
 
-## Intregrantes:
-- Daniel de Castro Felix
-=======
-# POO.crud
+## Sobre o Projeto
 
-## Objetivo
-Realizar um CRUD com 12 classes Modals para a matéria de Programação Orientada a Objetos.
-A ideia inicial é uma loja de conveniência.
+O Academic Supplementary Hours (A.S.H.), é um futuro sistema integrado, com o objetivo de centralizar as informações e funcionalidades necessárias, para tornar mais eficiênte o processo de validação de horas complementares das universidades. 
 
-## Integrantes
-- Daniel de Castro Felix
-- Bruno Bonacordi
->>>>>>> crud-origem/main
-- Gabriel Teodoro da Silva
-- Gianluca Capote
-- Mateus Canatto Campos
-- Murilo Caxambu Monteiro
+Até o momento, o projeto está se baseando completamente no sistema da PUCPR, contando com um diferencial de um cálculo automático baseado no manual de cada curso.
+
+A implementacao principal esta em PHP, HTML e JavaScript, com banco de dados definido em SQL. Por hora, o projeto foi testado através do XAMPP.
+
+O projeto ainda não está na sua fase final, e pretendemos seguir com o projeto até o final do curso.
+
+## Estrutura do Repositório
+
+> [!NOTE]
+> Essa organização de pastas pode sofrer alterações futuras.
+
+```text
+.
++-- app/
+|   +-- ash/                  # Implementação principal do sistema A.S.H.
++-- docs/
+|   +-- artifacts/            # Documentos, diagramas, referencias e exemplos do projeto
++-- experiments/
+    +-- poo-crud-arquivos/    # Implementação alternativa
+```
+
+- `app/ash`: codigo-fonte da implementação principal em PHP, HTML, CSS/JS e o script SQL do banco.
+- `docs/artifacts`: PDFs, diagramas, referências e materiais de apoio do projeto.
+- `experiments/poo-crud-arquivos`: uma implementação diferente do projeto realizada em JavaFX para a matéria de Programação Orientada a Objetos.
+
+## Como executar
+
+1. Instale e abra o XAMPP.
+2. Coloque a pasta `app/ash` dentro da pasta `htdocs`.
+3. Importe o arquivo `app/ash/banco.sql` no phpMyAdmin.
+4. Confira os dados do banco em `app/ash/z_php/conexao.php`.
+5. Acesse o projeto pelo navegador.
+
+## Contribuidores
+
+| Nome | GitHub |
+| --- | --- |
+| Bruno da Costa Mattos Bonacordi | @Brun0oo7 |
+| Daniel de Castro Felix | @danielschmetterling |
+| Gabriel Teodoro da Silva | @GTeodoroS |
+| Mateus Canatto Campos | @mateus-canatto |
+| Murilo Caxambu Monteiro | @Murilo-Caxambu |
+
+## Ex-Contribuidores
+
+| Nome | GitHub |
+| --- | --- |
+| Gianluca Capote | @DevGianluca |

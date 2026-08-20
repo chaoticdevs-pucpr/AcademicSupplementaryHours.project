@@ -1,0 +1,20 @@
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editors and IDEs
+.vscode/
+*.iml
+
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+
+# PHP dependencies and logs
+vendor/
+*.log
+
+# Java/Maven build outputs
+target/
+*.class
