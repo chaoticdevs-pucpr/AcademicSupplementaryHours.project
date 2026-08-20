@@ -43,14 +43,14 @@ O projeto ainda não está na sua fase final, e pretendemos seguir com o projeto
 
 | Nome | GitHub |
 | --- | --- |
-| Bruno da Costa Mattos Bonacordi | @Brun0oo7 |
-| Daniel de Castro Felix | @danielschmetterling |
-| Gabriel Teodoro da Silva | @GTeodoroS |
-| Mateus Canatto Campos | @mateus-canatto |
-| Murilo Caxambu Monteiro | @Murilo-Caxambu |
+| Bruno da Costa Mattos Bonacordi | [@Brun0oo7](https://github.com/Brun0oo7) |
+| Daniel de Castro Felix | [@danielschmetterling](https://github.com/danielschmetterling) |
+| Gabriel Teodoro da Silva | [@GTeodoroS](https://github.com/GTeodoroS) |
+| Mateus Canatto Campos | [@mateus-canatto](https://github.com/mateus-canatto) |
+| Murilo Caxambu Monteiro | [@Murilo-Caxambu](https://github.com/Murilo-Caxambu) |
 
 ## Ex-Contribuidores
 
 | Nome | GitHub |
 | --- | --- |
-| Gianluca Capote | @DevGianluca |
+| Gianluca Capote | [@DevGianluca](https://github.com/DevGianluca) |
