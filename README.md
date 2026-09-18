@@ -20,24 +20,24 @@ O projeto ainda não está na sua fase final, e pretendemos seguir com o projeto
 ```text
 .
 +-- app/
-|   +-- ash/                  # Implementação principal do sistema A.S.H.
++-- ash/                      # Implementação principal do sistema A.S.H.
 +-- docs/
 |   +-- artifacts/            # Documentos, diagramas, referencias e exemplos do projeto
 +-- experiments/
     +-- poo-crud-arquivos/    # Implementação alternativa
 ```
 
-- `app/ash`: codigo-fonte da implementação principal em PHP, HTML, CSS/JS e o script SQL do banco.
+- `ash`: codigo-fonte da implementação principal em PHP, HTML, CSS/JS e o script SQL do banco.
 - `docs/artifacts`: PDFs, diagramas, referências e materiais de apoio do projeto.
 - `experiments/poo-crud-arquivos`: uma implementação diferente do projeto realizada em JavaFX para a matéria de Programação Orientada a Objetos.
 
 ## Como executar
 
 1. Instale e abra o XAMPP.
-2. Coloque a pasta `app/ash` dentro da pasta `htdocs`.
+2. Instale e coloque a pasta `ash` dentro da pasta `htdocs`.
 3. Importe o arquivo `app/ash/banco.sql` no phpMyAdmin.
 4. Confira os dados do banco em `app/ash/z_php/conexao.php`.
-5. Acesse o projeto pelo navegador em `http://localhost/AcademicSupplementaryHours.project/app/ash/`
+5. Acesse o projeto pelo navegador em `http://localhost/ash/`
 
 ### Logins
 | Tipo | Login | Senha |
