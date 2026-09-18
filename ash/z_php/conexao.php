@@ -1,5 +1,4 @@
-<!-- 
- Código Padrão>
+
 <?php
 // Variáveis de conexão com o Banco de Dados
 $servidor = "localhost:3306";
@@ -12,8 +11,8 @@ if($conexao->connect_error){
     echo $conexao->connect_error;
 }
 ?> 
--->
 
+<!-- 
 <?php
 $servidor   = "sql113.infinityfree.com";
 $usuario    = "if0_42949498";
@@ -26,4 +25,5 @@ if ($conexao->connect_error) {
     die("Falha na ligação: " . $conexao->connect_error);
 }
 $conexao->set_charset("utf8mb4");
-?>
+?> 
+-->
