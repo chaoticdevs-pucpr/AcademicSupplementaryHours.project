@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: 'ash'
+          path: './ash'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
