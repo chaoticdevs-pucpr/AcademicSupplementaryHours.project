@@ -6,7 +6,7 @@ require_once __DIR__ . '/../ash/pages/inc/hc_calculos.php';
 
 class teste_calculos_hc extends TestCase
 {
-    public function testCalculoHoraExcedenteDeveriaBarrar(): void
+    public function testCalculoHoraExcedente(): void
     {
         $subcategoria = [
             'tipo_calculo'     => 'HORA',
