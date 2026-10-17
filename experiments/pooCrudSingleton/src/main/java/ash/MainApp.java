@@ -16,12 +16,10 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
     private Stage janela;
-    private DadosSistema dados;
 
     @Override
     public void start(Stage stage) {
         this.janela = stage;
-        this.dados = ArquivoDados.carregar(); // Puxa os dados salvos
 
         janela.setTitle("A.S.H. - Sistema de Horas Complementares");
         mostrarLogin();
@@ -29,7 +27,7 @@ public class MainApp extends Application {
     }
 
     public void mostrarLogin() {
-        TelaLogin telaLogin = new TelaLogin(dados, (tipoUsuario, emailLogado) -> {
+        TelaLogin telaLogin = new TelaLogin((tipoUsuario, emailLogado) -> {
 
             if (tipoUsuario.equals("Administrador")) {
                 mostrarSistemaAdmin(emailLogado);
@@ -49,16 +47,15 @@ public class MainApp extends Application {
         janela.setScene(telaLogin.getCena());
     }
 
-    // --- TELA OFICIAL DO SISTEMA ADMIN ---
+    // --- TELA DO SISTEMA ADMIN ---
     public void mostrarSistemaAdmin(String emailLogado) {
         TabPane abas = new TabPane();
 
-        // Daniel passou por aqui
-        abas.getTabs().add(criarAba("Cursos", new TelaCadastro("Cadastro de Cursos", dados, dados.getCursos(), "Curso")));
-        abas.getTabs().add(criarAba("Turmas", new TelaCadastro("Cadastro de Turmas", dados, dados.getTurmas(), "Turma")));
-
-        abas.getTabs().add(criarAba("Coordenadores", new TelaCadastro("Cadastro de Coordenadores", dados, dados.getCoordenadores(), "Coordenador")));
-        abas.getTabs().add(criarAba("Estudantes", new TelaCadastro("Cadastro de Estudantes", dados, dados.getEstudantes(), "Estudante")));
+        // Obtém as listas diretamente pelo Singleton DadosSistema
+        abas.getTabs().add(criarAba("Cursos", new TelaCadastro("Cadastro de Cursos", DadosSistema.getInstancia().getCursos(), "Curso")));
+        abas.getTabs().add(criarAba("Turmas", new TelaCadastro("Cadastro de Turmas", DadosSistema.getInstancia().getTurmas(), "Turma")));
+        abas.getTabs().add(criarAba("Coordenadores", new TelaCadastro("Cadastro de Coordenadores", DadosSistema.getInstancia().getCoordenadores(), "Coordenador")));
+        abas.getTabs().add(criarAba("Estudantes", new TelaCadastro("Cadastro de Estudantes", DadosSistema.getInstancia().getEstudantes(), "Estudante")));
 
         Label logado = new Label("Logado como Administrador: " + emailLogado);
         Button btnSair = new Button("Sair");
@@ -72,19 +69,18 @@ public class MainApp extends Application {
 
         BorderPane tela = new BorderPane();
         tela.setTop(topo);
-        tela.setCenter(abas); // Coloca as abas no centro da tela
+        tela.setCenter(abas);
 
         janela.setScene(new Scene(tela, 900, 600));
     }
 
-    // --- NOVA TELA DO ESTUDANTE ---
+    // --- TELA DO ESTUDANTE ---
     public void mostrarSistemaEstudante(String emailLogado) {
-        ash.view.TelaEstudante telaEstudante = new ash.view.TelaEstudante(dados);
+        ash.view.TelaEstudante telaEstudante = new ash.view.TelaEstudante();
 
         Label logado = new Label("Logado como Estudante: " + emailLogado);
         Button btnSair = new Button("Sair");
 
-        // Volta para a tela de login ao clicar em Sair
         btnSair.setOnAction(e -> mostrarLogin());
 
         HBox topo = new HBox(10, logado, btnSair);
@@ -93,17 +89,18 @@ public class MainApp extends Application {
 
         BorderPane tela = new BorderPane();
         tela.setTop(topo);
-        tela.setCenter(telaEstudante); // Coloca a tela no centro
+        tela.setCenter(telaEstudante);
 
         janela.setScene(new Scene(tela, 900, 600));
     }
+
+    // --- TELA DO COORDENADOR ---
     public void mostrarSistemaCoordenador(String emailLogado) {
-        ash.view.TelaCoordenador telaCoordenador = new ash.view.TelaCoordenador(dados);
+        ash.view.TelaCoordenador telaCoordenador = new ash.view.TelaCoordenador();
 
         Label logado = new Label("Logado como Coordenador: " + emailLogado);
         Button btnSair = new Button("Sair");
 
-        // Volta para a tela de login ao clicar em Sair
         btnSair.setOnAction(e -> mostrarLogin());
 
         HBox topo = new HBox(10, logado, btnSair);
@@ -112,12 +109,14 @@ public class MainApp extends Application {
 
         BorderPane tela = new BorderPane();
         tela.setTop(topo);
-        tela.setCenter(telaCoordenador); // Coloca a tela no centro
+        tela.setCenter(telaCoordenador);
 
         janela.setScene(new Scene(tela, 900, 600));
     }
+
+    // --- TELA DO PROFESSOR VALIDADOR ---
     public void mostrarSistemaProfessorValidador(String emailLogado) {
-        ash.view.TelaProfessorValidador telaProfessor = new ash.view.TelaProfessorValidador(dados);
+        ash.view.TelaProfessorValidador telaProfessor = new ash.view.TelaProfessorValidador();
 
         Label logado = new Label("Logado como Professor Validador: " + emailLogado);
         Button btnSair = new Button("Sair");
@@ -130,11 +129,10 @@ public class MainApp extends Application {
 
         BorderPane tela = new BorderPane();
         tela.setTop(topo);
-        tela.setCenter(telaProfessor); // Coloca a tela no centro
+        tela.setCenter(telaProfessor);
 
         janela.setScene(new Scene(tela, 900, 600));
     }
-
 
     private Tab criarAba(String titulo, BorderPane conteudo) {
         Tab aba = new Tab(titulo);

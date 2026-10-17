@@ -7,19 +7,20 @@ import javafx.scene.layout.BorderPane;
 
 public class TelaProfessorValidador extends TabPane {
 
-    public TelaProfessorValidador(DadosSistema dados) {
+    public TelaProfessorValidador() {
+        this(DadosSistema.getInstancia());
+    }
 
+    public TelaProfessorValidador(DadosSistema dados) {
         TelaCadastro telaVerSolicitacoes = new TelaCadastro(
                 "Visualizar Solicitações dos Alunos",
-                dados,
-                dados.getSolicitacao(),
+                DadosSistema.getInstancia().getSolicitacao(),
                 "Solicitacao"
         );
 
         TelaCadastro telaJustificativa = new TelaCadastro(
                 "Avaliar/Cadastrar Justificativas",
-                dados,
-                dados.getJustificativasAceite(),
+                DadosSistema.getInstancia().getJustificativasAceite(),
                 "JustificativaAceite"
         );
 

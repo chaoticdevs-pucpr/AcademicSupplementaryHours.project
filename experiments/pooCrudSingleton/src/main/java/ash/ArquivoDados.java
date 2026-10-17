@@ -10,9 +10,17 @@ import java.util.ArrayList;
 public class ArquivoDados {
     private static final String PASTA = "data";
 
+    /**
+     * Retorna a instância única gerenciada pelo Singleton DadosSistema.
+     */
     public static DadosSistema carregar() {
-        DadosSistema dados = new DadosSistema(); // Já cria embutindo o admin padrão
+        return DadosSistema.getInstancia();
+    }
 
+    /**
+     * Carrega as listas persistidas em disco para dentro da instância única de DadosSistema.
+     */
+    public static void carregarPara(DadosSistema dados) {
         File pasta = new File(PASTA);
         if (!pasta.exists()) {
             pasta.mkdir(); // Se a pasta toda sumir, recria ela.
@@ -29,8 +37,8 @@ public class ArquivoDados {
         dados.setTurmas(carregarLista("turmas.dat", dados.getTurmas()));
         dados.setManual(carregarLista("manuais.dat", dados.getManual()));
         dados.setCategorias(carregarLista("categorias.dat", dados.getCategorias()));
-
-        return dados;
+        dados.setSubcategorias(carregarLista("subcategorias.dat", dados.getSubcategorias()));
+        dados.setJustificativasAceite(carregarLista("justificativas.dat", dados.getJustificativasAceite()));
     }
 
     public static void salvar(DadosSistema dados) {
@@ -50,6 +58,8 @@ public class ArquivoDados {
         salvarLista("turmas.dat", dados.getTurmas());
         salvarLista("manuais.dat", dados.getManual());
         salvarLista("categorias.dat", dados.getCategorias());
+        salvarLista("subcategorias.dat", dados.getSubcategorias());
+        salvarLista("justificativas.dat", dados.getJustificativasAceite());
     }
 
     // --- MÉTODOS AUXILIARES ---

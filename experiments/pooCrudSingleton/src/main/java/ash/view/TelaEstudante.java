@@ -7,10 +7,14 @@ import javafx.scene.layout.BorderPane;
 
 public class TelaEstudante extends TabPane {
 
+    public TelaEstudante() {
+        this(DadosSistema.getInstancia());
+    }
+
     public TelaEstudante(DadosSistema dados) {
-        // A mágica: Reaproveitamos a SUA TelaCadastro para gerar as duas telas do estudante!
-        TelaCadastro telaSolicitacao = new TelaCadastro("Minhas Solicitações de Horas", dados, dados.getSolicitacao(), "Solicitacao");
-        TelaCadastro telaSugestao = new TelaCadastro("Minhas Sugestões", dados, dados.getSugestao(), "Sugestao");
+        // Consultando o banco de dados via Singleton DadosSistema
+        TelaCadastro telaSolicitacao = new TelaCadastro("Minhas Solicitações de Horas", DadosSistema.getInstancia().getSolicitacao(), "Solicitacao");
+        TelaCadastro telaSugestao = new TelaCadastro("Minhas Sugestões", DadosSistema.getInstancia().getSugestao(), "Sugestao");
 
         // Adicionamos as telas como abas neste TabPane
         this.getTabs().add(criarAba("Solicitações", telaSolicitacao));

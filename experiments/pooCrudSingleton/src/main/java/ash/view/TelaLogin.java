@@ -1,7 +1,6 @@
 package ash.view;
 
 import ash.DadosSistema;
-import ash.model.*;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,15 +15,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-// Mudamos de Consumer para BiConsumer para enviar o TIPO DE USUÁRIO e o EMAIL
 import java.util.function.BiConsumer;
 
 public class TelaLogin {
     private Scene cena;
 
-    public TelaLogin(DadosSistema dados, BiConsumer<String, String> aoLogarSucesso) {
+    public TelaLogin(BiConsumer<String, String> aoLogarSucesso) {
+        this(DadosSistema.getInstancia(), aoLogarSucesso);
+    }
 
-        // titulo do ash
+    public TelaLogin(DadosSistema dados, BiConsumer<String, String> aoLogarSucesso) {
+        // Titulo do ASH
         Label titulo = new Label("A.S.H.");
         titulo.setFont(Font.font("System", FontWeight.EXTRA_BOLD, 36));
 
@@ -35,7 +36,7 @@ public class TelaLogin {
         cabecalho.setAlignment(Pos.CENTER);
         cabecalho.setPadding(new Insets(0, 0, 20, 0));
 
-        // formulario com email e senha
+        // Formulario com email e senha
         Label lblEmail = new Label("E-mail:");
         lblEmail.setFont(Font.font("System", FontWeight.BOLD, 14));
 
@@ -62,7 +63,7 @@ public class TelaLogin {
         formulario.add(lblSenha, 0, 1);
         formulario.add(campoSenha, 1, 1);
 
-        // botao
+        // Botao
         Button btnEntrar = new Button("Entrar");
         btnEntrar.setFont(Font.font("System", FontWeight.BOLD, 14));
         btnEntrar.setPrefWidth(120);
@@ -72,7 +73,7 @@ public class TelaLogin {
         boxBotao.setAlignment(Pos.CENTER);
         boxBotao.setPadding(new Insets(20, 0, 0, 0));
 
-        // montagem final
+        // Montagem final
         VBox layout = new VBox(10, cabecalho, formulario, boxBotao);
         layout.setPadding(new Insets(40));
         layout.setAlignment(Pos.CENTER);
@@ -81,8 +82,8 @@ public class TelaLogin {
             String emailDigitado = campoEmail.getText().trim();
             String senhaDigitada = campoSenha.getText().trim();
 
-
-            String tipoUsuario = validarLogin(dados, emailDigitado, senhaDigitada);
+            // Busca no banco de dados via Singleton
+            String tipoUsuario = validarLogin(emailDigitado, senhaDigitada);
 
             if (tipoUsuario != null) {
                 aoLogarSucesso.accept(tipoUsuario, emailDigitado);
@@ -98,45 +99,11 @@ public class TelaLogin {
         return cena;
     }
 
-    private String validarLogin(DadosSistema dados, String email, String senha) {
-
-        // 1. Verifica Administradores
-        for (Administrador admin : dados.getAdministradores()) {
-            if (admin.getEmail().equalsIgnoreCase(email) && admin.getSenha().equals(senha)) {
-                return "Administrador";
-            }
-        }
-
-        // 2. Verifica Estudantes (fazemos um "cast" para enxergar os métodos getEmail)
-        if (dados.getEstudantes() != null) {
-            for (CadastroItem item : dados.getEstudantes()) {
-                Estudante estudante = (Estudante) item;
-                if (estudante.getEmail().equalsIgnoreCase(email) && estudante.getSenha().equals(senha)) {
-                    return "Estudante";
-                }
-            }
-        }
-
-        // 3. Verifica Coordenadores
-        if (dados.getCoordenadores() != null) {
-            for (CadastroItem item : dados.getCoordenadores()) {
-                Coordenador coordenador = (Coordenador) item;
-                if (coordenador.getEmail().equalsIgnoreCase(email) && coordenador.getSenha().equals(senha)) {
-                    return "Coordenador";
-                }
-            }
-        }
-        //4. Verifica Professor validador
-        if (dados.getProfessorValidador() != null) {
-            for (CadastroItem item : dados.getProfessorValidador()) {
-                ProfessorValidador professorvalidador = (ProfessorValidador) item;
-                if (professorvalidador.getEmail().equalsIgnoreCase(email) && professorvalidador.getSenha().equals(senha)) {
-                    return "Professor Validador";
-                }
-            }
-        }
-        // Se o loop terminar e não achar ninguém:
-        return null;
+    /**
+     * Utiliza o padrão Singleton DadosSistema para buscar e autenticar o usuário.
+     */
+    private String validarLogin(String email, String senha) {
+        return DadosSistema.getInstancia().autenticarUsuario(email, senha);
     }
 
     private void mostrarErro(String texto) {

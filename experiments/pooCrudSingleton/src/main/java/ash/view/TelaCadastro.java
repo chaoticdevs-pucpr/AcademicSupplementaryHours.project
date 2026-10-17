@@ -40,8 +40,12 @@ public class TelaCadastro extends BorderPane {
     private TableView<CadastroItem> tabela = new TableView<>();
     private Node[] campos; 
 
+    public TelaCadastro(String titulo, ArrayList<CadastroItem> lista, String tipo) {
+        this(titulo, DadosSistema.getInstancia(), lista, tipo);
+    }
+
     public TelaCadastro(String titulo, DadosSistema dados, ArrayList<CadastroItem> lista, String tipo) {
-        this.dados = dados;
+        this.dados = (dados != null) ? dados : DadosSistema.getInstancia();
         this.lista = lista;
         this.tipo = tipo;
 
@@ -114,24 +118,7 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxCurso.setOnShowing(event -> {
                     comboBoxCurso.getItems().clear();
-                    for (CadastroItem cursoCadastrado : dados.getCursos()) {
-                        String[] nomesDosCampos = cursoCadastrado.nomeCampos();
-                        String[] valoresDoCurso = cursoCadastrado.valoresCampos();
-
-                        int indexDoNome = -1;
-                        for (int j = 0; j < nomesDosCampos.length; j++) {
-                            if (nomesDosCampos[j].toLowerCase().contains("nome") || nomesDosCampos[j].toLowerCase().equals("curso")) {
-                                indexDoNome = j;
-                                break;
-                            }
-                        }
-
-                        if (indexDoNome != -1 && valoresDoCurso.length > indexDoNome) {
-                            comboBoxCurso.getItems().add(valoresDoCurso[indexDoNome]);
-                        } else if (valoresDoCurso.length > 0) {
-                            comboBoxCurso.getItems().add(valoresDoCurso[0]);
-                        }
-                    }
+                    comboBoxCurso.getItems().addAll(DadosSistema.getInstancia().buscarNomesCursos());
                 });
 
                 campos[i] = comboBoxCurso;
@@ -148,42 +135,8 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxTurma.setOnShowing(event -> {
                     comboBoxTurma.getItems().clear();
-
                     String cursoSelecionado = (comboCursoParaFiltro != null) ? comboCursoParaFiltro.getValue() : null;
-
-                    for (CadastroItem turmaCadastrada : dados.getTurmas()) {
-                        String[] nomesDosCampos = turmaCadastrada.nomeCampos();
-                        String[] valoresDaTurma = turmaCadastrada.valoresCampos();
-
-                        int indexDoNome = -1;
-                        int indexDoCursoNaTurma = -1;
-
-                        for (int j = 0; j < nomesDosCampos.length; j++) {
-                            if (nomesDosCampos[j].toLowerCase().contains("nome") || nomesDosCampos[j].toLowerCase().equals("turma")) {
-                                indexDoNome = j;
-                            }
-                            if (nomesDosCampos[j].toLowerCase().equals("curso")) {
-                                indexDoCursoNaTurma = j;
-                            }
-                        }
-
-                        boolean pertenceAoCurso = true;
-                        if (cursoSelecionado != null && indexDoCursoNaTurma != -1) {
-                            if (valoresDaTurma.length > indexDoCursoNaTurma) {
-                                pertenceAoCurso = valoresDaTurma[indexDoCursoNaTurma].equals(cursoSelecionado);
-                            } else {
-                                pertenceAoCurso = false;
-                            }
-                        }
-
-                        if (pertenceAoCurso) {
-                            if (indexDoNome != -1 && valoresDaTurma.length > indexDoNome) {
-                                comboBoxTurma.getItems().add(valoresDaTurma[indexDoNome]);
-                            } else if (valoresDaTurma.length > 0) {
-                                comboBoxTurma.getItems().add(valoresDaTurma[0]);
-                            }
-                        }
-                    }
+                    comboBoxTurma.getItems().addAll(DadosSistema.getInstancia().buscarTurmasPorCurso(cursoSelecionado));
 
                     if (comboBoxTurma.getItems().isEmpty() && cursoSelecionado != null) {
                         comboBoxTurma.setPromptText("Nenhuma turma neste curso");
@@ -205,24 +158,7 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxCategoria.setOnShowing(event -> {
                     comboBoxCategoria.getItems().clear();
-                    for (CadastroItem catCadastrada : dados.getCategorias()) {
-                        String[] nomesDosCampos = catCadastrada.nomeCampos();
-                        String[] valoresDaCat = catCadastrada.valoresCampos();
-
-                        int indexDoNome = -1;
-                        for (int j = 0; j < nomesDosCampos.length; j++) {
-                            if (nomesDosCampos[j].toLowerCase().contains("nome") || nomesDosCampos[j].toLowerCase().equals("categoria")) {
-                                indexDoNome = j;
-                                break;
-                            }
-                        }
-
-                        if (indexDoNome != -1 && valoresDaCat.length > indexDoNome) {
-                            comboBoxCategoria.getItems().add(valoresDaCat[indexDoNome]);
-                        } else if (valoresDaCat.length > 0) {
-                            comboBoxCategoria.getItems().add(valoresDaCat[0]);
-                        }
-                    }
+                    comboBoxCategoria.getItems().addAll(DadosSistema.getInstancia().buscarNomesCategorias());
                 });
 
                 campos[i] = comboBoxCategoria;
@@ -239,43 +175,8 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxSubcategoria.setOnShowing(event -> {
                     comboBoxSubcategoria.getItems().clear();
-
-                    // Descobre qual categoria o aluno escolheu na caixa de cima
                     String catSelecionada = (comboCatParaFiltro != null) ? comboCatParaFiltro.getValue() : null;
-
-                    for (CadastroItem subCadastrada : dados.getSubcategorias()) {
-                        String[] nomesDosCampos = subCadastrada.nomeCampos();
-                        String[] valoresDaSub = subCadastrada.valoresCampos();
-
-                        int indexDoNome = -1;
-                        int indexDaCatNaSub = -1;
-
-                        for (int j = 0; j < nomesDosCampos.length; j++) {
-                            if (nomesDosCampos[j].toLowerCase().contains("nome") || nomesDosCampos[j].toLowerCase().equals("subcategoria")) {
-                                indexDoNome = j;
-                            }
-                            if (nomesDosCampos[j].toLowerCase().equals("categoria")) {
-                                indexDaCatNaSub = j;
-                            }
-                        }
-
-                        boolean pertenceACat = true;
-                        if (catSelecionada != null && indexDaCatNaSub != -1) {
-                            if (valoresDaSub.length > indexDaCatNaSub) {
-                                pertenceACat = valoresDaSub[indexDaCatNaSub].equals(catSelecionada);
-                            } else {
-                                pertenceACat = false;
-                            }
-                        }
-
-                        if (pertenceACat) {
-                            if (indexDoNome != -1 && valoresDaSub.length > indexDoNome) {
-                                comboBoxSubcategoria.getItems().add(valoresDaSub[indexDoNome]);
-                            } else if (valoresDaSub.length > 0) {
-                                comboBoxSubcategoria.getItems().add(valoresDaSub[0]);
-                            }
-                        }
-                    }
+                    comboBoxSubcategoria.getItems().addAll(DadosSistema.getInstancia().buscarSubcategoriasPorCategoria(catSelecionada));
 
                     if (comboBoxSubcategoria.getItems().isEmpty() && catSelecionada != null) {
                         comboBoxSubcategoria.setPromptText("Nenhuma subcategoria nesta categoria");
@@ -296,16 +197,8 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxSolicitacao.setOnShowing(event -> {
                     comboBoxSolicitacao.getItems().clear();
-
-                    // Vai no banco e puxa a lista de solicitações
-                    for (CadastroItem solicitacaoCadastrada : dados.getSolicitacao()) {
-                        String[] valoresDaSolicitacao = solicitacaoCadastrada.valoresCampos();
-
-                        if (valoresDaSolicitacao.length > 0) {
-                            String identificador = "ID " + solicitacaoCadastrada.getId() + " - " + valoresDaSolicitacao[0];
-                            comboBoxSolicitacao.getItems().add(identificador);
-                        }
-                    }
+                    // Consulta o banco via Singleton e puxa a lista de solicitações
+                    comboBoxSolicitacao.getItems().addAll(DadosSistema.getInstancia().buscarIdentificadoresSolicitacoes());
                 });
 
                 campos[i] = comboBoxSolicitacao;
@@ -402,7 +295,7 @@ public class TelaCadastro extends BorderPane {
 
             if (selecionado == null) {
                 item = criarObjeto();
-                item.setId(dados.proximoId(lista));
+                item.setId(DadosSistema.getInstancia().proximoId(lista));
                 novoRegistro = true;
             } else {
                 item = selecionado;
@@ -440,7 +333,7 @@ public class TelaCadastro extends BorderPane {
             if (novoRegistro) {
                 lista.add(item);
             }
-            ArquivoDados.salvar(dados);
+            DadosSistema.getInstancia().salvar();
             atualizarLista();
             limparTela();
             mostrarMensagem("Registro salvo com sucesso.");
@@ -457,7 +350,7 @@ public class TelaCadastro extends BorderPane {
             }
 
             lista.remove(selecionado);
-            ArquivoDados.salvar(dados);
+            DadosSistema.getInstancia().salvar();
             atualizarLista();
             limparTela();
             mostrarMensagem("Registro excluido com sucesso.");
