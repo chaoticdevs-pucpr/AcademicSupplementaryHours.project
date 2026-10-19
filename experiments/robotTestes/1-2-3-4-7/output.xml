@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5 (Python 3.14.0 on win32)" generated="2026-10-19T17:51:29.226891" rpa="false" schemaversion="5">
+<suite id="s1" name="Solicitacao Testes" source="C:\Home\GitHub\AcademicSupplementaryHours.project\experiments\robotTestes\1-2-3-4-7\solicitacao_testes.robot">
+<test id="s1-t1" name="CT1 - Nova solicitação sem comprovante" line="9">
+<kw name="Abrir o navegador" owner="solicitacao_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:29.662389" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/app/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-19T17:51:29.662164" elapsed="6.410414"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-19T17:51:36.073109" elapsed="0.335852"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:29.661270" elapsed="6.747879"/>
+</kw>
+<kw name="Fazer login como estudante" owner="solicitacao_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:36.411029" level="INFO">Typing text 'estudante1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:36.410259" elapsed="0.107936"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:36.519159" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:36.518633" elapsed="0.054926"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:36.574636" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:36.574074" elapsed="0.413656"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:51:36.987955" elapsed="0.104799"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:36.409727" elapsed="0.683438"/>
+</kw>
+<kw name="Acessar minhas solicitações" owner="solicitacao_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:51:37.094504" elapsed="0.031903"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:37.127023" level="INFO">Clicking element 'solicitacoes'.</msg>
+<arg>${BOTAO_SOLICITACOES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:37.126702" elapsed="0.275370"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Horas</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-19T17:51:37.402295" elapsed="0.003009"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-19T17:51:38.406250" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-19T17:51:37.405501" elapsed="1.000867"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:37.094013" elapsed="1.312471"/>
+</kw>
+<kw name="Acessar formulário de nova solicitação" owner="solicitacao_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_NOVA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:51:38.407100" elapsed="0.006825"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:38.414434" level="INFO">Clicking element 'xpath=//a[contains(., 'Nova Solicitação')]'.</msg>
+<arg>${BOTAO_NOVA}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:38.414173" elapsed="0.175437"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${CAMPO_CATEGORIA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-19T17:51:38.589854" elapsed="0.004692"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:38.406824" elapsed="0.187835"/>
+</kw>
+<kw name="Preencher dados da solicitação sem anexo" owner="solicitacao_resources">
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-19T17:51:39.595918" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-19T17:51:38.595224" elapsed="1.000806"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:39.596446" level="INFO">Selecting options from selection list 'categoria_id' by index 1.</msg>
+<arg>${CAMPO_CATEGORIA}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-10-19T17:51:39.596199" elapsed="0.071374"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-19T17:51:40.668444" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-19T17:51:39.667763" elapsed="1.000795"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:40.668986" level="INFO">Selecting options from selection list 'subcategoria_id' by index 1.</msg>
+<arg>${CAMPO_SUBCATEGORIA}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-10-19T17:51:40.668726" elapsed="0.070026"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:40.739379" level="INFO">Typing text 'Participação em curso' into text field 'justificativa'.</msg>
+<arg>${CAMPO_JUSTIFICATIVA}</arg>
+<arg>Participação em curso</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:40.739025" elapsed="0.019571"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:38.594965" elapsed="2.163755"/>
+</kw>
+<kw name="Salvar solicitação" owner="solicitacao_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:40.759661" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_SALVAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:40.759412" elapsed="0.069687"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:40.759083" elapsed="0.070133"/>
+</kw>
+<kw name="Validar aviso de anexo obrigatório" owner="solicitacao_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:40.830046" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-19T17:51:40.849069" level="INFO">${alerta} = Selecione ao menos um anexo em PDF para enviar a solicitação.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-19T17:51:40.829850" elapsed="0.019271"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_CT1}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-19T17:51:40.849312" elapsed="0.000513"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:40.829560" elapsed="0.020352"/>
+</kw>
+<kw name="Fechar o navegador" owner="solicitacao_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:40.887543" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-19T17:51:40.850863" elapsed="0.036807"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-19T17:51:40.887834" elapsed="2.800329"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:40.850492" elapsed="2.837808"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:29.660498" elapsed="14.028030"/>
+</test>
+<test id="s1-t2" name="CT2 - Nova solicitação com mais de um comprovante" line="18">
+<kw name="Abrir o navegador" owner="solicitacao_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:43.690367" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/app/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-19T17:51:43.690166" elapsed="6.354867"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-19T17:51:50.045357" elapsed="0.314073"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:43.689741" elapsed="6.669846"/>
+</kw>
+<kw name="Fazer login como estudante" owner="solicitacao_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:50.360661" level="INFO">Typing text 'estudante1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:50.360360" elapsed="0.084303"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:50.445649" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:50.445067" elapsed="0.040225"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:50.485843" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:50.485536" elapsed="0.471988"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:51:50.957865" elapsed="0.071307"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:50.360015" elapsed="0.669335"/>
+</kw>
+<kw name="Acessar minhas solicitações" owner="solicitacao_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:51:51.030300" elapsed="0.084310"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:51.115917" level="INFO">Clicking element 'solicitacoes'.</msg>
+<arg>${BOTAO_SOLICITACOES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:51.114967" elapsed="0.239070"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Horas</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-19T17:51:51.354239" elapsed="0.027842"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-19T17:51:52.383412" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-19T17:51:51.382390" elapsed="1.001130"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:51.029845" elapsed="1.353769"/>
+</kw>
+<kw name="Acessar formulário de nova solicitação" owner="solicitacao_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_NOVA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:51:52.384234" elapsed="0.009210"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:52.394336" level="INFO">Clicking element 'xpath=//a[contains(., 'Nova Solicitação')]'.</msg>
+<arg>${BOTAO_NOVA}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:52.393738" elapsed="0.191105"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>${CAMPO_CATEGORIA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-19T17:51:52.585073" elapsed="0.003048"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:52.383953" elapsed="0.204279"/>
+</kw>
+<kw name="Preencher dados da solicitação com múltiplos anexos" owner="solicitacao_resources">
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-19T17:51:53.589311" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-19T17:51:52.588839" elapsed="1.000590"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:53.589893" level="INFO">Selecting options from selection list 'categoria_id' by index 1.</msg>
+<arg>${CAMPO_CATEGORIA}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-10-19T17:51:53.589622" elapsed="0.070807"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-19T17:51:54.661305" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-19T17:51:53.660625" elapsed="1.000791"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:54.661844" level="INFO">Selecting options from selection list 'subcategoria_id' by index 1.</msg>
+<arg>${CAMPO_SUBCATEGORIA}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-10-19T17:51:54.661587" elapsed="0.069743"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:54.731807" level="INFO">Typing text 'Participação em curso' into text field 'justificativa'.</msg>
+<arg>${CAMPO_JUSTIFICATIVA}</arg>
+<arg>Participação em curso</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:54.731528" elapsed="0.019501"/>
+</kw>
+<kw name="Normalize Path" owner="OperatingSystem">
+<msg time="2026-10-19T17:51:54.751516" level="INFO">${arq1} = C:\Home\GitHub\AcademicSupplementaryHours.project\experiments\robotTestes\1-2-3-4-7\arquivos\comprovante_1.pdf</msg>
+<var>${arq1}</var>
+<arg>${ARQUIVO_1}</arg>
+<doc>Normalizes the given path.</doc>
+<status status="PASS" start="2026-10-19T17:51:54.751249" elapsed="0.000302"/>
+</kw>
+<kw name="Normalize Path" owner="OperatingSystem">
+<msg time="2026-10-19T17:51:54.751856" level="INFO">${arq2} = C:\Home\GitHub\AcademicSupplementaryHours.project\experiments\robotTestes\1-2-3-4-7\arquivos\comprovante_2.pdf</msg>
+<var>${arq2}</var>
+<arg>${ARQUIVO_2}</arg>
+<doc>Normalizes the given path.</doc>
+<status status="PASS" start="2026-10-19T17:51:54.751690" elapsed="0.000193"/>
+</kw>
+<kw name="Choose File" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:54.752309" level="INFO">Sending C:\Home\GitHub\AcademicSupplementaryHours.project\experiments\robotTestes\1-2-3-4-7\arquivos\comprovante_1.pdf
+C:\Home\GitHub\AcademicSupplementaryHours.project\experiments\robotTestes\1-2-3-4-7\arquivos\comprovante_2.pdf to browser.</msg>
+<arg>${CAMPO_ARQUIVO}</arg>
+<arg>${arq1}\n${arq2}</arg>
+<doc>Inputs the ``file_path`` into the file input field ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:54.752035" elapsed="0.034663"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:52.588558" elapsed="2.198259"/>
+</kw>
+<kw name="Salvar solicitação" owner="solicitacao_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:54.787816" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_SALVAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:51:54.787564" elapsed="0.073595"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:54.787224" elapsed="0.074063"/>
+</kw>
+<kw name="Validar solicitação salva com sucesso" owner="solicitacao_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:54.862181" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-19T17:51:55.385907" level="INFO">${alerta} = SUCESSO: Registro inserido com sucesso.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-19T17:51:54.861955" elapsed="0.524015"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_CT2}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-19T17:51:55.386193" elapsed="0.000485"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:54.861610" elapsed="0.525152"/>
+</kw>
+<kw name="Fechar o navegador" owner="solicitacao_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:55.430215" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-19T17:51:55.387433" elapsed="0.042999"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-19T17:51:55.430772" elapsed="2.792213"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:55.387123" elapsed="2.835999"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:43.689081" elapsed="14.534199"/>
+</test>
+<test id="s1-t3" name="CT3 - Excluir uma solicitação pendente" line="27">
+<kw name="Abrir o navegador" owner="solicitacao_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:51:58.224722" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/app/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-19T17:51:58.224525" elapsed="6.379878"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-19T17:52:04.604600" elapsed="0.281201"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:58.224133" elapsed="6.661812"/>
+</kw>
+<kw name="Fazer login como estudante" owner="solicitacao_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:04.887560" level="INFO">Typing text 'estudante1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:04.887051" elapsed="0.119473"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:05.007286" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:05.006896" elapsed="0.042127"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:05.049988" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:05.049461" elapsed="0.505876"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:52:05.555816" elapsed="0.047920"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:04.886483" elapsed="0.717417"/>
+</kw>
+<kw name="Acessar minhas solicitações" owner="solicitacao_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:52:05.604654" elapsed="0.012666"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:05.618573" level="INFO">Clicking element 'solicitacoes'.</msg>
+<arg>${BOTAO_SOLICITACOES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:05.617836" elapsed="0.280621"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Horas</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-19T17:52:05.898764" elapsed="0.029476"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-19T17:52:06.929316" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-19T17:52:05.928536" elapsed="1.000898"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:05.604302" elapsed="1.325224"/>
+</kw>
+<kw name="Excluir solicitação pendente" owner="solicitacao_resources">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:06.930320" level="INFO">Clicking button 'Excluir'.</msg>
+<arg>${BOTAO_EXCLUIR}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:06.930105" elapsed="0.067349"/>
+</kw>
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:06.997891" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-19T17:52:07.011420" level="INFO">${confirm} = Tem certeza que deseja excluir esta solicitação de horas?</msg>
+<var>${confirm}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-19T17:52:06.997649" elapsed="0.013819"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${confirm}</arg>
+<arg>${CONFIRM_EXCLUSAO}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-19T17:52:07.011694" elapsed="0.000359"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:06.929842" elapsed="0.082300"/>
+</kw>
+<kw name="Validar solicitação excluída" owner="solicitacao_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:07.012903" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-19T17:52:07.525822" level="INFO">${alerta} = SUCESSO: Registro excluido.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-19T17:52:07.012701" elapsed="0.513176"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_CT3}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-19T17:52:07.526186" elapsed="0.000475"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:07.012436" elapsed="0.514328"/>
+</kw>
+<kw name="Fechar o navegador" owner="solicitacao_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:07.566988" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-19T17:52:07.527510" elapsed="0.039679"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-19T17:52:07.567452" elapsed="2.789769"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:07.527163" elapsed="2.830181"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:51:58.223735" elapsed="12.133759"/>
+</test>
+<test id="s1-t4" name="CT4 - Excluir uma solicitação aprovada" line="34">
+<kw name="Abrir o navegador" owner="solicitacao_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:10.358967" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/app/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-19T17:52:10.358781" elapsed="6.315065"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-19T17:52:16.674057" elapsed="0.286772"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:10.358377" elapsed="6.602662"/>
+</kw>
+<kw name="Fazer login como estudante" owner="solicitacao_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:16.962377" level="INFO">Typing text 'estudante1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:16.962096" elapsed="0.068476"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:17.031308" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:17.030920" elapsed="0.025261"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:17.057113" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:17.056635" elapsed="0.466151"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:52:17.523240" elapsed="0.019967"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:16.961696" elapsed="0.581746"/>
+</kw>
+<kw name="Acessar minhas solicitações" owner="solicitacao_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:52:17.544992" elapsed="0.063310"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:17.609216" level="INFO">Clicking element 'solicitacoes'.</msg>
+<arg>${BOTAO_SOLICITACOES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:17.608659" elapsed="0.238807"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Horas</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-19T17:52:17.847682" elapsed="0.005373"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-19T17:52:18.854346" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-19T17:52:17.853466" elapsed="1.000994"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:17.544359" elapsed="1.310192"/>
+</kw>
+<kw name="Excluir solicitação aprovada" owner="solicitacao_resources">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:18.855367" level="INFO">Clicking button 'Excluir'.</msg>
+<arg>${BOTAO_EXCLUIR}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:18.855153" elapsed="0.060965"/>
+</kw>
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:18.916538" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-19T17:52:18.935384" level="INFO">${confirm} = Tem certeza que deseja excluir esta solicitação de horas?</msg>
+<var>${confirm}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-19T17:52:18.916312" elapsed="0.019136"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${confirm}</arg>
+<arg>${CONFIRM_EXCLUSAO}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-19T17:52:18.935667" elapsed="0.000431"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:18.854861" elapsed="0.081322"/>
+</kw>
+<kw name="Validar erro ao excluir solicitação aprovada" owner="solicitacao_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:18.937128" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-19T17:52:19.451826" level="INFO">${alerta} = ERRO: Somente solicitacoes pendentes podem ser excluidas ou solicitacao nao encontrada.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-19T17:52:18.936913" elapsed="0.514969"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_CT4}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-19T17:52:19.452072" elapsed="0.000372"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:18.936553" elapsed="0.515967"/>
+</kw>
+<kw name="Fechar o navegador" owner="solicitacao_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:19.489364" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-19T17:52:19.453220" elapsed="0.036310"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-19T17:52:19.489786" elapsed="2.789476"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:19.452910" elapsed="2.826468"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:10.357951" elapsed="11.921643"/>
+</test>
+<test id="s1-t5" name="CT5 - Alterar uma solicitação aprovada" line="41">
+<kw name="Abrir o navegador" owner="solicitacao_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:22.281103" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/app/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-19T17:52:22.280874" elapsed="6.267389"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-19T17:52:28.548528" elapsed="0.325865"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:22.280486" elapsed="6.594146"/>
+</kw>
+<kw name="Fazer login como estudante" owner="solicitacao_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:28.878112" level="INFO">Typing text 'estudante1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:28.876372" elapsed="0.137004"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:29.014531" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:29.013847" elapsed="0.064619"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:29.079121" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:29.078741" elapsed="0.502333"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:52:29.581295" elapsed="0.045361"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:28.875863" elapsed="0.750993"/>
+</kw>
+<kw name="Acessar minhas solicitações" owner="solicitacao_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-19T17:52:29.627861" elapsed="0.031069"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:29.659567" level="INFO">Clicking element 'solicitacoes'.</msg>
+<arg>${BOTAO_SOLICITACOES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:29.659219" elapsed="0.281371"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Horas</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-19T17:52:29.940859" elapsed="0.026919"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-19T17:52:30.968695" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-19T17:52:29.967993" elapsed="1.000846"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:29.627263" elapsed="1.341688"/>
+</kw>
+<kw name="Clicar em alterar solicitação aprovada" owner="solicitacao_resources">
+<kw name="Click Link" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:30.969858" level="INFO">Clicking link 'Alterar'.</msg>
+<arg>${BOTAO_ALTERAR}</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-19T17:52:30.969614" elapsed="0.219760"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:30.969325" elapsed="0.220226"/>
+</kw>
+<kw name="Validar aviso de bloqueio de alteração" owner="solicitacao_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:31.190801" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-19T17:52:31.707232" level="INFO">${alerta} = Esta solicitação já foi aprovado e não pode ser alterada.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-19T17:52:31.190480" elapsed="0.516813"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_CT5}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-19T17:52:31.707517" elapsed="0.000399"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:31.190057" elapsed="0.517945"/>
+</kw>
+<kw name="Fechar o navegador" owner="solicitacao_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-19T17:52:31.768756" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-19T17:52:31.708708" elapsed="0.060247"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-19T17:52:31.769160" elapsed="2.823132"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:31.708387" elapsed="2.884110"/>
+</kw>
+<status status="PASS" start="2026-10-19T17:52:22.280072" elapsed="12.312751"/>
+</test>
+<status status="PASS" start="2026-10-19T17:51:29.228959" elapsed="65.365311"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Solicitacao Testes" id="s1" pass="5" fail="0" skip="0">Solicitacao Testes</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
