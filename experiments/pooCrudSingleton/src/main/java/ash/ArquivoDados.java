@@ -32,7 +32,6 @@ public class ArquivoDados {
         dados.setSolicitacao(carregarLista("solicitacoes.dat", dados.getSolicitacao()));
         dados.setSugestao(carregarLista("sugestoes.dat", dados.getSugestao()));
         dados.setProfessorValidador(carregarLista("professores.dat", dados.getProfessorValidador()));
-        dados.setEvento(carregarLista("eventos.dat", dados.getEvento()));
         dados.setCursos(carregarLista("cursos.dat", dados.getCursos()));
         dados.setTurmas(carregarLista("turmas.dat", dados.getTurmas()));
         dados.setManual(carregarLista("manuais.dat", dados.getManual()));
@@ -53,7 +52,6 @@ public class ArquivoDados {
         salvarLista("solicitacoes.dat", dados.getSolicitacao());
         salvarLista("sugestoes.dat", dados.getSugestao());
         salvarLista("professores.dat", dados.getProfessorValidador());
-        salvarLista("eventos.dat", dados.getEvento());
         salvarLista("cursos.dat", dados.getCursos());
         salvarLista("turmas.dat", dados.getTurmas());
         salvarLista("manuais.dat", dados.getManual());

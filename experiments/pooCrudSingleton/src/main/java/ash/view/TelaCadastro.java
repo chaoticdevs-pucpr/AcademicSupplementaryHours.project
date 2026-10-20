@@ -1,13 +1,23 @@
 package ash.view;
 
-import ash.ArquivoDados;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import ash.DadosSistema;
-import ash.model.*;
-
-// Daniel passou por aqui
+import ash.model.CadastroItem;
+import ash.model.Categorias;
+import ash.model.Coordenador;
 import ash.model.Curso;
+import ash.model.Estudante;
+import ash.model.JustificativaAceite;
+import ash.model.Manual;
+import ash.model.ProfessorValidador;
+import ash.model.Solicitacao;
+import ash.model.Subcategoria;
+import ash.model.Sugestao;
 import ash.model.Turma;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -26,11 +36,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class TelaCadastro extends BorderPane {
     private DadosSistema dados;
@@ -280,7 +285,6 @@ public class TelaCadastro extends BorderPane {
         if (tipo.equals("Solicitacao")) return new Solicitacao();
         if (tipo.equals("Sugestao")) return new Sugestao();
         if (tipo.equals("Professor Validador")) return new ProfessorValidador();
-        if (tipo.equals("Evento")) return new Evento();
         if (tipo.equals("Subcategoria")) return new Subcategoria();
         if (tipo.equals("JustificativaAceite")) return new JustificativaAceite();
         return null;
