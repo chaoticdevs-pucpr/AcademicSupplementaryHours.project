@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5 (Python 3.13.7 on win32)" generated="2026-10-23T17:23:05.607226" rpa="false" schemaversion="5">
+<suite id="s1" name="cadastroManual testes" source="C:\xampp\htdocs\AcademicSupplementaryHours.project\experiments\robotTestes\Gabriel\cadastroManual_testes.robot">
+<test id="s1-t1" name="CT1 - Insererir data invalida" line="9">
+<kw name="Abrir o navegador" owner="cadastroManual_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:06.358797" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T17:23:06.358551" elapsed="14.256189"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T17:23:20.957083" elapsed="0.495288"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:06.357242" elapsed="15.102842"/>
+</kw>
+<kw name="Fazer login como coordenador" owner="cadastroManual_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:21.545747" level="INFO">Typing text 'coord1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:21.512333" elapsed="0.392673"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:21.907649" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:21.906133" elapsed="0.105154"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:22.022483" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:22.019095" elapsed="0.181067"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:21.500406" elapsed="0.702420"/>
+</kw>
+<kw name="Acessar meus manuais" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_MANUAL}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:23:22.208798" elapsed="1.313681"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:23.523792" level="INFO">Clicking element 'manual_hc'.</msg>
+<arg>${BOTAO_MANUAL}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:23.523404" elapsed="0.419542"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:22.204432" elapsed="1.739720"/>
+</kw>
+<kw name="Acessar formulário de novo manual" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_NOVO_MANUAL}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:23:23.952203" elapsed="0.033695"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:23.987445" level="INFO">Clicking element 'xpath=//a[contains(., 'Nova Versão')]'.</msg>
+<arg>${BOTAO_NOVO_MANUAL}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:23.986797" elapsed="0.371096"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:23.949629" elapsed="0.408447"/>
+</kw>
+<kw name="Preencher dados do manual com data inválida" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_VERSAO}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:23:24.359034" elapsed="0.015995"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:24.375766" level="INFO">Typing text '0.0' into text field 'versao'.</msg>
+<arg>${CAMPO_VERSAO}</arg>
+<arg>0.0</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:24.375398" elapsed="0.044422"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:24.423425" level="INFO">Typing text '2024-02-30' into text field 'data_manual'.</msg>
+<arg>${CAMPO_DATA_MANUAL}</arg>
+<arg>2024-02-30</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:24.422746" elapsed="0.020544"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:24.443779" level="INFO">Typing text '40' into text field 'horas_objetivo'.</msg>
+<arg>${CAMPO_HORAS_OBJETIVO}</arg>
+<arg>40</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:24.443505" elapsed="0.036717"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:24.358625" elapsed="0.121864"/>
+</kw>
+<kw name="Salvar manual" owner="cadastroManual_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:24.483027" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_SALVAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:24.482304" elapsed="0.163078"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:24.481105" elapsed="0.164438"/>
+</kw>
+<kw name="Validar aviso de data inválida" owner="cadastroManual_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:24.651502" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-23T17:23:24.718296" level="INFO">${alerta} = Preencha todos os campos da versão.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-23T17:23:24.648794" elapsed="0.069654"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-10-23T17:23:24.735135" level="FAIL">'Preencha todos os campos da versão.' does not contain 'ERRO: A data está invalida.'</msg>
+<arg>${alerta}</arg>
+<arg>${ALERT_CT1}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="FAIL" start="2026-10-23T17:23:24.719943" elapsed="0.017964">'Preencha todos os campos da versão.' does not contain 'ERRO: A data está invalida.'</status>
+</kw>
+<status status="FAIL" start="2026-10-23T17:23:24.646937" elapsed="0.092656">'Preencha todos os campos da versão.' does not contain 'ERRO: A data está invalida.'</status>
+</kw>
+<kw name="Fechar o navegador" owner="cadastroManual_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:24.823377" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T17:23:24.744004" elapsed="0.079568"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T17:23:24.823868" elapsed="4.021530"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:24.743082" elapsed="4.102449"/>
+</kw>
+<status status="FAIL" start="2026-10-23T17:23:06.356066" elapsed="22.489684">'Preencha todos os campos da versão.' does not contain 'ERRO: A data está invalida.'</status>
+</test>
+<test id="s1-t2" name="CT2 - Insererir valor de horas objetivo invalido" line="18">
+<kw name="Abrir o navegador" owner="cadastroManual_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:28.854075" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T17:23:28.853335" elapsed="8.709027"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T17:23:37.571664" elapsed="0.683879"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:28.852690" elapsed="9.404086"/>
+</kw>
+<kw name="Fazer login como coordenador" owner="cadastroManual_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:38.291518" level="INFO">Typing text 'coord1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:38.280011" elapsed="0.365167"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:38.646948" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:38.645736" elapsed="0.212101"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:38.866606" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:38.860268" elapsed="0.404829"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:38.272133" elapsed="1.058718"/>
+</kw>
+<kw name="Acessar meus manuais" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_MANUAL}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:23:39.335486" elapsed="1.258073"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:40.595691" level="INFO">Clicking element 'manual_hc'.</msg>
+<arg>${BOTAO_MANUAL}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:40.594076" elapsed="0.867155"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:39.332208" elapsed="2.129287"/>
+</kw>
+<kw name="Acessar formulário de novo manual" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_NOVO_MANUAL}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:23:41.523569" elapsed="0.100672"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:41.625074" level="INFO">Clicking element 'xpath=//a[contains(., 'Nova Versão')]'.</msg>
+<arg>${BOTAO_NOVO_MANUAL}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:41.624600" elapsed="0.837977"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:41.522665" elapsed="0.940295"/>
+</kw>
+<kw name="Preencher dados do manual com horas inválidas" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_VERSAO}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:23:42.465342" elapsed="0.026996"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:42.493769" level="INFO">Typing text '0.2' into text field 'versao'.</msg>
+<arg>${CAMPO_VERSAO}</arg>
+<arg>0.2</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:42.493004" elapsed="0.118797"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:42.613543" level="INFO">Typing text '2024-02-27' into text field 'data_manual'.</msg>
+<arg>${CAMPO_DATA_MANUAL}</arg>
+<arg>2024-02-27</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:42.612962" elapsed="0.161795"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:42.775611" level="INFO">Typing text '-30' into text field 'horas_objetivo'.</msg>
+<arg>${CAMPO_HORAS_OBJETIVO}</arg>
+<arg>-30</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:42.775141" elapsed="0.239398"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:42.464565" elapsed="0.551085"/>
+</kw>
+<kw name="Salvar manual" owner="cadastroManual_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:43.019798" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_SALVAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:43.018899" elapsed="0.133044"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:43.018150" elapsed="0.133990"/>
+</kw>
+<kw name="Validar aviso de horas inválidas" owner="cadastroManual_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:43.156584" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-23T17:23:43.723681" level="INFO">${alerta} = SUCESSO: Versão inserida com sucesso.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-23T17:23:43.154021" elapsed="0.570111"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-10-23T17:23:43.738192" level="FAIL">'SUCESSO: Versão inserida com sucesso.' does not contain 'ERRO: O valor de horas objetivas é inválido.'</msg>
+<arg>${alerta}</arg>
+<arg>${ALERT_CT2}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="FAIL" start="2026-10-23T17:23:43.725439" elapsed="0.016112">'SUCESSO: Versão inserida com sucesso.' does not contain 'ERRO: O valor de horas objetivas é inválido.'</status>
+</kw>
+<status status="FAIL" start="2026-10-23T17:23:43.153209" elapsed="0.589336">'SUCESSO: Versão inserida com sucesso.' does not contain 'ERRO: O valor de horas objetivas é inválido.'</status>
+</kw>
+<kw name="Fechar o navegador" owner="cadastroManual_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:43.799630" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T17:23:43.746292" elapsed="0.053713"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T17:23:43.800725" elapsed="4.332077"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:43.745369" elapsed="4.387635"/>
+</kw>
+<status status="FAIL" start="2026-10-23T17:23:28.849524" elapsed="19.283760">'SUCESSO: Versão inserida com sucesso.' does not contain 'ERRO: O valor de horas objetivas é inválido.'</status>
+</test>
+<test id="s1-t3" name="CT3 - Insererir valor de pontos máximos superior a Horas objetivo do manual" line="27">
+<kw name="Abrir o navegador" owner="cadastroManual_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:48.139382" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T17:23:48.138640" elapsed="9.875926"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T17:23:58.020763" elapsed="0.831034"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:48.138051" elapsed="10.714764"/>
+</kw>
+<kw name="Fazer login como coordenador" owner="cadastroManual_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:58.869003" level="INFO">Typing text 'coord1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:58.866294" elapsed="0.263532"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:59.130677" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:59.130205" elapsed="0.222132"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:23:59.357512" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:23:59.355494" elapsed="0.256991"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:58.862739" elapsed="0.750132"/>
+</kw>
+<kw name="Acessar meus manuais" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_MANUAL}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:23:59.614564" elapsed="0.811940"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:00.428231" level="INFO">Clicking element 'manual_hc'.</msg>
+<arg>${BOTAO_MANUAL}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:00.427281" elapsed="0.579656"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:23:59.613645" elapsed="1.394510"/>
+</kw>
+<kw name="Acessar formulário de novo manual" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_NOVO_MANUAL}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:01.022453" elapsed="0.113753"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:01.137663" level="INFO">Clicking element 'xpath=//a[contains(., 'Nova Versão')]'.</msg>
+<arg>${BOTAO_NOVO_MANUAL}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:01.136975" elapsed="0.529592"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:01.019988" elapsed="0.646943"/>
+</kw>
+<kw name="Preencher dados do manual com dados validos" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_VERSAO}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:01.668650" elapsed="0.023280"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:01.694207" level="INFO">Typing text '0.1' into text field 'versao'.</msg>
+<arg>${CAMPO_VERSAO}</arg>
+<arg>0.1</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:01.693470" elapsed="0.411415"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:02.166475" level="INFO">Typing text '2024-02-27' into text field 'data_manual'.</msg>
+<arg>${CAMPO_DATA_MANUAL}</arg>
+<arg>2024-02-27</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:02.105164" elapsed="0.505865"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:02.672757" level="INFO">Typing text '40' into text field 'horas_objetivo'.</msg>
+<arg>${CAMPO_HORAS_OBJETIVO}</arg>
+<arg>40</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:02.672188" elapsed="0.261189"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:01.667775" elapsed="1.266020"/>
+</kw>
+<kw name="Salvar manual com sucesso" owner="cadastroManual_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:02.936508" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_SALVAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:02.936166" elapsed="0.200869"/>
+</kw>
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:03.139607" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-23T17:24:03.686503" level="INFO">${alerta} = SUCESSO: Versão inserida com sucesso.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-23T17:24:03.137834" elapsed="0.548793"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>SUCESSO: Versão inserida com sucesso.</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-23T17:24:03.688226" elapsed="0.011346"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:02.935384" elapsed="0.764407"/>
+</kw>
+<kw name="Acessar minhas categorias" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_CATEGORIAS}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:03.701253" elapsed="0.520115"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:04.222257" level="INFO">Clicking element 'xpath=//a[contains(@href, 'versao=0.1')]'.</msg>
+<arg>${BOTAO_CATEGORIAS}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:04.221981" elapsed="0.238266"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:03.700623" elapsed="0.759957"/>
+</kw>
+<kw name="Acessar formulário de nova categoria" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_NOVA_CATEGORIA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:04.461768" elapsed="0.014474"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:04.477149" level="INFO">Clicking element 'btnNovo'.</msg>
+<arg>${BOTAO_NOVA_CATEGORIA}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:04.476748" elapsed="0.327895"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:04.461253" elapsed="0.343714"/>
+</kw>
+<kw name="Preencher dados da categoria com pontos maximos maiores que horas objetivo do manual" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_DESC_CATEGORIA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:04.846652" elapsed="0.055961"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:04.903599" level="INFO">Typing text 'Categoria 1' into text field 'categoria_descricao'.</msg>
+<arg>${CAMPO_DESC_CATEGORIA}</arg>
+<arg>Categoria 1</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:04.903028" elapsed="0.051984"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:04.958782" level="INFO">Typing text '50' into text field 'categoria_max'.</msg>
+<arg>${CAMPO_MAX_CATEGORIA}</arg>
+<arg>50</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:04.958202" elapsed="0.082362"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:05.041654" level="INFO">Typing text 'Categoria 1' into text field 'categoria_nome'.</msg>
+<arg>${CAMPO_NOME_CATEGORIA}</arg>
+<arg>Categoria 1</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:05.040931" elapsed="0.052229"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:04.805640" elapsed="0.287844"/>
+</kw>
+<kw name="Salvar categoria" owner="cadastroManual_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:05.097604" level="INFO">Clicking element 'xpath=//button[contains(., 'Salvar Categoria')]'.</msg>
+<arg>${BOTAO_SALVAR_CATE}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:05.097153" elapsed="0.123364"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:05.096367" elapsed="0.124479"/>
+</kw>
+<kw name="Validar categoria com pontos maximos maiores que horas objetivo do manual" owner="cadastroManual_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:05.223155" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-23T17:24:05.258124" level="INFO">${alerta} = Categoria inserida com sucesso.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-23T17:24:05.222662" elapsed="0.035910"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-10-23T17:24:05.272679" level="FAIL">'Categoria inserida com sucesso.' does not contain 'ERRO: O valor de pontos maximos é inválido.'</msg>
+<arg>${alerta}</arg>
+<arg>${ALERT_CT3}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="FAIL" start="2026-10-23T17:24:05.259106" elapsed="0.018512">'Categoria inserida com sucesso.' does not contain 'ERRO: O valor de pontos maximos é inválido.'</status>
+</kw>
+<status status="FAIL" start="2026-10-23T17:24:05.221994" elapsed="0.056813">'Categoria inserida com sucesso.' does not contain 'ERRO: O valor de pontos maximos é inválido.'</status>
+</kw>
+<kw name="Fechar o navegador" owner="cadastroManual_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:05.378944" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T17:24:05.282519" elapsed="0.096723"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T17:24:05.379627" elapsed="5.383086"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:05.281040" elapsed="5.481835"/>
+</kw>
+<status status="FAIL" start="2026-10-23T17:23:48.136433" elapsed="22.626705">'Categoria inserida com sucesso.' does not contain 'ERRO: O valor de pontos maximos é inválido.'</status>
+</test>
+<test id="s1-t4" name="CT4 - Insererir valor de pontos máximos inválido" line="40">
+<kw name="Abrir o navegador" owner="cadastroManual_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:10.768445" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T17:24:10.767816" elapsed="9.958836"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T17:24:20.730144" elapsed="0.616546"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:10.766813" elapsed="10.580210"/>
+</kw>
+<kw name="Fazer login como coordenador" owner="cadastroManual_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:21.355944" level="INFO">Typing text 'coord1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:21.354373" elapsed="0.380114"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:21.735735" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:21.735039" elapsed="0.456541"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:22.194144" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:22.192501" elapsed="1.015686"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:21.352020" elapsed="1.856466"/>
+</kw>
+<kw name="Acessar meus manuais" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_MANUAL}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:23.210892" elapsed="0.055365"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:23.268461" level="INFO">Clicking element 'manual_hc'.</msg>
+<arg>${BOTAO_MANUAL}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:23.267040" elapsed="0.556760"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:23.209372" elapsed="0.614751"/>
+</kw>
+<kw name="Acessar minhas categorias" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_CATEGORIAS}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:23.830238" elapsed="0.115693"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:23.946987" level="INFO">Clicking element 'xpath=//a[contains(@href, 'versao=0.1')]'.</msg>
+<arg>${BOTAO_CATEGORIAS}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:23.946355" elapsed="0.452795"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:23.829370" elapsed="0.569965"/>
+</kw>
+<kw name="Acessar formulário de nova categoria" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_NOVA_CATEGORIA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:24.400768" elapsed="0.021699"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:24.423455" level="INFO">Clicking element 'btnNovo'.</msg>
+<arg>${BOTAO_NOVA_CATEGORIA}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:24.422885" elapsed="0.376369"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:24.400144" elapsed="0.399330"/>
+</kw>
+<kw name="Preencher dados da categoria com pontos maximos invalidos" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_DESC_CATEGORIA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:24.804688" elapsed="0.025792"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:24.831697" level="INFO">Typing text 'Categoria 2' into text field 'categoria_descricao'.</msg>
+<arg>${CAMPO_DESC_CATEGORIA}</arg>
+<arg>Categoria 2</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:24.830894" elapsed="0.039751"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:24.871738" level="INFO">Typing text '-5' into text field 'categoria_max'.</msg>
+<arg>${CAMPO_MAX_CATEGORIA}</arg>
+<arg>-5</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:24.871134" elapsed="0.097222"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:24.969641" level="INFO">Typing text 'Categoria 2' into text field 'categoria_nome'.</msg>
+<arg>${CAMPO_NOME_CATEGORIA}</arg>
+<arg>Categoria 2</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:24.968877" elapsed="0.055163"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:24.800075" elapsed="0.224201"/>
+</kw>
+<kw name="Salvar categoria" owner="cadastroManual_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:25.026512" level="INFO">Clicking element 'xpath=//button[contains(., 'Salvar Categoria')]'.</msg>
+<arg>${BOTAO_SALVAR_CATE}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:25.026051" elapsed="0.199758"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:25.024856" elapsed="0.201235"/>
+</kw>
+<kw name="Validar erro ao inserir pontos maximos invalidos" owner="cadastroManual_resources">
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:25.231127" level="INFO">Executing JavaScript:
+return document.querySelector('input[id=categoria_max]').validationMessage;
+Without any arguments.</msg>
+<msg time="2026-10-23T17:24:25.239284" level="INFO">${alerta} = Selecione um valor que não seja menor que 0.</msg>
+<var>${alerta}</var>
+<arg>return document.querySelector('input[id=categoria_max]').validationMessage;</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2026-10-23T17:24:25.228174" elapsed="0.011270"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_CT4}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-23T17:24:25.240482" elapsed="0.002861"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:25.227019" elapsed="0.016486"/>
+</kw>
+<kw name="Fechar o navegador" owner="cadastroManual_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:25.329697" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T17:24:25.245315" elapsed="0.084575"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T17:24:25.330655" elapsed="3.607505"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:25.244917" elapsed="3.693393"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:10.765438" elapsed="18.173190"/>
+</test>
+<test id="s1-t5" name="CT5 - Insererir valor de limite de horas superior a pontos máximos da categoria" line="50">
+<kw name="Abrir o navegador" owner="cadastroManual_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:28.942495" level="INFO">Opening browser 'Firefox' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T17:24:28.942156" elapsed="8.515355"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T17:24:37.459261" elapsed="0.704845"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:28.941460" elapsed="9.224229"/>
+</kw>
+<kw name="Fazer login como coordenador" owner="cadastroManual_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:38.179722" level="INFO">Typing text 'coord1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:38.176907" elapsed="0.299182"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:38.476995" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:38.476478" elapsed="0.274453"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:38.752889" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:38.751771" elapsed="0.307794"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:38.174559" elapsed="0.885305"/>
+</kw>
+<kw name="Acessar meus manuais" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_MANUAL}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:39.062300" elapsed="1.302359"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:40.367065" level="INFO">Clicking element 'manual_hc'.</msg>
+<arg>${BOTAO_MANUAL}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:40.365116" elapsed="0.549923"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:39.061246" elapsed="1.854021"/>
+</kw>
+<kw name="Acessar minhas categorias" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_CATEGORIAS}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:40.917014" elapsed="0.222879"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:41.140728" level="INFO">Clicking element 'xpath=//a[contains(@href, 'versao=0.1')]'.</msg>
+<arg>${BOTAO_CATEGORIAS}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:41.140445" elapsed="0.309731"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:40.916276" elapsed="0.534160"/>
+</kw>
+<kw name="Acessar minhas subcategorias" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SUBCATEGORIAS}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:41.452197" elapsed="0.218231"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:41.670944" level="INFO">Clicking element 'xpath=//a[contains(@href, 'categoria_id=')]'.</msg>
+<arg>${BOTAO_SUBCATEGORIAS}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:41.670703" elapsed="0.389055"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:41.451356" elapsed="0.647335"/>
+</kw>
+<kw name="Acessar formulário de nova subcategoria" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_NOVA_CATEGORIA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:42.101255" elapsed="0.018293"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:42.120477" level="INFO">Clicking element 'btnNovo'.</msg>
+<arg>${BOTAO_NOVA_CATEGORIA}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:42.119964" elapsed="0.680204"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:42.100169" elapsed="0.700320"/>
+</kw>
+<kw name="preencher dados da subcategoria com limite de horas maior que pontos maximos da categoria" owner="cadastroManual_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_DESC_SUBCATEGORIA}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-23T17:24:42.803203" elapsed="0.159030"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:42.963382" level="INFO">Typing text 'Subcategoria 1' into text field 'subcategoria_descricao'.</msg>
+<arg>${CAMPO_DESC_SUBCATEGORIA}</arg>
+<arg>Subcategoria 1</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:42.962882" elapsed="0.206599"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:43.170607" level="INFO">Typing text '60' into text field 'subcategoria_horas'.</msg>
+<arg>${CAMPO_HORAS_SUBCATEGORIA}</arg>
+<arg>60</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:43.170013" elapsed="0.075218"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:43.246170" level="INFO">Typing text '15' into text field 'quant_pontos'.</msg>
+<arg>${CAMPO_PONTOS_SUBCATEGORIA}</arg>
+<arg>15</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:43.245681" elapsed="0.042396"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:43.289286" level="INFO">Typing text 'Subcategoria 1' into text field 'subcategoria_nome'.</msg>
+<arg>${CAMPO_NOME_SUBCATEGORIA}</arg>
+<arg>Subcategoria 1</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:43.288825" elapsed="0.046623"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:42.802464" elapsed="0.533462"/>
+</kw>
+<kw name="Salvar subcategoria" owner="cadastroManual_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:43.338266" level="INFO">Clicking element 'xpath=//button[contains(., 'Salvar Subcategoria')]'.</msg>
+<arg>${BOTAO_SALVAR_SUBCATE}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T17:24:43.337825" elapsed="0.130349"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:43.336696" elapsed="0.131761"/>
+</kw>
+<kw name="Validar aviso de limite de horas superior a pontos máximos da categoria" owner="cadastroManual_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:43.471080" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-23T17:24:44.021906" level="INFO">${alerta} = Subcategoria inserida com sucesso.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-23T17:24:43.470029" elapsed="0.552035"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-10-23T17:24:44.088460" level="FAIL">'Subcategoria inserida com sucesso.' does not contain 'ERRO: O valor de Limite de horas é inválido.'</msg>
+<arg>${alerta}</arg>
+<arg>${ALERT_CT5}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="FAIL" start="2026-10-23T17:24:44.022950" elapsed="0.067172">'Subcategoria inserida com sucesso.' does not contain 'ERRO: O valor de Limite de horas é inválido.'</status>
+</kw>
+<status status="FAIL" start="2026-10-23T17:24:43.469199" elapsed="0.621854">'Subcategoria inserida com sucesso.' does not contain 'ERRO: O valor de Limite de horas é inválido.'</status>
+</kw>
+<kw name="Fechar o navegador" owner="cadastroManual_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T17:24:44.278292" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T17:24:44.093069" elapsed="0.185426"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T17:24:44.278830" elapsed="3.563389"/>
+</kw>
+<status status="PASS" start="2026-10-23T17:24:44.092547" elapsed="3.749846"/>
+</kw>
+<status status="FAIL" start="2026-10-23T17:24:28.940123" elapsed="18.902707">'Subcategoria inserida com sucesso.' does not contain 'ERRO: O valor de Limite de horas é inválido.'</status>
+</test>
+<status status="FAIL" start="2026-10-23T17:23:05.610818" elapsed="102.240371"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="4" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="cadastroManual testes" id="s1" pass="1" fail="4" skip="0">cadastroManual testes</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
