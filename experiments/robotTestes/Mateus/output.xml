@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5 (Python 3.15.1 on win32)" generated="2026-10-22T14:49:53.663383" rpa="false" schemaversion="5">
+<suite id="s1" name="Cadastro Tests" source="D:\XAMPP\htdocs\AcademicSupplementaryHours.project\experiments\robotTestes\Mateus\cadastro_tests.robot">
+<test id="s1-t1" name="CT20 - Cadastrar coordenador sem nome" line="11">
+<kw name="Abrir o navegador" owner="cadastro_resources" type="SETUP">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:49:53.936578" level="INFO">${ID_UNICO} = 692db83e9fb248dab1ca4c6d71afd640</msg>
+<var>${ID_UNICO}</var>
+<arg>uuid.uuid4().hex</arg>
+<arg>modules=uuid</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:49:53.935916" elapsed="0.000716"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:49:53.937144" level="INFO">${CPF_UNICO} = 31835247978</msg>
+<var>${CPF_UNICO}</var>
+<arg>random.randint(10000000000, 99999999999)</arg>
+<arg>modules=random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:49:53.936825" elapsed="0.000348"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:49:53.937980" level="INFO">${COORD_EMAIL_VALIDO} = coord.robot.692db83e9fb248dab1ca4c6d71afd640@ash.com</msg>
+<arg>${COORD_EMAIL_VALIDO}</arg>
+<arg>coord.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:49:53.937293" elapsed="0.000729"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:49:53.938525" level="INFO">${COORD_CPF_VALIDO} = 31835247978</msg>
+<arg>${COORD_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:49:53.938126" elapsed="0.000435"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:49:53.939094" level="INFO">${ALUNO_EMAIL_VALIDO} = aluno.robot.692db83e9fb248dab1ca4c6d71afd640@ash.com</msg>
+<arg>${ALUNO_EMAIL_VALIDO}</arg>
+<arg>aluno.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:49:53.938660" elapsed="0.000469"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:49:53.939618" level="INFO">${ALUNO_CPF_VALIDO} = 31835247978</msg>
+<arg>${ALUNO_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:49:53.939223" elapsed="0.000430"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:53.939989" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T14:49:53.939852" elapsed="1.300961"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.241088" elapsed="0.024507"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.265791" elapsed="0.000898"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:53.935316" elapsed="1.331459"/>
+</kw>
+<kw name="Fazer login como administrador" owner="cadastro_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.267409" elapsed="0.014862"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:55.282761" level="INFO">Typing text 'admin@ash.com' into text field 'id=usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO_ADMIN}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.282494" elapsed="0.058597"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:55.341608" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:49:55.362039" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA_ADMIN}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.341307" elapsed="0.046837"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:55.388578" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.388344" elapsed="0.036336"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Administração</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.424865" elapsed="0.324291"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:55.267116" elapsed="0.482174"/>
+</kw>
+<kw name="Acessar cadastro de coordenadores" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:55.750174" level="INFO">Clicking element 'id=coordenadores'.</msg>
+<arg>${MENU_COORDENADORES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.749974" elapsed="0.167668"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Coordenadores</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.917871" elapsed="0.028680"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:55.946977" level="INFO">Clicking element 'xpath=//a[@href='html/coordenador_novo.html']'.</msg>
+<arg>${BOTAO_CADASTRAR_COORD}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:55.946749" elapsed="0.127783"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Adicionar Coordenador</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.074798" elapsed="0.011504"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Engenharia</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.086660" elapsed="0.006920"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:55.749664" elapsed="0.344038"/>
+</kw>
+<kw name="Preencher coordenador válido" owner="cadastro_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.095094" level="INFO">Typing text 'Coordenador Teste Robot' into text field 'id=nome'.</msg>
+<arg>${COORD_NOME}</arg>
+<arg>${COORD_NOME_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.094266" elapsed="0.053797"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.148541" level="INFO">Typing text 'coord.robot.692db83e9fb248dab1ca4c6d71afd640@ash.com' into text field 'id=email'.</msg>
+<arg>${COORD_EMAIL}</arg>
+<arg>${COORD_EMAIL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.148255" elapsed="0.060663"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.209739" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:49:56.227649" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${COORD_SENHA}</arg>
+<arg>${COORD_SENHA_VALIDA}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.209327" elapsed="0.043615"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.253352" level="INFO">Typing text '31835247978' into text field 'id=cpf'.</msg>
+<arg>${COORD_CPF}</arg>
+<arg>${COORD_CPF_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.253125" elapsed="0.046056"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.299649" level="INFO">Typing text '41999998888' into text field 'id=celular'.</msg>
+<arg>${COORD_CELULAR}</arg>
+<arg>${COORD_CELULAR_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.299371" elapsed="0.047747"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.347606" level="INFO">Typing text '4133334444' into text field 'id=telefone'.</msg>
+<arg>${COORD_TELEFONE}</arg>
+<arg>${COORD_TEL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.347360" elapsed="0.043786"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.391563" level="INFO">Selecting options from selection list 'id=curso_id' by index 1.</msg>
+<arg>${COORD_CURSO}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.391326" elapsed="0.049015"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:56.093997" elapsed="0.346455"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${COORD_NOME}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.440704" elapsed="0.018296"/>
+</kw>
+<kw name="Salvar coordenador" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.460260" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_SALVAR_COORD}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.459963" elapsed="0.035739"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:56.459475" elapsed="0.036412"/>
+</kw>
+<kw name="Validar alerta contendo" owner="cadastro_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.497058" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-22T14:49:56.500695" level="INFO">${mensagem} = Preencha todos os campos obrigatorios. Telefone e opcional.</msg>
+<var>${mensagem}</var>
+<arg>action=ACCEPT</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.496770" elapsed="0.003967"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${mensagem.lower()}</arg>
+<arg>${texto_esperado.lower()}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.500902" elapsed="0.000819"/>
+</kw>
+<arg>obrigatorios</arg>
+<status status="PASS" start="2026-10-22T14:49:56.496321" elapsed="0.005522"/>
+</kw>
+<kw name="Validar campo nome obrigatório">
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.502642" level="INFO">Executing JavaScript:
+return document.getElementById("nome").validity.valueMissing
+Without any arguments.</msg>
+<msg time="2026-10-22T14:49:56.506111" level="INFO">${vazio} = True</msg>
+<var>${vazio}</var>
+<arg>return document.getElementById("nome").validity.valueMissing</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.502520" elapsed="0.003638"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${vazio}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.506368" elapsed="0.000335"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.512126" level="INFO">Current page contains element 'id=nome'.</msg>
+<arg>${COORD_NOME}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.506803" elapsed="0.005445"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:56.502235" elapsed="0.010133"/>
+</kw>
+<kw name="Fechar o navegador" owner="cadastro_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:56.643569" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-9.png"&gt;&lt;img src="selenium-screenshot-9.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.513482" elapsed="0.130200"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T14:49:56.643834" elapsed="2.101072"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:56.512826" elapsed="2.232256"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:53.934510" elapsed="4.810962"/>
+</test>
+<test id="s1-t2" name="CT21 - Cadastrar coordenador com email inválido" line="21">
+<kw name="Abrir o navegador" owner="cadastro_resources" type="SETUP">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:49:58.747169" level="INFO">${ID_UNICO} = 812cd2bdb6554d2ab2d9efeaf000afce</msg>
+<var>${ID_UNICO}</var>
+<arg>uuid.uuid4().hex</arg>
+<arg>modules=uuid</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:49:58.746700" elapsed="0.000496"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:49:58.747551" level="INFO">${CPF_UNICO} = 97382456197</msg>
+<var>${CPF_UNICO}</var>
+<arg>random.randint(10000000000, 99999999999)</arg>
+<arg>modules=random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:49:58.747305" elapsed="0.000268"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:49:58.748125" level="INFO">${COORD_EMAIL_VALIDO} = coord.robot.812cd2bdb6554d2ab2d9efeaf000afce@ash.com</msg>
+<arg>${COORD_EMAIL_VALIDO}</arg>
+<arg>coord.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:49:58.747674" elapsed="0.000487"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:49:58.748618" level="INFO">${COORD_CPF_VALIDO} = 97382456197</msg>
+<arg>${COORD_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:49:58.748254" elapsed="0.000397"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:49:58.749156" level="INFO">${ALUNO_EMAIL_VALIDO} = aluno.robot.812cd2bdb6554d2ab2d9efeaf000afce@ash.com</msg>
+<arg>${ALUNO_EMAIL_VALIDO}</arg>
+<arg>aluno.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:49:58.748743" elapsed="0.000446"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:49:58.749669" level="INFO">${ALUNO_CPF_VALIDO} = 97382456197</msg>
+<arg>${ALUNO_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:49:58.749282" elapsed="0.000461"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:58.750075" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T14:49:58.749938" elapsed="1.166861"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T14:49:59.916999" elapsed="0.026663"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2026-10-22T14:49:59.944187" elapsed="0.001017"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:58.746481" elapsed="1.198805"/>
+</kw>
+<kw name="Fazer login como administrador" owner="cadastro_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T14:49:59.945975" elapsed="0.016020"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:49:59.962738" level="INFO">Typing text 'admin@ash.com' into text field 'id=usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO_ADMIN}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:49:59.962387" elapsed="0.064040"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:00.027536" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:50:00.047460" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA_ADMIN}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.026955" elapsed="0.047072"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:00.074548" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.074287" elapsed="0.039510"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Administração</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.114005" elapsed="0.323262"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:59.945636" elapsed="0.491747"/>
+</kw>
+<kw name="Acessar cadastro de coordenadores" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:00.438376" level="INFO">Clicking element 'id=coordenadores'.</msg>
+<arg>${MENU_COORDENADORES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.438007" elapsed="0.173543"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Coordenadores</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.611741" elapsed="0.006718"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:00.618965" level="INFO">Clicking element 'xpath=//a[@href='html/coordenador_novo.html']'.</msg>
+<arg>${BOTAO_CADASTRAR_COORD}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.618696" elapsed="0.154332"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Adicionar Coordenador</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.773249" elapsed="0.011470"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Engenharia</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.784923" elapsed="0.006237"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:00.437690" elapsed="0.353593"/>
+</kw>
+<kw name="Preencher coordenador válido" owner="cadastro_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:00.792215" level="INFO">Typing text 'Coordenador Teste Robot' into text field 'id=nome'.</msg>
+<arg>${COORD_NOME}</arg>
+<arg>${COORD_NOME_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.792000" elapsed="0.050302"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:00.843006" level="INFO">Typing text 'coord.robot.812cd2bdb6554d2ab2d9efeaf000afce@ash.com' into text field 'id=email'.</msg>
+<arg>${COORD_EMAIL}</arg>
+<arg>${COORD_EMAIL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.842511" elapsed="0.063605"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:00.906810" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:50:00.923922" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${COORD_SENHA}</arg>
+<arg>${COORD_SENHA_VALIDA}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.906408" elapsed="0.044632"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:00.951442" level="INFO">Typing text '97382456197' into text field 'id=cpf'.</msg>
+<arg>${COORD_CPF}</arg>
+<arg>${COORD_CPF_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.951219" elapsed="0.047402"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:00.999118" level="INFO">Typing text '41999998888' into text field 'id=celular'.</msg>
+<arg>${COORD_CELULAR}</arg>
+<arg>${COORD_CELULAR_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:00.998837" elapsed="0.049162"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:01.048454" level="INFO">Typing text '4133334444' into text field 'id=telefone'.</msg>
+<arg>${COORD_TELEFONE}</arg>
+<arg>${COORD_TEL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.048194" elapsed="0.044306"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:01.093133" level="INFO">Selecting options from selection list 'id=curso_id' by index 1.</msg>
+<arg>${COORD_CURSO}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.092753" elapsed="0.049212"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:00.791612" elapsed="0.350465"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${COORD_EMAIL}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.142318" elapsed="0.018428"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:01.161577" level="INFO">Typing text '@' into text field 'id=email'.</msg>
+<arg>${COORD_EMAIL}</arg>
+<arg>@</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.161200" elapsed="0.038738"/>
+</kw>
+<kw name="Salvar coordenador" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:01.200947" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_SALVAR_COORD}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.200740" elapsed="0.036639"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:01.200407" elapsed="0.037098"/>
+</kw>
+<kw name="Validar alerta contendo" owner="cadastro_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:01.238429" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-22T14:50:01.242010" level="INFO">${mensagem} = Informe um e-mail valido.</msg>
+<var>${mensagem}</var>
+<arg>action=ACCEPT</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.238217" elapsed="0.003836"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${mensagem.lower()}</arg>
+<arg>${texto_esperado.lower()}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.242221" elapsed="0.000487"/>
+</kw>
+<arg>e-mail valido</arg>
+<status status="PASS" start="2026-10-22T14:50:01.237856" elapsed="0.004956"/>
+</kw>
+<kw name="Validar email inválido">
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:01.244274" level="INFO">Executing JavaScript:
+return document.getElementById("email").validity.valid
+Without any arguments.</msg>
+<msg time="2026-10-22T14:50:01.251788" level="INFO">${valido} = False</msg>
+<var>${valido}</var>
+<arg>return document.getElementById("email").validity.valid</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.244032" elapsed="0.007806"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${valido}</arg>
+<arg>${False}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.252055" elapsed="0.000355"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:01.257618" level="INFO">Current page contains element 'id=email'.</msg>
+<arg>${COORD_EMAIL}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.252538" elapsed="0.005173"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:01.243307" elapsed="0.014491"/>
+</kw>
+<kw name="Fechar o navegador" owner="cadastro_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:01.395353" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-10.png"&gt;&lt;img src="selenium-screenshot-10.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.258541" elapsed="0.136935"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T14:50:01.395668" elapsed="2.124485"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:01.258253" elapsed="2.262055"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:49:58.746071" elapsed="4.774401"/>
+</test>
+<test id="s1-t3" name="CT22 - Cadastrar coordenador com dados válidos" line="32">
+<kw name="Abrir o navegador" owner="cadastro_resources" type="SETUP">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:50:03.521920" level="INFO">${ID_UNICO} = d6f76abe1f524e00b294654155859379</msg>
+<var>${ID_UNICO}</var>
+<arg>uuid.uuid4().hex</arg>
+<arg>modules=uuid</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:50:03.521535" elapsed="0.000412"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:50:03.522309" level="INFO">${CPF_UNICO} = 77348261732</msg>
+<var>${CPF_UNICO}</var>
+<arg>random.randint(10000000000, 99999999999)</arg>
+<arg>modules=random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:50:03.522051" elapsed="0.000280"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:03.522884" level="INFO">${COORD_EMAIL_VALIDO} = coord.robot.d6f76abe1f524e00b294654155859379@ash.com</msg>
+<arg>${COORD_EMAIL_VALIDO}</arg>
+<arg>coord.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:03.522440" elapsed="0.000480"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:03.523386" level="INFO">${COORD_CPF_VALIDO} = 77348261732</msg>
+<arg>${COORD_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:03.523013" elapsed="0.000406"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:03.523919" level="INFO">${ALUNO_EMAIL_VALIDO} = aluno.robot.d6f76abe1f524e00b294654155859379@ash.com</msg>
+<arg>${ALUNO_EMAIL_VALIDO}</arg>
+<arg>aluno.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:03.523510" elapsed="0.000442"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:03.524393" level="INFO">${ALUNO_CPF_VALIDO} = 77348261732</msg>
+<arg>${ALUNO_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:03.524044" elapsed="0.000380"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:03.524736" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T14:50:03.524620" elapsed="1.229503"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T14:50:04.754329" elapsed="0.026600"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2026-10-22T14:50:04.781370" elapsed="0.002693"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:03.521320" elapsed="1.262842"/>
+</kw>
+<kw name="Fazer login como administrador" owner="cadastro_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T14:50:04.784797" elapsed="0.016026"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:04.801281" level="INFO">Typing text 'admin@ash.com' into text field 'id=usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO_ADMIN}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:04.801026" elapsed="0.065128"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:04.866749" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:50:04.885445" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA_ADMIN}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:04.866418" elapsed="0.052843"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:04.919720" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:04.919492" elapsed="0.043417"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Administração</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:04.963168" elapsed="0.607550"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:04.784504" elapsed="0.786323"/>
+</kw>
+<kw name="Acessar cadastro de coordenadores" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:05.571612" level="INFO">Clicking element 'id=coordenadores'.</msg>
+<arg>${MENU_COORDENADORES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:05.571426" elapsed="0.178245"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Coordenadores</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:05.749872" elapsed="0.014832"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:05.765175" level="INFO">Clicking element 'xpath=//a[@href='html/coordenador_novo.html']'.</msg>
+<arg>${BOTAO_CADASTRAR_COORD}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:05.764920" elapsed="0.126490"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Adicionar Coordenador</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:05.891612" elapsed="0.007551"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Engenharia</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:05.899354" elapsed="0.211484"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:05.571149" elapsed="0.539816"/>
+</kw>
+<kw name="Preencher coordenador válido" owner="cadastro_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:06.111752" level="INFO">Typing text 'Coordenador Teste Robot' into text field 'id=nome'.</msg>
+<arg>${COORD_NOME}</arg>
+<arg>${COORD_NOME_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.111556" elapsed="0.047732"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:06.159874" level="INFO">Typing text 'coord.robot.d6f76abe1f524e00b294654155859379@ash.com' into text field 'id=email'.</msg>
+<arg>${COORD_EMAIL}</arg>
+<arg>${COORD_EMAIL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.159510" elapsed="0.055912"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:06.215875" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:50:06.231893" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${COORD_SENHA}</arg>
+<arg>${COORD_SENHA_VALIDA}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.215604" elapsed="0.039880"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:06.255890" level="INFO">Typing text '77348261732' into text field 'id=cpf'.</msg>
+<arg>${COORD_CPF}</arg>
+<arg>${COORD_CPF_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.255665" elapsed="0.043372"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:06.299567" level="INFO">Typing text '41999998888' into text field 'id=celular'.</msg>
+<arg>${COORD_CELULAR}</arg>
+<arg>${COORD_CELULAR_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.299281" elapsed="0.042445"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:06.342285" level="INFO">Typing text '4133334444' into text field 'id=telefone'.</msg>
+<arg>${COORD_TELEFONE}</arg>
+<arg>${COORD_TEL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.341966" elapsed="0.045954"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:06.388474" level="INFO">Selecting options from selection list 'id=curso_id' by index 1.</msg>
+<arg>${COORD_CURSO}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.388152" elapsed="0.049299"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:06.111287" elapsed="0.326294"/>
+</kw>
+<kw name="Salvar coordenador" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:06.438369" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_SALVAR_COORD}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.438183" elapsed="0.031342"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:06.437892" elapsed="0.031800"/>
+</kw>
+<kw name="Validar alerta contendo" owner="cadastro_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:06.470553" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-22T14:50:06.975861" level="INFO">${mensagem} = SUCESSO: Registro inserido com sucesso.</msg>
+<var>${mensagem}</var>
+<arg>action=ACCEPT</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.470367" elapsed="0.505538"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${mensagem.lower()}</arg>
+<arg>${texto_esperado.lower()}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.976109" elapsed="0.000872"/>
+</kw>
+<arg>sucesso</arg>
+<status status="PASS" start="2026-10-22T14:50:06.470060" elapsed="0.507024"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath=//a[@href='html/coordenador_novo.html']</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T14:50:06.977348" elapsed="0.104607"/>
+</kw>
+<kw name="Fechar o navegador" owner="cadastro_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:07.180832" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-11.png"&gt;&lt;img src="selenium-screenshot-11.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T14:50:07.082649" elapsed="0.098283"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T14:50:07.181104" elapsed="2.111506"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:07.082366" elapsed="2.210375"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:03.520954" elapsed="5.771951"/>
+</test>
+<test id="s1-t4" name="CT23 - Cadastrar estudante com email já utilizado" line="41">
+<kw name="Abrir o navegador" owner="cadastro_resources" type="SETUP">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:50:09.294364" level="INFO">${ID_UNICO} = 53c4c84fe6244acd9d8518d03bb11185</msg>
+<var>${ID_UNICO}</var>
+<arg>uuid.uuid4().hex</arg>
+<arg>modules=uuid</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:50:09.294011" elapsed="0.000379"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:50:09.294766" level="INFO">${CPF_UNICO} = 16833420512</msg>
+<var>${CPF_UNICO}</var>
+<arg>random.randint(10000000000, 99999999999)</arg>
+<arg>modules=random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:50:09.294494" elapsed="0.000295"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:09.295340" level="INFO">${COORD_EMAIL_VALIDO} = coord.robot.53c4c84fe6244acd9d8518d03bb11185@ash.com</msg>
+<arg>${COORD_EMAIL_VALIDO}</arg>
+<arg>coord.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:09.294891" elapsed="0.000484"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:09.295837" level="INFO">${COORD_CPF_VALIDO} = 16833420512</msg>
+<arg>${COORD_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:09.295472" elapsed="0.000399"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:09.296381" level="INFO">${ALUNO_EMAIL_VALIDO} = aluno.robot.53c4c84fe6244acd9d8518d03bb11185@ash.com</msg>
+<arg>${ALUNO_EMAIL_VALIDO}</arg>
+<arg>aluno.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:09.295964" elapsed="0.000451"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:09.296880" level="INFO">${ALUNO_CPF_VALIDO} = 16833420512</msg>
+<arg>${ALUNO_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:09.296508" elapsed="0.000404"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:09.297225" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T14:50:09.297102" elapsed="1.171718"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T14:50:10.469084" elapsed="0.021566"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2026-10-22T14:50:10.490833" elapsed="0.000778"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:09.293761" elapsed="1.197925"/>
+</kw>
+<kw name="Fazer login como administrador" owner="cadastro_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T14:50:10.492313" elapsed="0.014555"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:10.507314" level="INFO">Typing text 'admin@ash.com' into text field 'id=usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO_ADMIN}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:10.507066" elapsed="0.061195"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:10.568878" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:50:10.590754" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA_ADMIN}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:10.568505" elapsed="0.050582"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:10.619491" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:10.619278" elapsed="0.041432"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Administração</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:10.661294" elapsed="0.404373"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:10.492030" elapsed="0.573746"/>
+</kw>
+<kw name="Acessar cadastro de estudantes" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.066665" level="INFO">Clicking element 'id=estudantes'.</msg>
+<arg>${MENU_ESTUDANTES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.066388" elapsed="0.161559"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Estudantes</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.228231" elapsed="0.029879"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.258603" level="INFO">Clicking element 'xpath=//a[@href='html/estudante_novo.html']'.</msg>
+<arg>${BOTAO_NOVO_ESTUDANTE}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.258330" elapsed="0.129716"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Adicionar Estudante</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.388347" elapsed="0.011435"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Engenharia</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.400057" elapsed="0.006781"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:11.066099" elapsed="0.340891"/>
+</kw>
+<kw name="Preencher estudante válido" owner="cadastro_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.407867" level="INFO">Typing text 'Estudante Teste Robot' into text field 'id=nome'.</msg>
+<arg>${ALUNO_NOME}</arg>
+<arg>${ALUNO_NOME_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.407644" elapsed="0.062794"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.471052" level="INFO">Typing text 'aluno.robot.53c4c84fe6244acd9d8518d03bb11185@ash.com' into text field 'id=email'.</msg>
+<arg>${ALUNO_EMAIL}</arg>
+<arg>${ALUNO_EMAIL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.470708" elapsed="0.068881"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.540191" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:50:11.557909" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${ALUNO_SENHA}</arg>
+<arg>${ALUNO_SENHA_VALIDA}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.539833" elapsed="0.043349"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.583629" level="INFO">Typing text '16833420512' into text field 'id=cpf'.</msg>
+<arg>${ALUNO_CPF}</arg>
+<arg>${ALUNO_CPF_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.583379" elapsed="0.044953"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.628972" level="INFO">Typing text '41988887777' into text field 'id=celular'.</msg>
+<arg>${ALUNO_CELULAR}</arg>
+<arg>${ALUNO_CELULAR_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.628606" elapsed="0.043385"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.672554" level="INFO">Typing text '4133335555' into text field 'id=telefone'.</msg>
+<arg>${ALUNO_TELEFONE}</arg>
+<arg>${ALUNO_TEL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.672241" elapsed="0.043816"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.716580" level="INFO">Selecting options from selection list 'id=turma_id' by index 1.</msg>
+<arg>${ALUNO_TURMA}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.716285" elapsed="0.050366"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:11.407321" elapsed="0.359443"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${ALUNO_EMAIL}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.767019" elapsed="0.018966"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.786884" level="INFO">Typing text 'estudante1@ash.com' into text field 'id=email'.</msg>
+<arg>${ALUNO_EMAIL}</arg>
+<arg>${ALUNO_EMAIL_DUPLICADO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.786374" elapsed="0.046541"/>
+</kw>
+<kw name="Salvar estudante" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.833938" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_SALVAR_ALUNO}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:11.833684" elapsed="0.033531"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:11.833296" elapsed="0.034072"/>
+</kw>
+<kw name="Validar erro de e-mail duplicado">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:11.868353" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-22T14:50:22.022110" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-12.png"&gt;&lt;img src="selenium-screenshot-12.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-10-22T14:50:22.022273" level="FAIL">Alert not found in 10 seconds.</msg>
+<var>${mensagem}</var>
+<arg>action=ACCEPT</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="FAIL" start="2026-10-22T14:50:11.868101" elapsed="10.168932">Alert not found in 10 seconds.</status>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${mensagem.lower()}</arg>
+<arg>erro</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="NOT RUN" start="2026-10-22T14:50:22.037250" elapsed="0.000031"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${mensagem.lower()}</arg>
+<arg>falha ao inserir usuario</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="NOT RUN" start="2026-10-22T14:50:22.037416" elapsed="0.000021"/>
+</kw>
+<status status="FAIL" start="2026-10-22T14:50:11.867760" elapsed="10.169781">Alert not found in 10 seconds.</status>
+</kw>
+<kw name="Fechar o navegador" owner="cadastro_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:22.106255" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-13.png"&gt;&lt;img src="selenium-screenshot-13.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T14:50:22.038276" elapsed="0.068094"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T14:50:22.106556" elapsed="2.119440"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:22.037986" elapsed="2.188277"/>
+</kw>
+<status status="FAIL" start="2026-10-22T14:50:09.293393" elapsed="14.933293">Alert not found in 10 seconds.</status>
+</test>
+<test id="s1-t5" name="CT24 - Cadastrar estudante com dados válidos" line="51">
+<kw name="Abrir o navegador" owner="cadastro_resources" type="SETUP">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:50:24.228500" level="INFO">${ID_UNICO} = cd24f7c74213433383bfade41a220d31</msg>
+<var>${ID_UNICO}</var>
+<arg>uuid.uuid4().hex</arg>
+<arg>modules=uuid</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:50:24.228090" elapsed="0.000442"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-22T14:50:24.228921" level="INFO">${CPF_UNICO} = 91620365213</msg>
+<var>${CPF_UNICO}</var>
+<arg>random.randint(10000000000, 99999999999)</arg>
+<arg>modules=random</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-22T14:50:24.228652" elapsed="0.000301"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:24.229502" level="INFO">${COORD_EMAIL_VALIDO} = coord.robot.cd24f7c74213433383bfade41a220d31@ash.com</msg>
+<arg>${COORD_EMAIL_VALIDO}</arg>
+<arg>coord.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:24.229057" elapsed="0.000481"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:24.230005" level="INFO">${COORD_CPF_VALIDO} = 91620365213</msg>
+<arg>${COORD_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:24.229642" elapsed="0.000396"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:24.230541" level="INFO">${ALUNO_EMAIL_VALIDO} = aluno.robot.cd24f7c74213433383bfade41a220d31@ash.com</msg>
+<arg>${ALUNO_EMAIL_VALIDO}</arg>
+<arg>aluno.robot.${ID_UNICO}@ash.com</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:24.230132" elapsed="0.000441"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-10-22T14:50:24.231067" level="INFO">${ALUNO_CPF_VALIDO} = 91620365213</msg>
+<arg>${ALUNO_CPF_VALIDO}</arg>
+<arg>${CPF_UNICO}</arg>
+<doc>Makes the variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-10-22T14:50:24.230664" elapsed="0.000445"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:24.231441" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T14:50:24.231311" elapsed="1.175180"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T14:50:25.406808" elapsed="0.024688"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2026-10-22T14:50:25.431699" elapsed="0.000768"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:24.227830" elapsed="1.204708"/>
+</kw>
+<kw name="Fazer login como administrador" owner="cadastro_resources">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T14:50:25.433217" elapsed="0.013027"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:25.446753" level="INFO">Typing text 'admin@ash.com' into text field 'id=usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO_ADMIN}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:25.446474" elapsed="0.085317"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:25.532997" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:50:25.573484" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA_ADMIN}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:25.532252" elapsed="0.067569"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:25.600214" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:25.600009" elapsed="0.039425"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Painel de Administração</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:25.639678" elapsed="0.322567"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:25.432868" elapsed="0.529618"/>
+</kw>
+<kw name="Acessar cadastro de estudantes" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:25.963591" level="INFO">Clicking element 'id=estudantes'.</msg>
+<arg>${MENU_ESTUDANTES}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:25.963340" elapsed="0.160937"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Estudantes</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.124473" elapsed="0.033639"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.158578" level="INFO">Clicking element 'xpath=//a[@href='html/estudante_novo.html']'.</msg>
+<arg>${BOTAO_NOVO_ESTUDANTE}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.158325" elapsed="0.133269"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Adicionar Estudante</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.291786" elapsed="0.007970"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Engenharia</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.299932" elapsed="0.212431"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:25.962946" elapsed="0.549554"/>
+</kw>
+<kw name="Preencher estudante válido" owner="cadastro_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.513437" level="INFO">Typing text 'Estudante Teste Robot' into text field 'id=nome'.</msg>
+<arg>${ALUNO_NOME}</arg>
+<arg>${ALUNO_NOME_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.513178" elapsed="0.049448"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.563214" level="INFO">Typing text 'aluno.robot.cd24f7c74213433383bfade41a220d31@ash.com' into text field 'id=email'.</msg>
+<arg>${ALUNO_EMAIL}</arg>
+<arg>${ALUNO_EMAIL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.562881" elapsed="0.056384"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.619856" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-10-22T14:50:26.636209" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${ALUNO_SENHA}</arg>
+<arg>${ALUNO_SENHA_VALIDA}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.619535" elapsed="0.040164"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.660192" level="INFO">Typing text '91620365213' into text field 'id=cpf'.</msg>
+<arg>${ALUNO_CPF}</arg>
+<arg>${ALUNO_CPF_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.659889" elapsed="0.044072"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.704534" level="INFO">Typing text '41988887777' into text field 'id=celular'.</msg>
+<arg>${ALUNO_CELULAR}</arg>
+<arg>${ALUNO_CELULAR_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.704211" elapsed="0.046540"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.751336" level="INFO">Typing text '4133335555' into text field 'id=telefone'.</msg>
+<arg>${ALUNO_TELEFONE}</arg>
+<arg>${ALUNO_TEL_VALIDO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.750998" elapsed="0.044514"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.796057" level="INFO">Selecting options from selection list 'id=turma_id' by index 1.</msg>
+<arg>${ALUNO_TURMA}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.795746" elapsed="0.049750"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:26.512843" elapsed="0.332764"/>
+</kw>
+<kw name="Salvar estudante" owner="cadastro_resources">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.846386" level="INFO">Clicking element 'id=enviar'.</msg>
+<arg>${BOTAO_SALVAR_ALUNO}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.846200" elapsed="0.034051"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:26.845905" elapsed="0.034484"/>
+</kw>
+<kw name="Validar alerta contendo" owner="cadastro_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:26.881288" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-22T14:50:27.393414" level="INFO">${mensagem} = SUCESSO: Registro inserido com sucesso.</msg>
+<var>${mensagem}</var>
+<arg>action=ACCEPT</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-22T14:50:26.881098" elapsed="0.512380"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${mensagem.lower()}</arg>
+<arg>${texto_esperado.lower()}</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-22T14:50:27.393684" elapsed="0.000445"/>
+</kw>
+<arg>sucesso</arg>
+<status status="PASS" start="2026-10-22T14:50:26.880722" elapsed="0.513497"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath=//a[@href='html/estudante_novo.html']</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T14:50:27.394460" elapsed="0.100976"/>
+</kw>
+<kw name="Fechar o navegador" owner="cadastro_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T14:50:27.609138" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-14.png"&gt;&lt;img src="selenium-screenshot-14.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T14:50:27.496266" elapsed="0.112967"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T14:50:27.609371" elapsed="2.100489"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:27.495909" elapsed="2.214099"/>
+</kw>
+<status status="PASS" start="2026-10-22T14:50:24.227357" elapsed="5.482840"/>
+</test>
+<status status="FAIL" start="2026-10-22T14:49:53.665069" elapsed="36.045923"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Cadastro Tests" id="s1" pass="4" fail="1" skip="0">Cadastro Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
