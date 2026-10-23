@@ -50,6 +50,12 @@ ${BOTAO_EXCLUIR_CAT}       xpath=(//button[contains(text(), 'Excluir')])[last()]
 ${CONFIRM_EXCLUSAO_CAT}    Tem certeza que deseja excluir esta categoria?
 ${ALERT_EXCLUSAO_CAT}      Categoria excluída com sucesso.
 
+# ct 33 turmas coordenador
+${BOTAO_TURMAS}            turmas
+${FILTRO_TURMA}            filtro_nome
+${PRIMEIRA_TURMA}          xpath=(//div[@id='lista']//button)[1]
+${MODAL_TURMA}             turma_modal
+
 *** Keywords ***
 # geral
 Abrir o navegador
@@ -180,3 +186,24 @@ Validar exclusao da categoria
     ${alerta}=       Handle Alert    ACCEPT    timeout=10s
     Should Contain    ${alerta}    ${ALERT_EXCLUSAO_CAT}
     Wait Until Page Contains    Categorias da Versão
+
+# parte do ct 33
+Acessar turmas do coordenador
+    Wait Until Element Is Visible    ${BOTAO_TURMAS}    timeout=10s
+    Click Element    ${BOTAO_TURMAS}
+    Wait Until Page Contains    Selecione uma turma para ver os alunos    timeout=10s
+
+Filtrar por nome da turma
+    [Arguments]    ${nome}=A-M
+    Wait Until Element Is Visible    ${FILTRO_TURMA}    timeout=10s
+    Input Text       ${FILTRO_TURMA}    ${nome}
+    Sleep    1s
+
+Abrir modal da turma
+    Wait Until Element Is Visible    ${PRIMEIRA_TURMA}    timeout=10s
+    Click Element    ${PRIMEIRA_TURMA}
+    Wait Until Element Is Visible    ${MODAL_TURMA}    timeout=10s
+
+Validar alunos da turma carregados
+    Wait Until Page Contains    Alunos completos    timeout=10s
+    Page Should Contain    Matrícula

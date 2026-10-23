@@ -37,3 +37,11 @@ CT32 - Excluir categoria
     Criar categoria temporaria
     Excluir categoria
     Validar exclusao da categoria
+
+# Parte do CT 33
+CT33 - Visualizar alunos de uma turma
+    Fazer login como coordenador
+    Acessar turmas do coordenador
+    Filtrar por nome da turma    A-M
+    Abrir modal da turma
+    Validar alunos da turma carregados
