@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5 (Python 3.15.1 on win32)" generated="2026-10-22T21:27:55.177004" rpa="false" schemaversion="5">
+<suite id="s1" name="Israel Testes" source="C:\xampp\htdocs\Academic\experiments\robotTestes\Israel\israel_testes.robot">
+<test id="s1-t1" name="CT-1 Verificar se os campos Usuario e Senha sao preenchiveis" line="8">
+<kw name="Abrir o navegador" owner="israel_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:27:55.480154" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/Academic/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T21:27:55.479923" elapsed="8.563947"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.044200" elapsed="0.031698"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:27:55.479108" elapsed="8.596935"/>
+</kw>
+<kw name="Element Should Be Enabled" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Verifies that element identified by ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.076345" elapsed="0.015722"/>
+</kw>
+<kw name="Element Should Be Enabled" owner="SeleniumLibrary">
+<arg>${CAMPO_SENHA}</arg>
+<doc>Verifies that element identified by ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.092371" elapsed="0.010694"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:04.103646" level="INFO">Typing text 'estudante1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.103377" elapsed="0.047561"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:04.151549" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.151268" elapsed="0.036396"/>
+</kw>
+<kw name="Get Value" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:04.194697" level="INFO">${usuario_preenchido} = estudante1@ash.com</msg>
+<var>${usuario_preenchido}</var>
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.187982" elapsed="0.006765"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${usuario_preenchido}</arg>
+<arg>${USUARIO}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.195018" elapsed="0.000395"/>
+</kw>
+<kw name="Get Value" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:04.201848" level="INFO">${senha_preenchida} = 1234</msg>
+<var>${senha_preenchida}</var>
+<arg>${CAMPO_SENHA}</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.195677" elapsed="0.006212"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${senha_preenchida}</arg>
+<arg>${SENHA}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.202117" elapsed="0.000361"/>
+</kw>
+<kw name="Fechar o navegador" owner="israel_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:04.308574" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.203240" elapsed="0.105488"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T21:28:04.308938" elapsed="2.234058"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:04.202936" elapsed="2.340201"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:27:55.478385" elapsed="11.064929"/>
+</test>
+<test id="s1-t2" name="CT-2 Efetuar login com campos vazios" line="24">
+<kw name="Abrir o navegador" owner="israel_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:06.544746" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/Academic/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T21:28:06.544563" elapsed="5.975462"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T21:28:12.520239" elapsed="0.029928"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:06.544209" elapsed="6.006071"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:12.550559" elapsed="0.022541"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${CAMPO_SENHA}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:12.573380" elapsed="0.015681"/>
+</kw>
+<kw name="Get Value" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:12.596867" level="INFO">${usuario_inicial} = </msg>
+<var>${usuario_inicial}</var>
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:12.589336" elapsed="0.007592"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${usuario_inicial}</arg>
+<arg>${EMPTY}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-22T21:28:12.597277" elapsed="0.000399"/>
+</kw>
+<kw name="Get Value" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:12.605034" level="INFO">${senha_inicial} = </msg>
+<var>${senha_inicial}</var>
+<arg>${CAMPO_SENHA}</arg>
+<doc>Returns the value attribute of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:12.597884" elapsed="0.007201"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${senha_inicial}</arg>
+<arg>${EMPTY}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-22T21:28:12.605375" elapsed="0.000364"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:12.606156" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:12.605955" elapsed="0.031550"/>
+</kw>
+<kw name="Verificar se nao foi logado" owner="israel_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:12.638561" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-22T21:28:13.144412" level="INFO">${alerta} = ERRO: Credenciais invalidas.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-22T21:28:12.638201" elapsed="0.506259"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_EMPTY}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-22T21:28:13.144633" elapsed="0.000324"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:13.249629" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T21:28:13.145132" elapsed="0.104610"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:13.253932" level="INFO">Current page contains element 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-22T21:28:13.249922" elapsed="0.004081"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:13.257828" level="INFO">Current page contains element 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-22T21:28:13.254164" elapsed="0.003731"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:13.260621" level="INFO">${url_atual} = http://localhost/Academic/ash/z_login/</msg>
+<var>${url_atual}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-10-22T21:28:13.258029" elapsed="0.002626"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${url_atual}</arg>
+<arg>/z_login/</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-22T21:28:13.260787" elapsed="0.000424"/>
+</kw>
+<kw name="Page Should Not Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:13.265888" level="INFO">Current page does not contain element 'solicitacoes'.</msg>
+<arg>${BOTAO_SOLICITACOES}</arg>
+<doc>Verifies that element ``locator`` is not found on the current page.</doc>
+<status status="PASS" start="2026-10-22T21:28:13.261322" elapsed="0.004626"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:12.637893" elapsed="0.628126"/>
+</kw>
+<kw name="Fechar o navegador" owner="israel_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:13.358864" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T21:28:13.266877" elapsed="0.092099"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T21:28:13.359135" elapsed="2.071951"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:13.266610" elapsed="2.164600"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:06.543819" elapsed="8.887588"/>
+</test>
+<test id="s1-t3" name="CT-3 Testar botao &quot;Voltar para a página inicial&quot;" line="40">
+<kw name="Abrir o navegador" owner="israel_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:15.432856" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/Academic/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T21:28:15.432691" elapsed="4.791157"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T21:28:20.224115" elapsed="0.028931"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:15.432342" elapsed="4.820826"/>
+</kw>
+<kw name="Click Link" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:20.253734" level="INFO">Clicking link '← Voltar para a página inicial'.</msg>
+<arg>← Voltar para a página inicial</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:20.253474" elapsed="1.126098"/>
+</kw>
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>index.html</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-10-22T21:28:21.379917" elapsed="0.002749"/>
+</kw>
+<kw name="Fechar o navegador" owner="israel_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:21.658483" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T21:28:21.383384" elapsed="0.275206"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T21:28:21.658749" elapsed="2.077993"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:21.383061" elapsed="2.353808"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:15.431929" elapsed="8.305117"/>
+</test>
+<test id="s1-t4" name="CT-4 Efetuar login como estudante com credenciais válidas" line="45">
+<kw name="Abrir o navegador" owner="israel_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:23.738393" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/Academic/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T21:28:23.738229" elapsed="5.017717"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T21:28:28.756214" elapsed="0.018412"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:23.737882" elapsed="5.036909"/>
+</kw>
+<kw name="Fazer login como estudante" owner="israel_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:28.775830" level="INFO">Typing text 'estudante1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:28.775583" elapsed="0.052450"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:28.828544" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:28.828263" elapsed="0.034692"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:28.863418" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:28.863168" elapsed="0.031964"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T21:28:28.895374" elapsed="1.443489"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:28.775274" elapsed="1.563710"/>
+</kw>
+<kw name="Fechar o navegador" owner="israel_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:30.659458" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T21:28:30.339666" elapsed="0.319902"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T21:28:30.659760" elapsed="2.168728"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:30.339363" elapsed="2.489260"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:23.737510" elapsed="9.091305"/>
+</test>
+<test id="s1-t5" name="CT-5 Realizar logout como estudante" line="48">
+<kw name="Abrir o navegador" owner="israel_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:32.830151" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/Academic/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T21:28:32.829982" elapsed="4.923024"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T21:28:37.753286" elapsed="0.031750"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:32.829638" elapsed="4.955522"/>
+</kw>
+<kw name="Fazer login como estudante" owner="israel_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:37.786027" level="INFO">Typing text 'estudante1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:37.785780" elapsed="0.052240"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:37.838561" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:37.838271" elapsed="0.034651"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:37.873440" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:37.873141" elapsed="0.032088"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${BOTAO_SOLICITACOES}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T21:28:37.905445" elapsed="0.748723"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:37.785486" elapsed="0.868800"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:38.654798" level="INFO">Clicking element 'id=logoff'.</msg>
+<arg>id=logoff</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:38.654561" elapsed="0.048899"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-22T21:28:38.703761" elapsed="0.212324"/>
+</kw>
+<kw name="Fechar o navegador" owner="israel_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:39.007552" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T21:28:38.916775" elapsed="0.090905"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T21:28:39.007844" elapsed="2.092431"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:38.916479" elapsed="2.183937"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:32.829257" elapsed="8.271349"/>
+</test>
+<test id="s1-t6" name="CT-6 Efetuar login com usuário INATIVO" line="53">
+<kw name="Abrir o navegador" owner="israel_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:41.101942" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/Academic/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-22T21:28:41.101774" elapsed="7.445472"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-22T21:28:48.547438" elapsed="0.032652"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:41.101438" elapsed="7.478764"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:48.580763" level="INFO">Typing text 'prof6@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${USUARIO_INATIVO}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:48.580485" elapsed="0.051449"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:48.632562" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${SENHA_INATIVA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:48.632278" elapsed="0.035788"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:48.668711" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-22T21:28:48.668448" elapsed="0.032898"/>
+</kw>
+<kw name="Verificar se inativo" owner="israel_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:48.702282" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-22T21:28:49.206514" level="INFO">${alerta} = ERRO: Esse usuário não está mais ativo no sistema.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-22T21:28:48.702084" elapsed="0.504481"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_INATIVO}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-22T21:28:49.206741" elapsed="0.000331"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:49.305863" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T21:28:49.207210" elapsed="0.098783"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:49.310117" level="INFO">Current page contains element 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-22T21:28:49.306215" elapsed="0.003962"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:49.314327" level="INFO">Current page contains element 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-22T21:28:49.310312" elapsed="0.004077"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:49.317086" level="INFO">${url_atual} = http://localhost/Academic/ash/z_login/</msg>
+<var>${url_atual}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-10-22T21:28:49.314505" elapsed="0.002641"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${url_atual}</arg>
+<arg>/z_login/</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-22T21:28:49.317275" elapsed="0.000303"/>
+</kw>
+<kw name="Page Should Not Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:49.322110" level="INFO">Current page does not contain element 'solicitacoes'.</msg>
+<arg>${BOTAO_SOLICITACOES}</arg>
+<doc>Verifies that element ``locator`` is not found on the current page.</doc>
+<status status="PASS" start="2026-10-22T21:28:49.317684" elapsed="0.004482"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:48.701788" elapsed="0.620448"/>
+</kw>
+<kw name="Fechar o navegador" owner="israel_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-22T21:28:49.427121" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-8.png"&gt;&lt;img src="selenium-screenshot-8.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-22T21:28:49.322795" elapsed="0.104438"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-22T21:28:49.427392" elapsed="2.222643"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:49.322529" elapsed="2.327638"/>
+</kw>
+<status status="PASS" start="2026-10-22T21:28:41.101050" elapsed="10.549302"/>
+</test>
+<status status="PASS" start="2026-10-22T21:27:55.178634" elapsed="56.472349"/>
+</suite>
+<statistics>
+<total>
+<stat pass="6" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Israel Testes" id="s1" pass="6" fail="0" skip="0">Israel Testes</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
