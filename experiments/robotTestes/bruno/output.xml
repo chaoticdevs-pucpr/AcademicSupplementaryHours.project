@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5 (Python 3.14.2 on win32)" generated="2026-10-23T21:20:25.310355" rpa="false" schemaversion="5">
+<suite id="s1" name="Login Novos Testes" source="C:\Users\bruno\Downloads\testesRA3\login_novos_testes.robot">
+<test id="s1-t1" name="CT-1 Efetuar login com senha incorreta" line="7">
+<kw name="Abrir navegador na tela de login" owner="login_novos_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:25.746994" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T21:20:25.746744" elapsed="1.055170"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T21:20:26.802235" elapsed="0.042358"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:25.745979" elapsed="1.098781"/>
+</kw>
+<kw name="Fazer login com" owner="login_novos_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:26.870138" level="INFO">Typing text 'estudante1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${usuario}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:26.869318" elapsed="0.119369"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:26.989494" level="INFO">Typing text 'senhaErrada123' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${senha}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:26.989007" elapsed="0.215734"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:27.205233" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:27.204957" elapsed="0.040897"/>
+</kw>
+<arg>${EMAIL_ESTUDANTE}</arg>
+<arg>${SENHA_ERRADA}</arg>
+<status status="PASS" start="2026-10-23T21:20:26.868829" elapsed="0.377171"/>
+</kw>
+<kw name="Verificar login recusado" owner="login_novos_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:27.251988" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-23T21:20:27.758778" level="INFO">${alerta} = ERRO: Credenciais invalidas.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-23T21:20:27.251706" elapsed="0.507120"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_CREDENCIAIS}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T21:20:27.758994" elapsed="0.000420"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:27.764279" level="INFO">Current page contains element 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-23T21:20:27.759567" elapsed="0.004801"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:27.769101" level="INFO">Current page contains element 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-23T21:20:27.764522" elapsed="0.004695"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:27.773057" level="INFO">${url_atual} = http://localhost/AcademicSupplementaryHours.project/ash/z_login/</msg>
+<var>${url_atual}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-10-23T21:20:27.769395" elapsed="0.003708"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${url_atual}</arg>
+<arg>/z_login/</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-23T21:20:27.773267" elapsed="0.000430"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:27.251382" elapsed="0.522388"/>
+</kw>
+<kw name="Fechar navegador com evidencia" owner="login_novos_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:27.951314" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T21:20:27.775068" elapsed="0.176409"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T21:20:27.951762" elapsed="4.386921"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:27.774782" elapsed="4.564064"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:25.745154" elapsed="6.594481"/>
+</test>
+<test id="s1-t2" name="CT-2 Efetuar login com usuario inexistente" line="11">
+<kw name="Abrir navegador na tela de login" owner="login_novos_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:32.343708" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T21:20:32.343440" elapsed="3.565464"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T21:20:35.909152" elapsed="0.063263"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:32.342947" elapsed="3.629653"/>
+</kw>
+<kw name="Fazer login com" owner="login_novos_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:35.974812" level="INFO">Typing text 'naoexiste@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${usuario}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:35.974365" elapsed="0.213713"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:36.188806" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${senha}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.188367" elapsed="0.066888"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:36.255953" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.255583" elapsed="0.266901"/>
+</kw>
+<arg>${EMAIL_INEXISTENTE}</arg>
+<arg>${SENHA_VALIDA}</arg>
+<status status="PASS" start="2026-10-23T21:20:35.973677" elapsed="0.549003"/>
+</kw>
+<kw name="Verificar login recusado" owner="login_novos_resources">
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:36.534442" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<msg time="2026-10-23T21:20:36.574262" level="INFO">${alerta} = ERRO: Credenciais invalidas.</msg>
+<var>${alerta}</var>
+<arg>ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.534107" elapsed="0.040233"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${alerta}</arg>
+<arg>${ALERT_CREDENCIAIS}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.574647" elapsed="0.000522"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:36.584320" level="INFO">Current page contains element 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.575364" elapsed="0.009086"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:36.592199" level="INFO">Current page contains element 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.584697" elapsed="0.007638"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:36.597992" level="INFO">${url_atual} = http://localhost/AcademicSupplementaryHours.project/ash/z_login/</msg>
+<var>${url_atual}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.592557" elapsed="0.005494"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${url_atual}</arg>
+<arg>/z_login/</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.598386" elapsed="0.000495"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:36.533531" elapsed="0.065462"/>
+</kw>
+<kw name="Fechar navegador com evidencia" owner="login_novos_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:36.828078" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.600490" elapsed="0.227730"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T21:20:36.828436" elapsed="2.502751"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:36.599982" elapsed="2.731330"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:32.342378" elapsed="6.989633"/>
+</test>
+<test id="s1-t3" name="CT-3 Efetuar login como professor com credenciais validas" line="15">
+<kw name="Abrir navegador na tela de login" owner="login_novos_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:39.333633" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T21:20:39.333446" elapsed="1.507749"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T21:20:40.841583" elapsed="0.033333"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:39.333103" elapsed="1.541961"/>
+</kw>
+<kw name="Fazer login com" owner="login_novos_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:40.903320" level="INFO">Typing text 'prof1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${usuario}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:40.902932" elapsed="0.126284"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:41.029986" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${senha}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:41.029532" elapsed="0.078961"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:41.109295" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:41.108809" elapsed="0.049334"/>
+</kw>
+<arg>${EMAIL_PROFESSOR}</arg>
+<arg>${SENHA_VALIDA}</arg>
+<status status="PASS" start="2026-10-23T21:20:40.902319" elapsed="0.255995"/>
+</kw>
+<kw name="Verificar login realizado com sucesso" owner="login_novos_resources">
+<kw name="Wait Until Page Does Not Contain Element" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` disappears from the current page.</doc>
+<status status="PASS" start="2026-10-23T21:20:41.311406" elapsed="0.351243"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:41.668322" level="INFO">${url_atual} = http://localhost/AcademicSupplementaryHours.project/ash/pages/professor/index.html</msg>
+<var>${url_atual}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-10-23T21:20:41.662901" elapsed="0.005491"/>
+</kw>
+<kw name="Should Not Contain" owner="BuiltIn">
+<arg>${url_atual}</arg>
+<arg>/z_login/</arg>
+<doc>Fails if the `container` contains the `item`.</doc>
+<status status="PASS" start="2026-10-23T21:20:41.668658" elapsed="0.000617"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:41.310973" elapsed="0.358450"/>
+</kw>
+<kw name="Fechar navegador com evidencia" owner="login_novos_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:41.863428" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T21:20:41.676780" elapsed="0.186800"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T21:20:41.863818" elapsed="4.073737"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:41.676165" elapsed="4.261519"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:39.332719" elapsed="6.606786"/>
+</test>
+<test id="s1-t4" name="CT-4 Efetuar login como coordenador com credenciais validas" line="19">
+<kw name="Abrir navegador na tela de login" owner="login_novos_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:45.975482" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T21:20:45.975308" elapsed="1.037532"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T21:20:47.013172" elapsed="0.035607"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:45.974966" elapsed="1.073995"/>
+</kw>
+<kw name="Fazer login com" owner="login_novos_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:47.080544" level="INFO">Typing text 'coord1@ash.com' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${usuario}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:47.080165" elapsed="0.185038"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:47.265921" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${senha}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:47.265521" elapsed="0.065865"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:47.332111" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:47.331753" elapsed="0.045406"/>
+</kw>
+<arg>${EMAIL_COORDENADOR}</arg>
+<arg>${SENHA_VALIDA}</arg>
+<status status="PASS" start="2026-10-23T21:20:47.079583" elapsed="0.297779"/>
+</kw>
+<kw name="Verificar login realizado com sucesso" owner="login_novos_resources">
+<kw name="Wait Until Page Does Not Contain Element" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` disappears from the current page.</doc>
+<status status="PASS" start="2026-10-23T21:20:47.380614" elapsed="0.380883"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:47.766628" level="INFO">${url_atual} = http://localhost/AcademicSupplementaryHours.project/ash/pages/coordenador/index.html</msg>
+<var>${url_atual}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-10-23T21:20:47.761764" elapsed="0.004932"/>
+</kw>
+<kw name="Should Not Contain" owner="BuiltIn">
+<arg>${url_atual}</arg>
+<arg>/z_login/</arg>
+<doc>Fails if the `container` contains the `item`.</doc>
+<status status="PASS" start="2026-10-23T21:20:47.766934" elapsed="0.000566"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:47.380149" elapsed="0.387474"/>
+</kw>
+<kw name="Fechar navegador com evidencia" owner="login_novos_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:47.931499" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T21:20:47.820351" elapsed="0.111304"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T21:20:47.931882" elapsed="4.585003"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:47.819843" elapsed="4.697192"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:45.973802" elapsed="6.547178"/>
+</test>
+<test id="s1-t5" name="CT-5 Efetuar login com e-mail em letras maiusculas" line="23">
+<kw name="Abrir navegador na tela de login" owner="login_novos_resources" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:52.527858" level="INFO">Opening browser 'Chrome' to base url 'http://localhost/AcademicSupplementaryHours.project/ash/z_login/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-23T21:20:52.527671" elapsed="1.153543"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-23T21:20:53.681597" elapsed="0.051304"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:52.527307" elapsed="1.205787"/>
+</kw>
+<kw name="Fazer login com" owner="login_novos_resources">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:53.794290" level="INFO">Typing text 'ESTUDANTE1@ASH.COM' into text field 'usuario'.</msg>
+<arg>${CAMPO_USUARIO}</arg>
+<arg>${usuario}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:53.793860" elapsed="0.172232"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:53.966870" level="INFO">Typing text '1234' into text field 'senha'.</msg>
+<arg>${CAMPO_SENHA}</arg>
+<arg>${senha}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:53.966421" elapsed="0.177737"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:54.144996" level="INFO">Clicking element 'enviar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-23T21:20:54.144472" elapsed="0.130544"/>
+</kw>
+<arg>ESTUDANTE1@ASH.COM</arg>
+<arg>${SENHA_VALIDA}</arg>
+<status status="PASS" start="2026-10-23T21:20:53.792974" elapsed="0.482222"/>
+</kw>
+<kw name="Verificar login realizado com sucesso" owner="login_novos_resources">
+<kw name="Wait Until Page Does Not Contain Element" owner="SeleniumLibrary">
+<arg>${CAMPO_USUARIO}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` disappears from the current page.</doc>
+<status status="PASS" start="2026-10-23T21:20:54.318881" elapsed="0.402662"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:54.734009" level="INFO">${url_atual} = http://localhost/AcademicSupplementaryHours.project/ash/pages/estudante/index.html</msg>
+<var>${url_atual}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-10-23T21:20:54.721816" elapsed="0.012278"/>
+</kw>
+<kw name="Should Not Contain" owner="BuiltIn">
+<arg>${url_atual}</arg>
+<arg>/z_login/</arg>
+<doc>Fails if the `container` contains the `item`.</doc>
+<status status="PASS" start="2026-10-23T21:20:54.734405" elapsed="0.000875"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:54.317628" elapsed="0.417819"/>
+</kw>
+<kw name="Fechar navegador com evidencia" owner="login_novos_resources" type="TEARDOWN">
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-10-23T21:20:55.035700" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-10-23T21:20:54.821296" elapsed="0.214587"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-23T21:20:55.036145" elapsed="5.251160"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:54.820698" elapsed="5.466720"/>
+</kw>
+<status status="PASS" start="2026-10-23T21:20:52.526632" elapsed="7.761501"/>
+</test>
+<status status="PASS" start="2026-10-23T21:20:25.311862" elapsed="34.977198"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Login Novos Testes" id="s1" pass="5" fail="0" skip="0">Login Novos Testes</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
