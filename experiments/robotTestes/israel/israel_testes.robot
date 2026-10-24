@@ -1,69 +1,57 @@
 
 *** Settings ***
-Library    SeleniumLibrary
-Library    OperatingSystem
+Resource          israel_resources.robot
+Test Setup        Abrir o navegador
+Test Teardown     Fechar o navegador
 
-*** Variables ***
-# Geral
-${BROWSER}               Chrome
-${URL}                   http://localhost/Academic/ash/z_login/
-${USUARIO}               estudante1@ash.com
-${SENHA}                 1234
-${CAMPO_USUARIO}         usuario
-${CAMPO_SENHA}           senha
-${BOTAO_ENTRAR}          enviar
-${BOTAO_SOLICITACOES}    solicitacoes
-${ALERT_EMPTY}           ERRO: Credenciais invalidas.
-${ALERT_INATIVO}         ERRO: Esse usuário não está mais ativo no sistema.
-${SENHA_INATIVA}         1234
-${USUARIO_INATIVO}       prof6@ash.com
+*** Test Cases ***
+CT-1 Verificar se os campos Usuario e Senha sao preenchiveis
+    # Verificar se ambos os campos estao habilitados.
+    Element Should Be Enabled    ${CAMPO_USUARIO}
+    Element Should Be Enabled    ${CAMPO_SENHA}
 
-*** Keywords ***
-# Geral
-Abrir o navegador
-    Open Browser    ${URL}    ${BROWSER}
-    Maximize Browser Window
+    # Preencher os campos com os dados de teste.
+    Input Text    ${CAMPO_USUARIO}    ${USUARIO}
+    Input Text    ${CAMPO_SENHA}      ${SENHA}
 
-Fechar o navegador
-    Capture Page Screenshot
-    Close Browser
+    # Verificar se os valores foram preenchidos corretamente.
+    ${usuario_preenchido}=    Get Value    ${CAMPO_USUARIO}
+    Should Be Equal As Strings    ${usuario_preenchido}    ${USUARIO}
 
+    ${senha_preenchida}=    Get Value    ${CAMPO_SENHA}
+    Should Be Equal As Strings    ${senha_preenchida}    ${SENHA}
 
-Verificar se nao foi logado
-    # Capturar e aceitar o alerta de erro.
-    ${alerta}=    Handle Alert    ACCEPT    timeout=10s
-    Should Be Equal As Strings    ${alerta}    ${ALERT_EMPTY}
+CT-2 Efetuar login com campos vazios
+    # Garantir que os dois campos estejam vazios.
+    Clear Element Text    ${CAMPO_USUARIO}
+    Clear Element Text    ${CAMPO_SENHA}
 
-    # Confirmar que os campos continuam na pagina.
-    Page Should Contain Element    ${CAMPO_USUARIO}
-    Page Should Contain Element    ${CAMPO_SENHA}
+    # Verificar que os campos realmente estao vazios.
+    ${usuario_inicial}=    Get Value    ${CAMPO_USUARIO}
+    Should Be Equal As Strings    ${usuario_inicial}    ${EMPTY}
 
-    # Confirmar que continua na tela de login.
-    ${url_atual}=    Get Location
-    Should Contain    ${url_atual}    /z_login/
+    ${senha_inicial}=    Get Value    ${CAMPO_SENHA}
+    Should Be Equal As Strings    ${senha_inicial}    ${EMPTY}
 
-    # Confirmar que a area de solicitacoes nao esta presente.
-    Page Should Not Contain Element    ${BOTAO_SOLICITACOES}
-
-Fazer login como estudante
-    Input Text       ${CAMPO_USUARIO}    ${USUARIO}
-    Input Text       ${CAMPO_SENHA}      ${SENHA}
+    # Tentar entrar sem preencher os campos.
     Click Element    ${BOTAO_ENTRAR}
-    Wait Until Element Is Visible    ${BOTAO_SOLICITACOES}    timeout=10s
+    Verificar se nao foi logado
 
-Verificar se inativo
-    # Capturar e aceitar o alerta de erro.
-    ${alerta}=    Handle Alert    ACCEPT    timeout=10s
-    Should Be Equal As Strings    ${alerta}    ${ALERT_INATIVO}
+CT-3 Testar botao "Voltar para a página inicial"
+    Click Link   ← Voltar para a página inicial
+    Wait Until Location Contains    index.html    timeout=10s
 
-    # Confirmar que os campos continuam na pagina.
-    Page Should Contain Element    ${CAMPO_USUARIO}
-    Page Should Contain Element    ${CAMPO_SENHA}
 
-    # Confirmar que continua na tela de login.
-    ${url_atual}=    Get Location
-    Should Contain    ${url_atual}    /z_login/
+CT-4 Efetuar login como estudante com credenciais válidas
+    fazer login como estudante
+   
+CT-5 Realizar logout como estudante
+    fazer login como estudante
+    click element    id=logoff
+    Wait until Element is Visible    ${CAMPO_USUARIO}    timeout=10s
 
-    # Confirmar que a area de solicitacoes nao esta presente.
-    Page Should Not Contain Element    ${BOTAO_SOLICITACOES}
-
+CT-6 Efetuar login com usuário INATIVO
+    Input text    ${CAMPO_USUARIO}    ${USUARIO_INATIVO}
+    Input text    ${CAMPO_SENHA}      ${SENHA_INATIVA}
+    Click Element    ${BOTAO_ENTRAR}
+    verificar se inativo
