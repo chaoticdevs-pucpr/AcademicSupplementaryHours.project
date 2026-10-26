@@ -1,4 +1,4 @@
-package ash.strategy;
+package ash.model.strategy;
 
 public class ValidadorHoras implements ValidadorCampoStrategy {
     @Override

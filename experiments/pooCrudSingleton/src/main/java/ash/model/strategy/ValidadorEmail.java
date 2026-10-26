@@ -1,4 +1,4 @@
-package ash.strategy;
+package ash.model.strategy;
 
 public class ValidadorEmail implements ValidadorCampoStrategy {
     @Override
