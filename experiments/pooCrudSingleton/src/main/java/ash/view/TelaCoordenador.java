@@ -12,11 +12,16 @@ public class TelaCoordenador extends TabPane {
     }
 
     public TelaCoordenador(DadosSistema dados) {
-        TelaCadastro telaProfessorValidador = new TelaCadastro("Criar Professor validador", DadosSistema.getInstancia().getProfessorValidador(), "Professor Validador");
-        TelaCadastro telaManual = new TelaCadastro("Cadastrar manual de horas complementares", DadosSistema.getInstancia().getManual(), "Manual");
-        TelaCadastro telaCategorias = new TelaCadastro("Cadastrar categoria", DadosSistema.getInstancia().getCategorias(), "Categorias");
-        TelaCadastro telaSubcategorias = new TelaCadastro("Cadastrar Subcategoria", DadosSistema.getInstancia().getSubcategorias(), "Subcategoria");
-        TelaCadastro telaJustificativa = new TelaCadastro("Aceitar/Cadastrar Justificativa", DadosSistema.getInstancia().getJustificativasAceite(), "JustificativaAceite");
+        TelaCadastro telaProfessorValidador = new TelaCadastro(
+                "Criar Professor validador", dados, dados.getProfessorValidador(), "Professor Validador");
+        TelaCadastro telaManual = new TelaCadastro(
+                "Cadastrar manual de horas complementares", dados, dados.getManual(), "Manual");
+        TelaCadastro telaCategorias = new TelaCadastro(
+                "Cadastrar categoria", dados, dados.getCategorias(), "Categorias");
+        TelaCadastro telaSubcategorias = new TelaCadastro(
+                "Cadastrar Subcategoria", dados, dados.getSubcategorias(), "Subcategoria");
+        TelaCadastro telaJustificativa = new TelaCadastro(
+                "Aceitar/Cadastrar Justificativa", dados, dados.getJustificativasAceite(), "JustificativaAceite");
 
         this.getTabs().add(criarAba("Manual", telaManual));
         this.getTabs().add(criarAba("Categorias", telaCategorias));

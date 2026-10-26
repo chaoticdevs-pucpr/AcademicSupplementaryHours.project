@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import ash.DadosSistema;
 import ash.model.CadastroItem;
@@ -17,6 +18,14 @@ import ash.model.ProfessorValidador;
 import ash.model.Solicitacao;
 import ash.model.Subcategoria;
 import ash.model.Turma;
+import ash.model.strategy.ValidadorCampoStrategy;
+import ash.model.strategy.ValidadorCpf;
+import ash.model.strategy.ValidadorEmail;
+import ash.model.strategy.ValidadorHoras;
+import ash.model.strategy.ValidadorNumerico;
+import ash.model.strategy.ValidadorStatusJustificativa;
+import ash.observer.DadosObserver;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -36,7 +45,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-public class TelaCadastro extends BorderPane {
+public class TelaCadastro extends BorderPane implements DadosObserver {
     private DadosSistema dados;
     private ArrayList<CadastroItem> lista;
     private String tipo;
@@ -75,6 +84,7 @@ public class TelaCadastro extends BorderPane {
 
         setCenter(tabela);
         tabela.getSelectionModel().selectedItemProperty().addListener((obs, antigo, selecionado) -> preencherTela(selecionado));
+        this.dados.registrarObservador(this);
         atualizarLista();
     }
 
@@ -122,7 +132,7 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxCurso.setOnShowing(event -> {
                     comboBoxCurso.getItems().clear();
-                    comboBoxCurso.getItems().addAll(DadosSistema.getInstancia().buscarNomesCursos());
+                    comboBoxCurso.getItems().addAll(dados.buscarNomesCursos());
                 });
 
                 campos[i] = comboBoxCurso;
@@ -140,7 +150,7 @@ public class TelaCadastro extends BorderPane {
                 comboBoxTurma.setOnShowing(event -> {
                     comboBoxTurma.getItems().clear();
                     String cursoSelecionado = (comboCursoParaFiltro != null) ? comboCursoParaFiltro.getValue() : null;
-                    comboBoxTurma.getItems().addAll(DadosSistema.getInstancia().buscarTurmasPorCurso(cursoSelecionado));
+                    comboBoxTurma.getItems().addAll(dados.buscarTurmasPorCurso(cursoSelecionado));
 
                     if (comboBoxTurma.getItems().isEmpty() && cursoSelecionado != null) {
                         comboBoxTurma.setPromptText("Nenhuma turma neste curso");
@@ -162,7 +172,7 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxCategoria.setOnShowing(event -> {
                     comboBoxCategoria.getItems().clear();
-                    comboBoxCategoria.getItems().addAll(DadosSistema.getInstancia().buscarNomesCategorias());
+                    comboBoxCategoria.getItems().addAll(dados.buscarNomesCategorias());
                 });
 
                 campos[i] = comboBoxCategoria;
@@ -180,7 +190,7 @@ public class TelaCadastro extends BorderPane {
                 comboBoxSubcategoria.setOnShowing(event -> {
                     comboBoxSubcategoria.getItems().clear();
                     String catSelecionada = (comboCatParaFiltro != null) ? comboCatParaFiltro.getValue() : null;
-                    comboBoxSubcategoria.getItems().addAll(DadosSistema.getInstancia().buscarSubcategoriasPorCategoria(catSelecionada));
+                    comboBoxSubcategoria.getItems().addAll(dados.buscarSubcategoriasPorCategoria(catSelecionada));
 
                     if (comboBoxSubcategoria.getItems().isEmpty() && catSelecionada != null) {
                         comboBoxSubcategoria.setPromptText("Nenhuma subcategoria nesta categoria");
@@ -201,8 +211,7 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxSolicitacao.setOnShowing(event -> {
                     comboBoxSolicitacao.getItems().clear();
-                    // Consulta o banco via Singleton e puxa a lista de solicitações
-                    comboBoxSolicitacao.getItems().addAll(DadosSistema.getInstancia().buscarIdentificadoresSolicitacoes());
+                    comboBoxSolicitacao.getItems().addAll(dados.buscarIdentificadoresSolicitacoes());
                 });
 
                 campos[i] = comboBoxSolicitacao;
@@ -294,13 +303,15 @@ public class TelaCadastro extends BorderPane {
             CadastroItem selecionado = tabela.getSelectionModel().getSelectedItem();
             CadastroItem item;
             boolean novoRegistro = false;
+            String[] valoresAnteriores = null;
 
             if (selecionado == null) {
                 item = criarObjeto();
-                item.setId(DadosSistema.getInstancia().proximoId(lista));
+                item.setId(dados.proximoId(lista));
                 novoRegistro = true;
             } else {
                 item = selecionado;
+                valoresAnteriores = item.valoresCampos();
             }
 
             for (int i = 0; i < campos.length; i++) {
@@ -332,11 +343,14 @@ public class TelaCadastro extends BorderPane {
             }
 
             item.preencherCampos(valores);
+            if ("Curso".equals(tipo) && valoresAnteriores != null
+                    && !Objects.equals(valoresAnteriores[0], valores[0])) {
+                dados.atualizarReferenciasCurso(valoresAnteriores[0], valores[0]);
+            }
             if (novoRegistro) {
                 lista.add(item);
             }
-            DadosSistema.getInstancia().salvar();
-            atualizarLista();
+            dados.salvar();
             limparTela();
             mostrarMensagem("Registro salvo com sucesso.");
         } catch (Exception erro) {
@@ -352,8 +366,7 @@ public class TelaCadastro extends BorderPane {
             }
 
             lista.remove(selecionado);
-            DadosSistema.getInstancia().salvar();
-            atualizarLista();
+            dados.salvar();
             limparTela();
             mostrarMensagem("Registro excluido com sucesso.");
         } catch (Exception erro) {
@@ -420,46 +433,38 @@ public class TelaCadastro extends BorderPane {
         }
     }
 
-    private void atualizarLista() {
+    @Override
+    public void atualizarLista() {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(this::atualizarListaNaTela);
+            return;
+        }
+        atualizarListaNaTela();
+    }
+
+    private void atualizarListaNaTela() {
         tabela.setItems(FXCollections.observableArrayList(lista));
         tabela.refresh();
     }
 
     private void validarCampo(String nomeCampo, String valor) throws Exception {
         String nome = nomeCampo.toLowerCase();
+        ValidadorCampoStrategy validador = null;
 
         if (nome.contains("cndb") || nome.contains("número") || nome.contains("numero")) {
-            if (!valor.matches("\\d+")) {
-                throw new Exception("O campo " + nomeCampo + " deve conter apenas números.");
-            }
+            validador = new ValidadorNumerico();
+        } else if (nome.contains("cpf")) {
+            validador = new ValidadorCpf();
+        } else if (nome.contains("email") || nome.contains("e-mail")) {
+            validador = new ValidadorEmail();
+        } else if (nome.contains("horas")) {
+            validador = new ValidadorHoras();
+        } else if (nome.equals("status") && tipo.equals("JustificativaAceite")) {
+            validador = new ValidadorStatusJustificativa();
         }
 
-        if (nome.contains("cpf")) {
-            String cpfLimpo = valor.replaceAll("[^0-9]", "");
-            if (cpfLimpo.length() != 11) {
-                throw new Exception("O CPF digitado é inválido. Ele deve conter exatamente 11 dígitos.");
-            }
-        }
-
-        if (nome.contains("email") || nome.contains("e-mail")) {
-            String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-            if (!valor.matches(regexEmail)) {
-                throw new Exception("O formato do e-mail é inválido. Verifique se contém '@' e o domínio.");
-            }
-        }
-
-        if (nome.contains("horas")) {
-            try {
-                Double.parseDouble(valor);
-            } catch (NumberFormatException erro) {
-                throw new Exception("O campo " + nomeCampo + " deve ser um número.");
-            }
-        }
-
-        if (nome.equals("status") && tipo.equals("JustificativaAceite")) {
-            if (!valor.equalsIgnoreCase("Aceito") && !valor.equalsIgnoreCase("Rejeitado")) {
-                throw new Exception("Status deve ser 'Aceito' ou 'Rejeitado'.");
-            }
+        if (validador != null) {
+            validador.validar(nomeCampo, valor);
         }
     }
 
