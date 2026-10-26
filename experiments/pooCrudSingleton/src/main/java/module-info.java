@@ -3,5 +3,6 @@ module ash {
 
     exports ash;
     exports ash.model;
+    exports ash.observer;
     exports ash.view;
 }

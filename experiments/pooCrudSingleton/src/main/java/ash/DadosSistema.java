@@ -5,15 +5,19 @@ import ash.model.CadastroItem;
 import ash.model.Coordenador;
 import ash.model.Estudante;
 import ash.model.ProfessorValidador;
+import ash.observer.DadosObserver;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DadosSistema implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // --- SINGLETON ---
     private static DadosSistema instancia;
+
+    private transient List<DadosObserver> observadores = new ArrayList<>();
 
     // --- COLEÇÕES / DADOS ---
     private ArrayList<CadastroItem> coordenadores = new ArrayList<>();
@@ -56,6 +60,55 @@ public class DadosSistema implements Serializable {
     // --- PERSISTÊNCIA ---
     public void salvar() {
         ArquivoDados.salvar(this);
+        notificarObservadores();
+    }
+
+    public void atualizarReferenciasCurso(String nomeAnterior, String novoNome) {
+        if (nomeAnterior == null || nomeAnterior.isBlank()
+                || novoNome == null || novoNome.isBlank()
+                || nomeAnterior.equals(novoNome)) {
+            return;
+        }
+
+        atualizarCursoNaLista(turmas, nomeAnterior, novoNome);
+        atualizarCursoNaLista(estudantes, nomeAnterior, novoNome);
+        atualizarCursoNaLista(manual, nomeAnterior, novoNome);
+    }
+
+    private void atualizarCursoNaLista(
+            List<CadastroItem> itens, String nomeAnterior, String novoNome) {
+        for (CadastroItem item : itens) {
+            String[] nomesCampos = item.nomeCampos();
+            String[] valores = item.valoresCampos();
+            for (int i = 0; i < nomesCampos.length && i < valores.length; i++) {
+                if ("curso".equalsIgnoreCase(nomesCampos[i])
+                        && nomeAnterior.equals(valores[i])) {
+                    valores[i] = novoNome;
+                    item.preencherCampos(valores);
+                    break;
+                }
+            }
+        }
+    }
+
+    public synchronized void registrarObservador(DadosObserver observador) {
+        if (observador != null && !observadores.contains(observador)) {
+            observadores.add(observador);
+        }
+    }
+
+    public synchronized void removerObservador(DadosObserver observador) {
+        observadores.remove(observador);
+    }
+
+    private void notificarObservadores() {
+        List<DadosObserver> observadoresAtuais;
+        synchronized (this) {
+            observadoresAtuais = new ArrayList<>(observadores);
+        }
+        for (DadosObserver observador : observadoresAtuais) {
+            observador.atualizarLista();
+        }
     }
 
     // --- BUSCAS E CONSULTAS ---
