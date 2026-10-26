@@ -18,6 +18,12 @@ import ash.model.Solicitacao;
 import ash.model.Subcategoria;
 import ash.model.Sugestao;
 import ash.model.Turma;
+import ash.strategy.ValidadorCampoStrategy;
+import ash.strategy.ValidadorCpf;
+import ash.strategy.ValidadorEmail;
+import ash.strategy.ValidadorHoras;
+import ash.strategy.ValidadorNumerico;
+import ash.strategy.ValidadorStatusJustificativa;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -429,39 +435,22 @@ public class TelaCadastro extends BorderPane {
 
     private void validarCampo(String nomeCampo, String valor) throws Exception {
         String nome = nomeCampo.toLowerCase();
+        ValidadorCampoStrategy validador = null;
 
         if (nome.contains("cndb") || nome.contains("número") || nome.contains("numero")) {
-            if (!valor.matches("\\d+")) {
-                throw new Exception("O campo " + nomeCampo + " deve conter apenas números.");
-            }
+            validador = new ValidadorNumerico();
+        } else if (nome.contains("cpf")) {
+            validador = new ValidadorCpf();
+        } else if (nome.contains("email") || nome.contains("e-mail")) {
+            validador = new ValidadorEmail();
+        } else if (nome.contains("horas")) {
+            validador = new ValidadorHoras();
+        } else if (nome.equals("status") && tipo.equals("JustificativaAceite")) {
+            validador = new ValidadorStatusJustificativa();
         }
 
-        if (nome.contains("cpf")) {
-            String cpfLimpo = valor.replaceAll("[^0-9]", "");
-            if (cpfLimpo.length() != 11) {
-                throw new Exception("O CPF digitado é inválido. Ele deve conter exatamente 11 dígitos.");
-            }
-        }
-
-        if (nome.contains("email") || nome.contains("e-mail")) {
-            String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-            if (!valor.matches(regexEmail)) {
-                throw new Exception("O formato do e-mail é inválido. Verifique se contém '@' e o domínio.");
-            }
-        }
-
-        if (nome.contains("horas")) {
-            try {
-                Double.parseDouble(valor);
-            } catch (NumberFormatException erro) {
-                throw new Exception("O campo " + nomeCampo + " deve ser um número.");
-            }
-        }
-
-        if (nome.equals("status") && tipo.equals("JustificativaAceite")) {
-            if (!valor.equalsIgnoreCase("Aceito") && !valor.equalsIgnoreCase("Rejeitado")) {
-                throw new Exception("Status deve ser 'Aceito' ou 'Rejeitado'.");
-            }
+        if (validador != null) {
+            validador.validar(nomeCampo, valor);
         }
     }
 
