@@ -1,13 +1,14 @@
 package ash.view;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import ash.ArquivoDados;
 import ash.DadosSistema;
-import ash.model.*;
-
-// Daniel passou por aqui
-import ash.model.Curso;
-import ash.model.Turma;
-
+import ash.factory.CadastroItemFactory;
+import ash.model.CadastroItem;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -26,11 +27,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class TelaCadastro extends BorderPane {
     private DadosSistema dados;
@@ -376,21 +372,10 @@ public class TelaCadastro extends BorderPane {
 
         return painel;
     }
-
+    
+    //padrao factory method pra criar os objetos de cadastro no CadastroItemFactory.java
     private CadastroItem criarObjeto() {
-        if (tipo.equals("Curso")) return new Curso();
-        if (tipo.equals("Turma")) return new Turma();
-        if (tipo.equals("Manual")) return new Manual();
-        if (tipo.equals("Categorias")) return new Categorias();
-        if (tipo.equals("Coordenador")) return new Coordenador();
-        if (tipo.equals("Estudante")) return new Estudante();
-        if (tipo.equals("Solicitacao")) return new Solicitacao();
-        if (tipo.equals("Sugestao")) return new Sugestao();
-        if (tipo.equals("Professor Validador")) return new ProfessorValidador();
-        if (tipo.equals("Evento")) return new Evento();
-        if (tipo.equals("Subcategoria")) return new Subcategoria();
-        if (tipo.equals("JustificativaAceite")) return new JustificativaAceite();
-        return null;
+        return CadastroItemFactory.criar(this.tipo);
     }
 
     private void salvarRegistro() {
