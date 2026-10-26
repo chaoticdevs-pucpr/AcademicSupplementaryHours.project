@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import ash.DadosSistema;
 import ash.model.CadastroItem;
@@ -16,7 +17,6 @@ import ash.model.Manual;
 import ash.model.ProfessorValidador;
 import ash.model.Solicitacao;
 import ash.model.Subcategoria;
-import ash.model.Sugestao;
 import ash.model.Turma;
 import ash.strategy.ValidadorCampoStrategy;
 import ash.strategy.ValidadorCpf;
@@ -24,6 +24,8 @@ import ash.strategy.ValidadorEmail;
 import ash.strategy.ValidadorHoras;
 import ash.strategy.ValidadorNumerico;
 import ash.strategy.ValidadorStatusJustificativa;
+import ash.observer.DadosObserver;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -43,7 +45,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-public class TelaCadastro extends BorderPane {
+public class TelaCadastro extends BorderPane implements DadosObserver {
     private DadosSistema dados;
     private ArrayList<CadastroItem> lista;
     private String tipo;
@@ -82,6 +84,7 @@ public class TelaCadastro extends BorderPane {
 
         setCenter(tabela);
         tabela.getSelectionModel().selectedItemProperty().addListener((obs, antigo, selecionado) -> preencherTela(selecionado));
+        this.dados.registrarObservador(this);
         atualizarLista();
     }
 
@@ -129,7 +132,7 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxCurso.setOnShowing(event -> {
                     comboBoxCurso.getItems().clear();
-                    comboBoxCurso.getItems().addAll(DadosSistema.getInstancia().buscarNomesCursos());
+                    comboBoxCurso.getItems().addAll(dados.buscarNomesCursos());
                 });
 
                 campos[i] = comboBoxCurso;
@@ -147,7 +150,7 @@ public class TelaCadastro extends BorderPane {
                 comboBoxTurma.setOnShowing(event -> {
                     comboBoxTurma.getItems().clear();
                     String cursoSelecionado = (comboCursoParaFiltro != null) ? comboCursoParaFiltro.getValue() : null;
-                    comboBoxTurma.getItems().addAll(DadosSistema.getInstancia().buscarTurmasPorCurso(cursoSelecionado));
+                    comboBoxTurma.getItems().addAll(dados.buscarTurmasPorCurso(cursoSelecionado));
 
                     if (comboBoxTurma.getItems().isEmpty() && cursoSelecionado != null) {
                         comboBoxTurma.setPromptText("Nenhuma turma neste curso");
@@ -169,7 +172,7 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxCategoria.setOnShowing(event -> {
                     comboBoxCategoria.getItems().clear();
-                    comboBoxCategoria.getItems().addAll(DadosSistema.getInstancia().buscarNomesCategorias());
+                    comboBoxCategoria.getItems().addAll(dados.buscarNomesCategorias());
                 });
 
                 campos[i] = comboBoxCategoria;
@@ -187,7 +190,7 @@ public class TelaCadastro extends BorderPane {
                 comboBoxSubcategoria.setOnShowing(event -> {
                     comboBoxSubcategoria.getItems().clear();
                     String catSelecionada = (comboCatParaFiltro != null) ? comboCatParaFiltro.getValue() : null;
-                    comboBoxSubcategoria.getItems().addAll(DadosSistema.getInstancia().buscarSubcategoriasPorCategoria(catSelecionada));
+                    comboBoxSubcategoria.getItems().addAll(dados.buscarSubcategoriasPorCategoria(catSelecionada));
 
                     if (comboBoxSubcategoria.getItems().isEmpty() && catSelecionada != null) {
                         comboBoxSubcategoria.setPromptText("Nenhuma subcategoria nesta categoria");
@@ -208,8 +211,7 @@ public class TelaCadastro extends BorderPane {
 
                 comboBoxSolicitacao.setOnShowing(event -> {
                     comboBoxSolicitacao.getItems().clear();
-                    // Consulta o banco via Singleton e puxa a lista de solicitações
-                    comboBoxSolicitacao.getItems().addAll(DadosSistema.getInstancia().buscarIdentificadoresSolicitacoes());
+                    comboBoxSolicitacao.getItems().addAll(dados.buscarIdentificadoresSolicitacoes());
                 });
 
                 campos[i] = comboBoxSolicitacao;
@@ -289,7 +291,6 @@ public class TelaCadastro extends BorderPane {
         if (tipo.equals("Coordenador")) return new Coordenador();
         if (tipo.equals("Estudante")) return new Estudante();
         if (tipo.equals("Solicitacao")) return new Solicitacao();
-        if (tipo.equals("Sugestao")) return new Sugestao();
         if (tipo.equals("Professor Validador")) return new ProfessorValidador();
         if (tipo.equals("Subcategoria")) return new Subcategoria();
         if (tipo.equals("JustificativaAceite")) return new JustificativaAceite();
@@ -302,13 +303,15 @@ public class TelaCadastro extends BorderPane {
             CadastroItem selecionado = tabela.getSelectionModel().getSelectedItem();
             CadastroItem item;
             boolean novoRegistro = false;
+            String[] valoresAnteriores = null;
 
             if (selecionado == null) {
                 item = criarObjeto();
-                item.setId(DadosSistema.getInstancia().proximoId(lista));
+                item.setId(dados.proximoId(lista));
                 novoRegistro = true;
             } else {
                 item = selecionado;
+                valoresAnteriores = item.valoresCampos();
             }
 
             for (int i = 0; i < campos.length; i++) {
@@ -340,11 +343,14 @@ public class TelaCadastro extends BorderPane {
             }
 
             item.preencherCampos(valores);
+            if ("Curso".equals(tipo) && valoresAnteriores != null
+                    && !Objects.equals(valoresAnteriores[0], valores[0])) {
+                dados.atualizarReferenciasCurso(valoresAnteriores[0], valores[0]);
+            }
             if (novoRegistro) {
                 lista.add(item);
             }
-            DadosSistema.getInstancia().salvar();
-            atualizarLista();
+            dados.salvar();
             limparTela();
             mostrarMensagem("Registro salvo com sucesso.");
         } catch (Exception erro) {
@@ -360,8 +366,7 @@ public class TelaCadastro extends BorderPane {
             }
 
             lista.remove(selecionado);
-            DadosSistema.getInstancia().salvar();
-            atualizarLista();
+            dados.salvar();
             limparTela();
             mostrarMensagem("Registro excluido com sucesso.");
         } catch (Exception erro) {
@@ -428,7 +433,16 @@ public class TelaCadastro extends BorderPane {
         }
     }
 
-    private void atualizarLista() {
+    @Override
+    public void atualizarLista() {
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(this::atualizarListaNaTela);
+            return;
+        }
+        atualizarListaNaTela();
+    }
+
+    private void atualizarListaNaTela() {
         tabela.setItems(FXCollections.observableArrayList(lista));
         tabela.refresh();
     }

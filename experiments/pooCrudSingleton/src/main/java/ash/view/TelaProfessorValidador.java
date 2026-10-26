@@ -14,13 +14,15 @@ public class TelaProfessorValidador extends TabPane {
     public TelaProfessorValidador(DadosSistema dados) {
         TelaCadastro telaVerSolicitacoes = new TelaCadastro(
                 "Visualizar Solicitações dos Alunos",
-                DadosSistema.getInstancia().getSolicitacao(),
+                dados,
+                dados.getSolicitacao(),
                 "Solicitacao"
         );
 
         TelaCadastro telaJustificativa = new TelaCadastro(
                 "Avaliar/Cadastrar Justificativas",
-                DadosSistema.getInstancia().getJustificativasAceite(),
+                dados,
+                dados.getJustificativasAceite(),
                 "JustificativaAceite"
         );
 

@@ -5,9 +5,11 @@ import ash.model.CadastroItem;
 import ash.model.Coordenador;
 import ash.model.Estudante;
 import ash.model.ProfessorValidador;
+import ash.observer.DadosObserver;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DadosSistema implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -15,12 +17,13 @@ public class DadosSistema implements Serializable {
     // --- SINGLETON ---
     private static DadosSistema instancia;
 
+    private transient List<DadosObserver> observadores = new ArrayList<>();
+
     // --- COLEÇÕES / DADOS ---
     private ArrayList<CadastroItem> coordenadores = new ArrayList<>();
     private ArrayList<CadastroItem> estudantes = new ArrayList<>();
     private ArrayList<Administrador> administradores = new ArrayList<>();
     private ArrayList<CadastroItem> solicitacao = new ArrayList<>();
-    private ArrayList<CadastroItem> sugestao = new ArrayList<>();
     private ArrayList<CadastroItem> professorValidador = new ArrayList<>();
     private ArrayList<CadastroItem> cursos = new ArrayList<>();
     private ArrayList<CadastroItem> turmas = new ArrayList<>();
@@ -57,6 +60,55 @@ public class DadosSistema implements Serializable {
     // --- PERSISTÊNCIA ---
     public void salvar() {
         ArquivoDados.salvar(this);
+        notificarObservadores();
+    }
+
+    public void atualizarReferenciasCurso(String nomeAnterior, String novoNome) {
+        if (nomeAnterior == null || nomeAnterior.isBlank()
+                || novoNome == null || novoNome.isBlank()
+                || nomeAnterior.equals(novoNome)) {
+            return;
+        }
+
+        atualizarCursoNaLista(turmas, nomeAnterior, novoNome);
+        atualizarCursoNaLista(estudantes, nomeAnterior, novoNome);
+        atualizarCursoNaLista(manual, nomeAnterior, novoNome);
+    }
+
+    private void atualizarCursoNaLista(
+            List<CadastroItem> itens, String nomeAnterior, String novoNome) {
+        for (CadastroItem item : itens) {
+            String[] nomesCampos = item.nomeCampos();
+            String[] valores = item.valoresCampos();
+            for (int i = 0; i < nomesCampos.length && i < valores.length; i++) {
+                if ("curso".equalsIgnoreCase(nomesCampos[i])
+                        && nomeAnterior.equals(valores[i])) {
+                    valores[i] = novoNome;
+                    item.preencherCampos(valores);
+                    break;
+                }
+            }
+        }
+    }
+
+    public synchronized void registrarObservador(DadosObserver observador) {
+        if (observador != null && !observadores.contains(observador)) {
+            observadores.add(observador);
+        }
+    }
+
+    public synchronized void removerObservador(DadosObserver observador) {
+        observadores.remove(observador);
+    }
+
+    private void notificarObservadores() {
+        List<DadosObserver> observadoresAtuais;
+        synchronized (this) {
+            observadoresAtuais = new ArrayList<>(observadores);
+        }
+        for (DadosObserver observador : observadoresAtuais) {
+            observador.atualizarLista();
+        }
     }
 
     // --- BUSCAS E CONSULTAS ---
@@ -237,7 +289,6 @@ public class DadosSistema implements Serializable {
     public ArrayList<CadastroItem> getEstudantes() { return estudantes; }
     public ArrayList<Administrador> getAdministradores() { return administradores; }
     public ArrayList<CadastroItem> getSolicitacao() { return solicitacao; }
-    public ArrayList<CadastroItem> getSugestao() { return sugestao; }
     public ArrayList<CadastroItem> getProfessorValidador() { return professorValidador; }
     public ArrayList<CadastroItem> getCursos() { return cursos; }
     public ArrayList<CadastroItem> getTurmas() { return turmas; }
@@ -259,7 +310,6 @@ public class DadosSistema implements Serializable {
     public void setEstudantes(ArrayList<CadastroItem> estudantes) { this.estudantes = estudantes; }
     public void setAdministradores(ArrayList<Administrador> administradores) { this.administradores = administradores; }
     public void setSolicitacao(ArrayList<CadastroItem> solicitacao) { this.solicitacao = solicitacao; }
-    public void setSugestao(ArrayList<CadastroItem> sugestao) { this.sugestao = sugestao; }
     public void setProfessorValidador(ArrayList<CadastroItem> professorValidador) { this.professorValidador = professorValidador; }
     public void setCursos(ArrayList<CadastroItem> cursos) { this.cursos = cursos; }
     public void setTurmas(ArrayList<CadastroItem> turmas) { this.turmas = turmas; }
