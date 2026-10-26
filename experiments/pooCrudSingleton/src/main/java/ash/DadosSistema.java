@@ -20,7 +20,6 @@ public class DadosSistema implements Serializable {
     private ArrayList<CadastroItem> estudantes = new ArrayList<>();
     private ArrayList<Administrador> administradores = new ArrayList<>();
     private ArrayList<CadastroItem> solicitacao = new ArrayList<>();
-    private ArrayList<CadastroItem> sugestao = new ArrayList<>();
     private ArrayList<CadastroItem> professorValidador = new ArrayList<>();
     private ArrayList<CadastroItem> cursos = new ArrayList<>();
     private ArrayList<CadastroItem> turmas = new ArrayList<>();
@@ -237,7 +236,6 @@ public class DadosSistema implements Serializable {
     public ArrayList<CadastroItem> getEstudantes() { return estudantes; }
     public ArrayList<Administrador> getAdministradores() { return administradores; }
     public ArrayList<CadastroItem> getSolicitacao() { return solicitacao; }
-    public ArrayList<CadastroItem> getSugestao() { return sugestao; }
     public ArrayList<CadastroItem> getProfessorValidador() { return professorValidador; }
     public ArrayList<CadastroItem> getCursos() { return cursos; }
     public ArrayList<CadastroItem> getTurmas() { return turmas; }
@@ -259,7 +257,6 @@ public class DadosSistema implements Serializable {
     public void setEstudantes(ArrayList<CadastroItem> estudantes) { this.estudantes = estudantes; }
     public void setAdministradores(ArrayList<Administrador> administradores) { this.administradores = administradores; }
     public void setSolicitacao(ArrayList<CadastroItem> solicitacao) { this.solicitacao = solicitacao; }
-    public void setSugestao(ArrayList<CadastroItem> sugestao) { this.sugestao = sugestao; }
     public void setProfessorValidador(ArrayList<CadastroItem> professorValidador) { this.professorValidador = professorValidador; }
     public void setCursos(ArrayList<CadastroItem> cursos) { this.cursos = cursos; }
     public void setTurmas(ArrayList<CadastroItem> turmas) { this.turmas = turmas; }

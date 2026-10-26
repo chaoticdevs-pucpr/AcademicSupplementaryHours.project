@@ -16,7 +16,6 @@ import ash.model.Manual;
 import ash.model.ProfessorValidador;
 import ash.model.Solicitacao;
 import ash.model.Subcategoria;
-import ash.model.Sugestao;
 import ash.model.Turma;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -283,7 +282,6 @@ public class TelaCadastro extends BorderPane {
         if (tipo.equals("Coordenador")) return new Coordenador();
         if (tipo.equals("Estudante")) return new Estudante();
         if (tipo.equals("Solicitacao")) return new Solicitacao();
-        if (tipo.equals("Sugestao")) return new Sugestao();
         if (tipo.equals("Professor Validador")) return new ProfessorValidador();
         if (tipo.equals("Subcategoria")) return new Subcategoria();
         if (tipo.equals("JustificativaAceite")) return new JustificativaAceite();

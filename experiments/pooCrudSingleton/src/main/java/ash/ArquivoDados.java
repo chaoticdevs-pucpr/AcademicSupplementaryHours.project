@@ -30,7 +30,6 @@ public class ArquivoDados {
         dados.setEstudantes(carregarLista("estudantes.dat", dados.getEstudantes()));
         dados.setAdministradores(carregarLista("administradores.dat", dados.getAdministradores()));
         dados.setSolicitacao(carregarLista("solicitacoes.dat", dados.getSolicitacao()));
-        dados.setSugestao(carregarLista("sugestoes.dat", dados.getSugestao()));
         dados.setProfessorValidador(carregarLista("professores.dat", dados.getProfessorValidador()));
         dados.setCursos(carregarLista("cursos.dat", dados.getCursos()));
         dados.setTurmas(carregarLista("turmas.dat", dados.getTurmas()));
@@ -50,7 +49,6 @@ public class ArquivoDados {
         salvarLista("estudantes.dat", dados.getEstudantes());
         salvarLista("administradores.dat", dados.getAdministradores());
         salvarLista("solicitacoes.dat", dados.getSolicitacao());
-        salvarLista("sugestoes.dat", dados.getSugestao());
         salvarLista("professores.dat", dados.getProfessorValidador());
         salvarLista("cursos.dat", dados.getCursos());
         salvarLista("turmas.dat", dados.getTurmas());
