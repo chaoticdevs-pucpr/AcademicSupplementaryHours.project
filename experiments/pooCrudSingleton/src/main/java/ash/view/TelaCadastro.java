@@ -7,17 +7,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import ash.DadosSistema;
+import ash.factory.CadastroItemFactory;
 import ash.model.CadastroItem;
-import ash.model.Categorias;
-import ash.model.Coordenador;
-import ash.model.Curso;
-import ash.model.Estudante;
-import ash.model.JustificativaAceite;
-import ash.model.Manual;
-import ash.model.ProfessorValidador;
-import ash.model.Solicitacao;
-import ash.model.Subcategoria;
-import ash.model.Turma;
 import ash.model.strategy.ValidadorCampoStrategy;
 import ash.model.strategy.ValidadorCpf;
 import ash.model.strategy.ValidadorEmail;
@@ -283,18 +274,9 @@ public class TelaCadastro extends BorderPane implements DadosObserver {
         return painel;
     }
 
+    // Padrão Factory Method para criar os objetos de cadastro via CadastroItemFactory
     private CadastroItem criarObjeto() {
-        if (tipo.equals("Curso")) return new Curso();
-        if (tipo.equals("Turma")) return new Turma();
-        if (tipo.equals("Manual")) return new Manual();
-        if (tipo.equals("Categorias")) return new Categorias();
-        if (tipo.equals("Coordenador")) return new Coordenador();
-        if (tipo.equals("Estudante")) return new Estudante();
-        if (tipo.equals("Solicitacao")) return new Solicitacao();
-        if (tipo.equals("Professor Validador")) return new ProfessorValidador();
-        if (tipo.equals("Subcategoria")) return new Subcategoria();
-        if (tipo.equals("JustificativaAceite")) return new JustificativaAceite();
-        return null;
+        return CadastroItemFactory.criar(this.tipo);
     }
 
     private void salvarRegistro() {
