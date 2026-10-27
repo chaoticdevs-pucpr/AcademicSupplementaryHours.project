@@ -25,12 +25,13 @@ O projeto ainda não está na sua fase final, e pretendemos seguir com o projeto
 |   +-- artifacts/            # Documentos, diagramas, referencias e exemplos do projeto
 +-- experiments/
     +-- poo-crud-arquivos/    # Implementação alternativa
+    +-- pooCrudPadroes/       # Implementação alternativa com 4 Padrões de Design
 ```
 
 - `ash`: codigo-fonte da implementação principal em PHP, HTML, CSS/JS e o script SQL do banco.
 - `docs/artifacts`: PDFs, diagramas, referências e materiais de apoio do projeto.
 - `experiments/poo-crud-arquivos`: uma implementação diferente do projeto realizada em JavaFX para a matéria de Programação Orientada a Objetos.
-- `experiments/pooCrudSingleton`: A implementação feita em Programação Orientada a Objetos adicionando o Padrão Singleton para a matéria de Design de Software.
+- `experiments/pooCrudPadroes`: A implementação feita em Programação Orientada a Objetos adicionando o Singleton, Factory Method, Observer e Strategy para a matéria de Design de Software.
 
 ## Como executar
 
