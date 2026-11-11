@@ -1,4 +1,4 @@
-﻿package test;
+package test;
 
 import java.util.List;
 
@@ -6,39 +6,39 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
-import model.Cliente;
+import model.Administrador;
 
 public class CRUDtest {
 
     public static void main(String[] args) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("bibliotecaPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ashPU");
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
 
-        //CREATE
-        Cliente cliente1 = new Cliente("Mauro", "mauro@gmail.com", "1111111", "1111-1111");
-        Cliente cliente2 = new Cliente("Pedro", "pedro.com", "22222222", "2222-2222");
-        em.persist(cliente1);
-        em.persist(cliente2);
+        // CREATE
+        Administrador admin1 = new Administrador("Daniel Felix", "11111111111", "admin@ash.com", "1234", "ATIVO");
+        Administrador admin2 = new Administrador("Random Kid", "22222222222", "random@ash.com", "1234", "ATIVO");
+        em.persist(admin1);
+        em.persist(admin2);
 
-        //READ
-        Query query = em.createQuery("select c from Cliente c");
-        List<Cliente> clientes = query.getResultList();
-        for (Cliente c : clientes) {
-            System.out.println("Nome: " + c.getNome() + " / CPF: " + c.getCpf());
+        // READ
+        Query query = em.createQuery("select a from Administrador a");
+        List<Administrador> administradores = query.getResultList();
+        for (Administrador a : administradores) {
+            System.out.println("Nome: " + a.getNome() + " / CPF: " + a.getCpf() + " / Status: " + a.getStatus());
         }
 
-        //UPDATE
-        Cliente clienteProcurado = buscarPorCpf("22222222", em);
-        clienteProcurado.setFone("3333-3333");
-        System.out.println("cpf:" + clienteProcurado.getCpf());
-        System.out.println("fone:" + clienteProcurado.getFone());
+        // UPDATE
+        Administrador adminProcurado = buscarPorCpf("22222222222", em);
+        adminProcurado.setStatus("INATIVO");
+        System.out.println("CPF atualizado: " + adminProcurado.getCpf());
+        System.out.println("Novo status: " + adminProcurado.getStatus());
 
-        //DELETE
-        Cliente cliente = buscarPorCpf("22222222", em);
-        em.remove(cliente);
+        // DELETE
+        Administrador adminParaRemover = buscarPorCpf("22222222222", em);
+        em.remove(adminParaRemover);
 
         em.getTransaction().commit();
         em.close();
@@ -46,13 +46,13 @@ public class CRUDtest {
 
     }
 
-    public static Cliente buscarPorCpf(String cpf, EntityManager em) {
+    public static Administrador buscarPorCpf(String cpf, EntityManager em) {
 
-        Query query = em.createQuery("select c from Cliente c where c.cpf = :cpf");
+        Query query = em.createQuery("select a from Administrador a where a.cpf = :cpf");
         query.setParameter("cpf", cpf);
-        List<Cliente> clientes = query.getResultList();
+        List<Administrador> administradores = query.getResultList();
 
-        return (Cliente) query.getSingleResult();
+        return administradores.isEmpty() ? null : administradores.get(0);
 
     }
 
