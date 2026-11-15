@@ -34,6 +34,10 @@ public class Atividade {
     @JoinColumn(name = "turma_id")
     private Turma turma;
 
+    @ManyToOne
+    @JoinColumn(name = "estudante_id")
+    private Estudante estudante;
+
     public Atividade() {
     }
 
@@ -160,5 +164,23 @@ public class Atividade {
 
     public void setTurma(Turma turma) {
         this.turma = turma;
+    }
+
+    public Estudante getEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(Estudante estudante) {
+        if (this.estudante == estudante) {
+            return;
+        }
+        Estudante estudanteAnterior = this.estudante;
+        this.estudante = estudante;
+        if (estudanteAnterior != null) {
+            estudanteAnterior.getAtividades().remove(this);
+        }
+        if (estudante != null && !estudante.getAtividades().contains(this)) {
+            estudante.getAtividades().add(this);
+        }
     }
 }

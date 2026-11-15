@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -27,6 +29,10 @@ public class ProfessorValidador {
     private String status;
     private String matriculaInstitucional;
     private String cndb;
+
+    @ManyToOne
+    @JoinColumn(name = "coordenador_id")
+    private Coordenador coordenador;
 
     @OneToMany(mappedBy = "professorValidador")
     private List<Atividade> atividades = new ArrayList<>();
@@ -158,6 +164,24 @@ public class ProfessorValidador {
 
     public void setCndb(String cndb) {
         this.cndb = cndb;
+    }
+
+    public Coordenador getCoordenador() {
+        return coordenador;
+    }
+
+    public void setCoordenador(Coordenador coordenador) {
+        if (this.coordenador == coordenador) {
+            return;
+        }
+        Coordenador coordenadorAnterior = this.coordenador;
+        this.coordenador = coordenador;
+        if (coordenadorAnterior != null) {
+            coordenadorAnterior.getProfessoresValidadores().remove(this);
+        }
+        if (coordenador != null && !coordenador.getProfessoresValidadores().contains(this)) {
+            coordenador.getProfessoresValidadores().add(this);
+        }
     }
 
     public List<Atividade> getAtividades() {

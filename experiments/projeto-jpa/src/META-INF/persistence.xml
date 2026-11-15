@@ -10,6 +10,8 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         
         <class>model.Administrador</class>
+        <class>model.Coordenador</class>
+        <class>model.Estudante</class>
         <class>model.ProfessorValidador</class>
         <class>model.Atividade</class>
         <class>model.Usuario</class>
