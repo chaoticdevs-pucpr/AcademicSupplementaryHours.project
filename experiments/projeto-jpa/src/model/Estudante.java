@@ -6,9 +6,6 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -16,19 +13,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "estudante")
-public class Estudante {
+public class Estudante extends Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String nome;
-    private String cpf;
-    private String email;
-    private String senha;
-    private String celular;
-    private String telefone;
-    private String status;
+    private String matricula;
 
     @ManyToOne
     @JoinColumn(name = "administrador_id")
@@ -38,26 +25,28 @@ public class Estudante {
     private List<Atividade> atividades = new ArrayList<>();
 
     public Estudante() {
+        super();
     }
 
     public Estudante(String nome, String cpf, String email, String senha, String celular, String telefone,
             String status) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.senha = senha;
-        this.celular = celular;
-        this.telefone = telefone;
-        this.status = status;
+        super(nome, cpf, email, senha, celular, telefone, status);
+    }
+
+    public Estudante(String nome, String cpf, String email, String senha, String celular, String telefone,
+            String status, String matricula) {
+        super(nome, cpf, email, senha, celular, telefone, status);
+        this.matricula = matricula;
     }
 
     public Double visualizarHorasComplementares(EntityManager em) {
         exigirEstudanteGerenciado(em);
+        em.flush();
         Double total = em.createQuery(
                 "select sum(a.horasValidadas) from Atividade a "
                         + "where a.estudante.id = :id and a.status = :status",
                 Double.class)
-                .setParameter("id", id)
+                .setParameter("id", getId())
                 .setParameter("status", "APROVADO")
                 .getSingleResult();
         return total == null ? 0.0 : total;
@@ -80,77 +69,25 @@ public class Estudante {
         atividade.setEstudante(this);
         atividade.setTurma(turma);
         em.persist(atividade);
+        em.flush();
         return atividade;
     }
 
     private void exigirEstudanteGerenciado(EntityManager em) {
-        if (em == null || !em.contains(this) || id == null) {
+        if (em == null || !em.contains(this)) {
             throw new IllegalStateException("O estudante precisa estar persistido e gerenciado.");
+        }
+        if (getId() == null) {
+            em.flush();
         }
     }
 
-    public Long getId() {
-        return id;
+    public String getMatricula() {
+        return matricula;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
     public Administrador getCadastradoPorAdministrador() {

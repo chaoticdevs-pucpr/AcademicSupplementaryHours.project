@@ -2,17 +2,6 @@ CREATE DATABASE IF NOT EXISTS ash_jpa CHARACTER SET utf8mb4 COLLATE utf8mb4_unic
 
 USE ash_jpa;
 
-CREATE TABLE IF NOT EXISTS usuario (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255),
-    cpf VARCHAR(50),
-    email VARCHAR(255),
-    senha VARCHAR(255),
-    celular VARCHAR(50),
-    telefone VARCHAR(50),
-    status VARCHAR(50)
-);
-
 CREATE TABLE IF NOT EXISTS curso (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255)
@@ -39,6 +28,7 @@ CREATE TABLE IF NOT EXISTS estudante (
     celular VARCHAR(50),
     telefone VARCHAR(50),
     status VARCHAR(50),
+    matricula VARCHAR(50),
     administrador_id BIGINT,
     CONSTRAINT fk_estudante_administrador
         FOREIGN KEY (administrador_id) REFERENCES administrador(id)
@@ -53,6 +43,7 @@ CREATE TABLE IF NOT EXISTS coordenador (
     celular VARCHAR(50),
     telefone VARCHAR(50),
     status VARCHAR(50),
+    cndb INT,
     curso_id BIGINT,
     administrador_id BIGINT,
     CONSTRAINT fk_coordenador_curso

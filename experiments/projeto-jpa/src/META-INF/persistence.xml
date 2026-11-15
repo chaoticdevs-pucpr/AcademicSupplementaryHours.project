@@ -9,12 +9,14 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         
-        <class>model.Administrador</class>
-        <class>model.Coordenador</class>
-        <class>model.Estudante</class>
-        <class>model.ProfessorValidador</class>
-        <class>model.Atividade</class>
         <class>model.Usuario</class>
+        <class>model.Curso</class>
+        <class>model.Administrador</class>
+        <class>model.Turma</class>
+        <class>model.Coordenador</class>
+        <class>model.ProfessorValidador</class>
+        <class>model.Estudante</class>
+        <class>model.Atividade</class>
         
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -22,8 +24,8 @@
             <property name="jakarta.persistence.jdbc.user" value="root"/>
             <property name="jakarta.persistence.jdbc.password" value=""/>
             
-            <!-- Cria as tabelas automaticamente se não existirem -->
-            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+            <!-- Recria/atualiza as tabelas automaticamente ao rodar o teste -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="eclipselink.logging.level" value="WARNING"/>
         </properties>
     </persistence-unit>

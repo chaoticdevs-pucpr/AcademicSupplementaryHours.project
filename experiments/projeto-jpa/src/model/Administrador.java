@@ -55,13 +55,40 @@ public class Administrador {
         System.out.println("Login realizado pelo administrador: " + this.email);
     }
 
-    public void cadastrarCurso() {
+    public Curso cadastrarCurso(EntityManager em, String nomeCurso) {
+        exigirAdministradorGerenciado(em);
+        if (curso != null) {
+            throw new IllegalStateException("Este administrador já possui um curso vinculado.");
+        }
+        Curso novoCurso = new Curso(nomeCurso);
+        em.persist(novoCurso);
+        em.flush();
+        this.curso = novoCurso;
+        return novoCurso;
     }
 
-    public void alterarCurso() {
+    public void alterarCurso(EntityManager em, String novoNome) {
+        exigirAdministradorGerenciado(em);
+        if (curso == null || curso.getId() == null) {
+            throw new IllegalStateException("Este administrador não possui um curso vinculado.");
+        }
+        Curso cursoGerenciado = em.find(Curso.class, curso.getId());
+        if (cursoGerenciado == null) {
+            throw new IllegalStateException("Curso não encontrado.");
+        }
+        cursoGerenciado.setNome(novoNome);
     }
 
-    public void excluirCurso() {
+    public void excluirCurso(EntityManager em) {
+        exigirAdministradorGerenciado(em);
+        if (curso == null || curso.getId() == null) {
+            throw new IllegalStateException("Este administrador não possui um curso vinculado.");
+        }
+        Curso cursoGerenciado = em.find(Curso.class, curso.getId());
+        this.curso = null;
+        if (cursoGerenciado != null) {
+            em.remove(cursoGerenciado);
+        }
     }
 
     public Turma cadastrarTurma(EntityManager em, String nome, Curso curso) {
@@ -80,6 +107,7 @@ public class Administrador {
         novaTurma.setCurso(curso);
         setTurma(novaTurma);
         em.persist(novaTurma);
+        em.flush();
         return novaTurma;
     }
 
@@ -122,6 +150,7 @@ public class Administrador {
 
         estudante.setCadastradoPorAdministrador(this);
         em.persist(estudante);
+        em.flush();
         return estudante;
     }
 
@@ -144,6 +173,7 @@ public class Administrador {
         estudante.setCelular(dados.getCelular());
         estudante.setTelefone(dados.getTelefone());
         estudante.setStatus(dados.getStatus());
+        estudante.setMatricula(dados.getMatricula());
     }
 
     public void excluirEstudante(EntityManager em, Long estudanteId) {
@@ -173,6 +203,7 @@ public class Administrador {
 
         coordenador.setCadastradoPorAdministrador(this);
         em.persist(coordenador);
+        em.flush();
         return coordenador;
     }
 
@@ -198,6 +229,7 @@ public class Administrador {
         coordenador.setCelular(dados.getCelular());
         coordenador.setTelefone(dados.getTelefone());
         coordenador.setStatus(dados.getStatus());
+        coordenador.setCndb(dados.getCndb());
         coordenador.setCurso(dados.getCurso());
     }
 
