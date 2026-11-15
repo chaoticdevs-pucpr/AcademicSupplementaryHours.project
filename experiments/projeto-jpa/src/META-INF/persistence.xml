@@ -12,6 +12,7 @@
         <class>model.Administrador</class>
         <class>model.ProfessorValidador</class>
         <class>model.Atividade</class>
+        <class>model.Usuario</class>
         
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
